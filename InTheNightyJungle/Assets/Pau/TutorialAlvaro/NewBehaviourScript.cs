@@ -8,9 +8,11 @@ public class NewBehaviourScript : MonoBehaviour {
     public float speed;
 
     private float xInput;
+    private float yInput;
 
-	// Use this for initialization
-	void Start () {
+
+    // Use this for initialization
+    void Start () {
         rb = GetComponent<Rigidbody2D>();
 	}
 	
@@ -18,8 +20,10 @@ public class NewBehaviourScript : MonoBehaviour {
 	void LateUpdate () {
 
         xInput = Input.GetAxis("Horizontal");
+        yInput = Input.GetAxis("Vertical");
 
-        rb.velocity = speed * new Vector2(xInput, rb.velocity.y);
+
+        rb.velocity = speed * new Vector2(xInput, yInput);//rb.velocity.y);
         
         /*if (Input.GetKeyDown(KeyCode.A))
         {

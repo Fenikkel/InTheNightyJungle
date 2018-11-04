@@ -1,0 +1,4 @@
+-El script tiene que ser un componente de la camara que queremos controlar
+-Cualquier objeto sirve como boundary y se tiene que asignar este al script
+-el objeto boundary no tiene porque tener un box collider(asi se puede hacer como el nivel dos de Mario)
+-el objeto boundary no saldra en la escena, la camara siempre chocara con el lado asignado.t1
