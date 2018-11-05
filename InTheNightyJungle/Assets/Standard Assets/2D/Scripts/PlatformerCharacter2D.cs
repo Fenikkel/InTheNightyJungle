@@ -43,7 +43,7 @@ namespace UnityStandardAssets._2D
      
         }
 
-        public void Move(float move, bool jump)
+        public void Move(float move, bool jump, bool jumphigh)
         {
  
 
@@ -71,12 +71,20 @@ namespace UnityStandardAssets._2D
                     Flip();
                 }
             }
-            // If the player should jump...
+            // If the player should jump normally...
             if (m_Grounded && jump)
             {
                 // Add a vertical force to the player.
                 m_Grounded = false;
           
+                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce/2));
+            }
+            // If the player should jump higher...
+            if (m_Grounded && jumphigh)
+            {
+                // Add a vertical force to the player.
+                m_Grounded = false;
+
                 m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
         }
