@@ -17,7 +17,10 @@ public class NewBehaviourScript : MonoBehaviour {
     private float xInput;
     private float yInput;
 
-    private Vector2[] posicionesNiveles = { new Vector2(1.0f, 1.0f) , new Vector2(50.0f, -25.0f) };
+    private Vector2[] posicionesNiveles = { new Vector2(1.0f, 1.0f) , new Vector2(50.0f, -25.0f) }; //ChamberOne, ChamberTwo...
+
+    private Vector2[] posicionesLateralesNiveles = { new Vector2(-12.0f, -6.0f), new Vector2(5.0f, -25.0f), new Vector2(-23.0f, -6.0f) }; //ChamberOne, ChamberTwo, ChamberThree...
+
     Vector2 futuraPosicion;
     private int indicePuerta;
 
@@ -67,7 +70,6 @@ public class NewBehaviourScript : MonoBehaviour {
         if (Int32.TryParse(nombrePuerta, out indicePuerta))
         {
             print("IndicePuerta = " + indicePuerta);
-            futuraPosicion = posicionesNiveles[indicePuerta];
 
         }
         else
@@ -77,9 +79,18 @@ public class NewBehaviourScript : MonoBehaviour {
        
         if (collision.CompareTag("Door"))
         {
+            futuraPosicion = posicionesNiveles[indicePuerta];
             //esto solo entra una vez, se necesita salir y volver a entrar para que lo haga
             print("Colisionado");
             StartCoroutine(Fading());
+        }
+        else if (collision.CompareTag("LateralDoor"))
+        {
+
+            futuraPosicion = posicionesLateralesNiveles[indicePuerta];
+            StartCoroutine(LateralChamberTransition());
+
+            print("LateralColisionado");
         }
     }
 
@@ -105,5 +116,23 @@ public class NewBehaviourScript : MonoBehaviour {
 
 
         //aqui el cambio de estancia
+    }
+
+    IEnumerator LateralChamberTransition()
+    {
+        
+        rb.transform.SetPositionAndRotation(new Vector3(futuraPosicion.x, futuraPosicion.y, 0), new Quaternion());
+        cameraScript.rightBounds = GameObject.Find("RightBoundary" + indicePuerta).transform;
+        cameraScript.leftBounds = GameObject.Find("LeftBoundary" + indicePuerta).transform;
+        cameraScript.upperBounds = GameObject.Find("UpperBoundary" + indicePuerta).transform;
+        cameraScript.downerBounds = GameObject.Find("DownerBoundary" + indicePuerta).transform;
+
+
+
+        cameraScript.ReStard();
+
+        
+        yield return new WaitForSeconds(1); 
+        
     }
 }
