@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 using UnityEngine.UI;
+using System; //para Int32
+using System.Text;//para el parse de string a enteros
+
 
 public class NewBehaviourScript : MonoBehaviour {
 
@@ -14,15 +17,24 @@ public class NewBehaviourScript : MonoBehaviour {
     private float xInput;
     private float yInput;
 
+    private Vector2[] posicionesNiveles = { new Vector2(1.0f, 1.0f) , new Vector2(50.0f, -25.0f) };
+    Vector2 futuraPosicion;
+    private int indicePuerta;
+
+
+
+
     public Image black; // poner la imagen del canvas que haga de negro(o lo que sea)
     public Animator anim; //poner la animacion de esa imagen (lo mismo, la imagen esa)
 
-
+    public CameraBehaviour cameraScript;
 
 
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D>();
+
+        
 	}
 	
 	// Update is called once per frame
@@ -47,8 +59,25 @@ public class NewBehaviourScript : MonoBehaviour {
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        string nombrePuerta = collision.name;
+        print(nombrePuerta);
+        nombrePuerta = nombrePuerta.Substring(nombrePuerta.Length-1);
+        
+
+        if (Int32.TryParse(nombrePuerta, out indicePuerta))
+        {
+            print("IndicePuerta = " + indicePuerta);
+            futuraPosicion = posicionesNiveles[indicePuerta];
+
+        }
+        else
+        {
+            Console.WriteLine("Las puertas tienen que tener un numero al final que indique a que indice del vector se tiene que ir para trasladar al jugador alli");
+        }
+       
         if (collision.CompareTag("Door"))
         {
+            //esto solo entra una vez, se necesita salir y volver a entrar para que lo haga
             print("Colisionado");
             StartCoroutine(Fading());
         }
@@ -59,9 +88,19 @@ public class NewBehaviourScript : MonoBehaviour {
         anim.SetBool("Fade", true);
         yield return new WaitUntil(() => black.color.a == 1); //esperar a que sea totalmente opaco
         anim.SetBool("Fade", false);
+        //rb.transform.Translate(futuraPosicion.x, futuraPosicion.y, 0); //esto suma no indica donde ponerlo
+        rb.transform.SetPositionAndRotation(new Vector3(futuraPosicion.x,futuraPosicion.y, 0), new Quaternion());
+        cameraScript.rightBounds = GameObject.Find("RightBoundary"+indicePuerta).transform;
+        cameraScript.leftBounds = GameObject.Find("LeftBoundary" + indicePuerta).transform;
+        cameraScript.upperBounds = GameObject.Find("UpperBoundary" + indicePuerta).transform;
+        cameraScript.downerBounds = GameObject.Find("DownerBoundary" + indicePuerta).transform;
+
+
+
+        cameraScript.ReStard();
 
         anim.SetBool("ChamberLoaded", true);
-        yield return new WaitUntil(() => black.color.a == 0);
+        yield return new WaitUntil(() => black.color.a == 0); //esperar a que sea totalmente transparente
         anim.SetBool("ChamberLoaded", false);
 
 
