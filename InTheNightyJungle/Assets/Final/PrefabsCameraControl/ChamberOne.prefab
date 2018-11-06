@@ -618,7 +618,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1687427652905520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.858, y: -1.25, z: 0.19233535}
+  m_LocalPosition: {x: -15.858, y: 1.86, z: 0.19233535}
   m_LocalScale: {x: 12.707999, y: 12.707999, z: 12.707999}
   m_Children: []
   m_Father: {fileID: 4971459400548542}
@@ -974,6 +974,7 @@ MonoBehaviour:
   playerPosition: {fileID: 4582257213591064}
   cameraPosition: {fileID: 4707234460757292}
   nextDoor: {fileID: 0}
+  nextChamber: 2
   doorType: 3
   GM: {fileID: 0}
 --- !u!114 &114893606626100636
@@ -990,6 +991,7 @@ MonoBehaviour:
   playerPosition: {fileID: 4643396948973890}
   cameraPosition: {fileID: 4905892162106654}
   nextDoor: {fileID: 0}
+  nextChamber: 1
   doorType: 0
   GM: {fileID: 0}
 --- !u!212 &212061297943562770

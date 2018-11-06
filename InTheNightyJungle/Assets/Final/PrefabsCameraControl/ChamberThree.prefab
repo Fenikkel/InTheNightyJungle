@@ -918,6 +918,7 @@ MonoBehaviour:
   playerPosition: {fileID: 4401777981393228}
   cameraPosition: {fileID: 4479346522379396}
   nextDoor: {fileID: 0}
+  nextChamber: 1
   doorType: 0
   GM: {fileID: 0}
 --- !u!114 &114947221575145752
@@ -934,6 +935,7 @@ MonoBehaviour:
   playerPosition: {fileID: 4866241022779468}
   cameraPosition: {fileID: 4711860115800636}
   nextDoor: {fileID: 0}
+  nextChamber: 0
   doorType: 1
   GM: {fileID: 0}
 --- !u!212 &212076845899042966

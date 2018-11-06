@@ -74,7 +74,8 @@ public class CameraBehaviour : MonoBehaviour {
 
     public void SetPosition(Vector2 param)
     {
-        GetComponent<Transform>().position = param;
+        GetComponent<Transform>().position = new Vector3 (param.x, param.y, GetComponent<Transform>().position.z);
+        RestartCamera();
     }
 
     public void MoveToLeftRightChamber(DoorBehaviour door)
@@ -90,7 +91,7 @@ public class CameraBehaviour : MonoBehaviour {
         while (elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
-            GetComponent<Transform>().position = Vector3.Lerp(initialPosition, finalPosition, elapsedTime);
+            GetComponent<Transform>().position = Vector3.Lerp(initialPosition, finalPosition, elapsedTime/time);
             yield return null;
         }
         GetComponent<Transform>().position = finalPosition;

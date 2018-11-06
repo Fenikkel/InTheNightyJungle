@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212768229712099586}
   - component: {fileID: 50224215960569290}
   - component: {fileID: 114317524466283634}
+  - component: {fileID: 114777216971928394}
   - component: {fileID: 70123349511513532}
   m_Layer: 0
   m_Name: Player
@@ -93,6 +94,21 @@ MonoBehaviour:
   gravityModifier: 1
   maxSpeed: 7
   jumpTakeOffSpeed: 16.06
+--- !u!114 &114777216971928394
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1493377437355784}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ee1440fe24c32d43bf9412b763a6c0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 0
+  black: {fileID: 0}
+  anim: {fileID: 0}
+  cameraScript: {fileID: 0}
 --- !u!212 &212768229712099586
 SpriteRenderer:
   m_ObjectHideFlags: 1

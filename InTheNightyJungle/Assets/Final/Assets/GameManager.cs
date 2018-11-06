@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject blackScreen;
     public GameObject player;
-    public GameObject camera;
+    public GameObject mainCamera;
     
     // Use this for initialization
 	void Start () {
@@ -16,10 +16,9 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
 	}
 
-    IEnumerator FadeIn(float time, bool transition)
+    IEnumerator FadeIn(float time, bool transition, DoorBehaviour door)
     {
         Color c = blackScreen.GetComponent<Image>().color;
         Color initialColor = c;
@@ -28,13 +27,15 @@ public class GameManager : MonoBehaviour {
         while(elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
-            c = Color.Lerp(initialColor, finalColor, elapsedTime);
+            c = Color.Lerp(initialColor, finalColor, elapsedTime/time);
             blackScreen.GetComponent<Image>().color = c;
             yield return null;
         }
         blackScreen.GetComponent<Image>().color = finalColor;
         if(transition)
         {
+            player.GetComponent<PlayerPlatformController>().SetPosition(door.nextDoor.playerPosition.position);
+            mainCamera.GetComponent<CameraBehaviour>().SetPosition(door.nextDoor.cameraPosition.position);
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(FadeOut(time, transition));
         }
@@ -50,7 +51,7 @@ public class GameManager : MonoBehaviour {
         while (elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
-            c = Color.Lerp(initialColor, finalColor, elapsedTime);
+            c = Color.Lerp(initialColor, finalColor, elapsedTime/time);
             blackScreen.GetComponent<Image>().color = c;
             yield return null;
         }
@@ -58,7 +59,7 @@ public class GameManager : MonoBehaviour {
         if(transition)
         {
             player.GetComponent<PlayerPlatformController>().SetInputActivated(true);
-            camera.GetComponent<CameraBehaviour>().SetFollowTarget(true);
+            mainCamera.GetComponent<CameraBehaviour>().SetFollowTarget(true);
         }
     }
 
@@ -67,18 +68,16 @@ public class GameManager : MonoBehaviour {
         if(player.GetComponent<PlayerPlatformController>().GetInputActivated())
         {
             player.GetComponent<PlayerPlatformController>().SetInputActivated(false);
-            camera.GetComponent<CameraBehaviour>().SetFollowTarget(false);
-            camera.GetComponent<CameraBehaviour>().SetBoundaries(door.nextChamber);
+            mainCamera.GetComponent<CameraBehaviour>().SetFollowTarget(false);
+            mainCamera.GetComponent<CameraBehaviour>().SetBoundaries(door.nextChamber);
             if (door.doorType % 2 == 0) //Es front door o back door
             {
-                StartCoroutine(FadeIn(0.5f, true));
-                player.GetComponent<PlayerPlatformController>().SetPosition(door.nextDoor.playerPosition.position);
-                camera.GetComponent<CameraBehaviour>().SetPosition(door.nextDoor.cameraPosition.position);
+                StartCoroutine(FadeIn(0.5f, true, door));
             }
             else
             {
                 player.GetComponent<PlayerPlatformController>().MoveToLeftRightChamber(door);
-                camera.GetComponent<CameraBehaviour>().MoveToLeftRightChamber(door);
+                mainCamera.GetComponent<CameraBehaviour>().MoveToLeftRightChamber(door);
             }
         }
     }

@@ -83,7 +83,7 @@ public class PlayerPlatformController : PhysicsObject {
         while(elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
-            GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime);
+            GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime/time);
             yield return null;
         }
         GetComponent<Transform>().position = finalPosition;
