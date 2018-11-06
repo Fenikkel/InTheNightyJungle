@@ -17,10 +17,6 @@ public class NewBehaviourScript : MonoBehaviour {
     private float xInput;
     private float yInput;
 
-    private Vector2[] posicionesNiveles = { new Vector2(1.0f, 1.0f) , new Vector2(50.0f, -25.0f) }; //ChamberOne, ChamberTwo...
-
-    private Vector2[] posicionesLateralesNiveles = { new Vector2(-12.0f, -6.0f), new Vector2(5.0f, -25.0f), new Vector2(-23.0f, -6.0f) }; //ChamberOne, ChamberTwo, ChamberThree...
-
     Vector2 futuraPosicion;
     private int indicePuerta;
 
@@ -59,7 +55,7 @@ public class NewBehaviourScript : MonoBehaviour {
         }*/
         
 
-    }
+    }/*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string nombrePuerta = collision.name;
@@ -81,7 +77,6 @@ public class NewBehaviourScript : MonoBehaviour {
         {
             futuraPosicion = posicionesNiveles[indicePuerta];
             //esto solo entra una vez, se necesita salir y volver a entrar para que lo haga
-            print("Colisionado");
             StartCoroutine(Fading());
         }
         else if (collision.CompareTag("LateralDoor"))
@@ -92,7 +87,7 @@ public class NewBehaviourScript : MonoBehaviour {
 
             print("LateralColisionado");
         }
-    }
+    }*/
 
     IEnumerator Fading()
     {
@@ -108,7 +103,7 @@ public class NewBehaviourScript : MonoBehaviour {
 
 
 
-        cameraScript.ReStard();
+        //cameraScript.ReStard();
 
         anim.SetBool("ChamberLoaded", true);
         yield return new WaitUntil(() => black.color.a == 0); //esperar a que sea totalmente transparente
@@ -129,7 +124,7 @@ public class NewBehaviourScript : MonoBehaviour {
 
 
 
-        cameraScript.ReStard();
+        //cameraScript.ReStard();
 
         
         yield return new WaitForSeconds(1); 
