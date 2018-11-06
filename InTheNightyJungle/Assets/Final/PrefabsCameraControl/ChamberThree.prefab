@@ -50,6 +50,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4093762824398582}
   - component: {fileID: 212999506672622630}
+  - component: {fileID: 58024587423246978}
+  - component: {fileID: 114455241236146232}
   m_Layer: 0
   m_Name: PieceMoney
   m_TagString: Untagged
@@ -178,6 +180,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4355711423945996}
   - component: {fileID: 212945009502818624}
+  - component: {fileID: 58599133925467044}
+  - component: {fileID: 114334632429315708}
   m_Layer: 0
   m_Name: PieceMoney
   m_TagString: Untagged
@@ -225,6 +229,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4465889722900614}
   - component: {fileID: 212076845899042966}
+  - component: {fileID: 58093079716582436}
+  - component: {fileID: 114664183714807022}
   m_Layer: 0
   m_Name: PieceMoney
   m_TagString: Untagged
@@ -440,7 +446,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1093203824893392}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.118376, y: -2.163718, z: 0.07907231}
+  m_LocalPosition: {x: -4.99, y: -3.79, z: 0.07907231}
   m_LocalScale: {x: 5, y: 5, z: 0}
   m_Children: []
   m_Father: {fileID: 4601322925400246}
@@ -494,7 +500,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1373760241847904}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.0699997, y: -0.099999905, z: 0.07907231}
+  m_LocalPosition: {x: -5, y: -0.95, z: 0.07907231}
   m_LocalScale: {x: 5, y: 5, z: 0}
   m_Children: []
   m_Father: {fileID: 4601322925400246}
@@ -535,7 +541,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1504470114553876}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.08, y: 1.4299998, z: 0.07907231}
+  m_LocalPosition: {x: -5.01, y: 1.69, z: 0.07907231}
   m_LocalScale: {x: 5, y: 5, z: 0}
   m_Children: []
   m_Father: {fileID: 4601322925400246}
@@ -729,6 +735,51 @@ Transform:
   m_Father: {fileID: 4521640021225064}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &58024587423246978
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093203824893392}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
+--- !u!58 &58093079716582436
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1504470114553876}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.00000047683716, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.1
+--- !u!58 &58599133925467044
+CircleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373760241847904}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.000000029802322}
+  serializedVersion: 2
+  m_Radius: 0.1
 --- !u!61 &61138781487203300
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -921,6 +972,42 @@ MonoBehaviour:
   nextChamber: 1
   doorType: 0
   GM: {fileID: 0}
+--- !u!114 &114334632429315708
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1373760241847904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cce559557234e47a6fe128f2781fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyValue: 10
+--- !u!114 &114455241236146232
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1093203824893392}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cce559557234e47a6fe128f2781fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyValue: 5
+--- !u!114 &114664183714807022
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1504470114553876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3cce559557234e47a6fe128f2781fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyValue: 20
 --- !u!114 &114947221575145752
 MonoBehaviour:
   m_ObjectHideFlags: 1

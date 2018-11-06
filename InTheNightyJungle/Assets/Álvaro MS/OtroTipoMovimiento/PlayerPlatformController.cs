@@ -11,10 +11,13 @@ public class PlayerPlatformController : PhysicsObject {
 
     private bool inputActivated;
 
+    private PlayerStatsController stats;
+
     // Use this for initialization
     void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        stats = GetComponent<PlayerStatsController>();
     }
 
     private void Start()
@@ -90,5 +93,10 @@ public class PlayerPlatformController : PhysicsObject {
         GetComponent<SpriteRenderer>().sprite = s;
         GetComponent<CapsuleCollider2D>().enabled = true;
         SetInputActivated(true);
+    }
+
+    public void DecreaseCansancio(float value)
+    {
+        stats.DecreaseCansancio(value);
     }
 }
