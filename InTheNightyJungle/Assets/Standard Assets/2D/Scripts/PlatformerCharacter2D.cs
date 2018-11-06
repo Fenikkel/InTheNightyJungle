@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets._2D
 {
@@ -12,21 +13,27 @@ namespace UnityStandardAssets._2D
         [SerializeField] private LayerMask m_WhatIsGround;                  // A mask determining what is ground to the character
 
         private Transform m_GroundCheck;    // A position marking where to check if the player is grounded.
-        const float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
+        public float k_GroundedRadius = .2f; // Radius of the overlap circle to determine if grounded
         private bool m_Grounded;            // Whether or not the player is grounded.
-        private Transform m_CeilingCheck;   // A position marking where to check for ceilings
-        const float k_CeilingRadius = .01f; // Radius of the overlap circle to determine if the player can stand up
         private Rigidbody2D m_Rigidbody2D;
         private bool m_FacingRight = true;  // For determining which way the player is currently facing.
+
+        public float fallMultiplier = 2.5f;
+        public float lowJumpMultiplier = 2f;
+
+        private bool chargingJump;
 
         private void Awake()
         {
             // Setting up references.
             m_GroundCheck = transform.Find("GroundCheck");
-            m_CeilingCheck = transform.Find("CeilingCheck");
             m_Rigidbody2D = GetComponent<Rigidbody2D>();
         }
 
+        private void Start()
+        {
+            chargingJump = false;
+        }
 
         private void FixedUpdate()
         {
@@ -43,20 +50,34 @@ namespace UnityStandardAssets._2D
      
         }
 
-        public void Move(float move, bool jump, bool jumphigh)
+        public void Move(float move, bool jump, bool inputActivated)
         {
- 
 
-         
-        
-
+            //print(CrossPlatformInputManager.GetButtonDown("Jump"));
             //only control the player if grounded or airControl is turned on
-            if (m_Grounded || m_AirControl)
+
+
+            if (m_Grounded && jump)
             {
-        
+                m_Rigidbody2D.velocity = Vector2.up * m_JumpForce;
+                m_Grounded = false;
+            }
+            // If the player should jump normally...
+            if (m_Rigidbody2D.velocity.y < 0)
+            {
+                m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            }
+            else if(m_Rigidbody2D.velocity.y > 0 && !chargingJump)
+            {
+                m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+            }
+
+            if (inputActivated && (m_Grounded || m_AirControl))
+            {
+
 
                 // Move the character
-                m_Rigidbody2D.velocity = new Vector2(move*m_MaxSpeed, m_Rigidbody2D.velocity.y);
+                m_Rigidbody2D.velocity = new Vector2(move * m_MaxSpeed, m_Rigidbody2D.velocity.y);
 
                 // If the input is moving the player right and the player is facing left...
                 if (move > 0 && !m_FacingRight)
@@ -64,28 +85,12 @@ namespace UnityStandardAssets._2D
                     // ... flip the player.
                     Flip();
                 }
-                    // Otherwise if the input is moving the player left and the player is facing right...
+                // Otherwise if the input is moving the player left and the player is facing right...
                 else if (move < 0 && m_FacingRight)
                 {
                     // ... flip the player.
                     Flip();
                 }
-            }
-            // If the player should jump normally...
-            if (m_Grounded && jump)
-            {
-                // Add a vertical force to the player.
-                m_Grounded = false;
-          
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce/2));
-            }
-            // If the player should jump higher...
-            if (m_Grounded && jumphigh)
-            {
-                // Add a vertical force to the player.
-                m_Grounded = false;
-
-                m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
             }
         }
 
@@ -99,6 +104,11 @@ namespace UnityStandardAssets._2D
             Vector3 theScale = transform.localScale;
             theScale.x *= -1;
             transform.localScale = theScale;
+        }
+
+        public void SetChargingJump(bool param)
+        {
+            chargingJump = param;
         }
     }
 }

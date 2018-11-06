@@ -69,8 +69,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1169056842262372}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.432, y: -0.7, z: 0}
-  m_LocalScale: {x: 0.13097343, y: 0.12669197, z: 1}
+  m_LocalPosition: {x: -2.432, y: -2.27, z: 0}
+  m_LocalScale: {x: 0.4195079, y: 0.40579438, z: 3.203}
   m_Children:
   - {fileID: 4370682556279094}
   - {fileID: 4780471566346876}
@@ -121,7 +121,7 @@ Rigidbody2D:
   m_Material: {fileID: 0}
   m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!61 &61073925209964664
 BoxCollider2D:
@@ -178,12 +178,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MaxSpeed: 10
-  m_JumpForce: 800
+  m_JumpForce: 15
   m_CrouchSpeed: 0.25
   m_AirControl: 1
   m_WhatIsGround:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 256
+  k_GroundedRadius: 0.3
+  fallMultiplier: 2.5
+  lowJumpMultiplier: 3
 --- !u!114 &114917166864986088
 MonoBehaviour:
   m_ObjectHideFlags: 1
