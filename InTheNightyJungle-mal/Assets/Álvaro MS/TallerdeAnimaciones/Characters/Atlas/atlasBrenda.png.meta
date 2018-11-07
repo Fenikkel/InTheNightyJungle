@@ -1,0 +1,223 @@
+fileFormatVersion: 2
+guid: b72f8a996a79e8242a2181ac8f45e3fe
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: atlasBrenda_0
+    21300002: atlasBrenda_1
+    21300004: atlasBrenda_2
+    21300006: atlasBrenda_3
+    21300008: atlasBrenda_4
+    21300010: atlasBrenda_5
+  externalObjects: {}
+  serializedVersion: 6
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: atlasBrenda_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 61
+        width: 46.950363
+        height: 88
+      alignment: 9
+      pivot: {x: 0.43663135, y: 0.53409094}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4fc436af3b86e74fa9ea4d1de4b81b7
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasBrenda_1
+      rect:
+        serializedVersion: 2
+        x: 35.951393
+        y: 73.20755
+        width: 67
+        height: 75.79245
+      alignment: 9
+      pivot: {x: 0.49326277, y: 0.5316156}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e34449bf42e1e334e94de5847ac40fb3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasBrenda_2
+      rect:
+        serializedVersion: 2
+        x: 92.02446
+        y: 0
+        width: 125
+        height: 149
+      alignment: 9
+      pivot: {x: 0.49180433, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0beddf0cfe702604aa6e007f3f1a7d44
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasBrenda_3
+      rect:
+        serializedVersion: 2
+        x: 204.09764
+        y: 60.13424
+        width: 62.000015
+        height: 88.86576
+      alignment: 9
+      pivot: {x: 0.5064895, y: 0.527377}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d8c67e637225ad4d85462df961858f1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasBrenda_4
+      rect:
+        serializedVersion: 2
+        x: 256.10724
+        y: 82.09808
+        width: 26.892761
+        height: 66.90192
+      alignment: 9
+      pivot: {x: 0.5351909, y: 0.52916145}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97f185214e83d714ca1201ca827b5485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasBrenda_5
+      rect:
+        serializedVersion: 2
+        x: 256.06732
+        y: 21.463646
+        width: 26.932678
+        height: 70
+      alignment: 9
+      pivot: {x: 0.5915742, y: 0.50051934}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ec632da7d807fd45b4ecba5ef0c7db1
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: fc590024c81c21c41a245ba0a52bbc6b
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  userData: 636771541462675984
+  assetBundleName: 
+  assetBundleVariant: 
