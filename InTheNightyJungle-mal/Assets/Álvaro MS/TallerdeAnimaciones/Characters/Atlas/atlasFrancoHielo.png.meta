@@ -1,12 +1,12 @@
 fileFormatVersion: 2
-guid: 823bcbe8a732ecf44bd88bb072496a0c
+guid: b4f08b529454227429345460e7e227c1
 TextureImporter:
   fileIDToRecycleName:
     21300000: brazoDer
     21300002: brazoIzq
     21300004: cabeza
     21300006: cuerpo
-    21300008: hielo
+    21300008: atlasFrancoHielo 1_4
     21300010: piernaDer
     21300012: piernaIzq
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
     mipBias: -100
     wrapU: 1
     wrapV: 1
-    wrapW: -1
+    wrapW: 1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -87,28 +87,6 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: iPhone
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
-  - serializedVersion: 2
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 1
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -116,18 +94,18 @@ TextureImporter:
       name: brazoDer
       rect:
         serializedVersion: 2
-        x: 0
-        y: 71.37986
-        width: 44.109364
-        height: 81.62014
+        x: 5.2238035
+        y: 72.01625
+        width: 34.10622
+        height: 80.98375
       alignment: 9
-      pivot: {x: 0.45341846, y: 0.52217674}
+      pivot: {x: 0.43324053, y: 0.5184219}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2c4db47be36873949949276b0789723e
+      spriteID: ab009345be646f9408a17080f967e360
       vertices: []
       indices: 
       edges: []
@@ -136,18 +114,18 @@ TextureImporter:
       name: brazoIzq
       rect:
         serializedVersion: 2
-        x: 36.63102
-        y: 81.14068
-        width: 59.38437
-        height: 71.85932
+        x: 48.65388
+        y: 72.52715
+        width: 39.09142
+        height: 80.47285
       alignment: 9
-      pivot: {x: 0.50297713, y: 0.5268533}
+      pivot: {x: 0.45652267, y: 0.57749724}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0f968cc88a2a3c045b30288267a9aa97
+      spriteID: 208eeac067f06aa48ac266afced57e00
       vertices: []
       indices: 
       edges: []
@@ -167,7 +145,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 43cbe4acdfe5dde478a8882887238b10
+      spriteID: 79d496385a577cf46b834e42b92dd7da
       vertices: []
       indices: 
       edges: []
@@ -187,27 +165,27 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6bb5fc84cba82fb4ea22faba022cf6ef
+      spriteID: 4bdbac6298fe5154b9565b5d7a4ef4fd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: hielo
+      name: atlasFrancoHielo 1_4
       rect:
         serializedVersion: 2
-        x: 256.4
-        y: 132.30002
-        width: 22.300018
-        height: 20.699982
-      alignment: 9
-      pivot: {x: 0.49775773, y: 0.5893716}
+        x: 261
+        y: 137
+        width: 13
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 251bd1069621e12499cce19fc3bb438e
+      spriteID: ce9ab541e6720cc478a0d5547c9e71ff
       vertices: []
       indices: 
       edges: []
@@ -227,7 +205,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: dbb3810aaff966e4895c1e4bb0412fa9
+      spriteID: 79551df28d338f643857ac0a335557a7
       vertices: []
       indices: 
       edges: []
@@ -247,7 +225,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a9a3b40234a68f8438010cfb81214b70
+      spriteID: aed9d72e309f1ae47a6078f5194bf520
       vertices: []
       indices: 
       edges: []
@@ -255,12 +233,12 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 015b376d928bf1549978e69c0fef8ea1
+    spriteID: 9c7f48242c8503c41a879213c5346e35
     vertices: []
     indices: 
     edges: []
     weights: []
   spritePackingTag: 
-  userData: 636769494932487750
+  userData: 636771878795499272
   assetBundleName: 
   assetBundleVariant: 
