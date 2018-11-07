@@ -2,12 +2,12 @@ fileFormatVersion: 2
 guid: b72f8a996a79e8242a2181ac8f45e3fe
 TextureImporter:
   fileIDToRecycleName:
-    21300000: atlasBrenda_0
-    21300002: atlasBrenda_1
-    21300004: atlasBrenda_2
-    21300006: atlasBrenda_3
-    21300008: atlasBrenda_4
-    21300010: atlasBrenda_5
+    21300000: brazoDer
+    21300002: brazoIzq
+    21300004: cabeza
+    21300006: cuerpo
+    21300008: piernaDer
+    21300010: piernaIzq
   externalObjects: {}
   serializedVersion: 6
   mipmaps:
@@ -49,8 +49,8 @@ TextureImporter:
   spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 0
-  spritePivot: {x: 0.5, y: 0.5}
+  alignment: 9
+  spritePivot: {x: 0.072438166, y: 0.72483224}
   spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
@@ -86,51 +86,73 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: atlasBrenda_0
+      name: brazoDer
       rect:
         serializedVersion: 2
         x: 0
-        y: 61
-        width: 46.950363
-        height: 88
+        y: 60.79042
+        width: 37.55037
+        height: 88.20958
       alignment: 9
-      pivot: {x: 0.43663135, y: 0.53409094}
+      pivot: {x: 0.54593337, y: 0.5351979}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e4fc436af3b86e74fa9ea4d1de4b81b7
+      spriteID: 22e6db0da9d089c4cb82b6eee28737c4
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlasBrenda_1
+      name: brazoIzq
       rect:
         serializedVersion: 2
-        x: 35.951393
-        y: 73.20755
-        width: 67
-        height: 75.79245
+        x: 39.151394
+        y: 70.33518
+        width: 60.70001
+        height: 78.66482
       alignment: 9
-      pivot: {x: 0.49326277, y: 0.5316156}
+      pivot: {x: 0.49173975, y: 0.5487182}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e34449bf42e1e334e94de5847ac40fb3
+      spriteID: b43a7807f94b995428f0c1a8768a5b05
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlasBrenda_2
+      name: cabeza
       rect:
         serializedVersion: 2
         x: 92.02446
@@ -144,13 +166,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0beddf0cfe702604aa6e007f3f1a7d44
+      spriteID: 1c5d9af464be96b4480bd392ffc007f9
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlasBrenda_3
+      name: cuerpo
       rect:
         serializedVersion: 2
         x: 204.09764
@@ -164,13 +186,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8d8c67e637225ad4d85462df961858f1
+      spriteID: e96ad8fd8d1cd79459001cfb80f23704
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlasBrenda_4
+      name: piernaDer
       rect:
         serializedVersion: 2
         x: 256.10724
@@ -184,13 +206,13 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97f185214e83d714ca1201ca827b5485
+      spriteID: 9332f1eb7994bb84fbeac3ec5dd3e357
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: atlasBrenda_5
+      name: piernaIzq
       rect:
         serializedVersion: 2
         x: 256.06732
@@ -204,7 +226,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0ec632da7d807fd45b4ecba5ef0c7db1
+      spriteID: 95dcf74890c8ae244ad3aa270ecb664c
       vertices: []
       indices: 
       edges: []
@@ -212,12 +234,12 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: fc590024c81c21c41a245ba0a52bbc6b
+    spriteID: 12ed4a6f3f82cdf4a958462651e348f8
     vertices: []
     indices: 
     edges: []
     weights: []
   spritePackingTag: 
-  userData: 636771541462675984
+  userData: 636772244410960813
   assetBundleName: 
   assetBundleVariant: 
