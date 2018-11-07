@@ -1,0 +1,66 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae0543fe805424df99fe08ce744cbe49, type: 3}
+  m_Name: idle
+  m_EditorClassIdentifier: 
+  m_PoseEntries:
+  - path: Esqueleto/Cadera
+    localPosition: {x: 0.04633027, y: -1.189636, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.71346605, w: 0.7006899}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/Pecho
+    localPosition: {x: 0.27000245, y: 0.000000059604645, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.0044534663, w: 0.9999901}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/Pecho/Cabeza
+    localPosition: {x: 0.4416542, y: 0.00000006089772, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.07864178, w: 0.99690294}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/Pecho/HombroDer
+    localPosition: {x: 0.33478808, y: 0.09166221, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.934249, w: 0.35662135}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/Pecho/HombroDer/BrazoDer
+    localPosition: {x: 0.2600087, y: -0.0000034570694, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.20750296, w: 0.9782344}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/Pecho/HombroDer/BrazoDer/ManoDer
+    localPosition: {x: 0.27054876, y: 0.000000007450581, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.019965502, w: 0.99980074}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/Pecho/HombroIzq
+    localPosition: {x: 0.2877107, y: -0.108769864, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.9807228, w: 0.19540432}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/Pecho/HombroIzq/BrazoIzq
+    localPosition: {x: 0.21974891, y: 0.000000029802322, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.13102402, w: 0.9913792}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/Pecho/HombroIzq/BrazoIzq/ManoIzq
+    localPosition: {x: 0.22207412, y: 0.00000013154931, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.020010637, w: 0.9997997}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/PiernaDer
+    localPosition: {x: -0.003151576, y: 0.1613135, z: 0}
+    localRotation: {x: 0, y: 0, z: 0.9977638, w: 0.06683842}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/PiernaDer/PieDer
+    localPosition: {x: 0.25561658, y: 0.00000008195639, z: 0}
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/PiernaIzq
+    localPosition: {x: -0.03622344, y: -0.117289975, z: 0}
+    localRotation: {x: 0, y: 0, z: -0.99979025, w: 0.020481303}
+    localScale: {x: 1, y: 1, z: 1}
+  - path: Esqueleto/Cadera/PiernaIzq/PieIzq
+    localPosition: {x: 0.23113522, y: 0.00000015646219, z: 0}
+    localRotation: {x: 0, y: 0, z: 0, w: 1}
+    localScale: {x: 1, y: 1, z: 1}

@@ -1,0 +1,223 @@
+fileFormatVersion: 2
+guid: 1ab975cbcdb617242beadba9e7fc9936
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: atlasDevorador_0
+    21300002: atlasDevorador_1
+    21300004: atlasDevorador_2
+    21300006: atlasDevorador_3
+    21300008: atlasDevorador_4
+    21300010: atlasDevorador_5
+  externalObjects: {}
+  serializedVersion: 6
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 2
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: atlasDevorador_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 23.602844
+        width: 65.39716
+        height: 120.397156
+      alignment: 9
+      pivot: {x: 0.47402668, y: 0.5141081}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20f7f5e954608f94cb8c6e5f168c3096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasDevorador_1
+      rect:
+        serializedVersion: 2
+        x: 59.035545
+        y: 73.74003
+        width: 60.881386
+        height: 70.25997
+      alignment: 9
+      pivot: {x: 0.49217764, y: 0.5231994}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d0e0d1eb6339643a3e45a716c44ebd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasDevorador_2
+      rect:
+        serializedVersion: 2
+        x: 111.74474
+        y: 28.441444
+        width: 119.06907
+        height: 115.558556
+      alignment: 9
+      pivot: {x: 0.50605303, y: 0.5110704}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d574dec7ef850d4d848b29435d375fd
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasDevorador_3
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 57
+        width: 51
+        height: 87
+      alignment: 9
+      pivot: {x: 0.5392157, y: 0.5229885}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33ed0af52a13ab74e9a909f4d001fe47
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasDevorador_4
+      rect:
+        serializedVersion: 2
+        x: 58
+        y: 0
+        width: 27
+        height: 65
+      alignment: 9
+      pivot: {x: 0.5, y: 0.46923077}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c62dea7ff455c34e9f9fc22bb274864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasDevorador_5
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 0
+        width: 30
+        height: 65
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4846154}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39070e68b967fc14ab30f1d23b770b7e
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: afad1fab403843a49bc7c0a25becd510
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+  spritePackingTag: 
+  userData: 636772101686880819
+  assetBundleName: 
+  assetBundleVariant: 
