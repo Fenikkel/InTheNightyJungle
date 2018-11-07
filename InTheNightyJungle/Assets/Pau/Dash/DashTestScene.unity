@@ -374,7 +374,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dashSpeed: 25
   startDashTime: 0.1
-  camAnim: {fileID: 0}
+  camAnim: {fileID: 1883422725}
   dashEffect: {fileID: 1917135275565382, guid: 4fb6f92b520765140b6787ac88b84a46, type: 2}
 --- !u!50 &1325342398
 Rigidbody2D:
