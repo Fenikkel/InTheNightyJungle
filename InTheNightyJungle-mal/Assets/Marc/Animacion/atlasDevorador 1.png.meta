@@ -1,14 +1,13 @@
 fileFormatVersion: 2
-guid: b4f08b529454227429345460e7e227c1
+guid: 55351a46d60a3044c8c14916f7202df3
 TextureImporter:
   fileIDToRecycleName:
-    21300000: brazoDer
-    21300002: brazoIzq
-    21300004: cabeza
-    21300006: cuerpo
-    21300008: atlasFrancoHielo 1_4
-    21300010: piernaDer
-    21300012: piernaIzq
+    21300000: atlasDevorador 1_0
+    21300002: atlasDevorador 1_1
+    21300004: atlasDevorador 1_2
+    21300006: atlasDevorador 1_3
+    21300008: atlasDevorador 1_4
+    21300010: atlasDevorador 1_5
   externalObjects: {}
   serializedVersion: 6
   mipmaps:
@@ -87,97 +86,79 @@ TextureImporter:
     allowsAlphaSplitting: 0
     overridden: 0
     androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+  - serializedVersion: 2
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: brazoDer
+      name: atlasDevorador 1_0
       rect:
         serializedVersion: 2
-        x: 5.2238035
-        y: 72.01625
-        width: 34.10622
-        height: 80.98375
+        x: 0
+        y: 22.20977
+        width: 67.09894
+        height: 121.79023
       alignment: 9
-      pivot: {x: 0.43324053, y: 0.5184219}
+      pivot: {x: 0.48435938, y: 0.50734967}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ab009345be646f9408a17080f967e360
+      spriteID: 5c0cdc0be119a504b9f6b426c45d41bd
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: brazoIzq
+      name: atlasDevorador 1_1
       rect:
         serializedVersion: 2
-        x: 48.65388
-        y: 72.52715
-        width: 39.09142
-        height: 80.47285
+        x: 68.851715
+        y: 59.964226
+        width: 41.342896
+        height: 84.035774
       alignment: 9
-      pivot: {x: 0.45652267, y: 0.57749724}
+      pivot: {x: 0.4631578, y: 0.5240122}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 208eeac067f06aa48ac266afced57e00
+      spriteID: 4a6ceb4fa33e14a4f8b0539935eb412d
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: cabeza
+      name: atlasDevorador 1_2
       rect:
         serializedVersion: 2
-        x: 90.15386
-        y: 0
-        width: 126.3375
-        height: 153
-      alignment: 9
-      pivot: {x: 0.49744642, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 79d496385a577cf46b834e42b92dd7da
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: cuerpo
-      rect:
-        serializedVersion: 2
-        x: 209.47684
-        y: 65.28324
-        width: 54.25836
-        height: 87.71676
-      alignment: 9
-      pivot: {x: 0.49804607, y: 0.5211861}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4bdbac6298fe5154b9565b5d7a4ef4fd
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: atlasFrancoHielo 1_4
-      rect:
-        serializedVersion: 2
-        x: 261
-        y: 137
-        width: 13
-        height: 15
+        x: 112
+        y: 32
+        width: 115
+        height: 111
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -185,47 +166,67 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce9ab541e6720cc478a0d5547c9e71ff
+      spriteID: 3cd5bae12cde3d648ad0766c5aca2e45
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: piernaDer
+      name: atlasDevorador 1_3
       rect:
         serializedVersion: 2
-        x: 271.82874
-        y: 87.828735
-        width: 22.171265
-        height: 65.171265
-      alignment: 9
-      pivot: {x: 0.57151747, y: 0.52433026}
+        x: 229
+        y: 62
+        width: 45
+        height: 81
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 79551df28d338f643857ac0a335557a7
+      spriteID: d409cd78c1548634a93189c16669f43f
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: piernaIzq
+      name: atlasDevorador 1_4
       rect:
         serializedVersion: 2
-        x: 257.1839
-        y: 26.999996
-        width: 28.879333
-        height: 68
-      alignment: 9
-      pivot: {x: 0.4784079, y: 0.50000006}
+        x: 69
+        y: 1
+        width: 22
+        height: 59
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aed9d72e309f1ae47a6078f5194bf520
+      spriteID: c8df1fd9128549c4cbf8b047ac3e58b3
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: atlasDevorador 1_5
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 3
+        width: 20
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5256402c6e0b73d42bf9929b678d832c
       vertices: []
       indices: 
       edges: []
@@ -233,12 +234,12 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 9c7f48242c8503c41a879213c5346e35
+    spriteID: ce168b6a1e4693b44b1ab41e10298fee
     vertices: []
     indices: 
     edges: []
     weights: []
   spritePackingTag: 
-  userData: 636772347493730744
+  userData: 636772366479882022
   assetBundleName: 
   assetBundleVariant: 
