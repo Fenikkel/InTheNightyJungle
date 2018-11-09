@@ -25,11 +25,6 @@ public class PlayerPlatformController : PhysicsObject {
     {
         inputActivated = true;
     }
-    /*
-    private void Update()
-    {
-        
-    }*/
 
     protected override void ComputeVelocity()
     {
@@ -40,6 +35,8 @@ public class PlayerPlatformController : PhysicsObject {
             move.x = Input.GetAxis("Horizontal");
 
             anim.SetBool("movement", move.x != lastMove || move.x != 0);
+            anim.SetFloat("yVel", velocity.y);
+            anim.SetBool("grounded", grounded);
 
             lastMove = move.x;
 
