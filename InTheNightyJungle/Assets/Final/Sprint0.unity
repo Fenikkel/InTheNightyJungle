@@ -114,6 +114,7 @@ NavMeshSettings:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
 <<<<<<< HEAD
+<<<<<<< HEAD
 --- !u!114 &4828640 stripped
 =======
 --- !u!1 &3529813
@@ -191,6 +192,8 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+=======
+>>>>>>> parent of 28df534... Metido el señor balbuciente y empezada su IA
 --- !u!1 &4828639
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,16 +211,32 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &4828640
+<<<<<<< HEAD
 >>>>>>> parent of f66347b... Metiendo la animación de salto 1
 MonoBehaviour:
 <<<<<<< HEAD
   m_CorrespondingSourceObject: {fileID: 114680252017562072, guid: dc6b10c63bb57284fbd287ef4f34ea19,
     type: 2}
   m_PrefabInternal: {fileID: 145594959}
-  m_Script: {fileID: 11500000, guid: 685214a2379e4a146b85580f9c79fa82, type: 3}
---- !u!1001 &145594959
-Prefab:
+=======
+MonoBehaviour:
   m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 4828639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+>>>>>>> parent of 28df534... Metido el señor balbuciente y empezada su IA
+  m_Script: {fileID: 11500000, guid: 685214a2379e4a146b85580f9c79fa82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blackScreen: {fileID: 282523100}
+  player: {fileID: 0}
+  mainCamera: {fileID: 202256768}
+--- !u!4 &4828641
+Transform:
+  m_ObjectHideFlags: 0
+<<<<<<< HEAD
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
@@ -283,6 +302,8 @@ Prefab:
 --- !u!4 &4828641
 Transform:
   m_ObjectHideFlags: 0
+=======
+>>>>>>> parent of 28df534... Metido el señor balbuciente y empezada su IA
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 4828639}
@@ -291,6 +312,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+<<<<<<< HEAD
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &49785610
@@ -418,6 +440,10 @@ Transform:
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 >>>>>>> parent of 091edf1... Mejorada combinación de animaciones spritesheet con animaciones por huesos
+=======
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> parent of 28df534... Metido el señor balbuciente y empezada su IA
 --- !u!114 &154314009 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114158491680701314, guid: d945b8e48ebfe0c41a637f3a8105b455,
