@@ -115,12 +115,12 @@ TextureImporter:
       name: cabeza
       rect:
         serializedVersion: 2
-        x: 1
-        y: 31
-        width: 121
-        height: 107
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 26.65346
+        width: 125.915886
+        height: 112.34654
+      alignment: 9
+      pivot: {x: 0.4884213, y: 0.51489383}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -135,12 +135,12 @@ TextureImporter:
       name: cuerpo
       rect:
         serializedVersion: 2
-        x: 124
-        y: 56
-        width: 53
-        height: 82
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 120.14446
+        y: 51.511486
+        width: 61.98066
+        height: 87.48851
+      alignment: 9
+      pivot: {x: 0.4897582, y: 0.51993704}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -155,12 +155,12 @@ TextureImporter:
       name: piernaDer
       rect:
         serializedVersion: 2
-        x: 181
-        y: 79
-        width: 16
-        height: 59
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 176.1
+        y: 74.600006
+        width: 25.699997
+        height: 64.399994
+      alignment: 9
+      pivot: {x: 0.5019454, y: 0.52639747}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -175,12 +175,12 @@ TextureImporter:
       name: tentaculoDer
       rect:
         serializedVersion: 2
-        x: 1
-        y: 12
-        width: 98
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 8.400002
+        width: 103.600006
+        height: 25.5
+      alignment: 9
+      pivot: {x: 0.48262545, y: 0.47450978}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -195,12 +195,12 @@ TextureImporter:
       name: piernaIzq
       rect:
         serializedVersion: 2
-        x: 181
-        y: 19
-        width: 20
-        height: 58
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 176.1
+        y: 15.099998
+        width: 25.899994
+        height: 66.49999
+      alignment: 9
+      pivot: {x: 0.5752895, y: 0.4947369}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -215,12 +215,12 @@ TextureImporter:
       name: tentaculoIzq
       rect:
         serializedVersion: 2
-        x: 102
-        y: 1
-        width: 98
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 97.50001
+        y: 0
+        width: 104.49999
+        height: 21.7
+      alignment: 9
+      pivot: {x: 0.5119617, y: 0.41474652}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -240,6 +240,6 @@ TextureImporter:
     edges: []
     weights: []
   spritePackingTag: 
-  userData: 
+  userData: 636774665673045561
   assetBundleName: 
   assetBundleVariant: 
