@@ -528,6 +528,11 @@ Prefab:
       propertyPath: cansancioBar
       value: 
       objectReference: {fileID: 1818535781}
+    - target: {fileID: 95436689449189692, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 3549b4c64c94e084c870eb7070513e9e, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d653abfd6d6c2524db58fbaa6cf49ddf, type: 2}
   m_IsPrefabAsset: 0
