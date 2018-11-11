@@ -234,6 +234,11 @@ Transform:
   m_Father: {fileID: 1423031816}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &216191721 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 137642575790823556, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1194849535}
 --- !u!4 &470071772 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4139765788079378, guid: 6771f5b55d8ecac4588ea7637c6ab21c,
@@ -301,6 +306,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4584598686972444, guid: 6771f5b55d8ecac4588ea7637c6ab21c,
     type: 2}
   m_PrefabInternal: {fileID: 1620351147}
+--- !u!137 &574814821 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 137534301128105300, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1194849535}
 --- !u!1 &754882111
 GameObject:
   m_ObjectHideFlags: 0
@@ -310,7 +320,7 @@ GameObject:
   m_Component:
   - component: {fileID: 754882112}
   m_Layer: 0
-  m_Name: BalbucienteAreaEfecto (1)
+  m_Name: BalbucienteAreaEfecto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,6 +458,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4508301257852378, guid: 3a42408f797b696459247f67d7261a9d,
     type: 2}
   m_PrefabInternal: {fileID: 31387968}
+--- !u!137 &941015133 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 137638283423992334, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1194849535}
 --- !u!1 &1086964763
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +498,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114362555605586926, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: bodyParts.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4051003973122602, guid: d653abfd6d6c2524db58fbaa6cf49ddf, type: 2}
       propertyPath: m_LocalPosition.x
       value: -1.28
@@ -565,6 +585,36 @@ Prefab:
       propertyPath: knockbackSpeed
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114362555605586926, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: bodyParts.Array.data[0]
+      value: 
+      objectReference: {fileID: 941015133}
+    - target: {fileID: 114362555605586926, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: bodyParts.Array.data[1]
+      value: 
+      objectReference: {fileID: 1356726920}
+    - target: {fileID: 114362555605586926, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: bodyParts.Array.data[2]
+      value: 
+      objectReference: {fileID: 1710910906}
+    - target: {fileID: 114362555605586926, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: bodyParts.Array.data[3]
+      value: 
+      objectReference: {fileID: 216191721}
+    - target: {fileID: 114362555605586926, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: bodyParts.Array.data[4]
+      value: 
+      objectReference: {fileID: 1692506160}
+    - target: {fileID: 114362555605586926, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: bodyParts.Array.data[5]
+      value: 
+      objectReference: {fileID: 574814821}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d653abfd6d6c2524db58fbaa6cf49ddf, type: 2}
   m_IsPrefabAsset: 0
@@ -601,6 +651,11 @@ Transform:
   m_Father: {fileID: 754882112}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!137 &1356726920 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 137646214099249530, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1194849535}
 --- !u!1 &1423031815
 GameObject:
   m_ObjectHideFlags: 0
@@ -832,6 +887,16 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1609479307029806, guid: bc7737f5271148f4fb851a20daee18a2,
     type: 2}
   m_PrefabInternal: {fileID: 1680469347}
+--- !u!137 &1692506160 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 137277452412633760, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1194849535}
+--- !u!137 &1710910906 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 137001553194760474, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    type: 2}
+  m_PrefabInternal: {fileID: 1194849535}
 --- !u!1 &1825047809
 GameObject:
   m_ObjectHideFlags: 0

@@ -138,6 +138,11 @@ public class PlayerPlatformController : PhysicsObject {
 
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        OnCollisionEnter2D(collision);
+    }
+
     private void /*Proto*/KnockBack(ContactPoint2D[] contacts)
     {
         inputActivated = false;
@@ -155,6 +160,7 @@ public class PlayerPlatformController : PhysicsObject {
         }
         knockbackDirection = new Vector2(xDirection / contacts.Length, yDirection / contacts.Length).normalized;
 
+        gameObject.layer = LayerMask.NameToLayer("UntargetedPlayer");
         contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) & ~(1 << LayerMask.NameToLayer("Enemy")));
 
         StartCoroutine(ReduceKnockback(0.5f));
@@ -169,7 +175,7 @@ public class PlayerPlatformController : PhysicsObject {
             elapsedTime += Time.deltaTime;
             float xNewDirection = Mathf.Lerp(knockbackDirection.x, 0, elapsedTime / time);
             float yNewDirection = Mathf.Lerp(knockbackDirection.y, 0, elapsedTime / time);
-            knockbackDirection = new Vector2(xNewDirection, xNewDirection);
+            knockbackDirection = new Vector2(xNewDirection, yNewDirection);
             yield return null;
         }
         knockbackDirection = new Vector2(0, 0);
@@ -195,6 +201,8 @@ public class PlayerPlatformController : PhysicsObject {
         }
         if (blink) Blink();
         invulnerabity = false;
+        gameObject.layer = LayerMask.NameToLayer("Player");
+        contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) | (1 << LayerMask.NameToLayer("Enemy")));
     }
 
     private void Blink()
