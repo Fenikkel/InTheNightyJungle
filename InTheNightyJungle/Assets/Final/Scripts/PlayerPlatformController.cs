@@ -21,15 +21,12 @@ public class PlayerPlatformController : PhysicsObject {
         anim = GetComponent<Animator>();
     }
 
-    private void Start()
+    
+    protected override void initialization()
     {
+        base.initialization();
         inputActivated = true;
     }
-    /*
-    private void Update()
-    {
-        
-    }*/
 
     protected override void ComputeVelocity()
     {
@@ -39,9 +36,9 @@ public class PlayerPlatformController : PhysicsObject {
         {
             move.x = Input.GetAxis("Horizontal");
 
-            anim.SetBool("movement", move.x != lastMove || move.x != 0);
+            //anim.SetBool("movement", move.x != lastMove || move.x != 0);
 
-            lastMove = move.x;
+            //lastMove = move.x;
 
             if (Input.GetButtonDown("Jump") && grounded)
             {
@@ -63,8 +60,6 @@ public class PlayerPlatformController : PhysicsObject {
         }
 
         targetVelocity = move * maxSpeed;
-
-        print(targetVelocity + " Player");
     }
 
     public bool GetInputActivated()
@@ -113,12 +108,17 @@ public class PlayerPlatformController : PhysicsObject {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        EnemyBehaviour enemy = collision.gameObject.GetComponent<EnemyBehaviour>();
-        print(enemy);
-        if (enemy.tag.Equals("Enemy"))
+        GameObject other = collision.gameObject;
+        if (other.tag.Equals("Enemy"))
         {
+            EnemyBehaviour enemy = other.GetComponent<EnemyBehaviour>();
             stats.DecreasePaciencia(enemy.GetDamage()/100);
             enemy.CollideWithPlayer();
         }
+    }
+
+    private void /*Proto*/KnockBack()
+    {
+
     }
 }

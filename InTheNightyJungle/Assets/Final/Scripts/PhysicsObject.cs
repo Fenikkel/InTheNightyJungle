@@ -27,8 +27,19 @@ public class PhysicsObject : MonoBehaviour {
 
     void Start()
     {
+        initialization();
+    }
+
+    protected virtual void initialization()
+    {
+        ContactFilterInitialization();
+    }
+
+    protected void ContactFilterInitialization()
+    {
         contactFilter.useTriggers = false; //No tomará los colliders triggereados
         contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer)); //Con esto le estamos diciendo que el contactFilter guarde como máscara de layers aquellas layers contra las que puede colisionar el objeto que estamos tratando, que pueden ser definidas cambiando los settings de las físicas 2D de la escena. Una maravilla, la verdad :)
+        print(contactFilter + " " + gameObject.name);
         contactFilter.useLayerMask = true;
     }
 

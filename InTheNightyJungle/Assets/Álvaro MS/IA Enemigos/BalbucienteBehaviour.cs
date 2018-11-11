@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class BalbucienteBehaviour : EnemyBehaviour {
 
-    private BoxCollider2D influenceZone;
-    public Vector2 sizeInfluenceZone;
     public Transform initialPosition;
     public Transform finalPosition;
 
@@ -20,15 +18,17 @@ public class BalbucienteBehaviour : EnemyBehaviour {
     private bool colliding;
 
 	// Use this for initialization
-	void Start () {
-        influenceZone = GetComponent<BoxCollider2D>();
-        influenceZone.size = sizeInfluenceZone;
-
+	void Awake () {
         anim = GetComponent<Animator>();
 
+    }
+
+    protected override void initialization()
+    {
+        base.initialization();
         colliding = false;
     }
-	
+
     protected override void ComputeVelocity()
     {
         Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(radius, 0, 0));
