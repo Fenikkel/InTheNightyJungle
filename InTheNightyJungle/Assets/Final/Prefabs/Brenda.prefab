@@ -1085,6 +1085,8 @@ MonoBehaviour:
   gravityModifier: 1
   maxSpeed: 9.5
   jumpTakeOffSpeed: 16.06
+  knockbackSpeed: 2
+  bodyParts: []
 --- !u!114 &114362703129871386
 MonoBehaviour:
   m_ObjectHideFlags: 1
