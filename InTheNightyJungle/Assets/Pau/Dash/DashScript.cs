@@ -4,41 +4,42 @@ using UnityEngine;
 
 
 public class DashScript : MonoBehaviour {
-
+    //CON "A" SE HACE EL DASH
     private Rigidbody2D rb;
     public float dashSpeed; //velocidad del dash
     private float dashTime; //de dashtime se va descontando hasta llegar a 0 que es el fin del dash
     public float startDashTime; //longitud del dash
     private int direction;
     private int facing = 2;
-    //public Animation camAnim;
-
-    //private Animator anim;
-    //public GameObject camera;
+    private bool invulnerable; //Variable que decidira si lo de dentro de onTriggerStay del enemigo se hara o no (Supongo que tendremos que poner lo de que este calculando en cada momento que este tocando para cuando termine la invulnerabilidad)
 
     public GameObject dashEffect;
 
+    private float actualGravity;
+
 
 	void Start () {
+        invulnerable = false;
         rb = GetComponent<Rigidbody2D>();
         dashTime = startDashTime;
-        //anim = camera.GetComponent<Animator> as Animator;
-        //anim = GetComponent("Animation") as Animation;
-        //anim = GetComponent<Animator>();
+        actualGravity = rb.gravityScale;
     }
 	
 	
 	void Update () {
 
-        //si haciendo el dash no queremos que le afecte la gravedad solo tenemos que poner a 0 la Gravity Scale en el rigid body
-
         if (Input.GetKeyDown(KeyCode.A))
         {
             direction = facing;
+            CameraShakeScript.ShakeCamera();
+            invulnerable = true;
+            print(invulnerable);
             Instantiate(dashEffect, transform.position, Quaternion.identity);
+            rb.gravityScale = 0;
+            print(rb.gravityScale);
         }
 
-        if(direction == 0 )//&& Input.GetKeyDown(KeyCode.A)
+        if(direction == 0 )
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
@@ -47,15 +48,15 @@ public class DashScript : MonoBehaviour {
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 facing = 2;
-            }
-            else if (Input.GetKeyDown(KeyCode.UpArrow))
+            }//SI QUEREMOS DASH EN EJE Y
+            /*else if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 facing = 3;
             }
             else if (Input.GetKeyDown(KeyCode.DownArrow))
             {
                 facing = 4;
-            }
+            }*/
         }
         else
         {
@@ -64,16 +65,14 @@ public class DashScript : MonoBehaviour {
                 direction = 0;
                 dashTime = startDashTime;
                 rb.velocity = Vector2.zero;
+                invulnerable = false;
+                print(invulnerable);
+                rb.gravityScale = actualGravity;
+                print(rb.gravityScale);
             }
             else
             {
                 dashTime -= Time.deltaTime;
-                //camAnim.SetTrigger("ShakeCamera");
-                //anim.Play("ShakeCamera");
-                CameraShakeScript.ShakeCamera();
-                
-
-
 
                 if (direction == 1)
                 {
@@ -83,14 +82,15 @@ public class DashScript : MonoBehaviour {
                 {
                     rb.velocity = Vector2.right * dashSpeed;
                 }
-                else if (direction == 3)
+                //SI QUEREMOS DASH EN EJE Y
+                /*else if (direction == 3)
                 {
                     rb.velocity = Vector2.up * dashSpeed;
                 }
                 else if (direction == 4)
                 {
                     rb.velocity = Vector2.down * dashSpeed;
-                }
+                }*/
             }
         }
 
