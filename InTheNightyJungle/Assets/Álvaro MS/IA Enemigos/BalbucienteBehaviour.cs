@@ -12,11 +12,12 @@ public class BalbucienteBehaviour : PhysicsObject {
     private Animator anim;
     private float lastMove;
     public float maxSpeed;
+    public float radius;
 
     private bool following;
     private int direction;
-    private bool onInitialPosition;
-    private bool onFinalPosition;
+    private float distanceToLeft;
+    private float distanceToRight;
 
 	// Use this for initialization
 	void Start () {
@@ -24,34 +25,23 @@ public class BalbucienteBehaviour : PhysicsObject {
         influenceZone.size = sizeInfluenceZone;
 
         anim = GetComponent<Animator>();
+
+        following = true;
     }
 	
-	// Update is called once per frame
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        print(collision.tag.Equals("Player") + " " + onInitialPosition + " " + onFinalPosition);
-        following = collision.tag.Equals("Player") 
-            && ((!onInitialPosition 
-            && !onFinalPosition) 
-            || (onInitialPosition && GetComponent<Transform>().position.x < collision.GetComponent<Transform>().position.x)
-            || (onFinalPosition && GetComponent<Transform>().position.x > collision.GetComponent<Transform>().position.x));
-
-        direction = (GetComponent<Transform>().position.x > collision.GetComponent<Transform>().position.x) ? 1 : -1;
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        following = !collision.tag.Equals("Player");
-    }
-
     protected override void ComputeVelocity()
     {
+        Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(radius, 0, 0));
+        Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(-radius, 0, 0));
+
         Vector2 move = Vector2.zero;
 
-        if (following)
+        RaycastHit2D hitLeft = Physics2D.Raycast(GetComponent<Transform>().position, Vector2.left, distanceToLeft, 1 << LayerMask.NameToLayer("Player"));
+        RaycastHit2D hitRight = Physics2D.Raycast(GetComponent<Transform>().position, Vector2.right, distanceToRight, 1 << LayerMask.NameToLayer("Player"));
+
+        if (hitLeft.collider || hitRight.collider)
         {
-            move.x = direction;
+            move.x = (hitLeft.collider) ? -1 : 1;
 
             //anim.SetBool("movement", move.x != lastMove || move.x != 0);
 
@@ -65,7 +55,7 @@ public class BalbucienteBehaviour : PhysicsObject {
 
         targetVelocity = move * maxSpeed;
 
-        onInitialPosition = GetComponent<Transform>().position == initialPosition.position;
-        onFinalPosition = GetComponent<Transform>().position == finalPosition.position;
+        distanceToLeft = ((GetComponent<Transform>().position.x - initialPosition.position.x) < radius) ? (GetComponent<Transform>().position.x - initialPosition.position.x) : radius;
+        distanceToRight = ((finalPosition.position.x - GetComponent<Transform>().position.x) < radius) ? (finalPosition.position.x - GetComponent<Transform>().position.x) : radius;
     }
 }

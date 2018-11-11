@@ -63,6 +63,8 @@ public class PlayerPlatformController : PhysicsObject {
         }
 
         targetVelocity = move * maxSpeed;
+
+        print(targetVelocity + " Player");
     }
 
     public bool GetInputActivated()
