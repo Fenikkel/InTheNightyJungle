@@ -31,9 +31,9 @@ public class BalbucienteBehaviour : EnemyBehaviour {
 
     protected override void ComputeVelocity()
     {
-        Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(radius, 0, 0));
+        /*Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(radius, 0, 0));
         Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(-radius, 0, 0));
-
+        */
         Vector2 move = Vector2.zero;
 
         RaycastHit2D hitLeft = Physics2D.Raycast(GetComponent<Transform>().position, Vector2.left, distanceToLeft, 1 << LayerMask.NameToLayer("Player"));

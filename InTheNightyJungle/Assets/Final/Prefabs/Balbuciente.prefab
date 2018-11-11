@@ -497,7 +497,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1933878273891122
 GameObject:
   m_ObjectHideFlags: 1
@@ -1552,7 +1552,7 @@ MonoBehaviour:
   damage: 25
   initialPosition: {fileID: 0}
   finalPosition: {fileID: 0}
-  maxSpeed: 15
+  maxSpeed: 9
   radius: 5
 --- !u!114 &114774552557060254
 MonoBehaviour:
@@ -1667,7 +1667,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 43061960803806366, guid: 1797ebc32fa1052468d3f89a6df7736d, type: 2}
   m_Bones:
   - {fileID: 4355593600089124}
   - {fileID: 4658343363467934}
@@ -1716,7 +1716,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 43181771532000760, guid: 5a74559ba705b5642bd8dcd0d5ef45b2, type: 2}
   m_Bones:
   - {fileID: 4665992094939848}
   - {fileID: 4735409166389746}
@@ -1765,7 +1765,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 43548608599983042, guid: 3f63b854b3eec714b9e48c28bfdd574b, type: 2}
   m_Bones:
   - {fileID: 4980822866607252}
   - {fileID: 4558781184837784}
@@ -1814,7 +1814,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 43210431691769156, guid: 9f7cc2a920eab0e43ab7769266e97538, type: 2}
   m_Bones:
   - {fileID: 4422941105463046}
   - {fileID: 4150631925354502}
@@ -1866,7 +1866,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 43276939457909176, guid: 4dbe8942ce49e1d49a4fc1d01fb7eb53, type: 2}
   m_Bones:
   - {fileID: 4344855365639488}
   m_BlendShapeWeights: []
@@ -1914,7 +1914,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: 0}
+  m_Mesh: {fileID: 43112076059717184, guid: f87aa02ca9acfcb4ca7f99d6de4f3272, type: 2}
   m_Bones:
   - {fileID: 4973823497768278}
   - {fileID: 4235476640740104}

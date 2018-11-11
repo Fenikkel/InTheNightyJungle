@@ -9,6 +9,11 @@ public class PlayerPlatformController : PhysicsObject {
     
     private bool inputActivated;
 
+    private bool invulnerabity;
+    private bool knockback;
+    private Vector2 knockbackDirection;
+    public float knockbackSpeed = 2;
+
     private PlayerStatsController stats;
     private Animator anim;
 
@@ -26,6 +31,7 @@ public class PlayerPlatformController : PhysicsObject {
     {
         base.initialization();
         inputActivated = true;
+        invulnerabity = false;
     }
 
     protected override void ComputeVelocity()
@@ -59,7 +65,15 @@ public class PlayerPlatformController : PhysicsObject {
             GetComponent<Transform>().localScale = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
         }
 
-        targetVelocity = move * maxSpeed;
+        if(knockback)
+        {
+            targetVelocity = knockbackDirection * knockbackSpeed;
+            velocity.y = targetVelocity.y;
+        }
+        else
+        {
+            targetVelocity = move * maxSpeed;
+        }
     }
 
     public bool GetInputActivated()
@@ -109,16 +123,50 @@ public class PlayerPlatformController : PhysicsObject {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
-        if (other.tag.Equals("Enemy"))
+        if (!invulnerabity && other.tag.Equals("Enemy"))
         {
             EnemyBehaviour enemy = other.GetComponent<EnemyBehaviour>();
             stats.DecreasePaciencia(enemy.GetDamage()/100);
             enemy.CollideWithPlayer();
+
+            KnockBack(collision.contacts);
         }
+
     }
 
-    private void /*Proto*/KnockBack()
+    private void /*Proto*/KnockBack(ContactPoint2D[] contacts)
     {
+        inputActivated = false;
+        invulnerabity = true;
+        knockback = true;
+        targetVelocity = Vector2.zero;
 
+        float xDirection = 0.0f;
+        float yDirection = 0.0f;
+
+        foreach(ContactPoint2D contact in contacts)
+        {
+            xDirection += contact.normal.x;
+            yDirection += contact.normal.y;
+        }
+        knockbackDirection = new Vector2(xDirection / contacts.Length, yDirection / contacts.Length).normalized;
+        StartCoroutine(ReduceKnockback(0.5f));
     }
+
+    IEnumerator ReduceKnockback(float time)
+    {
+        float elapsedTime = 0.0f;
+        while(elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            float xNewDirection = Mathf.Lerp(knockbackDirection.x, 0, elapsedTime / time);
+            float yNewDirection = Mathf.Lerp(knockbackDirection.y, 0, elapsedTime / time);
+            knockbackDirection = new Vector2(xNewDirection, xNewDirection);
+            yield return null;
+        }
+        knockbackDirection = new Vector2(0, 0);
+        knockback = false;
+        inputActivated = true;
+    }
+    
 }

@@ -65,7 +65,7 @@ public class CameraBehaviour : MonoBehaviour {
             transform.position = new Vector3(x, y, transform.position.z);
         }
 
-        print(NewBehaviourScript.cameraGround.y);
+        //print(NewBehaviourScript.cameraGround.y);
 
 	}
 
