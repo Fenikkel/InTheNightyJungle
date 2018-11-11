@@ -54,7 +54,7 @@ public class CameraBehaviour : MonoBehaviour {
         {
             float targetX = Mathf.Max(levelMinX, Mathf.Min(levelMaxX, target.position.x)); //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
 
-            float targetY = Mathf.Max(levelMinY, Mathf.Min(levelMaxY, target.position.y)); //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
+            float targetY = Mathf.Max(levelMinY, Mathf.Min(levelMaxY, (NewBehaviourScript.cameraGround.y) ));//+camHeight/2//target.position.y //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
 
 
             float x = Mathf.SmoothDamp(transform.position.x, targetX, ref smoothDampVelocity.x, smoothDampTime);
@@ -64,6 +64,8 @@ public class CameraBehaviour : MonoBehaviour {
 
             transform.position = new Vector3(x, y, transform.position.z);
         }
+
+        print(NewBehaviourScript.cameraGround.y);
 
 	}
 

@@ -20,6 +20,8 @@ public class NewBehaviourScript : MonoBehaviour {
     Vector2 futuraPosicion;
     private int indicePuerta;
 
+    public static Vector3 cameraGround;
+
 
 
 
@@ -32,6 +34,7 @@ public class NewBehaviourScript : MonoBehaviour {
     // Use this for initialization
     void Start () {
         rb = GetComponent<Rigidbody2D>();
+        cameraGround = new Vector3(1.0f, 1.0f, 1.0f);
 
         
 	}
@@ -55,7 +58,26 @@ public class NewBehaviourScript : MonoBehaviour {
         }*/
         
 
-    }/*
+    }
+    /*
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Ground")){
+            cameraGround = collision.transform.position;
+        }
+    }*/
+
+
+    private void OnTriggerEnter2D(Collider2D other) //solo se llama una vez sino seria stay
+    {
+        if (other.CompareTag("Ground"))
+        {
+            cameraGround = other.transform.position;
+        }
+
+    }
+
+    /*
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string nombrePuerta = collision.name;
@@ -130,4 +152,9 @@ public class NewBehaviourScript : MonoBehaviour {
         yield return new WaitForSeconds(1); 
         
     }
+
+    /*public static Vector3 GetCameraGround()
+    {
+
+    }*/
 }
