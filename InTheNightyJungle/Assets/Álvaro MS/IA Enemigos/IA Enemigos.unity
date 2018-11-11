@@ -113,6 +113,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &7873674 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114090161090291090, guid: 07d65d5ba615c484cb170a9f91f48193,
+    type: 2}
+  m_PrefabInternal: {fileID: 788095386}
+  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &32313191
 GameObject:
   m_ObjectHideFlags: 0
@@ -215,11 +221,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 224041145989132464, guid: 07d65d5ba615c484cb170a9f91f48193,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 224041145989132464, guid: 07d65d5ba615c484cb170a9f91f48193,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -333,7 +334,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4051003973122602, guid: d653abfd6d6c2524db58fbaa6cf49ddf, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.43078247
+      value: -1.28
       objectReference: {fileID: 0}
     - target: {fileID: 4051003973122602, guid: d653abfd6d6c2524db58fbaa6cf49ddf, type: 2}
       propertyPath: m_LocalPosition.y
@@ -363,27 +364,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114942356516554662, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
-        type: 2}
-      propertyPath: cansancioBar
-      value: 
-      objectReference: {fileID: 788095388}
-    - target: {fileID: 137277452412633760, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 137646214099249530, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 137638283423992334, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 137534301128105300, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    - target: {fileID: 137642575790823556, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
         type: 2}
       propertyPath: m_Mesh
       value: 
@@ -393,11 +374,41 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 137642575790823556, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    - target: {fileID: 137534301128105300, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 137638283423992334, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 137646214099249530, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 137277452412633760, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114942356516554662, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: cansancioBar
+      value: 
+      objectReference: {fileID: 788095388}
+    - target: {fileID: 114942356516554662, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: changenessBar
+      value: 
+      objectReference: {fileID: 788095388}
+    - target: {fileID: 114942356516554662, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: pacienciaBar
+      value: 
+      objectReference: {fileID: 7873674}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d653abfd6d6c2524db58fbaa6cf49ddf, type: 2}
   m_IsPrefabAsset: 0
@@ -516,10 +527,15 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 61663795790796544, guid: 3a42408f797b696459247f67d7261a9d,
+    - target: {fileID: 114678314826729056, guid: 3a42408f797b696459247f67d7261a9d,
         type: 2}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: damage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114678314826729056, guid: 3a42408f797b696459247f67d7261a9d,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3a42408f797b696459247f67d7261a9d, type: 2}

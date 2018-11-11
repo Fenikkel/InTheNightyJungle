@@ -108,6 +108,17 @@ public class PlayerPlatformController : PhysicsObject {
 
     public void DecreaseCansancio(float value)
     {
-        stats.DecreaseCansancio(value);
+        stats.DecreaseChangenessStat(value);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        EnemyBehaviour enemy = collision.gameObject.GetComponent<EnemyBehaviour>();
+        print(enemy);
+        if (enemy.tag.Equals("Enemy"))
+        {
+            stats.DecreasePaciencia(enemy.GetDamage()/100);
+            enemy.CollideWithPlayer();
+        }
     }
 }

@@ -5,22 +5,42 @@ using UnityEngine.UI;
 
 public class PlayerStatsController : MonoBehaviour {
 
-    public Slider cansancioBar;
-    public float cansancioIncreaseSpeed;
+    public Slider changenessBar;
+    public Slider pacienciaBar;
+    public float changenessIncreaseSpeed;
     
     // Use this for initialization
 	void Start () {
-        cansancioBar.value = 0;
+        changenessBar.value = 0;
+        pacienciaBar.value = 1;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        cansancioBar.value += cansancioIncreaseSpeed * Time.deltaTime;
+        changenessBar.value += (changenessIncreaseSpeed / 100) * Time.deltaTime;
 	}
 
-    public void DecreaseCansancio(float value)
+    public void DecreaseChangenessStat(float value)
     {
-        cansancioBar.value -= value;
+        StartCoroutine(ChangeBarValue(changenessBar.value - value, changenessBar, 0.5f));
+    }
+
+    public void DecreasePaciencia(float value)
+    {
+        StartCoroutine(ChangeBarValue(pacienciaBar.value - value, pacienciaBar, 0.5f));
+    }
+
+    IEnumerator ChangeBarValue(float finalValue, Slider bar, float time)
+    {
+        float initialValue = bar.value;
+        float elapsedTime = 0.0f;
+        while(elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            bar.value = Mathf.Lerp(initialValue, finalValue, elapsedTime / time);
+            yield return null;
+        }
+        bar.value = finalValue;
     }
 }

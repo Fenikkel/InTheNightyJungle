@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BalbucienteBehaviour : PhysicsObject {
+public class BalbucienteBehaviour : EnemyBehaviour {
 
     private BoxCollider2D influenceZone;
     public Vector2 sizeInfluenceZone;
@@ -14,10 +14,10 @@ public class BalbucienteBehaviour : PhysicsObject {
     public float maxSpeed;
     public float radius;
 
-    private bool following;
-    private int direction;
     private float distanceToLeft;
     private float distanceToRight;
+
+    private bool colliding;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +26,7 @@ public class BalbucienteBehaviour : PhysicsObject {
 
         anim = GetComponent<Animator>();
 
-        following = true;
+        colliding = false;
     }
 	
     protected override void ComputeVelocity()
@@ -39,7 +39,7 @@ public class BalbucienteBehaviour : PhysicsObject {
         RaycastHit2D hitLeft = Physics2D.Raycast(GetComponent<Transform>().position, Vector2.left, distanceToLeft, 1 << LayerMask.NameToLayer("Player"));
         RaycastHit2D hitRight = Physics2D.Raycast(GetComponent<Transform>().position, Vector2.right, distanceToRight, 1 << LayerMask.NameToLayer("Player"));
 
-        if (hitLeft.collider || hitRight.collider)
+        if (hitLeft.collider || hitRight.collider && !colliding)
         {
             move.x = (hitLeft.collider) ? -1 : 1;
 
@@ -57,5 +57,17 @@ public class BalbucienteBehaviour : PhysicsObject {
 
         distanceToLeft = ((GetComponent<Transform>().position.x - initialPosition.position.x) < radius) ? (GetComponent<Transform>().position.x - initialPosition.position.x) : radius;
         distanceToRight = ((finalPosition.position.x - GetComponent<Transform>().position.x) < radius) ? (finalPosition.position.x - GetComponent<Transform>().position.x) : radius;
+    }
+
+    public override void CollideWithPlayer()
+    {
+        colliding = true;
+        StartCoroutine(SportshipStop(0.5f));
+    }
+
+    IEnumerator SportshipStop(float time)
+    {
+        yield return new WaitForSeconds(time);
+        colliding = false;
     }
 }
