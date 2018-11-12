@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraBehaviour : MonoBehaviour {
 
+    public GameObject player;
     public Transform target; //our player
     public Transform leftBounds; //donde chocara la camara
     public Transform rightBounds;
@@ -17,11 +18,16 @@ public class CameraBehaviour : MonoBehaviour {
     private float camWidth, camHeight, levelMinX, levelMaxX;
     private float levelMinY, levelMaxY;
 
-    private bool followTarget;    
-    
-    
+    private bool followTarget;
+
+    private float y;
+    private float targetY;
+
+
+
+
     // Use this for initialization
-	void Start () {
+    void Start () {
         RestartCamera();
     }
 
@@ -54,12 +60,22 @@ public class CameraBehaviour : MonoBehaviour {
         {
             float targetX = Mathf.Max(levelMinX, Mathf.Min(levelMaxX, target.position.x)); //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
 
-            float targetY = Mathf.Max(levelMinY, Mathf.Min(levelMaxY, (NewBehaviourScript.cameraGround.y) ));//+camHeight/2//target.position.y //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
+
+
+            if (player.GetComponent<PlayerPlatformController>().GetGrounded() == true) {
+
+                targetY = Mathf.Max(levelMinY, Mathf.Min(levelMaxY, (NewBehaviourScript.cameraGround.y)));//+camHeight/2//target.position.y //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
+                y = Mathf.SmoothDamp(transform.position.y, targetY, ref smoothDampVelocity.y, smoothDampTime);
+
+            }
+
+
+
+
 
 
             float x = Mathf.SmoothDamp(transform.position.x, targetX, ref smoothDampVelocity.x, smoothDampTime);
 
-            float y = Mathf.SmoothDamp(transform.position.y, targetY, ref smoothDampVelocity.y, smoothDampTime);
 
 
             transform.position = new Vector3(x, y, transform.position.z);

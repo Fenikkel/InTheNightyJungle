@@ -245,4 +245,9 @@ public class PlayerPlatformController : PhysicsObject {
         yield return new WaitForSeconds(time);
         SpeedToOriginal();
     }
+
+    public bool GetGrounded()
+    {
+        return grounded;
+    }
 }
