@@ -1097,8 +1097,8 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
-  maxSpeed: 9.5
-  jumpTakeOffSpeed: 16.06
+  initialMaxSpeed: 7
+  initialJumpTakeOffSpeed: 7
   knockbackSpeed: 2
   bodyParts: []
 --- !u!114 &114362703129871386
