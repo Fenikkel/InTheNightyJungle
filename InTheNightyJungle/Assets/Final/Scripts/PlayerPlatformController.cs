@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class PlayerPlatformController : PhysicsObject {
 
-    public float maxSpeed = 7;
-    public float jumpTakeOffSpeed = 7;
+    public float initialMaxSpeed = 7;
+    public float initialJumpTakeOffSpeed = 7;
+    private float maxSpeed;
+    private float jumpTakeOffSpeed;
 
     private bool inputActivated;
 
@@ -36,6 +38,9 @@ public class PlayerPlatformController : PhysicsObject {
         inputActivated = true;
         invulnerabity = false;
         blink = false;
+
+        maxSpeed = initialMaxSpeed;
+        jumpTakeOffSpeed = initialJumpTakeOffSpeed;
     }
 
     protected override void ComputeVelocity()
@@ -127,7 +132,7 @@ public class PlayerPlatformController : PhysicsObject {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
-        if (!invulnerabity && other.tag.Equals("Enemy"))
+        if (!invulnerabity && other.tag.Equals("Enemy") && other.layer == LayerMask.NameToLayer("PhysicalEnemy"))
         {
             EnemyBehaviour enemy = other.GetComponent<EnemyBehaviour>();
             stats.DecreasePaciencia(enemy.GetDamage() / 100);
@@ -212,5 +217,32 @@ public class PlayerPlatformController : PhysicsObject {
             bodyParts[i].enabled = blink;
         }
         blink = !blink;
+    }
+
+    public void SlowDown(float slowDownFactor, float time)
+    {
+        if (time == 0)
+        {
+            maxSpeed *= slowDownFactor;
+            jumpTakeOffSpeed *= slowDownFactor; //Esta operación reduce la fuerza inicial de salto, de manera que es imposible saltar hasta una plataforma estando sobre el efecto del Devorador o habiendo sido afectado por un hielo. Cabe considerar, si a nivel de diseño, supone mucho inconveniente para el jugador o no, sobretodo en el caso de Cindy
+        }
+        else
+        {
+            StartCoroutine(SlowDownForTime(slowDownFactor, time));
+        }
+    }
+
+    public void SpeedToOriginal()
+    {
+        maxSpeed = initialMaxSpeed;
+        jumpTakeOffSpeed = initialJumpTakeOffSpeed;
+    }
+
+    IEnumerator SlowDownForTime(float slowDownFactor, float time)
+    {
+        maxSpeed *= slowDownFactor;
+        jumpTakeOffSpeed *= slowDownFactor;
+        yield return new WaitForSeconds(time);
+        SpeedToOriginal();
     }
 }
