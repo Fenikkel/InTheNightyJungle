@@ -38,14 +38,12 @@ public class BalbucienteBehaviour : EnemyBehaviour {
 
         RaycastHit2D hitLeft = Physics2D.Raycast(GetComponent<Transform>().position, Vector2.left, distanceToLeft, 1 << LayerMask.NameToLayer("Player"));
         RaycastHit2D hitRight = Physics2D.Raycast(GetComponent<Transform>().position, Vector2.right, distanceToRight, 1 << LayerMask.NameToLayer("Player"));
+        
+        anim.SetBool("movement", hitLeft.collider || hitRight.collider && !colliding);
 
         if (hitLeft.collider || hitRight.collider && !colliding)
         {
-        move.x = (hitLeft.collider) ? -1 : 1;
-
-            //anim.SetBool("movement", move.x != lastMove || move.x != 0);
-
-            //lastMove = move.x;
+            move.x = (hitLeft.collider) ? -1 : 1;
         }
 
         if ((move.x > 0.01f && GetComponent<Transform>().localScale.x < 0) || (move.x < -0.01f && GetComponent<Transform>().localScale.x > 0))

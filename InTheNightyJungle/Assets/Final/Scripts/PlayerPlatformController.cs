@@ -66,9 +66,11 @@ public class PlayerPlatformController : PhysicsObject {
             }
             move.x = Input.GetAxis("Horizontal");
 
-            //anim.SetBool("movement", move.x != lastMove || move.x != 0);
+            anim.SetBool("movement", move.x != lastMove || move.x != 0);
+            anim.SetBool("grounded", grounded);
+            anim.SetFloat("yVel", velocity.y);
 
-            //lastMove = move.x;
+            lastMove = move.x;
 
             if (Input.GetButtonDown("Jump") && grounded)
             {
@@ -81,7 +83,6 @@ public class PlayerPlatformController : PhysicsObject {
                     velocity.y = velocity.y * 0.5f;
                 }
             }
-
         }
 
         if ((move.x > 0.01f && GetComponent<Transform>().localScale.x < 0) || (move.x < -0.01f && GetComponent<Transform>().localScale.x > 0))
@@ -109,14 +110,15 @@ public class PlayerPlatformController : PhysicsObject {
 
     private void Dash()
     {
+
         inputActivated = false; //No se puede mover
         dash = true; //Se está haciendo el dash
+        anim.SetBool("dash", dash);
         dashCooldown = true; //No se va a poder gastar en un ratete
 
         velocity.y = 0; //Quitar la velocidad teórica vertical del siguiente frame (para si se hace el dash saltando)
         gravityModifier = 0; //Quitar el modificador de la gravedad para que el script no provoque caída
         rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
-        rb2d.isKinematic = true; //Quitar la influencia de la gravedad en el Rigidbody
 
         dashEffect.Play(); //Emisión de partículas
 
@@ -130,10 +132,10 @@ public class PlayerPlatformController : PhysicsObject {
         yield return new WaitForSeconds(time);
 
         dash = false;
+        anim.SetBool("dash", dash);
         inputActivated = true;
 
         gravityModifier = initialGravityModifier;
-        rb2d.isKinematic = false;
 
         dashEffect.Stop();
 
@@ -165,7 +167,7 @@ public class PlayerPlatformController : PhysicsObject {
 
     public void MoveToLeftRightChamber(DoorBehaviour door)
     {
-        Blink();
+        Blink(false);
         GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position));
     }
@@ -181,7 +183,7 @@ public class PlayerPlatformController : PhysicsObject {
             yield return null;
         }
         GetComponent<Transform>().position = finalPosition;
-        Blink();
+        Blink(true);
         GetComponent<CapsuleCollider2D>().enabled = true;
         SetInputActivated(true);
     }
@@ -210,7 +212,7 @@ public class PlayerPlatformController : PhysicsObject {
         OnCollisionEnter2D(collision);
     }
 
-    private void /*Proto*/KnockBack(ContactPoint2D[] contacts)
+    private void KnockBack(ContactPoint2D[] contacts)
     {
         inputActivated = false;
         knockback = true;
@@ -226,6 +228,9 @@ public class PlayerPlatformController : PhysicsObject {
             yDirection += contact.normal.y;
         }
         knockbackDirection = new Vector2(xDirection / contacts.Length, yDirection / contacts.Length).normalized;
+
+        if (Mathf.Sign(xDirection) == Mathf.Sign(GetComponent<Transform>().localScale.x)) anim.SetTrigger("knockbackTrasero");
+        else anim.SetTrigger("knockbackFrontal");
 
         StartCoroutine(ReduceKnockback(0.5f));
         StartCoroutine(InvulnerabilityTime(2f, 0.1f));
@@ -274,22 +279,22 @@ public class PlayerPlatformController : PhysicsObject {
             elapsedBlinkTime += Time.deltaTime;
             if (elapsedBlinkTime >= blinkTime)
             {
-                Blink();
+                if(!knockback) Blink(blink);
                 elapsedBlinkTime = 0.0f;
             }
             yield return null;
         }
-        if (blink) Blink();
+        if(blink) Blink(blink);
         Invulnerable(false);
     }
 
-    private void Blink()
+    private void Blink(bool param)
     {
         for (int i = 0; i < bodyParts.Length; i++)
         {
-            bodyParts[i].enabled = blink;
+            bodyParts[i].enabled = param;
         }
-        blink = !blink;
+        blink = !param;
     }
 
     public void SlowDown(float slowDownFactor, float time)
