@@ -7,7 +7,7 @@ public class PlayerPlatformController : PhysicsObject {
     public float initialMaxSpeed = 7;
     public float initialJumpTakeOffSpeed = 7;
     private float maxSpeed;
-    public float jumpTakeOffSpeed;
+    private float jumpTakeOffSpeed;
 
     private bool inputActivated;
 
