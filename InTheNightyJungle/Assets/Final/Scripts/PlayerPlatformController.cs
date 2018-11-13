@@ -24,6 +24,14 @@ public class PlayerPlatformController : PhysicsObject {
     public SkinnedMeshRenderer[] bodyParts;
     private bool blink;
 
+    private bool dash;
+    private bool dashCooldown;
+    private float dashSpeed;
+    public float initialDashSpeed;
+    public float dashTime;
+    public float dashCooldownTime;
+    public ParticleSystem dashEffect;
+
     // Use this for initialization
     void Awake()
     {
@@ -38,9 +46,12 @@ public class PlayerPlatformController : PhysicsObject {
         inputActivated = true;
         invulnerabity = false;
         blink = false;
+        dash = false;
+        dashCooldown = false;
 
         maxSpeed = initialMaxSpeed;
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
+        dashSpeed = initialDashSpeed;
     }
 
     protected override void ComputeVelocity()
@@ -49,6 +60,10 @@ public class PlayerPlatformController : PhysicsObject {
 
         if (inputActivated)
         {
+            if(Input.GetKeyDown(KeyCode.Z) && !dashCooldown)
+            {
+                Dash();
+            }
             move.x = Input.GetAxis("Horizontal");
 
             //anim.SetBool("movement", move.x != lastMove || move.x != 0);
@@ -81,8 +96,56 @@ public class PlayerPlatformController : PhysicsObject {
         }
         else
         {
-            targetVelocity = move * maxSpeed;
+            if(!dash)
+            {
+                targetVelocity = move * maxSpeed;
+            }
+            else
+            {
+                targetVelocity = new Vector2(GetComponent<Transform>().localScale.x, 0).normalized * dashSpeed;
+            }
         }
+    }
+
+    private void Dash()
+    {
+        inputActivated = false; //No se puede mover
+        dash = true; //Se está haciendo el dash
+        dashCooldown = true; //No se va a poder gastar en un ratete
+
+        velocity.y = 0; //Quitar la velocidad teórica vertical del siguiente frame (para si se hace el dash saltando)
+        gravityModifier = 0; //Quitar el modificador de la gravedad para que el script no provoque caída
+        rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
+        rb2d.isKinematic = true; //Quitar la influencia de la gravedad en el Rigidbody
+
+        dashEffect.Play(); //Emisión de partículas
+
+        Invulnerable(true); //No le tienen que hacer daño y debe poder traspasar los enemigos
+
+        StartCoroutine(WhileDashActivated(dashTime)); //Iniciar la duración del dash
+    }
+
+    IEnumerator WhileDashActivated(float time)
+    {
+        yield return new WaitForSeconds(time);
+
+        dash = false;
+        inputActivated = true;
+
+        gravityModifier = initialGravityModifier;
+        rb2d.isKinematic = false;
+
+        dashEffect.Stop();
+
+        Invulnerable(false);
+
+        StartCoroutine(WhileDashCooldownActivated(dashCooldownTime));
+    }
+
+    IEnumerator WhileDashCooldownActivated(float time)
+    {
+        yield return new WaitForSeconds(time);
+        dashCooldown = false;
     }
 
     public bool GetInputActivated()
@@ -151,9 +214,9 @@ public class PlayerPlatformController : PhysicsObject {
     private void /*Proto*/KnockBack(ContactPoint2D[] contacts)
     {
         inputActivated = false;
-        invulnerabity = true;
         knockback = true;
         targetVelocity = Vector2.zero;
+        Invulnerable(true);
 
         float xDirection = 0.0f;
         float yDirection = 0.0f;
@@ -165,11 +228,24 @@ public class PlayerPlatformController : PhysicsObject {
         }
         knockbackDirection = new Vector2(xDirection / contacts.Length, yDirection / contacts.Length).normalized;
 
-        gameObject.layer = LayerMask.NameToLayer("UntargetedPlayer");
-        contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) & ~(1 << LayerMask.NameToLayer("Enemy")));
-
         StartCoroutine(ReduceKnockback(0.5f));
         StartCoroutine(InvulnerabilityTime(2f, 0.1f));
+    }
+
+    private void Invulnerable(bool param)
+    {
+        if(param)
+        {
+            invulnerabity = true;
+            gameObject.layer = LayerMask.NameToLayer("UntargetedPlayer");
+            contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) & ~(1 << LayerMask.NameToLayer("Enemy")));
+        }
+        else
+        {
+            invulnerabity = false;
+            gameObject.layer = LayerMask.NameToLayer("Player");
+            contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) | (1 << LayerMask.NameToLayer("Enemy")));
+        }
     }
 
     IEnumerator ReduceKnockback(float time)
@@ -205,9 +281,7 @@ public class PlayerPlatformController : PhysicsObject {
             yield return null;
         }
         if (blink) Blink();
-        invulnerabity = false;
-        gameObject.layer = LayerMask.NameToLayer("Player");
-        contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) | (1 << LayerMask.NameToLayer("Enemy")));
+        Invulnerable(false);
     }
 
     private void Blink()

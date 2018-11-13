@@ -5,7 +5,8 @@ using UnityEngine;
 public class PhysicsObject : MonoBehaviour {
 
     public float minGroundNormalY = .65f;
-    public float gravityModifier = 1f;
+    public float initialGravityModifier = 1f;
+    protected float gravityModifier;
 
     protected Vector2 targetVelocity;
     protected bool grounded;
@@ -33,6 +34,7 @@ public class PhysicsObject : MonoBehaviour {
     protected virtual void initialization()
     {
         ContactFilterInitialization();
+        gravityModifier = initialGravityModifier;
     }
 
     protected void ContactFilterInitialization()
