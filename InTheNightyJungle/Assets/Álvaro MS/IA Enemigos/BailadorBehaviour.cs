@@ -22,10 +22,20 @@ public class BailadorBehaviour : EnemyBehaviour {
     private float timeToAccelerateLeft;
     private float timeToAccelerateRight;
 
+    public ParticleSystem whirlpool;
+
+    private Animator anim;
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
+
     protected override void initialization()
     {
         base.initialization();
         moveDirection = initialMoveDirection;
+        anim.SetBool("accelerating", true);
         timeToAccelerateLeft = TimeInMRUA(accZoneInitialPos.position, spinZoneInitialPos.position, 0.0f, maxSpeed, out accelerationLeft);
         timeToAccelerateRight = TimeInMRUA(spinZoneFinalPos.position, accZoneFinalPos.position, 0.0f, maxSpeed, out accelerationRight);
     }
@@ -41,10 +51,6 @@ public class BailadorBehaviour : EnemyBehaviour {
         Vector2 move = Vector2.zero;
 
         move.x = moveDirection;
-
-        //anim.SetBool("movement", move.x != lastMove || move.x != 0);
-
-        //lastMove = move.x;
 
         if ((move.x > 0.01f && GetComponent<Transform>().localScale.x < 0) || (move.x < -0.01f && GetComponent<Transform>().localScale.x > 0))
         {
@@ -65,6 +71,8 @@ public class BailadorBehaviour : EnemyBehaviour {
 
     IEnumerator Accelerate(float time, float initialValue, float finalValue, bool hasToStop)
     {
+        anim.SetBool("accelerating", true);
+        whirlpool.Play();
         float elapsedTime = 0.0f;
         while(elapsedTime < time)
         {
@@ -84,7 +92,11 @@ public class BailadorBehaviour : EnemyBehaviour {
 
     IEnumerator Stopping(float time, float finalValue)
     {
-        yield return new WaitForSeconds(time);
+        anim.SetBool("accelerating", false);
+        whirlpool.Stop();
+        yield return new WaitForSeconds(time / 2);
+        GetComponent<Transform>().localScale = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
+        yield return new WaitForSeconds(time/2);
         StartCoroutine(Accelerate((finalValue == 1) ? timeToAccelerateLeft : timeToAccelerateRight, 0.0f, finalValue, false));
     }
 }
