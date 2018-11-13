@@ -11,7 +11,7 @@ using System.Text;//para el parse de string a enteros
 
 public class NewBehaviourScript : MonoBehaviour {
 
-    private Rigidbody2D rb;
+    /*/*private Rigidbody2D rb;
     public float speed;
 
     private float xInput;
@@ -58,14 +58,14 @@ public class NewBehaviourScript : MonoBehaviour {
         }*/
         
 
-    }
+    //}
     /*
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject.CompareTag("Ground")){
             cameraGround = collision.transform.position;
         }
-    }*/
+    }
 
 
     private void OnTriggerEnter2D(Collider2D other) //solo se llama una vez sino seria stay
@@ -110,7 +110,7 @@ public class NewBehaviourScript : MonoBehaviour {
             print("LateralColisionado");
         }
     }*/
-
+    /*
     IEnumerator Fading()
     {
         anim.SetBool("Fade", true);

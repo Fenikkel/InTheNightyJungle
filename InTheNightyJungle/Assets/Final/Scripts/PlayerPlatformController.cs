@@ -165,13 +165,12 @@ public class PlayerPlatformController : PhysicsObject {
 
     public void MoveToLeftRightChamber(DoorBehaviour door)
     {
-        Sprite s = GetComponent<SpriteRenderer>().sprite;
+        Blink();
         GetComponent<CapsuleCollider2D>().enabled = false;
-        GetComponent<SpriteRenderer>().sprite = null;
-        StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position, s));
+        StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position));
     }
 
-    IEnumerator InterpolatePositionChangingChamber(float time, Vector2 finalPosition, Sprite s)
+    IEnumerator InterpolatePositionChangingChamber(float time, Vector2 finalPosition)
     {
         float elapsedTime = 0.0f;
         Vector2 initialPosition = GetComponent<Transform>().position;
@@ -182,7 +181,7 @@ public class PlayerPlatformController : PhysicsObject {
             yield return null;
         }
         GetComponent<Transform>().position = finalPosition;
-        GetComponent<SpriteRenderer>().sprite = s;
+        Blink();
         GetComponent<CapsuleCollider2D>().enabled = true;
         SetInputActivated(true);
     }

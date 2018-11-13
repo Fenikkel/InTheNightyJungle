@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour {
         {
             player.GetComponent<PlayerPlatformController>().SetInputActivated(false);
             mainCamera.GetComponent<CameraBehaviour>().SetFollowTarget(false);
-            mainCamera.GetComponent<CameraBehaviour>().SetBoundaries(door.nextChamber);
+            //.GetComponent<CameraBehaviour>().SetBoundaries(door.nextChamber);
             if (door.doorType % 2 == 0) //Es front door o back door
             {
                 StartCoroutine(FadeIn(0.5f, true, door));
