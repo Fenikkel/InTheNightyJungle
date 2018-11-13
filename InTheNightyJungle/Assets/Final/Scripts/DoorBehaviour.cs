@@ -8,7 +8,6 @@ public class DoorBehaviour : MonoBehaviour {
     public Transform cameraPosition;
 
     public DoorBehaviour nextDoor;
-    public int nextChamber;
     public int doorType; //0 hacia dentro, 1 derecha, 2 hacia fuera, 3 izquierda
 
     private GameManager GM;
