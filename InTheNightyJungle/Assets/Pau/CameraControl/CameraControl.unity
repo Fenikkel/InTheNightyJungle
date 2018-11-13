@@ -516,6 +516,36 @@ Transform:
   m_Father: {fileID: 716666114}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &200972728 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1609479307029806, guid: bc7737f5271148f4fb851a20daee18a2,
+    type: 2}
+  m_PrefabInternal: {fileID: 930013092}
+--- !u!61 &200972729
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 200972728}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.000027656555, y: 0.04504776}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 30.051096, y: 17.130081}
+  m_EdgeRadius: 0
 --- !u!1001 &256999609
 Prefab:
   m_ObjectHideFlags: 0
@@ -1317,7 +1347,7 @@ GameObject:
   - component: {fileID: 603221237}
   m_Layer: 0
   m_Name: RightBoundary0
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2121,7 +2151,7 @@ GameObject:
   - component: {fileID: 820365884}
   m_Layer: 0
   m_Name: LeftBoundary0
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2621,7 +2651,7 @@ GameObject:
   - component: {fileID: 1097263983}
   m_Layer: 0
   m_Name: DownerBoundary0
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2679,8 +2709,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1097263981}
   m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -7.3383756, y: -7.7637177, z: 0.07907231}
-  m_LocalScale: {x: 5, y: 100.00006, z: 1}
+  m_LocalPosition: {x: -7.338, y: -8.642, z: 0.07907231}
+  m_LocalScale: {x: -5.98, y: 100.00006, z: 1}
   m_Children: []
   m_Father: {fileID: 716666114}
   m_RootOrder: 5
@@ -3902,7 +3932,7 @@ GameObject:
   - component: {fileID: 1852099134}
   m_Layer: 0
   m_Name: UpperBoundary0
-  m_TagString: Untagged
+  m_TagString: Boundary
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

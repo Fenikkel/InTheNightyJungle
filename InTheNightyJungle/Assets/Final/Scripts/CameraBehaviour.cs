@@ -5,7 +5,6 @@ using UnityEngine;
 public class CameraBehaviour : MonoBehaviour {
 
     public GameObject player;
-    public Transform target; //our player
     public Transform leftBounds; //donde chocara la camara
     public Transform rightBounds;
 
@@ -23,11 +22,11 @@ public class CameraBehaviour : MonoBehaviour {
     private float y;
     private float targetY;
 
+    private Transform playerPosition; 
 
 
-
-    // Use this for initialization
     void Start () {
+        playerPosition = player.transform;
         RestartCamera();
     }
 
@@ -52,26 +51,29 @@ public class CameraBehaviour : MonoBehaviour {
         levelMaxY = upperBounds.position.y - upperBoundsWidth - (camHeight / 2); //to specify our maximum right most position
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-
-        if (followTarget && target) //if target has been instanciated
+    /*
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Boundary")
         {
-            float targetX = Mathf.Max(levelMinX, Mathf.Min(levelMaxX, target.position.x)); //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
+
+        }
+    }*/
+
+    void Update () {
+
+        if (followTarget && playerPosition) //if target has been instanciated
+        {
+            float targetX = Mathf.Max(levelMinX, Mathf.Min(levelMaxX, playerPosition.position.x)); //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
 
 
 
             if (player.GetComponent<PlayerPlatformController>().GetGrounded() == true) {
 
-                targetY = Mathf.Max(levelMinY, Mathf.Min(levelMaxY, (NewBehaviourScript.cameraGround.y)));//+camHeight/2//target.position.y //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
+                targetY = Mathf.Max(levelMinY, Mathf.Min(levelMaxY, playerPosition.position.y));//+camHeight/2//target.position.y //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
                 y = Mathf.SmoothDamp(transform.position.y, targetY, ref smoothDampVelocity.y, smoothDampTime);
 
             }
-
-
-
-
 
 
             float x = Mathf.SmoothDamp(transform.position.x, targetX, ref smoothDampVelocity.x, smoothDampTime);
@@ -80,8 +82,6 @@ public class CameraBehaviour : MonoBehaviour {
 
             transform.position = new Vector3(x, y, transform.position.z);
         }
-
-        //print(NewBehaviourScript.cameraGround.y);
 
 	}
 
