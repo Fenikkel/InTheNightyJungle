@@ -11,12 +11,12 @@ public class DoorBehaviour : MonoBehaviour {
     public int nextChamber;
     public int doorType; //0 hacia dentro, 1 derecha, 2 hacia fuera, 3 izquierda
 
-    public GameManager GM;
+    private GameManager GM;
     
     // Use this for initialization
 	void Start ()
     {
-		
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
 	}
 	
 	// Update is called once per frame

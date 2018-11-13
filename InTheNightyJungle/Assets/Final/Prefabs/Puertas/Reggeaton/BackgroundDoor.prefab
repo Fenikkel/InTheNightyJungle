@@ -136,12 +136,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ffb84e09dbc213498eed356f055454c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosition: {fileID: 0}
-  cameraPosition: {fileID: 0}
+  playerPosition: {fileID: 4524829948803618}
+  cameraPosition: {fileID: 4373963728786294}
   nextDoor: {fileID: 0}
   nextChamber: 0
   doorType: 0
-  GM: {fileID: 0}
 --- !u!212 &212249011535126268
 SpriteRenderer:
   m_ObjectHideFlags: 1

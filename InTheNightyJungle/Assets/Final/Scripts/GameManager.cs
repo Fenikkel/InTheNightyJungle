@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     
     // Use this for initialization
 	void Start () {
+        blackScreen.GetComponent<Image>().enabled = true;
         StartCoroutine(FadeOut(1f, false));
 	}
 	

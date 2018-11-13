@@ -41,7 +41,7 @@ public class BalbucienteBehaviour : EnemyBehaviour {
 
         if (hitLeft.collider || hitRight.collider && !colliding)
         {
-            move.x = (hitLeft.collider) ? -1 : 1;
+        move.x = (hitLeft.collider) ? -1 : 1;
 
             //anim.SetBool("movement", move.x != lastMove || move.x != 0);
 

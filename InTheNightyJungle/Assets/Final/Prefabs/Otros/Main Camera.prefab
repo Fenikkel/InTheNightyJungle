@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39a66e34bed7d1c43adac4cbc6d8887d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   target: {fileID: 0}
   leftBounds: {fileID: 0}
   rightBounds: {fileID: 0}
