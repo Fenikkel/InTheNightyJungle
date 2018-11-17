@@ -281,7 +281,6 @@ public class PlayerPlatformController : PhysicsObject {
             gameObject.layer = LayerMask.NameToLayer("Player");
             contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) | (1 << LayerMask.NameToLayer("Enemy")));
         }
-        print(invulnerabity);
     }
 
     IEnumerator ReduceKnockback(float time)
