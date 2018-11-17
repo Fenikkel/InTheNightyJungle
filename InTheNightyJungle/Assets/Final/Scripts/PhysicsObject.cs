@@ -19,7 +19,7 @@ public class PhysicsObject : MonoBehaviour {
 
 
     protected const float minMoveDistance = 0.001f;
-    protected const float shellRadius = 0.01f;
+    protected const float shellRadius = 0.05f;
 
     void OnEnable()
     {
@@ -101,21 +101,40 @@ public class PhysicsObject : MonoBehaviour {
                 }
 
                 float projection = Vector2.Dot (velocity, currentNormal);
-                /* if(projection == 0 && currentNormal.y < minGroundNormalY) 
-                {
-                    projection = -1;
-                }*/
                 if (projection < 0) 
                 {
                     velocity = velocity - projection * currentNormal;
                 }
 
                 float modifiedDistance = hitBufferList [i].distance - shellRadius;
+
+                //if(modifiedDistance >= distance) move = Vector2.zero;
+
                 distance = modifiedDistance < distance ? modifiedDistance : distance;
-                print(distance);
             }
+        }
+        else
+        {
+            if(!yMovement)
+            {
+                int count = rb2d.Cast (move, contactFilter, hitBuffer, distance + shellRadius);
+                hitBufferList.Clear ();
+                for (int i = 0; i < count; i++) {
+                    hitBufferList.Add (hitBuffer [i]);
+                }
 
+                for (int i = 0; i < hitBufferList.Count; i++) 
+                {
+                    Vector2 currentNormal = hitBufferList [i].normal;
+                    if (currentNormal.y > minGroundNormalY) 
+                    {
+                        grounded = true;
+                    }
 
+                    distance = shellRadius;
+                    move = currentNormal;
+                }
+            }
         }
 
         rb2d.position = rb2d.position + move.normalized * distance;
