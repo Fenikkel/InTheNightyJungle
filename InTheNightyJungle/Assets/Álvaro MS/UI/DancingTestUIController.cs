@@ -55,32 +55,33 @@ public class DancingTestUIController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+        /* Depurando
         if(activatedTimer) 
         { 
             currentTime -= Time.deltaTime; //Esto en principio lo debería realizar el TestManager y cambiar la variable currentTime mediante SetCurrentTime a cada frame desde ese script
             UpdateTimeBar(currentTime/totalTime);
-            //Esto va fuera
+            
             if(Input.GetKeyDown(KeyCode.A))
             {
-                /* currentTime += 10;
+                currentTime += 10;
                 if (currentTime > 60) currentTime = totalTime;
-                UpdateTimeBar(currentTime/totalTime);*/
+                UpdateTimeBar(currentTime/totalTime);
                 if(currentRemainingMistakes > 0)OneMistakeMore();
             }
             if(Input.GetKeyDown(KeyCode.B))
                 if(currentRemainingMistakes < 3)OneMistakeLess();
-
+            
             timeText.text = ((int) currentTime).ToString();
-        }
+        }*/
 
-        /*Versión alternativa del código cuando esté implementado el TestManager
+        //Versión buena del código cuando esté implementado el TestManager
         if(activatedTimer)
         {
             UpdateTimeBar(currentTime/totalTime);
             timeText.text = ((int) currentTime).ToString();
         }
-        Dado que será el TestManager el que gestione la bajada del tiempo y cuando se debe aumentar (cuando se pulsa una tecla correctamente), no es necesario considerarlo desde aquí 
-        */
+        //Dado que será el TestManager el que gestione la bajada del tiempo y cuando se debe aumentar (cuando se pulsa una tecla correctamente), no es necesario considerarlo desde aquí 
+        
 	}
 
     public void CompletedBlock() //Se debe llamar desde el TestManager cada vez que se complete un bloque y así poder updatear la UI con nueva información
