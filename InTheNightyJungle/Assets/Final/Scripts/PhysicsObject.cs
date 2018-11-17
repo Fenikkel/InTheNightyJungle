@@ -19,7 +19,7 @@ public class PhysicsObject : MonoBehaviour {
 
 
     protected const float minMoveDistance = 0.001f;
-    protected const float shellRadius = 0.01f;
+    protected const float shellRadius = 0.05f;
 
     void OnEnable()
     {
@@ -57,6 +57,11 @@ public class PhysicsObject : MonoBehaviour {
 
     void FixedUpdate()
     {
+        OurFixedUpdate();
+    }
+
+    protected virtual void OurFixedUpdate()
+    {
         velocity += gravityModifier * Physics2D.gravity * Time.deltaTime;
         velocity.x = targetVelocity.x;
 
@@ -75,7 +80,7 @@ public class PhysicsObject : MonoBehaviour {
         Movement (move, true);
     }
 
-    void Movement(Vector2 move, bool yMovement)
+    protected void Movement(Vector2 move, bool yMovement)
     {
         float distance = move.magnitude;
 
@@ -108,7 +113,7 @@ public class PhysicsObject : MonoBehaviour {
 
                 float modifiedDistance = hitBufferList [i].distance - shellRadius;
 
-                //if(modifiedDistance >= distance) move = Vector2.zero;
+                if(modifiedDistance >= distance) move = Vector2.zero;
 
                 distance = modifiedDistance < distance ? modifiedDistance : distance;
             }
@@ -130,7 +135,7 @@ public class PhysicsObject : MonoBehaviour {
                     {
                         grounded = true;
                     }
-
+                    
                     distance = shellRadius;
                     move = currentNormal;
                 }

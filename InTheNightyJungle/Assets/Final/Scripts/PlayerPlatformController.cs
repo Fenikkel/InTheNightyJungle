@@ -11,6 +11,8 @@ public class PlayerPlatformController : PhysicsObject {
 
     private bool inputActivated;
 
+    public ContactFilter2D enemyContactFilter;
+
     private bool invulnerabity;
     private bool knockback;
     private Vector2 knockbackDirection;
@@ -52,6 +54,10 @@ public class PlayerPlatformController : PhysicsObject {
         maxSpeed = initialMaxSpeed;
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
         dashSpeed = initialDashSpeed;
+
+        enemyContactFilter = new ContactFilter2D();
+        enemyContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PhysicalEnemy"));
+        enemyContactFilter.useLayerMask = true;
     }
 
     protected override void ComputeVelocity()
@@ -193,26 +199,41 @@ public class PlayerPlatformController : PhysicsObject {
         stats.DecreaseChangenessStat(value);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OurFixedUpdate()
     {
-        GameObject other = collision.gameObject;
-        if (!invulnerabity && other.tag.Equals("Enemy") && other.layer == LayerMask.NameToLayer("PhysicalEnemy"))
-        {
-            EnemyBehaviour enemy = other.GetComponent<EnemyBehaviour>();
-            stats.DecreasePaciencia(enemy.GetDamage() / 100);
-            enemy.CollideWithPlayer();
+        DetectingEnemies();
+        base.OurFixedUpdate();
+    }
 
-            KnockBack(collision.contacts);
+    private void DetectingEnemies()
+    {
+        if(!invulnerabity)
+        {
+
+            RaycastHit2D[] results = new RaycastHit2D[16];
+            List<Vector2> normals = new List<Vector2>();
+            int count = Physics2D.CapsuleCast(GetComponent<Transform>().position, GetComponent<CapsuleCollider2D>().size * 1.1f, CapsuleDirection2D.Vertical, 0, Vector2.zero, enemyContactFilter, results);
+            if(count > 0) {
+                GameObject firstEnemy = results[0].collider.gameObject;
+
+                for(int i = 0; i < count; i++)
+                {
+                    if(results[i].collider.gameObject.Equals(firstEnemy))
+                    { 
+                        normals.Add(results[i].normal);
+                    }
+                }
+                EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
+                stats.DecreasePaciencia(enemy.GetDamage() / 100);
+                enemy.CollideWithPlayer();
+
+                KnockBack(normals);
+            }
         }
 
     }
 
-    private void OnCollisionStay2D(Collision2D collision)
-    {
-        OnCollisionEnter2D(collision);
-    }
-
-    private void KnockBack(ContactPoint2D[] contacts)
+    private void KnockBack(List<Vector2> contactNormals)
     {
         inputActivated = false;
         knockback = true;
@@ -222,15 +243,17 @@ public class PlayerPlatformController : PhysicsObject {
         float xDirection = 0.0f;
         float yDirection = 0.0f;
 
-        foreach (ContactPoint2D contact in contacts)
+        foreach (Vector2 normal in contactNormals)
         {
-            xDirection += contact.normal.x;
-            yDirection += contact.normal.y;
+            xDirection += normal.x;
+            yDirection += normal.y;
         }
-        knockbackDirection = new Vector2(xDirection / contacts.Length, yDirection / contacts.Length).normalized;
+        knockbackDirection = new Vector2(xDirection / contactNormals.Count, yDirection / contactNormals.Count).normalized;
 
-        if (Mathf.Sign(xDirection) == Mathf.Sign(GetComponent<Transform>().localScale.x)) anim.SetTrigger("knockbackTrasero");
-        else anim.SetTrigger("knockbackFrontal");
+        if (Mathf.Sign(xDirection) == Mathf.Sign(GetComponent<Transform>().localScale.x)) 
+            anim.SetTrigger("knockbackTrasero");
+        else 
+            anim.SetTrigger("knockbackFrontal");
 
         StartCoroutine(ReduceKnockback(0.5f));
         StartCoroutine(InvulnerabilityTime(2f, 0.1f));

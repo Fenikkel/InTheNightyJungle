@@ -124,7 +124,6 @@ GameObject:
   - component: {fileID: 15089743}
   - component: {fileID: 15089742}
   - component: {fileID: 15089741}
-  - component: {fileID: 15089744}
   m_Layer: 20
   m_Name: Tilemap
   m_TagString: Untagged
@@ -304,26 +303,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!50 &15089744
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 15089739}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 1
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!1 &278129902
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,22 +518,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 137534301128105300, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 137642575790823556, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 137277452412633760, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
-        type: 2}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 137646214099249530, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    - target: {fileID: 137638283423992334, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
         type: 2}
       propertyPath: m_Mesh
       value: 
@@ -564,20 +528,25 @@ Prefab:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 137638283423992334, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    - target: {fileID: 137646214099249530, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
         type: 2}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 50816694732763648, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    - target: {fileID: 137277452412633760, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
         type: 2}
-      propertyPath: m_BodyType
-      value: 1
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 50816694732763648, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+    - target: {fileID: 137642575790823556, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
         type: 2}
-      propertyPath: m_UseFullKinematicContacts
-      value: 1
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 137534301128105300, guid: d653abfd6d6c2524db58fbaa6cf49ddf,
+        type: 2}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d653abfd6d6c2524db58fbaa6cf49ddf, type: 2}
@@ -710,7 +679,6 @@ GameObject:
   - component: {fileID: 1150781267}
   - component: {fileID: 1150781266}
   - component: {fileID: 1150781265}
-  - component: {fileID: 1150781268}
   m_Layer: 20
   m_Name: Tilemap
   m_TagString: Untagged
@@ -890,26 +858,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!50 &1150781268
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1150781263}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 1
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 1
-  m_SleepingMode: 0
-  m_CollisionDetection: 1
-  m_Constraints: 0
 --- !u!1 &1184350832
 GameObject:
   m_ObjectHideFlags: 0
