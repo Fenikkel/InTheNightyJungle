@@ -34,6 +34,8 @@ public class PlayerPlatformController : PhysicsObject {
     public float dashCooldownTime;
     public ParticleSystem dashEffect;
 
+    //private int numHits;
+
     // Use this for initialization
     void Awake()
     {
@@ -145,6 +147,8 @@ public class PlayerPlatformController : PhysicsObject {
 
         dashEffect.Stop();
 
+        yield return new WaitForSeconds(1f);
+
         Invulnerable(false);
 
         StartCoroutine(WhileDashCooldownActivated(dashCooldownTime));
@@ -226,6 +230,10 @@ public class PlayerPlatformController : PhysicsObject {
                 EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
                 stats.DecreasePaciencia(enemy.GetDamage() / 100);
                 enemy.CollideWithPlayer();
+                
+                inputActivated = false;
+                targetVelocity = Vector2.zero;
+                Invulnerable(true);
 
                 KnockBack(normals);
             }
@@ -235,10 +243,10 @@ public class PlayerPlatformController : PhysicsObject {
 
     private void KnockBack(List<Vector2> contactNormals)
     {
-        inputActivated = false;
+        /* numHits++;
+        print(numHits);*/
+
         knockback = true;
-        targetVelocity = Vector2.zero;
-        Invulnerable(true);
 
         float xDirection = 0.0f;
         float yDirection = 0.0f;
@@ -273,6 +281,7 @@ public class PlayerPlatformController : PhysicsObject {
             gameObject.layer = LayerMask.NameToLayer("Player");
             contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) | (1 << LayerMask.NameToLayer("Enemy")));
         }
+        print(invulnerabity);
     }
 
     IEnumerator ReduceKnockback(float time)
