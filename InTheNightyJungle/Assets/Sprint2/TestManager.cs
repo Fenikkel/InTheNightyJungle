@@ -21,6 +21,8 @@ public class TestManager : MonoBehaviour {
     private bool blockDanced;
     private int totalDanceLife;
     private bool victory;
+    public float timeLeft;
+    public float extraTime;
 
 
     void Start () {
@@ -39,7 +41,29 @@ public class TestManager : MonoBehaviour {
 	void Update () {
         if(playerTurn)
         {
-            
+
+            timeLeft -= Time.deltaTime;
+            UITest.transform.Find("TimeLeft").gameObject.GetComponent<Text>().text = "Time Left: " + System.Math.Round(timeLeft,1);
+            if (timeLeft< 0.0f)
+            {
+                //SE HACE ANIMACION DE DERROTA
+                for(int i =0; i<danceLife.Length; i++)
+                {
+                    danceLife[i].SetActive(false);
+
+                }
+
+                totalDanceLife = 0;
+                victory = false;
+                pruebaTerminada = true;
+                blockDanced = true;//para salir de los bucles
+                currentMovement = 0;
+                playerTurn = false;
+                UITest.transform.Find("TimeLeft").gameObject.SetActive(false);
+                UITest.transform.Find("RemainingChallenges").gameObject.SetActive(false);
+
+            }
+
             string currentInput = Input.inputString.ToLower();
             
             if (!Input.inputString.Equals(""))
@@ -53,8 +77,12 @@ public class TestManager : MonoBehaviour {
                 if (currentBlock[currentMovement].ToString().Equals(currentInput)) //string[index] devuelve un char no un string
                 {
                     print("BIEN");
+                    timeLeft += extraTime; 
                     //SE HACE ANIMACION DE BAILE
-                    //SE HACE ANIMACION DE BIEN (no debe penalizar tiempo o directamente)
+                    player.GetComponent<Animator>().Play("jumping - flying");
+                    //player.GetComponent<Animator>().Play("currentInput");
+
+                    //(mejor cuando acierte todo el bloque?)SE HACE ANIMACION DE BIEN (no debe penalizar tiempo o directamente)
                     currentMovement++;
                     if (currentBlock.Length <= currentMovement)
                     {
@@ -63,22 +91,27 @@ public class TestManager : MonoBehaviour {
                         print("Bloque completado");
                         currentMovement = 0;
                         playerTurn = false;
+
+
+                        
                     }
                 }
                 else
                 {
                     //SE HACE ANIMACION DE BAILE
                     //SE HACE ANIMACION DE MAL 
+                    
+                    player.GetComponent<Animator>().Play("knockback frontal");
                     danceLife[totalDanceLife].SetActive(false);
-                    print(totalDanceLife);
-
+                   
                     --totalDanceLife;
-                    print(totalDanceLife);
+                    
                     if (totalDanceLife<0)
                     {
                         victory = false;
                         pruebaTerminada = true;
                         blockDanced = true;//para salir de los bucles
+                        //SE HACE ANIMACION DE DERROTA
                     }
                     print("MAL");
                     currentMovement = 0;
@@ -112,7 +145,8 @@ public class TestManager : MonoBehaviour {
                     currentBlock = allBlocks[i];
 
                     playerTurn = true;
-
+                    UITest.transform.Find("TimeLeft").gameObject.SetActive(true);
+                    //timeLeft = 10.0f; //si para cada bloque queremos un tiempo distinto, sino un tiempo para todos los bloques
                     yield return new WaitUntil(() => playerTurn == false);
 
                 }
@@ -127,18 +161,29 @@ public class TestManager : MonoBehaviour {
                 }
 
             }
-                
 
-           
+
+
             //StartCoroutine(WaitChallenger());
             //cuenta atras
             //habilitar teclas
 
+            for (int i = 0; i < danceLife.Length; i++)
+            {
+                danceLife[i].SetActive(false);
+
+            }
+            totalDanceLife = 0;
+
             print("PRUEBA TERMINADA");
+            //HACER ANIMACION VICTORIA
+            UITest.transform.Find("TimeLeft").gameObject.SetActive(false);
+            UITest.transform.Find("RemainingChallenges").gameObject.SetActive(false);
             print("Victory: " + victory);
             pruebaTerminada = true;
+
         }
-        player.GetComponent<PlayerPlatformController>().SetInputActivated(true);
+        player.GetComponent<PlayerPlatformController>().SetInputActivated(true);  //antes que esto se deberia salir de la prueba de baile y toda la mandanga
 
 
     }

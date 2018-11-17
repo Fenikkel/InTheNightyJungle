@@ -273,7 +273,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9c1df60e6d5be174db02841dcda50b9c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -399,6 +399,7 @@ MonoBehaviour:
   - {fileID: 101071245}
   challengerTurn: 1
   playerTurn: 0
+  timeLeft: 10
 --- !u!4 &579050887
 Transform:
   m_ObjectHideFlags: 0
@@ -498,7 +499,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1093852118
 RectTransform:
   m_ObjectHideFlags: 0
@@ -514,7 +515,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 376, y: 96}
+  m_AnchoredPosition: {x: 122, y: 115}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1093852119
@@ -543,7 +544,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 86
-    m_Alignment: 4
+    m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -671,7 +672,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4314147684848768, guid: acb937a006e1c6b4d8239e32a2bb7f40, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1.1946245
+      value: -0.932
       objectReference: {fileID: 0}
     - target: {fileID: 4314147684848768, guid: acb937a006e1c6b4d8239e32a2bb7f40, type: 2}
       propertyPath: m_LocalPosition.z
@@ -740,6 +741,26 @@ Prefab:
         type: 2}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114164159836251308, guid: acb937a006e1c6b4d8239e32a2bb7f40,
+        type: 2}
+      propertyPath: m_Length
+      value: 0.2556166
+      objectReference: {fileID: 0}
+    - target: {fileID: 114422602024500410, guid: acb937a006e1c6b4d8239e32a2bb7f40,
+        type: 2}
+      propertyPath: m_Length
+      value: 0.23113537
+      objectReference: {fileID: 0}
+    - target: {fileID: 114581244029585458, guid: acb937a006e1c6b4d8239e32a2bb7f40,
+        type: 2}
+      propertyPath: m_Length
+      value: 0.44165966
+      objectReference: {fileID: 0}
+    - target: {fileID: 114574147789550280, guid: acb937a006e1c6b4d8239e32a2bb7f40,
+        type: 2}
+      propertyPath: m_Length
+      value: 0.2700025
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acb937a006e1c6b4d8239e32a2bb7f40, type: 2}
