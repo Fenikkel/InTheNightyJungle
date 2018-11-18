@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerPlatformController : PhysicsObject {
 
+    //Maria
+    public static PlayerPlatformController playerInstance;
+    public ConversationalBehaviour conversation;
+
     public float initialMaxSpeed = 7;
     public float initialJumpTakeOffSpeed = 7;
     private float maxSpeed;
@@ -37,6 +41,21 @@ public class PlayerPlatformController : PhysicsObject {
     {
         stats = GetComponent<PlayerStatsController>();
         anim = GetComponent<Animator>();
+
+        //Maria
+        playerInstance = this;
+        conversation.enabled = false;
+    }
+
+    public void StartConversation()
+    {
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+            //inputActivated = false;
+            this.enabled = false;
+            conversation.enabled = true;
+        }
+
     }
 
 

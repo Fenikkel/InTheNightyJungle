@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformPlayerController : MonoBehaviour {
-
-    //Controla movimiento personaje + el resto de las mecánicas
+public class OnTriggeredConveration : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
@@ -16,8 +14,8 @@ public class PlatformPlayerController : MonoBehaviour {
 		
 	}
 
-    void StartConversation()
+    void OnTriggerStay2D(Collider2D other)
     {
-
+        other.gameObject.GetComponent<PlayerPlatformController>().StartConversation();
     }
 }
