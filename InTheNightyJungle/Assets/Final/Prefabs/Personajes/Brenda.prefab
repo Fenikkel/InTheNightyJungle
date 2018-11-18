@@ -1205,7 +1205,7 @@ MonoBehaviour:
   minGroundNormalY: 0.65
   initialGravityModifier: 1
   initialMaxSpeed: 7
-  initialJumpTakeOffSpeed: 10
+  initialJumpTakeOffSpeed: 9
   enemyContactFilter:
     useTriggers: 0
     useLayerMask: 0
