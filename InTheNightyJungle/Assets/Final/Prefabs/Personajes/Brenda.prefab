@@ -986,9 +986,9 @@ Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763898504585280}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
-  m_UseFullKinematicContacts: 0
+  m_UseFullKinematicContacts: 1
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
@@ -1011,8 +1011,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.050111495, y: -0.38084656}
-  m_Size: {x: 1.1199558, y: 2.3691995}
+  m_Offset: {x: -0.0048031807, y: -0.3808465}
+  m_Size: {x: 1.0293392, y: 2.3691995}
   m_Direction: 0
 --- !u!95 &95436689449189692
 Animator:
@@ -1204,7 +1204,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
   initialGravityModifier: 1
-  contactFilter:
+  initialMaxSpeed: 7
+  initialJumpTakeOffSpeed: 9
+  enemyContactFilter:
     useTriggers: 0
     useLayerMask: 0
     useDepth: 0
@@ -1218,9 +1220,12 @@ MonoBehaviour:
     maxDepth: 0
     minNormalAngle: 0
     maxNormalAngle: 0
+<<<<<<< HEAD
   conversation: {fileID: 0}
   initialMaxSpeed: 7
   initialJumpTakeOffSpeed: 12
+=======
+>>>>>>> 168231d54418194758a3097b3441e05caafe99c4
   knockbackSpeed: 2
   bodyParts:
   - {fileID: 137534301128105300}
@@ -1648,7 +1653,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763898504585280}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 58c1fa32cc8ce2d4aa55959ad5693653, type: 3}
   m_Name: 

@@ -24,11 +24,15 @@ public class CameraBehaviour : MonoBehaviour {
 
     private float x, y, targetX, targetY;
 
-    private Transform playerPosition; 
+    private Transform playerPosition;
+
+    public float initialSize;
 
 
     void Start () {
         playerPosition = player.transform;
+
+        initialSize = Camera.main.orthographicSize;
 
         boundDistanceMaxY = GetComponent<Camera>().orthographicSize * 0.9f;
         boundDistanceMaxX = GetComponent<Camera>().orthographicSize * GetComponent<Camera>().aspect * 0.9f;

@@ -53,6 +53,7 @@ public class PlayerPlatformController : PhysicsObject {
         {
             //inputActivated = false;
             this.enabled = false;
+            conversation = GetComponent<ConversationalBehaviour>();
             conversation.enabled = true;
         }
 
