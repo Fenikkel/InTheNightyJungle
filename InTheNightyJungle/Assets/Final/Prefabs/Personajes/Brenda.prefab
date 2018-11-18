@@ -566,7 +566,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1763898504585280}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.7970433, y: -2.6309395, z: -9.806152}
+  m_LocalPosition: {x: -1.2761216, y: 2.53, z: -9.806152}
   m_LocalScale: {x: 0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 4828560759684754}
@@ -1081,7 +1081,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.22690892
+  m_Length: 0.22690928
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4357953845217002}
   m_AttachedIK: {fileID: 114927390437649910}
@@ -1187,7 +1187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.30548972
+  m_Length: 0.3054896
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4430922624143866}
   m_AttachedIK: {fileID: 114927390437649910}
@@ -1205,7 +1205,7 @@ MonoBehaviour:
   minGroundNormalY: 0.65
   initialGravityModifier: 1
   initialMaxSpeed: 7
-  initialJumpTakeOffSpeed: 10
+  initialJumpTakeOffSpeed: 9
   knockbackSpeed: 2
   bodyParts:
   - {fileID: 137534301128105300}
@@ -1310,7 +1310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.23113516
+  m_Length: 0.23113538
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4953510792834778}
   m_AttachedIK: {fileID: 114333715110560874}
