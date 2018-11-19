@@ -20,6 +20,8 @@ public class PlayerPlatformController : PhysicsObject {
     private Vector2 knockbackDirection;
     public float knockbackSpeed = 2;
 
+    private ContactFilter2D enemyContactFilter;
+
     private PlayerStatsController stats;
     private Animator anim;
 
@@ -42,21 +44,18 @@ public class PlayerPlatformController : PhysicsObject {
         stats = GetComponent<PlayerStatsController>();
         anim = GetComponent<Animator>();
 
-        //Maria
         playerInstance = this;
         conversation.enabled = false;
     }
 
     public void StartConversation()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
-            //inputActivated = false;
             this.enabled = false;
             conversation = GetComponent<ConversationalBehaviour>();
             conversation.enabled = true;
         }
-
     }
 
 
@@ -72,6 +71,10 @@ public class PlayerPlatformController : PhysicsObject {
         maxSpeed = initialMaxSpeed;
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
         dashSpeed = initialDashSpeed;
+
+        enemyContactFilter = new ContactFilter2D();
+        enemyContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PhysicalEnemy"));
+        enemyContactFilter.useLayerMask = true;
     }
 
     protected override void ComputeVelocity()
@@ -159,9 +162,11 @@ public class PlayerPlatformController : PhysicsObject {
 
         dashEffect.Stop();
 
-        Invulnerable(false);
-
         StartCoroutine(WhileDashCooldownActivated(dashCooldownTime));
+
+        yield return new WaitForSeconds(10 * time);
+
+        Invulnerable(false);
     }
 
     IEnumerator WhileDashCooldownActivated(float time)
@@ -213,6 +218,43 @@ public class PlayerPlatformController : PhysicsObject {
         stats.DecreaseChangenessStat(value);
     }
 
+    protected override void OurFixedUpdate()
+    {
+        DetectingEnemies();
+        base.OurFixedUpdate();
+    }
+
+    private void DetectingEnemies()
+    {
+        if(!invulnerabity)
+        {
+            RaycastHit2D[] results = new RaycastHit2D[16];
+            List<Vector2> normals = new List<Vector2>();
+            int count = Physics2D.CapsuleCast(GetComponent<Transform>().position, GetComponent<CapsuleCollider2D>().size * 1.05f, CapsuleDirection2D.Vertical, 0, Vector2.zero, enemyContactFilter, results);
+            
+            if(count > 0)
+            {
+                GameObject firstEnemy = results[0].collider.gameObject;
+                for(int i = 0; i < count; i++)
+                {
+                    if(results[i].collider.gameObject.Equals(firstEnemy))
+                    {
+                        normals.Add(results[i].normal);
+                    }
+                }
+
+                EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
+                stats.DecreasePaciencia(enemy.GetDamage() / 100);
+                enemy.CollideWithPlayer();
+
+                inputActivated = false;
+                targetVelocity = Vector2.zero;
+                Invulnerable(true);
+                KnockBack(normals);
+            }
+        }
+    }
+    /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameObject other = collision.gameObject;
@@ -230,24 +272,21 @@ public class PlayerPlatformController : PhysicsObject {
     private void OnCollisionStay2D(Collision2D collision)
     {
         OnCollisionEnter2D(collision);
-    }
+    }*/
 
-    private void KnockBack(ContactPoint2D[] contacts)
+    private void KnockBack(List<Vector2> contactNormals)
     {
-        inputActivated = false;
         knockback = true;
-        targetVelocity = Vector2.zero;
-        Invulnerable(true);
 
         float xDirection = 0.0f;
         float yDirection = 0.0f;
 
-        foreach (ContactPoint2D contact in contacts)
+        foreach (Vector2 normal in contactNormals)
         {
-            xDirection += contact.normal.x;
-            yDirection += contact.normal.y;
+            xDirection += normal.x;
+            yDirection += normal.y;
         }
-        knockbackDirection = new Vector2(xDirection / contacts.Length, yDirection / contacts.Length).normalized;
+        knockbackDirection = new Vector2(xDirection / contactNormals.Count, yDirection / contactNormals.Count).normalized;
 
         if (Mathf.Sign(xDirection) == Mathf.Sign(GetComponent<Transform>().localScale.x)) anim.SetTrigger("knockbackTrasero");
         else anim.SetTrigger("knockbackFrontal");
