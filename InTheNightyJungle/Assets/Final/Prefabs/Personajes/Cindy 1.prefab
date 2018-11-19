@@ -349,7 +349,7 @@ GameObject:
   - component: {fileID: 114931396036243282}
   - component: {fileID: 114442145390507390}
   m_Layer: 10
-  m_Name: Cindy
+  m_Name: Cindy 1
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1270,6 +1270,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
   initialGravityModifier: 1
+  conversation: {fileID: 0}
   initialMaxSpeed: 7
   initialJumpTakeOffSpeed: 9
   knockbackSpeed: 2
