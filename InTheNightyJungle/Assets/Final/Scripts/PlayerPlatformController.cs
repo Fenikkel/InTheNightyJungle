@@ -21,6 +21,7 @@ public class PlayerPlatformController : PhysicsObject {
     public float knockbackSpeed = 2;
 
     private ContactFilter2D enemyContactFilter;
+    private ContactFilter2D motionPlatformContactFilter;
 
     private PlayerStatsController stats;
     private Animator anim;
@@ -58,7 +59,6 @@ public class PlayerPlatformController : PhysicsObject {
         }
     }
 
-
     protected override void initialization()
     {
         base.initialization();
@@ -71,10 +71,19 @@ public class PlayerPlatformController : PhysicsObject {
         maxSpeed = initialMaxSpeed;
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
         dashSpeed = initialDashSpeed;
+    }
+
+    protected override void ContactFilterInitialization()
+    {
+        base.ContactFilterInitialization();
 
         enemyContactFilter = new ContactFilter2D();
         enemyContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PhysicalEnemy"));
         enemyContactFilter.useLayerMask = true;
+
+        motionPlatformContactFilter = new ContactFilter2D();
+        motionPlatformContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PlatformCollider"));
+        motionPlatformContactFilter.useLayerMask = true;
     }
 
     protected override void ComputeVelocity()
@@ -221,7 +230,20 @@ public class PlayerPlatformController : PhysicsObject {
     protected override void OurFixedUpdate()
     {
         DetectingEnemies();
+        DetectingMotionPlatform();
         base.OurFixedUpdate();
+    }
+
+    private void DetectingMotionPlatform()
+    {
+        RaycastHit2D[] results = new RaycastHit2D[16];
+        int count = Physics2D.CapsuleCast(GetComponent<Transform>().position, GetComponent<CapsuleCollider2D>().size * 1.05f, CapsuleDirection2D.Vertical, 0, Vector2.zero, motionPlatformContactFilter, results);
+        
+        if(count > 0)
+        {
+            print("hola");
+            onMotionPlatform = results[0].collider.gameObject.GetComponent<MotionPlatform>();
+        }
     }
 
     private void DetectingEnemies()

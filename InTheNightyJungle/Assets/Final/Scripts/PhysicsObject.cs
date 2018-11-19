@@ -10,6 +10,7 @@ public class PhysicsObject : MonoBehaviour {
 
     protected Vector2 targetVelocity;
     protected bool grounded;
+    protected MotionPlatform onMotionPlatform;
     protected Vector2 groundNormal;
     protected Rigidbody2D rb2d;
     protected Vector2 velocity;
@@ -35,9 +36,10 @@ public class PhysicsObject : MonoBehaviour {
     {
         ContactFilterInitialization();
         gravityModifier = initialGravityModifier;
+        onMotionPlatform = null;
     }
 
-    protected void ContactFilterInitialization()
+    protected virtual void ContactFilterInitialization()
     {
         contactFilter.useTriggers = false; //No tomará los colliders triggereados
         contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer)); //Con esto le estamos diciendo que el contactFilter guarde como máscara de layers aquellas layers contra las que puede colisionar el objeto que estamos tratando, que pueden ser definidas cambiando los settings de las físicas 2D de la escena. Una maravilla, la verdad :)
@@ -113,7 +115,12 @@ public class PhysicsObject : MonoBehaviour {
 
                 float modifiedDistance = hitBufferList [i].distance - shellRadius;
 
-                if(modifiedDistance >= distance) move = Vector2.zero;
+                /*print(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer) + " " + yMovement);
+                if(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer).Equals("PlatformCollider"))
+                {
+                    if(!yMovement)  modifiedDistance -= hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().y;
+                    else modifiedDistance += hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().x;
+                }*/
 
                 distance = modifiedDistance < distance ? modifiedDistance : distance;
             }
@@ -135,10 +142,27 @@ public class PhysicsObject : MonoBehaviour {
                     {
                         grounded = true;
                     }
+
+                    /* print(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer));
+                    if(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer).Equals("PlatformCollider"))
+                    {
+                        if(!yMovement) modifiedDistance -= hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().y;
+                        else distance -= hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().x;
+                    }*/
                     
                     distance = shellRadius;
                     move = currentNormal;
                 }
+            }
+        }
+
+        if(onMotionPlatform)
+        {
+            if(yMovement) distance -= onMotionPlatform.GetDistance().y;
+            else {
+                if(move.Equals(Vector2.zero))
+                    move = Vector2.right;
+                distance += onMotionPlatform.GetDistance().x;
             }
         }
 

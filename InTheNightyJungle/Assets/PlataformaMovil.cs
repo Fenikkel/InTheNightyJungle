@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlataformaMovil : MonoBehaviour {
+public class PlataformaMovil : MotionPlatform {
 
     public Transform target;
-    public float speed;
 
     private Vector3 start;
     private Vector3 end;
@@ -30,7 +29,10 @@ public class PlataformaMovil : MonoBehaviour {
         if(target != null)
         {
             float fixedSpeed = speed * Time.deltaTime;
+            Vector2 oldPosition = transform.position;
             transform.position = Vector3.MoveTowards(transform.position, target.position, fixedSpeed);
+            
+            distance = ((Vector2)transform.position) - oldPosition; //Esto lo necesita al jugador para cuando está en contacto con una plataforma móvil
         }
 
         if(transform.position == target.position)
