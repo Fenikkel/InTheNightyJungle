@@ -45,7 +45,7 @@ public class PlayerPlatformController : PhysicsObject {
         anim = GetComponent<Animator>();
 
         playerInstance = this;
-        conversation.enabled = false;
+//        conversation.enabled = false;
     }
 
     public void StartConversation()
