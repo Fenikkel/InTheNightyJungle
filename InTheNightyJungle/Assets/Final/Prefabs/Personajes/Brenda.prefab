@@ -1204,6 +1204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
   initialGravityModifier: 1
+  conversation: {fileID: 0}
   initialMaxSpeed: 7
   initialJumpTakeOffSpeed: 9
   knockbackSpeed: 2
