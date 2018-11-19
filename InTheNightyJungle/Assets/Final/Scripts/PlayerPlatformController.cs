@@ -43,6 +43,19 @@ public class PlayerPlatformController : PhysicsObject {
     {
         stats = GetComponent<PlayerStatsController>();
         anim = GetComponent<Animator>();
+
+        playerInstance = this;
+        conversation.enabled = false;
+    }
+
+    public void StartConversation()
+    {
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+            this.enabled = false;
+            conversation = GetComponent<ConversationalBehaviour>();
+            conversation.enabled = true;
+        }
     }
 
 
@@ -237,7 +250,6 @@ public class PlayerPlatformController : PhysicsObject {
                 inputActivated = false;
                 targetVelocity = Vector2.zero;
                 Invulnerable(true);
-                print("hola");
                 KnockBack(normals);
             }
         }
