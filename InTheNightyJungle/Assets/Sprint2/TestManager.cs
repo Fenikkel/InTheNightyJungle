@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class TestManager : MonoBehaviour {
 
     public GameObject challenger; //Temporal, hay que crear un sistema para tener mas de un challenger. En plan el trigger de hablar con un challenger te empieza con StartTurnSistem(nombreDelChallenger)
-    public Canvas UITest;
+    public Canvas uiTest;
     public GameObject player;
     public GameObject[] danceLife;
 
@@ -30,15 +30,19 @@ public class TestManager : MonoBehaviour {
 
 
     void Start () {
+
+        
         isDancing = false;
         blockDanced = false;
         victory = true;
 
         allBlocks = challenger.GetComponent<ChallengerBehaviour>().allDanceBlocks; //esto con el challenger de turno
-        textoTiempo.text = timeLeft.ToString();//Mathf.Round(timeLeft).ToString(); 
+        //textoTiempo.text = timeLeft.ToString();//Mathf.Round(timeLeft).ToString(); 
+
+        uiTest.GetComponent<DancingTestUIController>().InitializeUI(allBlocks.Length, (int)System.Math.Ceiling(timeLeft));
 
         //UITest.transform.Find("BloquesCompletados").gameObject.GetComponent<Text>().text = "Bloques completados: 0 / 5"; //+ allBlocks.Length;
-        textBloques.text = "Bloques completados: 0/5"; //+ allBlocks.Length;
+        //textBloques.text = "Bloques completados: 0/5"; //+ allBlocks.Length;
 
         currentMovement = 0;
         StartCoroutine(StartTurnSistem());
@@ -60,7 +64,10 @@ public class TestManager : MonoBehaviour {
     private void UpdateTime()
     {
         timeLeft -= Time.deltaTime;
-        textoTiempo.text = Mathf.Round(timeLeft).ToString(); //"Time Left: " + System.Math.Round(timeLeft, 1);
+
+        uiTest.GetComponent<DancingTestUIController>().SetCurrentTime(timeLeft);
+
+        //textoTiempo.text = Mathf.Round(timeLeft).ToString(); //"Time Left: " + System.Math.Round(timeLeft, 1);
         if (timeLeft < 0.0f)
         {
             //SE HACE ANIMACION DE DERROTA
@@ -137,9 +144,10 @@ public class TestManager : MonoBehaviour {
                 //SE HACE ANIMACION DE MAL 
 
                 StartCoroutine(DanceAnimation("knockback frontal"));
+                uiTest.GetComponent<DancingTestUIController>().OneMistakeMore();
 
                 //player.GetComponent<Animator>().Play("knockback frontal");
-                danceLife[totalDanceLife].SetActive(false);
+                //danceLife[totalDanceLife].SetActive(false);
 
                 --totalDanceLife;
 
@@ -150,6 +158,7 @@ public class TestManager : MonoBehaviour {
                     blockDanced = true;//para salir de los bucles
                                        //SE HACE ANIMACION DE DERROTA
                 }
+                
                 print("MAL");
                 currentMovement = 0;
                 playerTurn = false;
@@ -191,7 +200,11 @@ public class TestManager : MonoBehaviour {
                 }
                 else //si se ha acertado el bloque pero no ha terminado la partida
                 {
-                    textBloques.text = "Bloques completados: "+(i+1)+"/5"; //+ (allBlocks.Length-(i+1)) ;
+
+
+                    uiTest.GetComponent<DancingTestUIController>().CompletedBlock();
+
+                    //textBloques.text = "Bloques completados: "+(i+1)+"/5"; //+ (allBlocks.Length-(i+1)) ;
 
                 }
 
@@ -215,14 +228,14 @@ public class TestManager : MonoBehaviour {
             textoTiempo.gameObject.SetActive(false);
             textBloques.gameObject.SetActive(false);
             //print("Victory: " + victory);
-            UITest.transform.Find("TheEnd").gameObject.SetActive(true);
+            uiTest.transform.Find("TheEnd").gameObject.SetActive(true);
             if (victory)
             {
-                UITest.transform.Find("TheEnd").gameObject.GetComponent<Text>().text = "VICTORY";
+                uiTest.transform.Find("TheEnd").gameObject.GetComponent<Text>().text = "VICTORY";
             }
             else
             {
-                UITest.transform.Find("TheEnd").gameObject.GetComponent<Text>().text = "DEFEAT";
+                uiTest.transform.Find("TheEnd").gameObject.GetComponent<Text>().text = "DEFEAT";
 
             }
 

@@ -29,7 +29,7 @@ public class DancingTestUIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        InitializeUI(10, 60); //Este llamada no debe existir aquí, sino en el TestManager
+        //InitializeUI(10, 60); //Este llamada no debe existir aquí, sino en el TestManager
 	}
 
 	public void InitializeUI(int param0, int param1) //Esta función debe ser llamada por el TestManager cuando se inicia el sistema de turnos de la prueba
