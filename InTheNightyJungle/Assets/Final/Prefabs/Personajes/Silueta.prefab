@@ -297,7 +297,6 @@ GameObject:
   - component: {fileID: 4732988060876102}
   - component: {fileID: 95401232773795490}
   - component: {fileID: 114831758446031694}
-  - component: {fileID: 114421312585851432}
   m_Layer: 0
   m_Name: Silueta
   m_TagString: Untagged
@@ -1145,20 +1144,6 @@ MonoBehaviour:
   m_BoneTransforms:
   - {fileID: 4447112197509912}
   - {fileID: 4569050243054462}
---- !u!114 &114421312585851432
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1568997056252182}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72e0caa513fba4f47aa1e4f7668ada08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minTime: 5
-  maxTime: 10
-  totalNumAnim: 3
 --- !u!114 &114572914701955324
 MonoBehaviour:
   m_ObjectHideFlags: 1

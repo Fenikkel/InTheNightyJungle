@@ -16,6 +16,6 @@ public class OnTriggeredConveration : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other)
     {
-        other.gameObject.GetComponent<PlayerPlatformController>().StartConversation();
+        //other.gameObject.GetComponent<PlayerPlatformController>().StartConversation();
     }
 }

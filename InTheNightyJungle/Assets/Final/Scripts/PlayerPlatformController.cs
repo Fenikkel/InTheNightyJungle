@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class PlayerPlatformController : PhysicsObject {
 
-    //Maria
-    public static PlayerPlatformController playerInstance;
-    public ConversationalBehaviour conversation;
-
     public float initialMaxSpeed = 7;
     public float initialJumpTakeOffSpeed = 7;
     private float maxSpeed;
@@ -43,21 +39,7 @@ public class PlayerPlatformController : PhysicsObject {
     {
         stats = GetComponent<PlayerStatsController>();
         anim = GetComponent<Animator>();
-
-        playerInstance = this;
-        conversation.enabled = false;
     }
-
-    public void StartConversation()
-    {
-        if(Input.GetKeyDown(KeyCode.Z))
-        {
-            this.enabled = false;
-            conversation = GetComponent<ConversationalBehaviour>();
-            conversation.enabled = true;
-        }
-    }
-
 
     protected override void initialization()
     {
@@ -150,6 +132,11 @@ public class PlayerPlatformController : PhysicsObject {
         StartCoroutine(WhileDashActivated(dashTime)); //Iniciar la duración del dash
     }
 
+    public void SetDashActivated(bool param)
+    {
+        dashCooldown = !param;
+    }
+
     IEnumerator WhileDashActivated(float time)
     {
         yield return new WaitForSeconds(time);
@@ -211,6 +198,29 @@ public class PlayerPlatformController : PhysicsObject {
         Blink(true);
         GetComponent<CapsuleCollider2D>().enabled = true;
         SetInputActivated(true);
+    }
+
+    public IEnumerator MoveTo(Vector2 finalPosition, bool hasToFlip, float time)
+    {
+        float elapsedTime = 0.0f;
+        Vector2 initialPosition = GetComponent<Transform>().position;
+        Vector3 vectorAux = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
+
+        if(finalPosition.x < initialPosition.x && GetComponent<Transform>().localScale.x > 0) GetComponent<Transform>().localScale = vectorAux;
+        else if(finalPosition.x > initialPosition.x && GetComponent<Transform>().localScale.x < 0) GetComponent<Transform>().localScale = vectorAux;
+
+        anim.SetBool("movement", true);
+        while(elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime / time);
+            yield return null;
+        }
+        GetComponent<Transform>().position = finalPosition;
+
+        anim.SetBool("movement", false);
+        vectorAux = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
+        if(GetComponent<Transform>().localScale.x > 0 && hasToFlip || GetComponent<Transform>().localScale.x < 0 && !hasToFlip) GetComponent<Transform>().localScale = vectorAux;
     }
 
     public void DecreaseCansancio(float value)

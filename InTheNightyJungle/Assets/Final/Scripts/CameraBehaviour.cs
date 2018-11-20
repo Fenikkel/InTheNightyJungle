@@ -142,6 +142,11 @@ public class CameraBehaviour : MonoBehaviour {
             collidingX = false;*/
     }
 
+    public float GetInitialSize()
+    {
+        return initialSize;
+    }
+
     public void SetFollowTarget(bool param)
     {
         followTarget = param;
@@ -172,6 +177,23 @@ public class CameraBehaviour : MonoBehaviour {
         GetComponent<Transform>().position = finalPosition;
         RestartCamera();
         SetFollowTarget(true);
+    }
+
+    public IEnumerator MoveSizeTo(Vector3 finalPosition, float finalSize, float time)
+    {
+        float elapsedTime = 0.0f;
+        Vector3 initialPosition = GetComponent<Transform>().position;
+        float initialSize = GetComponent<Camera>().orthographicSize;
+
+        while(elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            GetComponent<Transform>().position = Vector3.Lerp(initialPosition, finalPosition, elapsedTime / time);
+            GetComponent<Camera>().orthographicSize = Mathf.Lerp(initialSize, finalSize, elapsedTime / time);
+            yield return null;
+        }
+        GetComponent<Transform>().position = finalPosition;
+        GetComponent<Camera>().orthographicSize = finalSize;
     }
 
 }

@@ -12,7 +12,7 @@ public class ConversationalBehaviour : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-        player = PlayerPlatformController.playerInstance;
+        //player = PlayerPlatformController.playerInstance;
 
     }
 	

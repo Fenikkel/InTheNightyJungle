@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 223693140061696848}
   - component: {fileID: 114547929849847374}
   - component: {fileID: 114946474601379406}
+  - component: {fileID: 114833386957905196}
   - component: {fileID: 114191159940657766}
   - component: {fileID: 114677262823251186}
   m_Layer: 5
@@ -1607,6 +1608,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114833386957905196
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1146271142113824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39e6909da945139468b73b1997748d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stats: {fileID: 1583843834223270}
+  conversation: {fileID: 1776434068989644}
+  dancingTest: {fileID: 1454252139523988}
+  blackScreen: {fileID: 1465286021077586}
 --- !u!114 &114905782942503838
 MonoBehaviour:
   m_ObjectHideFlags: 1

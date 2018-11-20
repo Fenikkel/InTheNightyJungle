@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class ConversationUIController : MonoBehaviour {
 
+	private GeneralUIController UIController;
+	
 	public Image conversationBox; //Cuadro de texto para el mensaje
 	public Text conversationText; //El texto del mensaje
 	public Image optionsBox; //Cuadro de las opciones
@@ -33,11 +35,14 @@ public class ConversationUIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		InitializeConversationBox(); //Esta llamada debería realizarse desde el ConversationalBehaviour
+		UIController = GetComponent<GeneralUIController>();
+		//InitializeConversationBox(); //Esta llamada debería realizarse desde el ConversationalBehaviour
 	}
 	
 	public void InitializeConversationBox()
 	{
+		UIController.ChangeMode("010");
+
 		opennedConversationBoxPosition = opennedConversationBoxPlace.GetComponent<RectTransform>().anchoredPosition; //Guardamos en las variables Vector2 las posiciones y tamaños que nos interesan
 		opennedConversationBoxSize = opennedConversationBoxPlace.GetComponent<RectTransform>().sizeDelta;
 		closedConversationBoxPosition = Vector2.zero;
@@ -76,7 +81,7 @@ public class ConversationUIController : MonoBehaviour {
 				pointingArrowPos = pointingArrowPos == 0 ? 1 : 0;
 				pointingArrow.GetComponent<RectTransform>().anchoredPosition = arrowPositions[pointingArrowPos].GetComponent<RectTransform>().anchoredPosition;
 			}
-			if(Input.GetKeyDown(KeyCode.Return))
+			if(Input.GetKeyDown(KeyCode.Z))
 			{
 				optionSelected = pointingArrowPos;
 			}
