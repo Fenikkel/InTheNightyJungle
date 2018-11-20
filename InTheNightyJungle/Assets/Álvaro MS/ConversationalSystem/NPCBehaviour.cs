@@ -221,6 +221,7 @@ public class NPCBehaviour : MonoBehaviour {
 		UI.FinishedConversation();
 		StartCoroutine(camera.MoveSizeTo(camera.GetComponent<Transform>().position, camera.GetInitialSize(), 0.5f));
 		player.SetInputActivated(true);
+		camera.SetFollowTarget(true);
 
 		RestartConversation();
 
@@ -240,7 +241,7 @@ public class NPCBehaviour : MonoBehaviour {
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
-		if(shownZkey && collision.gameObject.tag.Equals("Player") && Input.GetKeyDown(KeyCode.Z))
+		if(shownZkey && collision.gameObject.tag.Equals("Player") && Input.GetKeyDown(KeyCode.Z) && player.GetGrounded())
 		{
 			StartCoroutine(DisappearZKey(0.5f));
 			StartCoroutine(FrameConversation( 0.8f));
