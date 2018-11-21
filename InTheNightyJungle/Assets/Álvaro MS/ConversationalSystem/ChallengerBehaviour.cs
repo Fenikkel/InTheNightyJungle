@@ -69,8 +69,8 @@ public class ChallengerBehaviour : MonoBehaviour {
 			key.color = Color.Lerp(initialColor, finalColor, elapsedTime/time);
 			yield return null;
 		}
-		key.GetComponent<Transform>().position = finalPosition;
 		key.color = finalColor;
+		key.GetComponent<Transform>().position = finalPosition;
 	}
 
 	private IEnumerator DisappearKey(SpriteRenderer key, float time)
@@ -91,8 +91,8 @@ public class ChallengerBehaviour : MonoBehaviour {
 			key.color = Color.Lerp(initialColor, finalColor, elapsedTime/time);
 			yield return null;
 		}
-		key.GetComponent<Transform>().position = finalPosition;
 		key.color = finalColor;
+		key.GetComponent<Transform>().position = finalPosition;
 
 		shownKey = false;
 

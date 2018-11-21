@@ -7,13 +7,20 @@ public class CircularMovement : MotionPlatform {
     [SerializeField]
     Transform rotationCenter;
 
-    [SerializeField]
-    float rotationRadius = 2f;
+    private float rotationRadius = 2f;
+
+    public float initialAngle;
 
     float posX = 0f;
     float posY = 0f;
     float angle = 0f;
 	
+    void Start()
+    {
+        rotationRadius = (GetComponent<Transform>().position - rotationCenter.position).magnitude;
+        angle = initialAngle;
+    }
+
 	// Update is called once per frame
 	void FixedUpdate () {
         posX = rotationCenter.position.x + Mathf.Cos(angle) * rotationRadius;

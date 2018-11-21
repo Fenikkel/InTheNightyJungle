@@ -12,6 +12,8 @@ public class TestManager : MonoBehaviour {
 
     public Transform insidePlayerPosition;
     public Transform insideCameraPosition;
+    public Transform outsidePlayerPosition;
+    public Transform outsideCameraPosition;
     public float cameraSize;
     public LittleSilhouettoOfAMan[] foregroundSilhouettes;
 
@@ -35,6 +37,9 @@ public class TestManager : MonoBehaviour {
     private float remainingTime;
     public float initialTime;
 
+    public ParticleSystem[] playerCelebration;
+    public ParticleSystem[] challengerCelebration;
+
     private void Start()
     {
         testStarted = false;
@@ -46,6 +51,8 @@ public class TestManager : MonoBehaviour {
         camera = param1;
 
         RestartTest();
+
+        StartCoroutine(Introduction(0.5f, 0.5f, 0.5f));
     }
 
     public void RestartTest()
@@ -60,8 +67,6 @@ public class TestManager : MonoBehaviour {
         currentKey = 0;
 
         remainingTime = initialTime;
-
-        StartCoroutine(Introduction(0.5f, 0.5f, 0.5f));
     }
 
     private IEnumerator Introduction(float time1, float time2, float time3)
@@ -78,6 +83,23 @@ public class TestManager : MonoBehaviour {
 
         testStarted = true;
         UI.InitializeUI(blocks.Length, initialTime);
+    }
+
+    private IEnumerator Ending(float time1, float time2, float time3)
+    {
+        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, camera.GetInitialSize(), time1));
+        FadeInCrowd(time1);
+        yield return new WaitForSeconds(time1);
+
+        StartCoroutine(player.MoveTo(outsidePlayerPosition.position, true, time2));
+        yield return new WaitForSeconds(time2);
+
+        StartCoroutine(camera.MoveSizeTo(outsideCameraPosition.position, camera.GetSize(), time3));
+        yield return new WaitForSeconds(time3);
+
+        player.SetInputActivated(true);
+        camera.SetFollowTarget(true);
+        UI.GetComponent<GeneralUIController>().ChangeMode("001");
     }
 
     private void FadeOutCrowd(float time)
@@ -117,11 +139,11 @@ public class TestManager : MonoBehaviour {
                                     bool right = TryKey(possibleKeys[i]); //Le pasamos la que se está pulsando a un método que nos comprobará si es correcta en función de cuál toca pulsar ahora
                                     if(right)
                                     {
-                                        StartCoroutine(AppearPlayerCorrectKey(visualKeys[i], 0.5f));
+                                        StartCoroutine(AppearPlayerCorrectKey(visualKeys[i], 0.75f));
                                     }
                                     else
                                     {
-                                        StartCoroutine(AppearPlayerIncorrectKey(visualKeys[i], 0.5f));
+                                        StartCoroutine(AppearPlayerIncorrectKey(visualKeys[i], 0.75f));
                                     }
                                 }
                             }
@@ -135,14 +157,16 @@ public class TestManager : MonoBehaviour {
                 }
                 else
                 {
-                    if(victory == 0) Victory();
-                    else Defeat();
+                    if(victory == 0) StartCoroutine(Victory(3f));
+                    else StartCoroutine(Defeat(3f));
                 }
             }
             else
             {
-                if(playerTurn) //Lo único que para el turno desde el jugador es la propia animación de personaje, por lo que cabe comprobar cuando el personaje vuelve al idle
-                    turnActivated = !player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Base.idle");
+                if(playerTurn) { //Lo único que para el turno desde el jugador es la propia animación de personaje, por lo que cabe comprobar cuando el personaje vuelve al idle
+                    UpdateTimer();
+                    turnActivated = !player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("preIdle");
+                }
                 else 
                     turnActivated = !challenger.HasFinished();
             }
@@ -165,31 +189,32 @@ public class TestManager : MonoBehaviour {
     private bool TryKey(KeyCode key)
     {        
         bool result = true; //Del case que salga, comprobará si no coincide la tecla que se pulsar en ese momento con la versión codificada con la tecla realmente pulsada, poniendo el valor de result a false en caso de ser verdadera la condición
+        
         switch(key)
         {
             case KeyCode.W:
-                if(blocks[currentBlock][currentKey].Equals("w")) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('w')) result = false;
                 break;
             case KeyCode.A:
-                if(blocks[currentBlock][currentKey].Equals("a")) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('a')) result = false;
                 break;
             case KeyCode.S:
-                if(blocks[currentBlock][currentKey].Equals("s")) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('s')) result = false;
                 break;
             case KeyCode.D:
-                if(blocks[currentBlock][currentKey].Equals("d")) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('d')) result = false;
                 break;
             case KeyCode.UpArrow:
-                if(blocks[currentBlock][currentKey].Equals("1")) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('1')) result = false;
                 break;
             case KeyCode.LeftArrow:
-                if(blocks[currentBlock][currentKey].Equals("2")) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('2')) result = false;
                 break;
             case KeyCode.DownArrow:
-                if(blocks[currentBlock][currentKey].Equals("3")) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('3')) result = false;
                 break;
             case KeyCode.RightArrow:
-                if(blocks[currentBlock][currentKey].Equals("4")) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('4')) result = false;
                 break;
         }
 
@@ -203,6 +228,7 @@ public class TestManager : MonoBehaviour {
             if(currentKey == blocks[currentBlock].Length) //Se comprueba que no se haya llegado al final del bloque
             {
                 currentBlock++;
+                currentKey = 0;
 
                 UI.CompletedBlock(); //Se le indica a la UI que se ha completado un bloque
 
@@ -213,6 +239,9 @@ public class TestManager : MonoBehaviour {
                 else //Si no hay victoria, al acabar un bloque se cambia el turno al oponente
                 {
                     playerTurn = false;
+                    
+                    remainingTime = initialTime;
+                    UI.SetCurrentTime(remainingTime);
                 }
             }
         }
@@ -293,7 +322,7 @@ public class TestManager : MonoBehaviour {
     {
         float elapsedTime = 0.0f;
         Vector2 initialPosition = new Vector2(player.GetComponent<Transform>().position.x, key.GetComponent<Transform>().position.y);
-        Vector2 finalPosition = (Vector2)player.GetComponent<Transform>().position + new Vector2(0, visualKeyDistanceOverHead);
+        Vector2 finalPosition = initialPosition + new Vector2(0, visualKeyDistanceOverHead/2);
 
         Color initialColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         Color finalColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
@@ -301,35 +330,76 @@ public class TestManager : MonoBehaviour {
         key.color = initialColor;
         key.GetComponent<Transform>().position = initialPosition;
 
-        while(elapsedTime < time / 2)
+        while(elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
             key.GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime / time);
-            key.color = Color.Lerp(initialColor, finalColor, elapsedTime * 2 / time);
+            key.color = Color.Lerp(initialColor, finalColor, elapsedTime / time);
             yield return null;
         }
         key.color = finalColor;
+        key.GetComponent<Transform>().position = finalPosition;
+
+        StartCoroutine(DisappearPlayerCorrectKey(key, time, initialPosition));
+    }
+
+    private IEnumerator DisappearPlayerCorrectKey(SpriteRenderer key, float time, Vector2 originalPosition)
+    {
+        float elapsedTime = 0.0f;
+        Vector2 initialPosition = new Vector2(player.GetComponent<Transform>().position.x, key.GetComponent<Transform>().position.y);
+        Vector2 finalPosition = initialPosition + new Vector2(0, visualKeyDistanceOverHead/2);
+
+        Color initialColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        Color finalColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+
+        key.color = initialColor;
+        key.GetComponent<Transform>().position = initialPosition;
 
         while(elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
             key.GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime / time);
-            key.color = Color.Lerp(finalColor, initialColor, elapsedTime / 2 * time);
+            key.color = Color.Lerp(initialColor, finalColor, elapsedTime / time);
+            yield return null;
         }
-
-        key.color = initialColor;
-        key.GetComponent<Transform>().position = finalPosition;
-    }
+        key.color = finalColor;
+        key.GetComponent<Transform>().position = originalPosition;
+    } 
 
     private IEnumerator AppearPlayerIncorrectKey(SpriteRenderer key, float time)
     {
         float elapsedTime = 0.0f;
         Vector2 initialPosition = new Vector2(player.GetComponent<Transform>().position.x, key.GetComponent<Transform>().position.y);
-        Vector2 mediumPosition = (Vector2)player.GetComponent<Transform>().position + new Vector2(0, visualKeyDistanceOverHead);
-        Vector2 finalPosition = (Vector2)player.GetComponent<Transform>().position;
+        Vector2 finalPosition = initialPosition + new Vector2(0, visualKeyDistanceOverHead/2);
 
         Color initialColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         Color finalColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+
+        key.color = initialColor;
+        key.GetComponent<Transform>().position = initialPosition;
+
+        while(elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            key.GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime / time);
+            key.color = Color.Lerp(initialColor, finalColor, elapsedTime / time);
+            yield return null;
+        }
+        key.color = finalColor;
+        key.GetComponent<Transform>().position = finalPosition;
+
+        StartCoroutine(DisappearPlayerIncorrectKey(key, time, initialPosition));
+
+    }
+
+    private IEnumerator DisappearPlayerIncorrectKey(SpriteRenderer key, float time, Vector2 originalPosition)
+    {
+        float elapsedTime = 0.0f;
+        Vector2 initialPosition = new Vector2(player.GetComponent<Transform>().position.x, key.GetComponent<Transform>().position.y);
+        Vector2 finalPosition = (Vector2)player.GetComponent<Transform>().position;
+
+        Color initialColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+        Color finalColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         float initialAngle = 0;
         float finalAngle = visualKeyRotationAngle;
@@ -338,35 +408,61 @@ public class TestManager : MonoBehaviour {
         key.GetComponent<Transform>().rotation = Quaternion.Euler(key.GetComponent<Transform>().rotation.x, key.GetComponent<Transform>().rotation.y, initialAngle);
         key.GetComponent<Transform>().position = initialPosition;
 
-        while(elapsedTime < time / 2)
+        while(elapsedTime < time)
         {
             elapsedTime += Time.deltaTime;
-            key.GetComponent<Transform>().position = Vector2.Lerp(initialPosition, mediumPosition, elapsedTime * 2 / time);
-            key.color = Color.Lerp(initialColor, finalColor, elapsedTime * 2 / time);
+            key.GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime / time);
+            key.color = Color.Lerp(initialColor, finalColor, elapsedTime / time);
+            key.GetComponent<Transform>().rotation = Quaternion.Euler(key.GetComponent<Transform>().rotation.x, key.GetComponent<Transform>().rotation.y, Mathf.Lerp(initialAngle, finalAngle, elapsedTime/time));
             yield return null;
         }
         key.color = finalColor;
 
-        while(elapsedTime < time)
+        key.GetComponent<Transform>().position = originalPosition;
+        key.GetComponent<Transform>().rotation = Quaternion.Euler(key.GetComponent<Transform>().rotation.x, key.GetComponent<Transform>().rotation.y, initialAngle);
+    }
+
+    private IEnumerator Victory(float time)
+    {
+        testStarted = false;
+        RestartTest();
+
+        UI.GetComponent<GeneralUIController>().ChangeMode("000");
+        for(int i = 0; i < playerCelebration.Length; i++)
         {
-            elapsedTime += Time.deltaTime;
-            key.GetComponent<Transform>().position = Vector2.Lerp(mediumPosition, finalPosition, elapsedTime / 2 * time);
-            key.GetComponent<Transform>().rotation = Quaternion.Euler(key.GetComponent<Transform>().rotation.x, key.GetComponent<Transform>().rotation.y, Mathf.Lerp(initialAngle, finalAngle, elapsedTime / 2 * time));
-            key.color = Color.Lerp(finalColor, initialColor, elapsedTime / 2 * time);
+            playerCelebration[i].Play();
         }
 
-        key.color = initialColor;
-        key.GetComponent<Transform>().position = finalPosition;
-        key.GetComponent<Transform>().rotation = Quaternion.Euler(key.GetComponent<Transform>().rotation.x, key.GetComponent<Transform>().rotation.y, finalAngle);
+        player.GetComponent<Animator>().SetBool("victory", true);
+        challenger.GetComponent<Animator>().SetBool("defeat", true);
+
+        yield return new WaitForSeconds(time);
+
+        player.GetComponent<Animator>().SetBool("victory", false);
+        challenger.GetComponent<Animator>().SetBool("defeat", false);
+
+        StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 
-    private void Victory()
+    private IEnumerator Defeat(float time)
     {
+        testStarted = false;
+        RestartTest();
+        
+        UI.GetComponent<GeneralUIController>().ChangeMode("000");
+        for(int i = 0; i < challengerCelebration.Length; i++)
+        {
+            challengerCelebration[i].Play();
+        }
 
-    }
+        player.GetComponent<Animator>().SetBool("defeat", true);
+        challenger.GetComponent<Animator>().SetBool("victory", true);
 
-    private void Defeat()
-    {
+        yield return new WaitForSeconds(time);
 
+        player.GetComponent<Animator>().SetBool("defeat", false);
+        challenger.GetComponent<Animator>().SetBool("victory", false);
+
+        StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 }

@@ -206,7 +206,6 @@ public class DancingTestUIController : MonoBehaviour {
 
     IEnumerator FadeInOutMistake(float time, float distance, Image disappear, Image appear)
     {
-        print(disappear.gameObject.name);
         float elapsedTime = 0.0f;
         Vector2 initialPosition = disappear.GetComponent<RectTransform>().anchoredPosition;
         Vector2 finalPosition = new Vector2(initialPosition.x, initialPosition.y + distance);

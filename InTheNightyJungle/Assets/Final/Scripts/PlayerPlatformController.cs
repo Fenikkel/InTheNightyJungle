@@ -252,9 +252,9 @@ public class PlayerPlatformController : PhysicsObject {
         
         if(count > 0)
         {
-            print("hola");
             onMotionPlatform = results[0].collider.gameObject.GetComponent<MotionPlatform>();
         }
+        else onMotionPlatform = null;
     }
 
     private void DetectingEnemies()
