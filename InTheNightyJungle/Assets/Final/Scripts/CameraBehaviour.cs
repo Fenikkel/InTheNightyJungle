@@ -147,6 +147,11 @@ public class CameraBehaviour : MonoBehaviour {
         return initialSize;
     }
 
+    public float GetSize()
+    {
+        return Camera.main.orthographicSize;
+    }
+
     public void SetFollowTarget(bool param)
     {
         followTarget = param;

@@ -420,4 +420,35 @@ public class PlayerPlatformController : PhysicsObject {
     {
         return grounded;
     }
+
+    public void DancingMovement(KeyCode key)
+    {
+        switch(key)
+        {
+            case KeyCode.W:
+                anim.SetTrigger("W");
+                break;
+            case KeyCode.A:
+                anim.SetTrigger("A");
+                break;
+            case KeyCode.S:
+                anim.SetTrigger("S");
+                break;
+            case KeyCode.D:
+                anim.SetTrigger("D");
+                break;
+            case KeyCode.UpArrow:
+                anim.SetTrigger("Up");
+                break;
+            case KeyCode.LeftArrow:
+                anim.SetTrigger("Left");
+                break;
+            case KeyCode.DownArrow:
+                anim.SetTrigger("Down");
+                break;
+            case KeyCode.RightArrow:
+                anim.SetTrigger("Right");
+                break;
+        }
+    }
 }

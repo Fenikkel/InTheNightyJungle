@@ -803,18 +803,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a5acf828be207b49823c86f62274bc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  challenger: {fileID: 1223785763}
-  uiTest: {fileID: 1503752835}
-  player: {fileID: 1153062091}
-  danceLife:
-  - {fileID: 1061911029}
-  - {fileID: 1614961499}
-  - {fileID: 1631814295}
-  challengerTurn: 1
-  timeLeft: 10
-  extraTime: 2
-  textoTiempo: {fileID: 643076531}
-  textBloques: {fileID: 1810714020}
 --- !u!4 &579050887
 Transform:
   m_ObjectHideFlags: 0
@@ -1793,11 +1781,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: acb937a006e1c6b4d8239e32a2bb7f40, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1153062091 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1595458825286414, guid: acb937a006e1c6b4d8239e32a2bb7f40,
-    type: 2}
-  m_PrefabInternal: {fileID: 1153062090}
 --- !u!1 &1183700049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1922,10 +1905,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 508ab6d4e08e914499a646f0a6e0efeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testManager: {fileID: 579050885}
-  allDanceBlocks:
-  - as
-  - aswd
+  visualKeys: []
+  distanceOverHead: 0
 --- !u!1 &1250394049
 GameObject:
   m_ObjectHideFlags: 0
@@ -2654,6 +2635,54 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &1576567729
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1576567731}
+  - component: {fileID: 1576567730}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1576567730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1576567729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807808f2a39312c4cbc3280b3da5ea44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UI: {fileID: 0}
+  challenger: {fileID: 0}
+  possibleKeys: 7700000061000000730000006400000011010000140100001201000013010000
+  visualKeys: []
+  visualKeyDistanceOverHead: 0
+  visualKeyRotationAngle: 0
+  blocks: []
+  initialTime: 0
+--- !u!4 &1576567731
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1576567729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.9245611, y: -0.29854125, z: -9.77314}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1614961499
 GameObject:
   m_ObjectHideFlags: 0

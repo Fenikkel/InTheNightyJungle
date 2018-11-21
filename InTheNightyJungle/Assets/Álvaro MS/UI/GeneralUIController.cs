@@ -21,8 +21,8 @@ public class GeneralUIController : MonoBehaviour {
 
 	public void ChangeMode(string code)
 	{
-		stats.SetActive(code[0] == '1');
+		stats.SetActive(code[2] == '1');
 		conversation.SetActive(code[1] == '1');
-		dancingTest.SetActive(code[2] == '1');
+		dancingTest.SetActive(code[0] == '1');
 	}
 }

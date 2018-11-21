@@ -96,18 +96,18 @@ public class NPCBehaviour : MonoBehaviour {
 				{
 					case "_test":
 						UI.FinishedConversation();
-						//nextThingToDo.GetComponent<TestBehaviour>().StartTest();
-						print("Aquí empieza la prueba");
+						nextThingToDo.GetComponent<TestManager>().StartTest(player, camera);
 						break;
 					case "_cancel":
 						CancelConversation();
 						break;
 				}
+				conversationTime = false;
 			}
 		}
 		else
 		{
-			if(framedConversation)
+			if(framedConversation && !stopConversation)
 			{
 				StartConversation();
 			}

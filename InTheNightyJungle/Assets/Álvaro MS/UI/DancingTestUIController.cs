@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class DancingTestUIController : MonoBehaviour {
 
+    private GeneralUIController UIController;
+
     //Variables de los bloques completados
     public Text completedBlocksText; //Texto que especifica los bloques completados con respecto a los totales
     private int numCompletedBlocks; //Número de bloques completados actualmente
@@ -29,11 +31,13 @@ public class DancingTestUIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        //InitializeUI(10, 60); //Este llamada no debe existir aquí, sino en el TestManager
+        UIController = GetComponent<GeneralUIController>();
 	}
 
-	public void InitializeUI(int param0, int param1) //Esta función debe ser llamada por el TestManager cuando se inicia el sistema de turnos de la prueba
+	public void InitializeUI(int param0, float param1) //Esta función debe ser llamada por el TestManager cuando se inicia el sistema de turnos de la prueba
     {
+        UIController.ChangeMode("100");
+        
         activatedTimer = true;
         timeBar.color = initialColor;
         
@@ -78,7 +82,7 @@ public class DancingTestUIController : MonoBehaviour {
         if(activatedTimer)
         {
             UpdateTimeBar(currentTime/totalTime);
-            timeText.text = ((int) currentTime).ToString();
+            if(currentTime >= 0) timeText.text = ((int) currentTime).ToString();
         }
         //Dado que será el TestManager el que gestione la bajada del tiempo y cuando se debe aumentar (cuando se pulsa una tecla correctamente), no es necesario considerarlo desde aquí 
         
