@@ -27,6 +27,15 @@ public class PlayerPlatformController : PhysicsObject {
     public SkinnedMeshRenderer[] bodyParts;
     private bool blink;
 
+    private bool breath;
+    private bool breathCooldown;
+    private float breathSpeed;
+    public float initialBreathSpeed;
+    public float breathTime;
+    public float breathCooldownTime;
+    public ParticleSystem breathEffect;
+
+
     private bool dash;
     private bool dashCooldown;
     private float dashSpeed;
@@ -50,10 +59,15 @@ public class PlayerPlatformController : PhysicsObject {
         blink = false;
         dash = false;
         dashCooldown = false;
+        breathCooldown = false;
+
 
         maxSpeed = initialMaxSpeed;
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
         dashSpeed = initialDashSpeed;
+
+        breathSpeed = initialBreathSpeed;
+
     }
 
     protected override void ContactFilterInitialization()
@@ -78,6 +92,10 @@ public class PlayerPlatformController : PhysicsObject {
             if(Input.GetKeyDown(KeyCode.Z) && !dashCooldown)
             {
                 Dash();
+            }
+            else if (Input.GetKeyDown(KeyCode.X) && !breathCooldown)
+            {
+                Breath();
             }
             move.x = Input.GetAxis("Horizontal");
 
@@ -142,6 +160,25 @@ public class PlayerPlatformController : PhysicsObject {
         StartCoroutine(WhileDashActivated(dashTime)); //Iniciar la duración del dash
     }
 
+    private void Breath()
+    {
+
+        inputActivated = false; //No se puede mover
+        breath = true; //Se está haciendo el dash
+        //anim.SetBool("fireBrenda", breath);
+        breathCooldown = true; //No se va a poder gastar en un ratete
+
+        //velocity.y = 0; //Quitar la velocidad teórica vertical del siguiente frame (para si se hace el dash saltando)
+        //gravityModifier = 0; //Quitar el modificador de la gravedad para que el script no provoque caída
+        rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
+
+        breathEffect.Play(); //Emisión de partículas
+
+        Invulnerable(true); //No le tienen que hacer daño y debe poder traspasar los enemigos
+
+        StartCoroutine(WhileBreathActivated(breathTime)); //Iniciar la duración del dash
+    }
+
     public void SetDashActivated(bool param)
     {
         dashCooldown = !param;
@@ -166,10 +203,35 @@ public class PlayerPlatformController : PhysicsObject {
         Invulnerable(false);
     }
 
+    IEnumerator WhileBreathActivated(float time)
+    {
+        yield return new WaitForSeconds(time); //aci se deuria esperar a que la animacio acabara
+
+        breath = false;
+        //anim.SetBool("fireBrenda", dash);
+        anim.Play("fireBrenda");
+        inputActivated = true;
+
+        gravityModifier = initialGravityModifier;
+
+        breathEffect.Stop();
+
+        StartCoroutine(WhileBreathCooldownActivated(breathCooldownTime));
+
+        yield return new WaitForSeconds(10 * time);
+
+        Invulnerable(false);
+    }
+
     IEnumerator WhileDashCooldownActivated(float time)
     {
         yield return new WaitForSeconds(time);
         dashCooldown = false;
+    }
+    IEnumerator WhileBreathCooldownActivated(float time)
+    {
+        yield return new WaitForSeconds(time);
+        breathCooldown = false;
     }
 
     public bool GetInputActivated()
