@@ -163,7 +163,8 @@ public class PlayerPlatformController : PhysicsObject {
         breath = true; //Se está haciendo el breath
         breathCooldown = true; //No se va a poder gastar en un ratete
 
-        rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
+        //El salto + aliento queda palero si le quitamos la velocidad residual
+        //rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
         anim.Play("fireBrenda"); //Hace la animacion, que esta ya se ocupa de activar el sistema de particulas
 
         Invulnerable(true); //No le tienen que hacer daño y debe poder traspasar los enemigos
