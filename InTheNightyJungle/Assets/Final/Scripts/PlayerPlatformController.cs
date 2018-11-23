@@ -29,8 +29,6 @@ public class PlayerPlatformController : PhysicsObject {
 
     private bool breath;
     private bool breathCooldown;
-    private float breathSpeed;
-    public float initialBreathSpeed;
     public float breathTime;
     public float breathCooldownTime;
     public ParticleSystem breathEffect;
@@ -65,8 +63,6 @@ public class PlayerPlatformController : PhysicsObject {
         maxSpeed = initialMaxSpeed;
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
         dashSpeed = initialDashSpeed;
-
-        breathSpeed = initialBreathSpeed;
 
     }
 
@@ -164,15 +160,11 @@ public class PlayerPlatformController : PhysicsObject {
     {
 
         inputActivated = false; //No se puede mover
-        breath = true; //Se está haciendo el dash
-        //anim.SetBool("fireBrenda", breath);
+        breath = true; //Se está haciendo el breath
         breathCooldown = true; //No se va a poder gastar en un ratete
 
-        //velocity.y = 0; //Quitar la velocidad teórica vertical del siguiente frame (para si se hace el dash saltando)
-        //gravityModifier = 0; //Quitar el modificador de la gravedad para que el script no provoque caída
         rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
-
-        breathEffect.Play(); //Emisión de partículas
+        anim.Play("fireBrenda"); //Hace la animacion, que esta ya se ocupa de activar el sistema de particulas
 
         Invulnerable(true); //No le tienen que hacer daño y debe poder traspasar los enemigos
 
@@ -208,19 +200,15 @@ public class PlayerPlatformController : PhysicsObject {
         yield return new WaitForSeconds(time); //aci se deuria esperar a que la animacio acabara
 
         breath = false;
-        //anim.SetBool("fireBrenda", dash);
-        anim.Play("fireBrenda");
         inputActivated = true;
-
         gravityModifier = initialGravityModifier;
 
-        breathEffect.Stop();
+        Invulnerable(false);//Una vez terminada la animación ya puede ser golpeada
 
         StartCoroutine(WhileBreathCooldownActivated(breathCooldownTime));
 
         yield return new WaitForSeconds(10 * time);
 
-        Invulnerable(false);
     }
 
     IEnumerator WhileDashCooldownActivated(float time)
