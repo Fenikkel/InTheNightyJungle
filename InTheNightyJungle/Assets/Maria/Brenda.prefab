@@ -1279,7 +1279,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minGroundNormalY: 0.65
   initialGravityModifier: 1
-  conversation: {fileID: 0}
   initialMaxSpeed: 7
   initialJumpTakeOffSpeed: 12
   knockbackSpeed: 2
@@ -1290,6 +1289,9 @@ MonoBehaviour:
   - {fileID: 137371067107702096}
   - {fileID: 137001726354963498}
   - {fileID: 137251530673890060}
+  breathTime: 0
+  breathCooldownTime: 0
+  breathEffect: {fileID: 0}
   initialDashSpeed: 40
   dashTime: 0.1
   dashCooldownTime: 1

@@ -105,6 +105,15 @@ public class PhysicsObject : MonoBehaviour {
                         groundNormal = currentNormal;
                         currentNormal.x = 0;
                     }
+                    
+                    if(onMotionPlatform)
+                    {
+                        if(!yMovement) print("hola");
+                        if(yMovement) distance -= onMotionPlatform.GetDistance().y;
+                        else {
+                            distance += onMotionPlatform.GetDistance().x;
+                        }
+                    }
                 }
 
                 float projection = Vector2.Dot (velocity, currentNormal);
@@ -141,6 +150,15 @@ public class PhysicsObject : MonoBehaviour {
                     if (currentNormal.y > minGroundNormalY) 
                     {
                         grounded = true;
+                        if(onMotionPlatform)
+                        {
+                            if(yMovement) distance -= onMotionPlatform.GetDistance().y;
+                            else {
+                                if(move.Equals(Vector2.zero))
+                                    move = Vector2.right;
+                                distance += onMotionPlatform.GetDistance().x;
+                            }
+                        }
                     }
 
                     /* print(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer));
@@ -155,16 +173,17 @@ public class PhysicsObject : MonoBehaviour {
                 }
             }
         }
-
+/*
         if(onMotionPlatform)
         {
+            print(onMotionPlatform.GetDistance());
             if(yMovement) distance -= onMotionPlatform.GetDistance().y;
             else {
                 if(move.Equals(Vector2.zero))
                     move = Vector2.right;
                 distance += onMotionPlatform.GetDistance().x;
             }
-        }
+        }*/
 
         rb2d.position = rb2d.position + move.normalized * distance;
     }

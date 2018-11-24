@@ -23,8 +23,8 @@ public class CircularMovement : MotionPlatform {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-        posX = rotationCenter.position.x + Mathf.Cos(angle) * rotationRadius;
-        posY = rotationCenter.position.y + Mathf.Sin(angle) * rotationRadius;
+        posX = rotationCenter.position.x + Mathf.Cos(angle * Mathf.Deg2Rad) * rotationRadius;
+        posY = rotationCenter.position.y + Mathf.Sin(angle * Mathf.Deg2Rad) * rotationRadius;
 
         distance = new Vector2(posX, posY) - ((Vector2)transform.position); //Esto lo necesita al jugador para cuando está en contacto con una plataforma móvil
 

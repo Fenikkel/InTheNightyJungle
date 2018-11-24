@@ -299,7 +299,7 @@ public class PlayerPlatformController : PhysicsObject {
     private void DetectingMotionPlatform()
     {
         RaycastHit2D[] results = new RaycastHit2D[16];
-        int count = Physics2D.CapsuleCast(GetComponent<Transform>().position, GetComponent<CapsuleCollider2D>().size * 1.05f, CapsuleDirection2D.Vertical, 0, Vector2.zero, motionPlatformContactFilter, results);
+        int count = Physics2D.CapsuleCast(GetComponent<Transform>().position, GetComponent<CapsuleCollider2D>().size * 1.1f, CapsuleDirection2D.Vertical, 0, Vector2.zero, motionPlatformContactFilter, results);
         
         if(count > 0)
         {
