@@ -1280,6 +1280,9 @@ MonoBehaviour:
   - {fileID: 137810183667234348}
   - {fileID: 137113181199198522}
   - {fileID: 137491553566459324}
+  breathTime: 0
+  breathCooldownTime: 0
+  breathEffect: {fileID: 0}
   initialDashSpeed: 40
   dashTime: 0.1
   dashCooldownTime: 1
