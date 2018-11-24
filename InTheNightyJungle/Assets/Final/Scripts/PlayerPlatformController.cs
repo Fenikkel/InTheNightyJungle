@@ -294,18 +294,18 @@ public class PlayerPlatformController : PhysicsObject {
         DetectingEnemies();
         DetectingMotionPlatform();
         base.OurFixedUpdate();
+        onMotionPlatform = null;
     }
 
     private void DetectingMotionPlatform()
     {
         RaycastHit2D[] results = new RaycastHit2D[16];
-        int count = Physics2D.CapsuleCast(GetComponent<Transform>().position, GetComponent<CapsuleCollider2D>().size * 1.1f, CapsuleDirection2D.Vertical, 0, Vector2.zero, motionPlatformContactFilter, results);
+        int count = Physics2D.CapsuleCast(GetComponent<Transform>().position, GetComponent<CapsuleCollider2D>().size * 1f, CapsuleDirection2D.Vertical, 0, Vector2.zero, motionPlatformContactFilter, results);
         
         if(count > 0)
         {
             onMotionPlatform = results[0].collider.gameObject.GetComponent<MotionPlatform>();
         }
-        else onMotionPlatform = null;
     }
 
     private void DetectingEnemies()

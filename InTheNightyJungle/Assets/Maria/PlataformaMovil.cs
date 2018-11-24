@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlataformaMovil : MotionPlatform {
 
-    public Transform target;
+    /*public Transform target;
 
     private Vector3 start;
     private Vector3 end;
@@ -39,5 +39,5 @@ public class PlataformaMovil : MotionPlatform {
         {
             target.position = (target.position == start) ? end : start;
         }
-    }
+    }*/
 }

@@ -2,23 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MotionPlatform : MonoBehaviour {
+public class MotionPlatform : PhysicsObject {
 
-	protected Vector2 distance;
+	//protected Vector2 distance;
 	public float speed;
 
 	// Use this for initialization
-	void Start () {
-		
+	protected override void initialization()
+	{
+		base.initialization();
+		gravityModifier = 0;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
 	public Vector2 GetDistance()
 	{
-		return distance;
+		return move * distance;
 	}
 }

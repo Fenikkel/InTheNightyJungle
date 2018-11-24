@@ -17,7 +17,8 @@ public class PhysicsObject : MonoBehaviour {
     protected ContactFilter2D contactFilter;
     protected RaycastHit2D[] hitBuffer = new RaycastHit2D[16];
     protected List<RaycastHit2D> hitBufferList = new List<RaycastHit2D> (16);
-
+    protected float distance;
+    protected Vector2 move;
 
     protected const float minMoveDistance = 0.001f;
     protected const float shellRadius = 0.05f;
@@ -73,7 +74,7 @@ public class PhysicsObject : MonoBehaviour {
 
         Vector2 moveAlongGround = new Vector2 (groundNormal.y, -groundNormal.x);
 
-        Vector2 move = moveAlongGround * deltaPosition.x;
+        move = moveAlongGround * deltaPosition.x;
 
         Movement (move, false);
 
@@ -84,9 +85,77 @@ public class PhysicsObject : MonoBehaviour {
 
     protected void Movement(Vector2 move, bool yMovement)
     {
-        float distance = move.magnitude;
+        distance = move.magnitude;
 
         if (distance > minMoveDistance) 
+        {
+            int count = rb2d.Cast (move, contactFilter, hitBuffer, distance + shellRadius);
+            hitBufferList.Clear ();
+            for (int i = 0; i < count; i++) {
+                hitBufferList.Add (hitBuffer [i]);
+            }
+
+            for (int i = 0; i < hitBufferList.Count; i++) 
+            {
+                if(!(this is MotionPlatform))
+                {
+                    Vector2 currentNormal = hitBufferList [i].normal;
+                    if (currentNormal.y > minGroundNormalY) 
+                    {
+                        grounded = true;
+                        if (yMovement) 
+                        {
+                            groundNormal = currentNormal;
+                            currentNormal.x = 0;
+                        }
+                        if(onMotionPlatform)
+                        {
+                            if(yMovement) 
+                                distance = onMotionPlatform.GetDistance().y;
+                            else 
+                                distance = onMotionPlatform.GetDistance().x;
+                        }
+                    }
+                    else
+                    {
+                        if(onMotionPlatform)
+                        {
+                            if(!yMovement)
+                            {
+                                if(Mathf.Sign(currentNormal.x) != Mathf.Sign(move.x))
+                                {
+                                    distance = 0;
+                                    velocity = Vector2.zero;
+                                }
+                                else
+                                {
+                                    distance += onMotionPlatform.GetDistance().x + shellRadius;
+                                    velocity = Vector2.zero;
+                                }
+                            }
+                        }
+                    }
+                    
+                    float projection = Vector2.Dot (velocity, currentNormal);
+                    if (projection < 0) 
+                    {
+                        velocity = velocity - projection * currentNormal;
+                    }
+
+                    float modifiedDistance = hitBufferList [i].distance - shellRadius;
+
+                    /*print(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer) + " " + yMovement);
+                    if(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer).Equals("PlatformCollider"))
+                    {
+                        if(!yMovement)  modifiedDistance -= hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().y;
+                        else modifiedDistance += hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().x;
+                    }*/
+
+                    distance = modifiedDistance < distance ? modifiedDistance : distance;
+                }
+            }
+        }
+        else
         {
             int count = rb2d.Cast (move, contactFilter, hitBuffer, distance + shellRadius);
             hitBufferList.Clear ();
@@ -100,91 +169,29 @@ public class PhysicsObject : MonoBehaviour {
                 if (currentNormal.y > minGroundNormalY) 
                 {
                     grounded = true;
-                    if (yMovement) 
-                    {
-                        groundNormal = currentNormal;
-                        currentNormal.x = 0;
-                    }
-                    
                     if(onMotionPlatform)
                     {
-                        if(!yMovement) print("hola");
-                        if(yMovement) distance -= onMotionPlatform.GetDistance().y;
-                        else {
-                            distance += onMotionPlatform.GetDistance().x;
-                        }
+                        if(yMovement) 
+                            distance = onMotionPlatform.GetDistance().y;
+                        else 
+                            distance = onMotionPlatform.GetDistance().x;
                     }
                 }
-
-                float projection = Vector2.Dot (velocity, currentNormal);
-                if (projection < 0) 
+                else
                 {
-                    velocity = velocity - projection * currentNormal;
-                }
-
-                float modifiedDistance = hitBufferList [i].distance - shellRadius;
-
-                /*print(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer) + " " + yMovement);
-                if(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer).Equals("PlatformCollider"))
-                {
-                    if(!yMovement)  modifiedDistance -= hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().y;
-                    else modifiedDistance += hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().x;
-                }*/
-
-                distance = modifiedDistance < distance ? modifiedDistance : distance;
-            }
-        }
-        else
-        {
-            if(!yMovement)
-            {
-                int count = rb2d.Cast (move, contactFilter, hitBuffer, distance + shellRadius);
-                hitBufferList.Clear ();
-                for (int i = 0; i < count; i++) {
-                    hitBufferList.Add (hitBuffer [i]);
-                }
-
-                for (int i = 0; i < hitBufferList.Count; i++) 
-                {
-                    Vector2 currentNormal = hitBufferList [i].normal;
-                    if (currentNormal.y > minGroundNormalY) 
+                    if(onMotionPlatform)
                     {
-                        grounded = true;
-                        if(onMotionPlatform)
+                        if(!yMovement)
                         {
-                            if(yMovement) distance -= onMotionPlatform.GetDistance().y;
-                            else {
-                                if(move.Equals(Vector2.zero))
-                                    move = Vector2.right;
-                                distance += onMotionPlatform.GetDistance().x;
-                            }
+                            move = currentNormal;
+                            distance = onMotionPlatform.GetDistance().x + shellRadius;
+                            velocity -= currentNormal;
                         }
                     }
-
-                    /* print(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer));
-                    if(LayerMask.LayerToName(hitBufferList[i].collider.gameObject.layer).Equals("PlatformCollider"))
-                    {
-                        if(!yMovement) modifiedDistance -= hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().y;
-                        else distance -= hitBufferList[i].collider.gameObject.GetComponent<MotionPlatform>().GetDistance().x;
-                    }*/
-                    
-                    distance = shellRadius;
-                    move = currentNormal;
                 }
             }
         }
-/*
-        if(onMotionPlatform)
-        {
-            print(onMotionPlatform.GetDistance());
-            if(yMovement) distance -= onMotionPlatform.GetDistance().y;
-            else {
-                if(move.Equals(Vector2.zero))
-                    move = Vector2.right;
-                distance += onMotionPlatform.GetDistance().x;
-            }
-        }*/
-
+                    
         rb2d.position = rb2d.position + move.normalized * distance;
     }
 
