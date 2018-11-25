@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class DancingTestManager : MonoBehaviour {
 
     public DancingTestUIController UI;
-    public ChallengerBehaviour challenger;
+    public DancingChallengerBehaviour challenger;
     private PlayerPlatformController player;
     private CameraBehaviour camera;
 

@@ -12,7 +12,7 @@ public class GeneralUIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		ChangeMode(UILayer.Stats);
 	}
 	
 	// Update is called once per frame

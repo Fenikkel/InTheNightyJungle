@@ -147,6 +147,7 @@ public class DancingTestUIController : MonoBehaviour {
         {
 			introductionTexts[i].color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
         }
+        finalText.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 
         currentRemainingMistakes = 3;
         for(int i = 0; i < currentRemainingMistakes; i++)

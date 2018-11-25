@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class DrinkingTestUIController : MonoBehaviour {
     
+	private GeneralUIController UIController;
 	public RectTransform canvas;
 	public Image[] introductionTexts;
 	public Image finalText;
 
 	public Text leftNumDrinksText;
-	public int leftNumDrinks;
+	private int leftNumDrinks;
 	public Text rightNumDrinksText;
-	public int rightNumDrinks;
+	private int rightNumDrinks;
 
 	public Image leftDrinkingBar;
 	public Image rightDrinkingBar;
@@ -108,6 +109,13 @@ public class DrinkingTestUIController : MonoBehaviour {
 		text.color = finalColor;
 
 		if(firstTime) StartCoroutine(FadeInTwoParts(text, finalColor, initialColor, false, time));
+	}
+
+	public void InitializeUI()
+	{
+		UIController.ChangeMode(UILayer.DrinkingTest);
+		leftNumDrinks = rightNumDrinks = 0;
+		leftDrinkingBar.fillAmount = rightDrinkingBar.fillAmount = 0.0f;
 	}
 
 	public bool IncreaseDrinkingBar(bool leftSide)

@@ -98,6 +98,10 @@ public class NPCBehaviour : MonoBehaviour {
 						UI.FinishedConversation();
 						nextThingToDo.GetComponent<DancingTestManager>().StartTest(player, camera);
 						break;
+					case "_drink":
+						UI.FinishedConversation();
+						nextThingToDo.GetComponent<DrinkingTestManager>().StartTest(player, camera);
+						break;
 					case "_cancel":
 						CancelConversation();
 						break;
