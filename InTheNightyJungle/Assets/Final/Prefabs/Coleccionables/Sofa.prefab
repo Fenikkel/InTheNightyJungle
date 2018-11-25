@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4813980696655036}
   - component: {fileID: 212568775496475222}
+  - component: {fileID: 114429227134731400}
+  - component: {fileID: 61177676569338550}
   m_Layer: 11
   m_Name: Sofa
   m_TagString: Untagged
@@ -34,12 +36,48 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276863728452130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 18.5, y: -42.73, z: 0}
+  m_LocalPosition: {x: -20.646412, y: 9.215864, z: 0}
   m_LocalScale: {x: 0.074, y: 0.074, z: 0.074}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61177676569338550
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276863728452130}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.28562307, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 62.839996, y: 34.43}
+    newSize: {x: 14.3, y: 6.54}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 19.596077, y: 34.43}
+  m_EdgeRadius: 0
+--- !u!114 &114429227134731400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1276863728452130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 418e3f100fb493e4eb54758e9003265e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212568775496475222
 SpriteRenderer:
   m_ObjectHideFlags: 1
