@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MenuPrincipalBehaviour : MonoBehaviour {
 
-    public Button botonJugar, botonOpciones, botonSalir;
+    public Button botonJugar, botonOpciones, botonSalir, botonMenu;
+    public Slider volumen;
 
     private float initialAlpha;
     private bool empezar = false;
@@ -15,7 +16,8 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 	void Start () {
         botonJugar.onClick.AddListener(EmpezarJuego);
         botonOpciones.onClick.AddListener(Opciones);
-        //botonSalir.onClick.AddListener(Salir);
+        botonSalir.onClick.AddListener(Salir);
+        botonMenu.onClick.AddListener(Atras);
         initialAlpha = this.GetComponent<CanvasGroup>().alpha;
 	}
 	
@@ -29,6 +31,8 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
             this.GetComponent<CanvasGroup>().alpha=Mathf.Lerp(initialAlpha, 0.0f, t);
         }
+
+        AudioListener.volume = volumen.value;
 	}
 
     void EmpezarJuego()
@@ -40,9 +44,25 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     void Opciones()
     {
-        this.transform.GetChild(2).gameObject.SetActive(false);
-        this.transform.GetChild(3).gameObject.SetActive(false);
-        this.transform.GetChild(1).gameObject.SetActive(true);
+        botonJugar.gameObject.SetActive(false);
+        botonOpciones.gameObject.SetActive(false);
+        botonSalir.gameObject.SetActive(false);
+        botonMenu.gameObject.SetActive(true);
+        volumen.gameObject.SetActive(true);
+    }
+
+    void Salir()
+    {
+        Application.Quit();
+    }
+
+    void Atras()
+    {
+        botonJugar.gameObject.SetActive(true);
+        botonOpciones.gameObject.SetActive(true);
+        botonSalir.gameObject.SetActive(true);
+        botonMenu.gameObject.SetActive(false);
+        volumen.gameObject.SetActive(false);
     }
 
     IEnumerator ChangeScene()
