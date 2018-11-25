@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TestManager : MonoBehaviour {
+public class DancingTestManager : MonoBehaviour {
 
     public DancingTestUIController UI;
     public ChallengerBehaviour challenger;

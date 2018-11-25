@@ -94,9 +94,9 @@ public class NPCBehaviour : MonoBehaviour {
 			{
 				switch(currentNode.GetMessage())
 				{
-					case "_test":
+					case "_dance":
 						UI.FinishedConversation();
-						nextThingToDo.GetComponent<TestManager>().StartTest(player, camera);
+						nextThingToDo.GetComponent<DancingTestManager>().StartTest(player, camera);
 						break;
 					case "_cancel":
 						CancelConversation();

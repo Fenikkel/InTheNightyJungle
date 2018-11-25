@@ -298,7 +298,7 @@ GameObject:
   - component: {fileID: 95401232773795490}
   - component: {fileID: 114831758446031694}
   m_Layer: 0
-  m_Name: Silueta
+  m_Name: SiluetaBaile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1354,13 +1354,15 @@ MonoBehaviour:
   minTime: 5
   maxTime: 10
   totalNumAnim: 3
+  idInLayer: 0
+  sortingLayer: 
   bodyParts:
   - {fileID: 114664549963091342}
   - {fileID: 114158975413287276}
-  - {fileID: 114186837272468612}
-  - {fileID: 114288964845520860}
   - {fileID: 114689844244434436}
   - {fileID: 114178895440733442}
+  - {fileID: 114288964845520860}
+  - {fileID: 114186837272468612}
 --- !u!114 &114843983518364130
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1484,7 +1486,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 544083249
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 1
   serializedVersion: 2
   m_Quality: 0
@@ -1534,7 +1536,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 544083249
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 4
   serializedVersion: 2
   m_Quality: 0
@@ -1583,7 +1585,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 544083249
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 5
   serializedVersion: 2
   m_Quality: 0
@@ -1633,7 +1635,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 544083249
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 2
   serializedVersion: 2
   m_Quality: 0
@@ -1682,7 +1684,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 544083249
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -1731,7 +1733,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 544083249
-  m_SortingLayer: 6
+  m_SortingLayer: 7
   m_SortingOrder: 3
   serializedVersion: 2
   m_Quality: 0

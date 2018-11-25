@@ -14,6 +14,8 @@ public class LittleSilhouettoOfAMan : MonoBehaviour {
 	public int totalNumAnim;
 	private int currentAnim;
 
+	public int idInLayer;
+	public string sortingLayer;
 	public SpriteMeshInstance[] bodyParts;
 
 	// Use this for initialization
@@ -21,6 +23,7 @@ public class LittleSilhouettoOfAMan : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		timeToNextAnim = Random.Range(minTime, maxTime);
 		elapsedTime = 0.0f;
+		SetOrderInLayer();
 	}
 	
 	// Update is called once per frame
@@ -95,6 +98,15 @@ public class LittleSilhouettoOfAMan : MonoBehaviour {
 		for(int i = 0; i<bodyParts.Length; i++)
 		{
 			bodyParts[i].color = finalColor;
+		}
+	}
+
+	private void SetOrderInLayer()
+	{
+		for(int i = 0; i < bodyParts.Length; i++)
+		{
+			bodyParts[i].sortingLayerName = sortingLayer;
+			bodyParts[i].sortingOrder = idInLayer * bodyParts.Length + i;
 		}
 	}
 }
