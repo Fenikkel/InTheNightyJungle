@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class PlayerPlatformController : PhysicsObject {
 
+    public static PlayerPlatformController Instance;
+
     public float initialMaxSpeed = 7;
     public float initialJumpTakeOffSpeed = 7;
     private float maxSpeed;
     private float jumpTakeOffSpeed;
+
+    //Maria
+    [HideInInspector]
+    public bool Descansando;
 
     private bool inputActivated;
 
@@ -45,6 +51,8 @@ public class PlayerPlatformController : PhysicsObject {
     // Use this for initialization
     void Awake()
     {
+        Instance = this;
+
         stats = GetComponent<PlayerStatsController>();
         anim = GetComponent<Animator>();
     }
@@ -175,6 +183,29 @@ public class PlayerPlatformController : PhysicsObject {
     public void SetDashActivated(bool param)
     {
         dashCooldown = !param;
+    }
+    //Maria
+    public void StartProgressBar()
+    {
+        Descansando = true;
+        StartCoroutine("ProgressPaciencia");
+    }
+
+    IEnumerator ProgressPaciencia()
+    {
+        float pacienciaActual = stats.pacienciaBar.value;
+        float increment = 0.25f;
+        float timeBetweenUpdate = 1f;
+        //Meter aqui codigo de guardar partida
+        while (pacienciaActual < stats.pacienciaBar.maxValue)
+        {
+            pacienciaActual += increment;
+            stats.pacienciaBar.value = pacienciaActual;
+            yield return new WaitForSeconds(timeBetweenUpdate);
+        }
+        Descansando = false;
+        stats.pacienciaBar.value = stats.pacienciaBar.maxValue;
+        anim.SetBool("Sitting", false);
     }
 
     IEnumerator WhileDashActivated(float time)
