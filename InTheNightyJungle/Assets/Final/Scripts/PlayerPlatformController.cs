@@ -191,21 +191,27 @@ public class PlayerPlatformController : PhysicsObject {
         StartCoroutine("ProgressPaciencia");
     }
 
+    public void EndProgressBar()
+    {
+        inputActivated = true;
+        anim.SetBool("WakeUp", false);
+    }
+
     IEnumerator ProgressPaciencia()
     {
         float pacienciaActual = stats.pacienciaBar.value;
-        float increment = 0.25f;
-        float timeBetweenUpdate = 1f;
+        float increment = 0.01f;
         //Meter aqui codigo de guardar partida
         while (pacienciaActual < stats.pacienciaBar.maxValue)
         {
             pacienciaActual += increment;
             stats.pacienciaBar.value = pacienciaActual;
-            yield return new WaitForSeconds(timeBetweenUpdate);
+            yield return null;
         }
         Descansando = false;
         stats.pacienciaBar.value = stats.pacienciaBar.maxValue;
         anim.SetBool("Sitting", false);
+        anim.SetBool("WakeUp", true);
     }
 
     IEnumerator WhileDashActivated(float time)

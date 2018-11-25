@@ -17,6 +17,7 @@ public class CheckPoint : MonoBehaviour {
     {
         if (insideCheckPoint && Input.GetKeyDown(KeyCode.E) && !PlayerPlatformController.Instance.Descansando)
         {
+            PlayerPlatformController.Instance.SetInputActivated(false);
             playerAnimator.SetBool("Sitting", true);
         }
     }
