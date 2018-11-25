@@ -52,7 +52,7 @@ public class DancingTestManager : MonoBehaviour {
 
         RestartTest();
 
-        StartCoroutine(Introduction(0.5f, 0.5f, 0.5f));
+        StartCoroutine(Introduction(0.5f, 0.5f, 0.5f, 6.0f));
     }
 
     public void RestartTest()
@@ -69,7 +69,7 @@ public class DancingTestManager : MonoBehaviour {
         remainingTime = initialTime;
     }
 
-    private IEnumerator Introduction(float time1, float time2, float time3)
+    private IEnumerator Introduction(float time1, float time2, float time3, float time4)
     {
         StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, camera.GetSize(), time1));
         yield return new WaitForSeconds(time1);
@@ -81,15 +81,19 @@ public class DancingTestManager : MonoBehaviour {
         FadeOutCrowd(time3);
         yield return new WaitForSeconds(time3);
 
-        testStarted = true;
         UI.InitializeUI(blocks.Length, initialTime);
+
+        StartCoroutine(UI.ShowIntroductionTexts(time4));
+        yield return new WaitForSeconds(time4);
+        
+        testStarted = true;
     }
 
     private IEnumerator Ending(float time1, float time2, float time3)
     {
         StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, camera.GetInitialSize(), time1));
         FadeInCrowd(time1);
-        yield return new WaitForSeconds(time1);
+        yield return new WaitForSeconds(time2);
 
         StartCoroutine(player.MoveTo(outsidePlayerPosition.position, true, time2));
         yield return new WaitForSeconds(time2);
@@ -99,7 +103,7 @@ public class DancingTestManager : MonoBehaviour {
 
         player.SetInputActivated(true);
         camera.SetFollowTarget(true);
-        UI.GetComponent<GeneralUIController>().ChangeMode("001");
+        UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Stats);
     }
 
     private void FadeOutCrowd(float time)
@@ -157,8 +161,8 @@ public class DancingTestManager : MonoBehaviour {
                 }
                 else
                 {
-                    if(victory == 0) StartCoroutine(Victory(3f));
-                    else StartCoroutine(Defeat(3f));
+                    if(victory == 0) StartCoroutine(Victory(2f, 3f));
+                    else StartCoroutine(Defeat(2f, 3f));
                 }
             }
             else
@@ -422,12 +426,16 @@ public class DancingTestManager : MonoBehaviour {
         key.GetComponent<Transform>().rotation = Quaternion.Euler(key.GetComponent<Transform>().rotation.x, key.GetComponent<Transform>().rotation.y, initialAngle);
     }
 
-    private IEnumerator Victory(float time)
+    private IEnumerator Victory(float time1, float time2)
     {
         testStarted = false;
+
+        StartCoroutine(UI.ShowFinalText(time1));
+        yield return new WaitForSeconds(time1);
+
         RestartTest();
 
-        UI.GetComponent<GeneralUIController>().ChangeMode("000");
+        UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Empty);
         for(int i = 0; i < playerCelebration.Length; i++)
         {
             playerCelebration[i].Play();
@@ -436,7 +444,7 @@ public class DancingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("victory", true);
         challenger.GetComponent<Animator>().SetBool("defeat", true);
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time2);
 
         player.GetComponent<Animator>().SetBool("victory", false);
         challenger.GetComponent<Animator>().SetBool("defeat", false);
@@ -444,12 +452,16 @@ public class DancingTestManager : MonoBehaviour {
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 
-    private IEnumerator Defeat(float time)
+    private IEnumerator Defeat(float time1, float time2)
     {
         testStarted = false;
+
+        StartCoroutine(UI.ShowFinalText(time1));
+        yield return new WaitForSeconds(time1);
+
         RestartTest();
         
-        UI.GetComponent<GeneralUIController>().ChangeMode("000");
+        UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Empty);
         for(int i = 0; i < challengerCelebration.Length; i++)
         {
             challengerCelebration[i].Play();
@@ -458,7 +470,7 @@ public class DancingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("defeat", true);
         challenger.GetComponent<Animator>().SetBool("victory", true);
 
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time2);
 
         player.GetComponent<Animator>().SetBool("defeat", false);
         challenger.GetComponent<Animator>().SetBool("victory", false);

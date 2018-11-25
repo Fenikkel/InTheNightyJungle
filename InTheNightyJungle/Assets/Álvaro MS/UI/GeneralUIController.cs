@@ -7,6 +7,7 @@ public class GeneralUIController : MonoBehaviour {
 	public GameObject stats;
 	public GameObject conversation;
 	public GameObject dancingTest;
+	public GameObject drinkingTest;
 	public GameObject blackScreen;
 
 	// Use this for initialization
@@ -19,10 +20,16 @@ public class GeneralUIController : MonoBehaviour {
 		
 	}
 
-	public void ChangeMode(string code)
+	public void ChangeMode(UILayer code)
 	{
-		stats.SetActive(code[2] == '1');
-		conversation.SetActive(code[1] == '1');
-		dancingTest.SetActive(code[0] == '1');
+		stats.SetActive(code == UILayer.Stats);
+		conversation.SetActive(code == UILayer.Conversation);
+		dancingTest.SetActive(code == UILayer.DancingTest);
+		drinkingTest.SetActive(code == UILayer.DrinkingTest);
 	}
+}
+
+public enum UILayer
+{
+	Stats, Conversation, DancingTest, DrinkingTest, Empty
 }

@@ -41,7 +41,7 @@ public class ConversationUIController : MonoBehaviour {
 	
 	public void InitializeConversationBox()
 	{
-		UIController.ChangeMode("010");
+		UIController.ChangeMode(UILayer.Conversation);
 
 		opennedConversationBoxPosition = opennedConversationBoxPlace.GetComponent<RectTransform>().anchoredPosition; //Guardamos en las variables Vector2 las posiciones y tamaños que nos interesan
 		opennedConversationBoxSize = opennedConversationBoxPlace.GetComponent<RectTransform>().sizeDelta;

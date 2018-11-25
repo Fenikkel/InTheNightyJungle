@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class DancingTestUIController : MonoBehaviour {
 
     private GeneralUIController UIController;
+    public RectTransform canvas;
+    public Image[] introductionTexts;
+    public Image finalText;
 
     //Variables de los bloques completados
     public Text completedBlocksText; //Texto que especifica los bloques completados con respecto a los totales
@@ -34,9 +37,100 @@ public class DancingTestUIController : MonoBehaviour {
         UIController = GetComponent<GeneralUIController>();
 	}
 
+    public IEnumerator ShowIntroductionTexts(float totalTime)
+	{
+		StartCoroutine(MoveToCenter(introductionTexts[0], true, totalTime/12));
+		yield return new WaitForSeconds(totalTime/6);
+
+		for(int i = 0; i < introductionTexts.Length; i++)
+		{
+			StartCoroutine(ScaleAndFade(introductionTexts[i], 1.5f, totalTime/6));
+			yield return new WaitForSeconds(totalTime/6);
+		}
+	}
+
+    public IEnumerator ShowFinalText(float totalTime)
+    {
+        StartCoroutine(MoveToCenter(finalText, false, totalTime/3));
+        yield return new WaitForSeconds(2 * totalTime/3);
+
+        StartCoroutine(ScaleAndFade(finalText, 1.5f, totalTime/3));
+        yield return new WaitForSeconds(totalTime/3);
+    }
+
+	private IEnumerator MoveToCenter(Image text, bool fromRight, float time)
+	{
+		int direction = (fromRight) ? 1 : -1;
+		text.GetComponent<RectTransform>().localPosition = new Vector2(direction * (canvas.rect.width + text.GetComponent<RectTransform>().rect.width) / 2, 0);
+		text.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
+		Vector2 initialPosition = text.GetComponent<RectTransform>().localPosition;
+		Vector2 finalPosition = new Vector2(0,0);
+
+		float elapsedTime = 0.0f;
+		while(elapsedTime < time)
+		{
+			elapsedTime += Time.deltaTime;
+			text.GetComponent<RectTransform>().localPosition = Vector2.Lerp(initialPosition, finalPosition, elapsedTime/time);
+			yield return null;
+		}
+		text.GetComponent<RectTransform>().localPosition = finalPosition;
+	}
+
+	private IEnumerator ScaleAndFade(Image text, float increaseScale, float time)
+	{
+		text.GetComponent<RectTransform>().localPosition = Vector2.zero;
+        
+        Color initialColor = text.color;
+		Color finalColor = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+
+		Vector2 initialScale = text.GetComponent<RectTransform>().sizeDelta;
+		Vector2 finalScale = text.GetComponent<RectTransform>().sizeDelta * increaseScale;
+
+		float elapsedTime = 0.0f;
+
+		if(text.color.a == 1.0f)
+		{
+            while(elapsedTime < time)
+			{
+				elapsedTime += Time.deltaTime;
+				text.GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(initialScale, finalScale, elapsedTime / time);
+				text.color = Color.Lerp(initialColor, finalColor, elapsedTime / time);
+				yield return null;
+			}
+			text.GetComponent<RectTransform>().sizeDelta = finalScale;
+			text.color = finalColor;
+		}
+		else
+		{
+			StartCoroutine(FadeInTwoParts(text, initialColor, new Color(1.0f, 1.0f, 1.0f, 1.0f), true, time/2));
+			while(elapsedTime < time)
+			{
+				elapsedTime += Time.deltaTime;
+				text.GetComponent<RectTransform>().sizeDelta = Vector2.Lerp(initialScale, finalScale, elapsedTime / time);
+				yield return null;
+			}
+			text.GetComponent<RectTransform>().sizeDelta = finalScale;
+		}
+	}
+
+	private IEnumerator FadeInTwoParts(Image text, Color initialColor, Color finalColor, bool firstTime, float time)
+	{
+		float elapsedTime = 0.0f;
+
+		while(elapsedTime < time)
+		{
+			elapsedTime += Time.deltaTime;
+			text.color = Color.Lerp(initialColor, finalColor, elapsedTime / time);
+			yield return null;
+		}
+		text.color = finalColor;
+
+		if(firstTime) StartCoroutine(FadeInTwoParts(text, finalColor, initialColor, false, time));
+	}
+
 	public void InitializeUI(int param0, float param1) //Esta función debe ser llamada por el TestManager cuando se inicia el sistema de turnos de la prueba
     {
-        UIController.ChangeMode("100");
+        UIController.ChangeMode(UILayer.DancingTest);
         
         activatedTimer = true;
         timeBar.color = initialColor;
@@ -48,6 +142,11 @@ public class DancingTestUIController : MonoBehaviour {
       
         totalTime = param1;
         timeText.text = totalTime.ToString();
+
+        for(int i = 0; i < introductionTexts.Length; i++)
+        {
+			introductionTexts[i].color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        }
 
         currentRemainingMistakes = 3;
         for(int i = 0; i < currentRemainingMistakes; i++)
