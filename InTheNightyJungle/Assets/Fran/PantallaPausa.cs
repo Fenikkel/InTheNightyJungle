@@ -7,11 +7,22 @@ using UnityEngine.SceneManagement;
 public class PantallaPausa : MonoBehaviour {
 
     public static bool GameIsPaused = false;
+    public Button botonJugar, botonOpciones, botonSalir, botonInventario, botonAtras;
+    public Slider volumen;
 
     public GameObject pauseMenuUI;
-	
-	// Update is called once per frame
-	public void Update () {
+
+    void Start()
+    {
+        botonJugar.onClick.AddListener(Resume);
+        botonOpciones.onClick.AddListener(Opciones);
+        botonSalir.onClick.AddListener(LoadMenu);
+        botonAtras.onClick.AddListener(Atras);
+        botonAtras.gameObject.SetActive(false);
+    }
+
+    // Update is called once per frame
+    public void Update () {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (GameIsPaused)
@@ -39,5 +50,18 @@ public class PantallaPausa : MonoBehaviour {
     public void LoadMenu()
     {
         SceneManager.LoadScene("Menu Principal");
+    }
+    void Opciones()
+    {
+        botonJugar.gameObject.SetActive(false);
+        botonOpciones.gameObject.SetActive(false);
+        botonSalir.gameObject.SetActive(false);
+        botonInventario.gameObject.SetActive(false);
+        volumen.gameObject.SetActive(true);
+        botonAtras.gameObject.SetActive(true);
+    }
+    void Atras()
+    {
+        SceneManager.LoadScene("PantallaPausa");
     }
 }
