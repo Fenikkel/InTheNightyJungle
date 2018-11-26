@@ -10,9 +10,12 @@ public class DrinkingChallengerBehaviour : MonoBehaviour {
 	private DrinkingTestGlassBehaviour glass;
 	public Transform rightHandBone;
 
+	private Animator anim;
+
 	// Use this for initialization
 	void Start () {
 		sortingLayer = GetComponentInChildren<SpriteMeshInstance>().sortingLayerName;
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -37,18 +40,20 @@ public class DrinkingChallengerBehaviour : MonoBehaviour {
 		glass.GlassOverBar();
 	}
 
-	public void PlayAimGlass()
-	{
-
-	}
-
 	public void PlayDrinking(bool param)
-	{
+    {
+        anim.SetBool("drinking", param);
+        anim.ResetTrigger("aimGlass");
+    }
 
-	}
+    public void PlayAimGlass()
+    {
+        anim.SetTrigger("aimGlass");
+        anim.ResetTrigger("leaveGlass");
+    }
 
-	public void PlayLeaveGlass()
-	{
-
-	}
+    public void PlayLeaveGlass()
+    {
+        anim.SetTrigger("leaveGlass");
+    }
 }

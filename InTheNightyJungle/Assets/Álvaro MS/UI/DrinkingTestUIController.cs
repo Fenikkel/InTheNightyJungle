@@ -18,11 +18,11 @@ public class DrinkingTestUIController : MonoBehaviour {
 	public Image leftDrinkingBar;
 	public Image rightDrinkingBar;
 
-	public float increaseDrinkingPercentage;
+	public float increaseDrinkingValue;
 	
 	// Use this for initialization
 	void Start () {
-		
+		UIController = GetComponent<GeneralUIController>();
 	}
 	
 	// Update is called once per frame
@@ -37,7 +37,6 @@ public class DrinkingTestUIController : MonoBehaviour {
 
 		for(int i = 0; i < introductionTexts.Length; i++)
 		{
-			introductionTexts[i].color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 			StartCoroutine(ScaleAndFade(introductionTexts[i], 1.5f, totalTime/6));
 			yield return new WaitForSeconds(totalTime/6);
 		}
@@ -46,19 +45,19 @@ public class DrinkingTestUIController : MonoBehaviour {
 	private IEnumerator MoveToCenter(Image text, bool fromRight, float time)
 	{
 		int direction = (fromRight) ? 1 : -1;
-		text.GetComponent<RectTransform>().position = new Vector2(direction * (canvas.rect.width + text.GetComponent<RectTransform>().rect.width) / 2, 0);
+		text.GetComponent<RectTransform>().localPosition = new Vector2(direction * (canvas.rect.width + text.GetComponent<RectTransform>().rect.width) / 2, 0);
 		text.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-		Vector2 initialPosition = text.GetComponent<RectTransform>().position;
+		Vector2 initialPosition = text.GetComponent<RectTransform>().localPosition;
 		Vector2 finalPosition = new Vector2(0,0);
 
 		float elapsedTime = 0.0f;
 		while(elapsedTime < time)
 		{
 			elapsedTime += Time.deltaTime;
-			text.GetComponent<RectTransform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime/time);
+			text.GetComponent<RectTransform>().localPosition = Vector2.Lerp(initialPosition, finalPosition, elapsedTime/time);
 			yield return null;
 		}
-		text.GetComponent<RectTransform>().position = initialPosition;
+		text.GetComponent<RectTransform>().localPosition = finalPosition;
 	}
 
 	private IEnumerator ScaleAndFade(Image text, float increaseScale, float time)
@@ -116,13 +115,19 @@ public class DrinkingTestUIController : MonoBehaviour {
 		UIController.ChangeMode(UILayer.DrinkingTest);
 		leftNumDrinks = rightNumDrinks = 0;
 		leftDrinkingBar.fillAmount = rightDrinkingBar.fillAmount = 0.0f;
+
+		for(int i = 0; i < introductionTexts.Length; i++)
+        {
+			introductionTexts[i].color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
+        }
+        finalText.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 	}
 
 	public bool IncreaseDrinkingBar(bool leftSide)
 	{
 		if(leftSide)
 		{
-			leftDrinkingBar.fillAmount *= increaseDrinkingPercentage;
+			leftDrinkingBar.fillAmount += increaseDrinkingValue;
 			if(leftDrinkingBar.fillAmount >= 1)
 			{
 				StartCoroutine(ChangeDrinkingBarValueInTime(leftSide, 0.0f, 1.0f));
@@ -132,7 +137,7 @@ public class DrinkingTestUIController : MonoBehaviour {
 		}
 		else
 		{
-			rightDrinkingBar.fillAmount *= increaseDrinkingPercentage;
+			rightDrinkingBar.fillAmount += increaseDrinkingValue;
 			if(rightDrinkingBar.fillAmount >= 1)
 			{
 				StartCoroutine(ChangeDrinkingBarValueInTime(leftSide, 0.0f, 1.0f));

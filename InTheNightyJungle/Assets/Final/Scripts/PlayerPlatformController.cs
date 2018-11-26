@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Anima2D;
 
 public class PlayerPlatformController : PhysicsObject {
 
@@ -48,6 +49,10 @@ public class PlayerPlatformController : PhysicsObject {
     public float dashCooldownTime;
     public ParticleSystem dashEffect;
 
+    private DrinkingTestGlassBehaviour glass;
+    public Transform rightHandBone;
+    private string sortingLayer;
+
     // Use this for initialization
     void Awake()
     {
@@ -55,6 +60,8 @@ public class PlayerPlatformController : PhysicsObject {
 
         stats = GetComponent<PlayerStatsController>();
         anim = GetComponent<Animator>();
+
+        sortingLayer = bodyParts[0].GetComponent<SpriteMeshInstance>().sortingLayerName;
     }
 
     protected override void initialization()
@@ -538,5 +545,39 @@ public class PlayerPlatformController : PhysicsObject {
                 anim.SetTrigger("Right");
                 break;
         }
+    }
+
+    public void SetGlass(DrinkingTestGlassBehaviour param)
+	{
+		glass = param;
+		glass.SetRightHandBone(rightHandBone);
+	}
+
+	private void AimGlass()
+	{
+		glass.SetRightHandBone(rightHandBone);
+		glass.GlassInHand(sortingLayer);
+	}
+
+	private void LeaveGlass()
+	{
+		glass.GlassOverBar();
+	}
+
+    public void PlayDrinking(bool param)
+    {
+        anim.SetBool("drinking", param);
+        anim.ResetTrigger("aimGlass");
+    }
+
+    public void PlayAimGlass()
+    {
+        anim.SetTrigger("aimGlass");
+        anim.ResetTrigger("leaveGlass");
+    }
+
+    public void PlayLeaveGlass()
+    {
+        anim.SetTrigger("leaveGlass");
     }
 }

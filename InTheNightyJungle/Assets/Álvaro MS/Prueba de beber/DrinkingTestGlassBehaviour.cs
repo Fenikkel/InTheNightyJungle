@@ -29,10 +29,11 @@ public class DrinkingTestGlassBehaviour : MonoBehaviour {
 		
 	}
 
-	public void InitializeGlass(Transform param0, Vector2 param1)
+	public void InitializeGlass(Transform param0, Vector2 param1, Transform param2)
 	{
 		placeOverBar = param0;
 		positionInBone = param1;
+		testPlace = param2;
 	}
 
 	public void SetRightHandBone(Transform param)
@@ -43,14 +44,16 @@ public class DrinkingTestGlassBehaviour : MonoBehaviour {
 	public void GlassInHand(string sortingLayer)
 	{
 		GetComponent<Transform>().parent = rightHandBone;
-		GetComponent<Transform>().position = positionInBone;
+		GetComponent<Transform>().localPosition = positionInBone;
+		GetComponent<Transform>().rotation = Quaternion.Euler(Vector2.zero);
 		GetComponent<SpriteRenderer>().sortingLayerName = sortingLayer;
 	}
 
 	public void GlassOverBar()
 	{
 		GetComponent<Transform>().parent = testPlace;
-		GetComponent<Transform>().position = placeOverBar.position;
+		GetComponent<Transform>().localPosition = placeOverBar.position;
+		GetComponent<Transform>().rotation = Quaternion.Euler(Vector2.zero);
 	}
 
 	public void NextSprite()

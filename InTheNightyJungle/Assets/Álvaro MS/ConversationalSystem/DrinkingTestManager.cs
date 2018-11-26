@@ -30,7 +30,6 @@ public class DrinkingTestManager : MonoBehaviour {
     private bool playerBarmanTurn; //true significa que es el turno del jugador y false, el del camarero
     private bool challengerGlassOnTable;
     private bool challengerBarmanTurn; //true significa que es el turno del oponente y false, el del camarero
-    private bool busyBarman;
 
     public bool playerSide; //true significa left, false significa right
 
@@ -69,19 +68,18 @@ public class DrinkingTestManager : MonoBehaviour {
         playerDrinking = challengerDrinking = false;
         playerGlassOnTable = challengerGlassOnTable = true;
         playerBarmanTurn = challengerBarmanTurn = true;
-        busyBarman = false;
 
-        leftSideGlass.InitializeGlass(leftSideGlassPlaceOnBar, positionInHand);
-        rightSideGlass.InitializeGlass(rightSideGlassPlaceOnBar, positionInHand);
+        leftSideGlass.InitializeGlass(leftSideGlassPlaceOnBar, positionInHand, GetComponent<Transform>());
+        rightSideGlass.InitializeGlass(rightSideGlassPlaceOnBar, positionInHand, GetComponent<Transform>());
 
         if(playerSide)
         {
-            //player.SetGlass(leftSideGlass);
+            player.SetGlass(leftSideGlass);
             challenger.SetGlass(rightSideGlass);
         }
         else
         {
-            //player.SetGlass(rightSideGlass);
+            player.SetGlass(rightSideGlass);
             challenger.SetGlass(leftSideGlass);
         }
 
@@ -152,7 +150,7 @@ public class DrinkingTestManager : MonoBehaviour {
                     elapsedTimeWithoutDrinking = 0.0f;
                     if(!player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("drinking"))
                     {
-                        //player.PlayDrinking(true);
+                        player.PlayDrinking(true);
                     }
                     else
                     {
@@ -160,6 +158,7 @@ public class DrinkingTestManager : MonoBehaviour {
                         {
                             playerCurrentNumDrinks++;
                             playerDrinking = false;
+                            player.PlayDrinking(false);
                         }
                     }
                 }
@@ -168,7 +167,7 @@ public class DrinkingTestManager : MonoBehaviour {
                     elapsedTimeWithoutDrinking += Time.deltaTime;
                     if(elapsedTimeWithoutDrinking >= minTimeToDrink)
                     {
-                        //player.PlayDrinking(false);
+                        player.PlayDrinking(false);
                     }
                 }
             }
@@ -178,9 +177,9 @@ public class DrinkingTestManager : MonoBehaviour {
                 {
                     if(playerBarmanTurn) //Es el turno del jugador, deberá ejecutar la animación de coger el vaso y se deberá comprobar cuando lo tiene ya que entonces se puede volver a beber
                     {
-                        if(player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("preIdle"))
+                        if(player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("idle"))
                         {
-                            //player.PlayAimGlass();
+                            player.PlayAimGlass();
                         }
                         else if(player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("drinkingIdle"))
                         {
@@ -190,10 +189,12 @@ public class DrinkingTestManager : MonoBehaviour {
                     }
                     else //Es el turno del camarero, por lo tanto deberá recoger el vaso y en ese proceso estará ocupado
                     {
-                        if(!busyBarman) //Puede que esté ya ocupado y por tanto, no podrá hacerlo
+                        if((playerSide && !barman.GetRightBusyBarman()) || (!playerSide && !barman.GetLeftBusyBarman())) //Puede que esté ya ocupado y por tanto, no podrá hacerlo
                         {
-                            busyBarman = true;
-                            barman.PlayChangeGlass(playerSide);
+                            if(playerSide) barman.SetLeftBusyBarman(true);
+                            else barman.SetRightBusyBarman(true);
+                            
+                            StartCoroutine(barman.PlayChangeGlass(playerSide, 0.5f));
                             playerGlassOnTable = false;
                         }
                     }
@@ -204,7 +205,7 @@ public class DrinkingTestManager : MonoBehaviour {
                     {
                         if(player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("drinkingIdle"))
                         {
-                            //player.PlayLeaveGlass();
+                            player.PlayLeaveGlass();
                         }
                         else if(player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("preIdle"))
                         {
@@ -214,9 +215,8 @@ public class DrinkingTestManager : MonoBehaviour {
                     }
                     else //Es el turno del camerero, lo que quiere decir estamos mirando si ha terminado de sustituir los vasos
                     {
-                        if(barman.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("preIdle"))
+                        if((playerSide && !barman.GetLeftBusyBarman()) || (!playerSide && !barman.GetRightBusyBarman()))
                         {
-                            busyBarman = false;
                             playerGlassOnTable = true;
                             playerBarmanTurn = true;
                         }
@@ -245,7 +245,7 @@ public class DrinkingTestManager : MonoBehaviour {
                 {
                     if(challengerBarmanTurn) //Es el turno del jugador, deberá ejecutar la animación de coger el vaso y se deberá comprobar cuando lo tiene ya que entonces se puede volver a beber
                     {
-                        if(challenger.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("preIdle"))
+                        if(challenger.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("idle"))
                         {
                             challenger.PlayAimGlass();
                         }
@@ -257,10 +257,12 @@ public class DrinkingTestManager : MonoBehaviour {
                     }
                     else //Es el turno del camarero, por lo tanto deberá recoger el vaso y en ese proceso estará ocupado
                     {
-                        if(!busyBarman) //Puede que esté ya ocupado y por tanto, no podrá hacerlo
+                        if((playerSide && !barman.GetLeftBusyBarman()) || (!playerSide && !barman.GetRightBusyBarman())) //Puede que esté ya ocupado y por tanto, no podrá hacerlo
                         {
-                            busyBarman = true;
-                            barman.PlayChangeGlass(!playerSide);
+                            if(!playerSide) barman.SetLeftBusyBarman(true);
+                            else barman.SetRightBusyBarman(true);
+
+                            StartCoroutine(barman.PlayChangeGlass(!playerSide, 0.5f));
                             challengerGlassOnTable = false;
                         }
                     }
@@ -281,9 +283,8 @@ public class DrinkingTestManager : MonoBehaviour {
                     }
                     else //Es el turno del camerero, lo que quiere decir estamos mirando si ha terminado de sustituir los vasos
                     {
-                        if(barman.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("preIdle"))
+                        if((playerSide && !barman.GetRightBusyBarman()) || (!playerSide && !barman.GetLeftBusyBarman()))
                         {
-                            busyBarman = false;
                             challengerGlassOnTable = true;
                             challengerBarmanTurn = true;
                         }
