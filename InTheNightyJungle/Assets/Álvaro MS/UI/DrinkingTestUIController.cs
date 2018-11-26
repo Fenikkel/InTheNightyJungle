@@ -42,6 +42,15 @@ public class DrinkingTestUIController : MonoBehaviour {
 		}
 	}
 
+    public IEnumerator ShowFinalText(float totalTime)
+    {
+        StartCoroutine(MoveToCenter(finalText, false, totalTime/3));
+        yield return new WaitForSeconds(2 * totalTime/3);
+
+        StartCoroutine(ScaleAndFade(finalText, 1.5f, totalTime/3));
+        yield return new WaitForSeconds(totalTime/3);
+    }
+
 	private IEnumerator MoveToCenter(Image text, bool fromRight, float time)
 	{
 		int direction = (fromRight) ? 1 : -1;

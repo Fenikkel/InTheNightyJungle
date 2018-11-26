@@ -46,7 +46,7 @@ public class DrinkingTestGlassBehaviour : MonoBehaviour {
 		GetComponent<Transform>().parent = rightHandBone;
 		GetComponent<Transform>().localPosition = positionInBone;
 		GetComponent<Transform>().rotation = Quaternion.Euler(Vector2.zero);
-		GetComponent<SpriteRenderer>().sortingLayerName = sortingLayer;
+		SetSortingLayer(sortingLayer);
 	}
 
 	public void GlassOverBar()
@@ -54,6 +54,11 @@ public class DrinkingTestGlassBehaviour : MonoBehaviour {
 		GetComponent<Transform>().parent = testPlace;
 		GetComponent<Transform>().localPosition = placeOverBar.position;
 		GetComponent<Transform>().rotation = Quaternion.Euler(Vector2.zero);
+	}
+
+	public void SetSortingLayer(string sortingLayer)
+	{
+		GetComponent<SpriteRenderer>().sortingLayerName = sortingLayer;
 	}
 
 	public void NextSprite()

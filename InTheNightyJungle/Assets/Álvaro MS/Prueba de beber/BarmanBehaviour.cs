@@ -86,6 +86,11 @@ public class BarmanBehaviour : MonoBehaviour {
 		rightBusyBarman = param;
 	}
 
+	public string GetSortingLayer()
+	{
+		return sortingLayer;
+	}
+
 	private void AimGlass()
 	{
 		currentGlass.SetRightHandBone(rightHandBone);

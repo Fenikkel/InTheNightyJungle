@@ -218,7 +218,7 @@ public class DancingTestManager : MonoBehaviour {
                 if(!blocks[currentBlock][currentKey].Equals('3')) result = false;
                 break;
             case KeyCode.RightArrow:
-                if(!blocks[currentBlock][currentKey].Equals('4')) result = false;
+                if(!blocks[currentBlock][currentKey].Equals('4')) result = false; 
                 break;
         }
 
