@@ -174,7 +174,7 @@ public class PlayerPlatformController : PhysicsObject {
     private void Breath()
     {
 
-        inputActivated = false; //No se puede mover
+        //inputActivated = false; //No se puede mover
         breath = true; //Se está haciendo el breath
         breathCooldown = true; //No se va a poder gastar en un ratete
 
@@ -245,8 +245,8 @@ public class PlayerPlatformController : PhysicsObject {
         yield return new WaitForSeconds(time); //aci se deuria esperar a que la animacio acabara
 
         breath = false;
-        inputActivated = true;
-        gravityModifier = initialGravityModifier;
+        //inputActivated = true;
+        //gravityModifier = initialGravityModifier;
 
         Invulnerable(false);//Una vez terminada la animación ya puede ser golpeada
 
