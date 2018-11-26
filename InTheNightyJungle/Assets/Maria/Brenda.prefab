@@ -1281,6 +1281,7 @@ MonoBehaviour:
   initialGravityModifier: 1
   initialMaxSpeed: 7
   initialJumpTakeOffSpeed: 12
+  Descansando: 0
   knockbackSpeed: 2
   bodyParts:
   - {fileID: 137703796689250562}
@@ -1296,6 +1297,7 @@ MonoBehaviour:
   dashTime: 0.1
   dashCooldownTime: 1
   dashEffect: {fileID: 198872630243902698}
+  rightHandBone: {fileID: 0}
 --- !u!114 &114378948799071108
 MonoBehaviour:
   m_ObjectHideFlags: 1

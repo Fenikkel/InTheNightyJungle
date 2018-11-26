@@ -842,6 +842,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 198822755376117432, guid: 56baa5525ff9e864d9e8006a37509170,
+        type: 2}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198742330467466506, guid: 56baa5525ff9e864d9e8006a37509170,
+        type: 2}
+      propertyPath: moveWithTransform
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 56baa5525ff9e864d9e8006a37509170, type: 2}
   m_IsPrefabAsset: 0
@@ -7537,6 +7547,7 @@ MonoBehaviour:
   initialGravityModifier: 1
   initialMaxSpeed: 7
   initialJumpTakeOffSpeed: 9
+  Descansando: 0
   knockbackSpeed: 2
   bodyParts:
   - {fileID: 1805278469}
@@ -7552,6 +7563,7 @@ MonoBehaviour:
   dashTime: 0.1
   dashCooldownTime: 1
   dashEffect: {fileID: 1450298114}
+  rightHandBone: {fileID: 0}
 --- !u!95 &2136406782
 Animator:
   serializedVersion: 3
