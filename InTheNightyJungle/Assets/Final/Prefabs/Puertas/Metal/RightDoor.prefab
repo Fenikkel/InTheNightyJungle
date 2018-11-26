@@ -66,8 +66,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111729301281174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7258611, y: -32.76444, z: 0.11071907}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -35.330826, y: -25.903856, z: 0.11071907}
+  m_LocalScale: {x: 0.5, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4840116764612082}
   - {fileID: 4598159423108370}
@@ -139,9 +139,7 @@ MonoBehaviour:
   playerPosition: {fileID: 4598159423108370}
   cameraPosition: {fileID: 4840116764612082}
   nextDoor: {fileID: 0}
-  nextChamber: 0
   doorType: 1
-  GM: {fileID: 0}
 --- !u!212 &212472674365243736
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -174,8 +172,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1642146063
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d5f51a26f317fac4d9c87bba5025510b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
