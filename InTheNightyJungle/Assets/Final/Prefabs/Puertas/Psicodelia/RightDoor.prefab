@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 212363467855011980}
   - component: {fileID: 61560316814092994}
   - component: {fileID: 114817425991420964}
+  - component: {fileID: 114810944971002662}
   m_Layer: 0
   m_Name: RightDoor
   m_TagString: LateralDoor
@@ -66,8 +67,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1458939660620490}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7258611, y: -32.76444, z: 0.11071907}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4672900558473882}
   - {fileID: 4753155616445718}
@@ -125,6 +126,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0378647, y: 5.221551}
   m_EdgeRadius: 0
+--- !u!114 &114810944971002662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1458939660620490}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abcd3f1b6493eab498b3741b1e90950d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  from: {fileID: 4286461273304528}
+  to: {fileID: 0}
 --- !u!114 &114817425991420964
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -139,9 +153,7 @@ MonoBehaviour:
   playerPosition: {fileID: 4753155616445718}
   cameraPosition: {fileID: 4672900558473882}
   nextDoor: {fileID: 0}
-  nextChamber: 0
   doorType: 1
-  GM: {fileID: 0}
 --- !u!212 &212363467855011980
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -174,8 +186,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1642146063
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b80167eb4d0c5524395196aa84d9c4fa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
