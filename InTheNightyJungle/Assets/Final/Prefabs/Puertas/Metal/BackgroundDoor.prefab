@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 212095585964294926}
   - component: {fileID: 61409667459322918}
   - component: {fileID: 114402516866702456}
+  - component: {fileID: 114745952270924996}
   m_Layer: 0
   m_Name: BackgroundDoor
   m_TagString: Door
@@ -79,7 +80,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1322707096579440}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.5, y: -18, z: 0}
+  m_LocalPosition: {x: -69.5, y: -34.5, z: 0}
   m_LocalScale: {x: 0.5, y: 0.39, z: 1}
   m_Children:
   - {fileID: 4843740253181408}
@@ -140,6 +141,19 @@ MonoBehaviour:
   cameraPosition: {fileID: 4843740253181408}
   nextDoor: {fileID: 0}
   doorType: 0
+--- !u!114 &114745952270924996
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1322707096579440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abcd3f1b6493eab498b3741b1e90950d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  from: {fileID: 4502680946565404}
+  to: {fileID: 0}
 --- !u!212 &212095585964294926
 SpriteRenderer:
   m_ObjectHideFlags: 1

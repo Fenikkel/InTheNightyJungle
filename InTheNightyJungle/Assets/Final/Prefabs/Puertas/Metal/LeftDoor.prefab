@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212703673752673932}
   - component: {fileID: 61928154106531566}
   - component: {fileID: 114403498311008130}
+  - component: {fileID: 114620851048155372}
   m_Layer: 0
   m_Name: LeftDoor
   m_TagString: LateralDoor
@@ -92,7 +93,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1150867963359594}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -33.375244, y: -25.283794, z: 0.11071907}
+  m_LocalPosition: {x: -8.5, y: -3, z: 0}
   m_LocalScale: {x: 0.5, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4866512221530330}
@@ -140,6 +141,19 @@ MonoBehaviour:
   cameraPosition: {fileID: 4866512221530330}
   nextDoor: {fileID: 0}
   doorType: 3
+--- !u!114 &114620851048155372
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1150867963359594}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abcd3f1b6493eab498b3741b1e90950d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  from: {fileID: 4954449287642022}
+  to: {fileID: 0}
 --- !u!212 &212703673752673932
 SpriteRenderer:
   m_ObjectHideFlags: 1

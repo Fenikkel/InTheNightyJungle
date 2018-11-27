@@ -7,7 +7,7 @@ public class DrawSceneLine : MonoBehaviour {
     public Transform from;
     public Transform to;
 
-	void OnDrawGizmosSelected () {
+	void OnDrawGizmos () {
         if(from != null && to != null)
         {
             Gizmos.color = Color.cyan;

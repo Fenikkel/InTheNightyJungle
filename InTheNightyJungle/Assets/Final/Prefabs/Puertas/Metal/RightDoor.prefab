@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212472674365243736}
   - component: {fileID: 61525401615772896}
   - component: {fileID: 114645968541344562}
+  - component: {fileID: 114292710439902916}
   m_Layer: 0
   m_Name: RightDoor
   m_TagString: LateralDoor
@@ -66,7 +67,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1111729301281174}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.330826, y: -25.903856, z: 0.11071907}
+  m_LocalPosition: {x: 34.5, y: -3, z: 0}
   m_LocalScale: {x: 0.5, y: 0.4, z: 1}
   m_Children:
   - {fileID: 4840116764612082}
@@ -125,6 +126,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.0378647, y: 5.221551}
   m_EdgeRadius: 0
+--- !u!114 &114292710439902916
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1111729301281174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: abcd3f1b6493eab498b3741b1e90950d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  from: {fileID: 4110090638626980}
+  to: {fileID: 0}
 --- !u!114 &114645968541344562
 MonoBehaviour:
   m_ObjectHideFlags: 1
