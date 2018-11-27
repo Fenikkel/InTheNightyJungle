@@ -3,20 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using Anima2D;
 
-public class PlayerPlatformController : PhysicsObject {
+public class PlayerPlatformController : MonoBehaviour {
 
     public static PlayerPlatformController Instance;
 
-    public float initialMaxSpeed = 7;
+    public float initialMaxSpeed = 60;
     public float initialJumpTakeOffSpeed = 7;
     private float maxSpeed;
     private float jumpTakeOffSpeed;
+
+    private float move;
+    private bool jump;
 
     //Maria
     [HideInInspector]
     public bool Descansando;
 
     private bool inputActivated;
+
+    protected bool grounded;
+    protected MotionPlatform onMotionPlatform;
+    protected Rigidbody2D rb2d;
 
     private bool invulnerabity;
     private bool knockback;
@@ -28,6 +35,7 @@ public class PlayerPlatformController : PhysicsObject {
 
     private PlayerStatsController stats;
     private Animator anim;
+    private CharacterController2D controller;
 
     private float lastMove;
 
@@ -39,7 +47,6 @@ public class PlayerPlatformController : PhysicsObject {
     public float breathTime;
     public float breathCooldownTime;
     public ParticleSystem breathEffect;
-
 
     private bool dash;
     private bool dashCooldown;
@@ -53,20 +60,22 @@ public class PlayerPlatformController : PhysicsObject {
     public Transform rightHandBone;
     private string sortingLayer;
 
-    // Use this for initialization
-    void Awake()
+    private void Awake()
     {
         Instance = this;
-
+        
+        rb2d = GetComponent<Rigidbody2D> ();
         stats = GetComponent<PlayerStatsController>();
         anim = GetComponent<Animator>();
+        controller = GetComponent<CharacterController2D>();
 
         sortingLayer = bodyParts[0].GetComponent<SpriteMeshInstance>().sortingLayerName;
+
+        initialization();
     }
 
-    protected override void initialization()
+    private void initialization()
     {
-        base.initialization();
         inputActivated = true;
         invulnerabity = false;
         blink = false;
@@ -79,27 +88,28 @@ public class PlayerPlatformController : PhysicsObject {
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
         dashSpeed = initialDashSpeed;
 
+        ContactFilterInitialization();
+
     }
 
-    protected override void ContactFilterInitialization()
+    private void ContactFilterInitialization()
     {
-        base.ContactFilterInitialization();
-
         enemyContactFilter = new ContactFilter2D();
         enemyContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PhysicalEnemy"));
         enemyContactFilter.useLayerMask = true;
 
-        motionPlatformContactFilter = new ContactFilter2D();
+        /* motionPlatformContactFilter = new ContactFilter2D();
         motionPlatformContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PlatformCollider"));
-        motionPlatformContactFilter.useLayerMask = true;
+        motionPlatformContactFilter.useLayerMask = true;*/
     }
 
-    protected override void ComputeVelocity()
+    private void Update()
     {
-        Vector2 move = Vector2.zero;
 
         if (inputActivated)
-        {
+        {            
+            move = Input.GetAxisRaw("Horizontal") * maxSpeed;
+
             if(Input.GetKeyDown(KeyCode.Z) && !dashCooldown)
             {
                 Dash();
@@ -108,33 +118,25 @@ public class PlayerPlatformController : PhysicsObject {
             {
                 Breath();
             }
-            move.x = Input.GetAxis("Horizontal");
 
-            anim.SetBool("movement", move.x != lastMove || move.x != 0);
-            anim.SetBool("grounded", grounded);
-            anim.SetFloat("yVel", velocity.y);
+            anim.SetBool("movement", move != lastMove || move != 0);
+            anim.SetBool("grounded", controller.GetGrounded());
+            anim.SetFloat("yVel", rb2d.velocity.y);
 
-            lastMove = move.x;
+            lastMove = move;
 
-            if (Input.GetButtonDown("Jump") && grounded)
+            if (Input.GetButtonDown("Jump"))
             {
-                velocity.y = jumpTakeOffSpeed;
-            }
-            else if (Input.GetButtonUp("Jump"))
-            {
-                if (velocity.y > 0)
-                {
-                    velocity.y = velocity.y * 0.5f;
-                }
+                jump = true;
             }
         }
 
-        if ((move.x > 0.01f && GetComponent<Transform>().localScale.x < 0) || (move.x < -0.01f && GetComponent<Transform>().localScale.x > 0))
+        if ((move > 0.01f && GetComponent<Transform>().localScale.x < 0) || (move < -0.01f && GetComponent<Transform>().localScale.x > 0))
         {
             GetComponent<Transform>().localScale = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
         }
 
-        if (knockback)
+        /*if (knockback)
         {
             targetVelocity = knockbackDirection * knockbackSpeed;
             velocity.y = targetVelocity.y;
@@ -149,6 +151,30 @@ public class PlayerPlatformController : PhysicsObject {
             {
                 targetVelocity = new Vector2(GetComponent<Transform>().localScale.x, 0).normalized * dashSpeed;
             }
+        }*/
+    }
+
+    private void FixedUpdate()
+    {
+        DetectingEnemies();
+        //DetectingMotionPlatform();
+        
+        if(knockback)
+        {
+            controller.Move(knockbackDirection.x * knockbackSpeed * Time.fixedDeltaTime, false, false);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, knockbackDirection.y * knockbackSpeed);
+        }
+        else
+        {
+            if(dash)
+            {
+                controller.Move(move * Time.fixedDeltaTime, false, false);
+            }
+            else
+            {
+                controller.Move(move * Time.fixedDeltaTime, false, jump);
+		        jump = false;
+            }
         }
     }
 
@@ -160,9 +186,9 @@ public class PlayerPlatformController : PhysicsObject {
         anim.SetBool("dash", dash);
         dashCooldown = true; //No se va a poder gastar en un ratete
 
-        velocity.y = 0; //Quitar la velocidad teórica vertical del siguiente frame (para si se hace el dash saltando)
-        gravityModifier = 0; //Quitar el modificador de la gravedad para que el script no provoque caída
+        rb2d.isKinematic = true;
         rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
+        move = Mathf.Sign(GetComponent<Transform>().localScale.x) * dashSpeed;
 
         dashEffect.Play(); //Emisión de partículas
 
@@ -229,7 +255,7 @@ public class PlayerPlatformController : PhysicsObject {
         anim.SetBool("dash", dash);
         inputActivated = true;
 
-        gravityModifier = initialGravityModifier;
+        rb2d.isKinematic = false;
 
         dashEffect.Stop();
 
@@ -333,13 +359,6 @@ public class PlayerPlatformController : PhysicsObject {
         stats.DecreaseChangenessStat(value);
     }
 
-    protected override void OurFixedUpdate()
-    {
-        DetectingEnemies();
-        DetectingMotionPlatform();
-        base.OurFixedUpdate();
-    }
-
     private void DetectingMotionPlatform()
     {
         RaycastHit2D[] results = new RaycastHit2D[16];
@@ -376,7 +395,6 @@ public class PlayerPlatformController : PhysicsObject {
                 enemy.CollideWithPlayer();
 
                 inputActivated = false;
-                targetVelocity = Vector2.zero;
                 Invulnerable(true);
                 KnockBack(normals);
             }
@@ -415,6 +433,7 @@ public class PlayerPlatformController : PhysicsObject {
             yDirection += normal.y;
         }
         knockbackDirection = new Vector2(xDirection / contactNormals.Count, yDirection / contactNormals.Count).normalized;
+        print(knockbackDirection);
 
         if (Mathf.Sign(xDirection) == Mathf.Sign(GetComponent<Transform>().localScale.x)) anim.SetTrigger("knockbackTrasero");
         else anim.SetTrigger("knockbackFrontal");
@@ -429,13 +448,13 @@ public class PlayerPlatformController : PhysicsObject {
         {
             invulnerabity = true;
             gameObject.layer = LayerMask.NameToLayer("UntargetedPlayer");
-            contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) & ~(1 << LayerMask.NameToLayer("Enemy")));
+            //contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) & ~(1 << LayerMask.NameToLayer("Enemy")));
         }
         else
         {
             invulnerabity = false;
             gameObject.layer = LayerMask.NameToLayer("Player");
-            contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) | (1 << LayerMask.NameToLayer("Enemy")));
+            //contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) | (1 << LayerMask.NameToLayer("Enemy")));
         }
     }
 

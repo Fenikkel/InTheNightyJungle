@@ -14,6 +14,7 @@ public class BailadorBehaviour : EnemyBehaviour {
     private bool spinning;
     private bool accelerating;
 
+    private float move;
     public float maxSpeed;
     public float stopTime;
 
@@ -25,15 +26,13 @@ public class BailadorBehaviour : EnemyBehaviour {
     public ParticleSystem whirlpool;
 
     private Animator anim;
+    private CharacterController2D controller;
 
-    private void Awake()
+    private void Start()
     {
         anim = GetComponent<Animator>();
-    }
+        controller = GetComponent<CharacterController2D>();
 
-    protected override void initialization()
-    {
-        base.initialization();
         moveDirection = initialMoveDirection;
         anim.SetBool("accelerating", true);
         timeToAccelerateLeft = TimeInMRUA(accZoneInitialPos.position, spinZoneInitialPos.position, 0.0f, maxSpeed, out accelerationLeft);
@@ -46,18 +45,14 @@ public class BailadorBehaviour : EnemyBehaviour {
         return (finalSpeed - initialSpeed) / acceleration;
     }
 
-    protected override void ComputeVelocity()
+    private void Update()
     {
-        Vector2 move = Vector2.zero;
-
-        move.x = moveDirection;
-
-        if ((move.x > 0.01f && GetComponent<Transform>().localScale.x < 0) || (move.x < -0.01f && GetComponent<Transform>().localScale.x > 0))
+        if ((move > 0.01f && GetComponent<Transform>().localScale.x < 0) || (move < -0.01f && GetComponent<Transform>().localScale.x > 0))
         {
             GetComponent<Transform>().localScale = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
         }
 
-        targetVelocity = move * maxSpeed;
+        move = moveDirection * maxSpeed;
 
         spinning = !(GetComponent<Transform>().position.x < spinZoneInitialPos.position.x || GetComponent<Transform>().position.x > spinZoneFinalPos.position.x);
         if(!spinning && !accelerating)
@@ -67,6 +62,11 @@ public class BailadorBehaviour : EnemyBehaviour {
             if (toLeft) StartCoroutine(Accelerate(timeToAccelerateLeft, -1, 0, true));
             else StartCoroutine(Accelerate(timeToAccelerateRight, 1, 0, true));
         }
+    }
+
+    private void FixedUpdate()
+    {
+        controller.Move(move * Time.fixedDeltaTime, false, false);
     }
 
     IEnumerator Accelerate(float time, float initialValue, float finalValue, bool hasToStop)

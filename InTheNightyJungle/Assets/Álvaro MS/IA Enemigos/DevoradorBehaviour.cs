@@ -14,9 +14,8 @@ public class DevoradorBehaviour : EnemyBehaviour
     private bool appeared;
     private bool slowDowned;
 
-    protected override void initialization()
+    private void Start()
     {
-        base.initialization();
         DisappearBodyParts();
         inside = false;
         appeared = false;
@@ -29,7 +28,7 @@ public class DevoradorBehaviour : EnemyBehaviour
             part.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
     }
 
-    protected override void ComputeVelocity()
+    private void Update()
     {
         if(inside && !appeared)
         {
