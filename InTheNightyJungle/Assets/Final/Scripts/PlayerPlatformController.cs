@@ -15,6 +15,8 @@ public class PlayerPlatformController : MonoBehaviour {
     private float move;
     private bool jump;
 
+    public bool cindy;
+
     //Maria
     [HideInInspector]
     public bool Descansando;
@@ -110,11 +112,11 @@ public class PlayerPlatformController : MonoBehaviour {
         {            
             move = Input.GetAxisRaw("Horizontal") * maxSpeed;
 
-            if(Input.GetKeyDown(KeyCode.Z) && !dashCooldown)
+            if(cindy && Input.GetKeyDown(KeyCode.Z) && !dashCooldown)
             {
                 Dash();
             }
-            else if (Input.GetKeyDown(KeyCode.X) && !breathCooldown)
+            else if (!cindy && controller.GetGrounded() && Input.GetKeyDown(KeyCode.Z) && !breathCooldown)
             {
                 Breath();
             }
@@ -128,6 +130,10 @@ public class PlayerPlatformController : MonoBehaviour {
             if (Input.GetButtonDown("Jump"))
             {
                 jump = true;
+            }
+            else if(Input.GetButtonUp("Jump"))
+            {
+                jump = false;
             }
         }
 
@@ -162,7 +168,7 @@ public class PlayerPlatformController : MonoBehaviour {
         if(knockback)
         {
             controller.Move(knockbackDirection.x * knockbackSpeed * Time.fixedDeltaTime, false, false);
-            rb2d.velocity = new Vector2(rb2d.velocity.x, knockbackDirection.y * knockbackSpeed);
+            rb2d.velocity = new Vector2(rb2d.velocity.x, knockbackDirection.y * knockbackSpeed * 0.2f);
         }
         else
         {
@@ -186,7 +192,7 @@ public class PlayerPlatformController : MonoBehaviour {
         anim.SetBool("dash", dash);
         dashCooldown = true; //No se va a poder gastar en un ratete
 
-        rb2d.isKinematic = true;
+        rb2d.gravityScale = 0;
         rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
         move = Mathf.Sign(GetComponent<Transform>().localScale.x) * dashSpeed;
 
@@ -211,6 +217,19 @@ public class PlayerPlatformController : MonoBehaviour {
         Invulnerable(true); //No le tienen que hacer daño y debe poder traspasar los enemigos
 
         StartCoroutine(WhileBreathActivated(breathTime)); //Iniciar la duración del dash
+    }
+
+    public void PlayBreath()
+    {
+
+        breathEffect.Play();
+
+    }
+    public void StopBreath()
+    {
+
+        breathEffect.Stop();
+
     }
 
     public void SetDashActivated(bool param)
@@ -255,7 +274,7 @@ public class PlayerPlatformController : MonoBehaviour {
         anim.SetBool("dash", dash);
         inputActivated = true;
 
-        rb2d.isKinematic = false;
+        rb2d.gravityScale = 3;
 
         dashEffect.Stop();
 
