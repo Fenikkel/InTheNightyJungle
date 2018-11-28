@@ -116,7 +116,7 @@ public class PlayerPlatformController : MonoBehaviour {
             {
                 Dash();
             }
-            else if (!cindy && Input.GetKeyDown(KeyCode.Z) && !breathCooldown)
+            else if (!cindy && controller.GetGrounded() && Input.GetKeyDown(KeyCode.Z) && !breathCooldown)
             {
                 Breath();
             }
