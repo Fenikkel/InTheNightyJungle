@@ -22,9 +22,8 @@ public class PlayerPlatformController : MonoBehaviour {
     public bool Descansando;
 
     private bool inputActivated;
-
-    protected bool grounded;
-    protected MotionPlatform onMotionPlatform;
+    
+    protected Transform onMotionPlatform;
     protected Rigidbody2D rb2d;
 
     private bool invulnerabity;
@@ -100,9 +99,9 @@ public class PlayerPlatformController : MonoBehaviour {
         enemyContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PhysicalEnemy"));
         enemyContactFilter.useLayerMask = true;
 
-        /* motionPlatformContactFilter = new ContactFilter2D();
+        motionPlatformContactFilter = new ContactFilter2D();
         motionPlatformContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PlatformCollider"));
-        motionPlatformContactFilter.useLayerMask = true;*/
+        motionPlatformContactFilter.useLayerMask = true;
     }
 
     private void Update()
@@ -163,7 +162,7 @@ public class PlayerPlatformController : MonoBehaviour {
     private void FixedUpdate()
     {
         DetectingEnemies();
-        //DetectingMotionPlatform();
+        DetectingMotionPlatform();
         
         if(knockback)
         {
@@ -221,15 +220,11 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public void PlayBreath()
     {
-
         breathEffect.Play();
-
     }
     public void StopBreath()
     {
-
         breathEffect.Stop();
-
     }
 
     public void SetDashActivated(bool param)
@@ -385,9 +380,23 @@ public class PlayerPlatformController : MonoBehaviour {
         
         if(count > 0)
         {
-            onMotionPlatform = results[0].collider.gameObject.GetComponent<MotionPlatform>();
+            bool existsOne = false;
+            int j = -1;
+            for(int i = 0; i < count; i++)
+            {
+                if(results[i].normal.y > 0.65f)
+                    j = i;
+            }
+            if(j != -1)
+            {
+                onMotionPlatform = results[j].collider.gameObject.GetComponent<Transform>();
+                GetComponent<Transform>().parent = onMotionPlatform;
+            }
         }
-        else onMotionPlatform = null;
+        else {
+            GetComponent<Transform>().parent = null;
+            onMotionPlatform = null;
+        }
     }
 
     private void DetectingEnemies()
@@ -551,7 +560,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public bool GetGrounded()
     {
-        return grounded;
+        return controller.GetGrounded();
     }
 
     public void DancingMovement(KeyCode key)
