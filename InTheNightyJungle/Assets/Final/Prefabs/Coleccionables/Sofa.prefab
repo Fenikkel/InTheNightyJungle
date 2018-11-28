@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212568775496475222}
   - component: {fileID: 114429227134731400}
   - component: {fileID: 61177676569338550}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Sofa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276863728452130}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.83, y: -1.97, z: 0}
+  m_LocalPosition: {x: -28.5, y: 1.03, z: 0}
   m_LocalScale: {x: 0.059651397, y: 0.059651397, z: 0.059651397}
   m_Children: []
   m_Father: {fileID: 0}
@@ -93,7 +93,7 @@ SpriteRenderer:
   m_ReflectionProbeUsage: 1
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 13d672952d9967c4191e6cd392ac13b6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -112,7 +112,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1366466459
   m_SortingLayer: 6
-  m_SortingOrder: -18
+  m_SortingOrder: -37
   m_Sprite: {fileID: 21300000, guid: 66a5108a5f0c18f4aa681e3e74dce772, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
