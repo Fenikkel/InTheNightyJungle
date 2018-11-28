@@ -40,7 +40,7 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         }
 	}
 
-    void EmpezarJuego()
+    public void EmpezarJuego()
     {
         empezar = true;
         StartCoroutine(ChangeScene());
