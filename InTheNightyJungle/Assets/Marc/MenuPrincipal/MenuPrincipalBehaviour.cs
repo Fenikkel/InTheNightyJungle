@@ -9,6 +9,10 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
     public Button botonJugar, botonOpciones, botonSalir, botonMenu;
     public Slider volumen;
 
+    private float currentVolume;
+
+    public AudioSource music;
+
     private float initialAlpha;
     private bool empezar = false;
     private float tiempo;
@@ -19,6 +23,8 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonSalir.onClick.AddListener(Salir);
         botonMenu.onClick.AddListener(Atras);
         initialAlpha = this.GetComponent<CanvasGroup>().alpha;
+
+        music.volume = volumen.value;
 	}
 	
 	// Update is called once per frame
@@ -31,8 +37,6 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
             this.GetComponent<CanvasGroup>().alpha=Mathf.Lerp(initialAlpha, 0.0f, t);
         }
-
-        AudioListener.volume = volumen.value;
 	}
 
     void EmpezarJuego()
@@ -68,6 +72,19 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
     IEnumerator ChangeScene()
     {
         yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(2);//Aqui cambiara a la escena principal tras hacer el FadeOut
+        SceneManager.LoadScene(1);//Aqui cambiara a la escena principal tras hacer el FadeOut
+    }
+
+    public void TurnUpVolume()
+    {
+        if(currentVolume > volumen.value)
+        {
+            volumen.value = currentVolume;
+        }
+        else
+        {
+            currentVolume = volumen.value;
+            music.volume = currentVolume;
+        }
     }
 }

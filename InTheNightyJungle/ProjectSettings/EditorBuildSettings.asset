@@ -5,16 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Pau/Dash/DashTestScene.unity
-    guid: 007d1a1c0fd21b94fabc356cb4bc756a
-  - enabled: 1
-    path: Assets/Marc/Menu Principal.unity
+    path: Assets/Final/Scenes/MainMenu.unity
     guid: 020ef9599f9a9b24d9eb71c48fe31082
   - enabled: 1
-    path: Assets/Marc/Victoria-Derrota.unity
-    guid: 645ee89b28c284c43a64cccc183e4b26
+    path: Assets/Final/Scenes/Sprint3.unity
+    guid: 56094720ba4c6d346b45e3d1020d196b
   m_configObjects: {}
