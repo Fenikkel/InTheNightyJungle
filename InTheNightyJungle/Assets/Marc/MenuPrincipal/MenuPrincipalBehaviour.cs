@@ -11,7 +11,7 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     private float currentVolume;
 
-    public AudioSource music;
+    private AudioSource music;
 
     private float initialAlpha;
     private bool empezar = false;
@@ -23,7 +23,8 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonSalir.onClick.AddListener(Salir);
         botonMenu.onClick.AddListener(Atras);
         initialAlpha = this.GetComponent<CanvasGroup>().alpha;
-
+        
+        music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
         music.volume = volumen.value;
 	}
 	

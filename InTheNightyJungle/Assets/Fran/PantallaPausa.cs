@@ -10,15 +10,19 @@ public class PantallaPausa : MonoBehaviour {
     public Button botonJugar, botonOpciones, botonSalir, botonInventario, botonAtras;
     public Slider volumen;
 
-    public GameObject pauseMenuUI;
+    public GeneralUIController UIController;
+
+    private float currentVolume;
+
+    private AudioSource music;
 
     void Start()
     {
-        botonJugar.onClick.AddListener(Resume);
-        botonOpciones.onClick.AddListener(Opciones);
-        botonSalir.onClick.AddListener(LoadMenu);
-        botonAtras.onClick.AddListener(Atras);
+        volumen.gameObject.SetActive(false);
         botonAtras.gameObject.SetActive(false);
+
+        music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
+        if(music) volumen.value = music.volume;
     }
 
     // Update is called once per frame
@@ -37,21 +41,21 @@ public class PantallaPausa : MonoBehaviour {
 	}
     public void Resume()
     {
-        pauseMenuUI.SetActive(false);
+        UIController.ResumeGame();
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
     public void Pause()
     {
-        pauseMenuUI.SetActive(true);
+        UIController.PauseGame();
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
     public void LoadMenu()
     {
-        SceneManager.LoadScene("Menu Principal");
+        SceneManager.LoadScene(0);
     }
-    void Opciones()
+    public void Opciones()
     {
         botonJugar.gameObject.SetActive(false);
         botonOpciones.gameObject.SetActive(false);
@@ -60,8 +64,26 @@ public class PantallaPausa : MonoBehaviour {
         volumen.gameObject.SetActive(true);
         botonAtras.gameObject.SetActive(true);
     }
-    void Atras()
+    public void Atras()
     {
-        SceneManager.LoadScene("PantallaPausa");
+        botonJugar.gameObject.SetActive(true);
+        botonOpciones.gameObject.SetActive(true);
+        botonSalir.gameObject.SetActive(true);
+        botonInventario.gameObject.SetActive(true);
+        volumen.gameObject.SetActive(false);
+        botonAtras.gameObject.SetActive(false);
+    }
+
+    public void TurnUpVolume()
+    {
+        if(currentVolume > volumen.value)
+        {
+            volumen.value = currentVolume;
+        }
+        else
+        {
+            currentVolume = volumen.value;
+            if(music) music.volume = currentVolume;
+        }
     }
 }

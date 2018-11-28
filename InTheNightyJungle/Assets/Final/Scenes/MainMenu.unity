@@ -607,8 +607,8 @@ GameObject:
   - component: {fileID: 637764759}
   - component: {fileID: 637764761}
   m_Layer: 0
-  m_Name: Sound
-  m_TagString: Untagged
+  m_Name: SoundManager
+  m_TagString: music
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1074,7 +1074,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0
+  m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -1586,7 +1586,6 @@ MonoBehaviour:
   botonSalir: {fileID: 260089948}
   botonMenu: {fileID: 477414955}
   volumen: {fileID: 785628455}
-  music: {fileID: 637764759}
 --- !u!225 &1477110719
 CanvasGroup:
   m_ObjectHideFlags: 0
