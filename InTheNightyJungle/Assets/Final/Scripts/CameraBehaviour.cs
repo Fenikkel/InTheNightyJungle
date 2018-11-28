@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CameraBehaviour : MonoBehaviour {
 
-    public GameObject player;
+    private GameObject player;
     /*public Transform leftBounds; //donde chocara la camara
     public Transform rightBounds;
 
@@ -30,12 +30,13 @@ public class CameraBehaviour : MonoBehaviour {
 
 
     void Start () {
-        playerPosition = player.transform;
 
         initialSize = Camera.main.orthographicSize;
 
         boundDistanceMaxY = GetComponent<Camera>().orthographicSize * 0.9f;
         boundDistanceMaxX = GetComponent<Camera>().orthographicSize * GetComponent<Camera>().aspect * 0.9f;
+        
+        followTarget = false;
 
         RestartCamera();
     }
@@ -66,42 +67,42 @@ public class CameraBehaviour : MonoBehaviour {
 
         CheckingBoundaries();
 
-        if (followTarget && playerPosition) //if target has been instanciated
+        if (followTarget && player) //if target has been instanciated
         {
             if (distanceToLeft > 0 && distanceToRight > 0) //Considerar hacer zoom (disminuir el size de la camara) en caso de que se produzca este caso
             {
-                targetX = ((playerPosition.position.x + distanceToLeft) + (playerPosition.position.x - distanceToRight))/2;
+                targetX = ((player.GetComponent<Transform>().position.x + distanceToLeft) + (player.GetComponent<Transform>().position.x - distanceToRight))/2;
             }
             else if(distanceToLeft > 0)
             {
-                targetX = playerPosition.position.x + distanceToLeft;
+                targetX = player.GetComponent<Transform>().position.x + distanceToLeft;
             }
             else if(distanceToRight > 0)
             {
-                targetX = playerPosition.position.x - distanceToRight;
+                targetX = player.GetComponent<Transform>().position.x - distanceToRight;
             }
             else
             {
-                targetX = playerPosition.position.x;
+                targetX = player.GetComponent<Transform>().position.x;
             }
 
             //if (player.GetComponent<PlayerPlatformController>().GetGrounded() == true) {
 
                 if (distanceToBottom > 0 && distanceToTop > 0)
                 {
-                    targetY = ((playerPosition.position.y + distanceToBottom) + (playerPosition.position.y - distanceToTop)) / 2;
+                    targetY = ((player.GetComponent<Transform>().position.y + distanceToBottom) + (player.GetComponent<Transform>().position.y - distanceToTop)) / 2;
                 }
                 else if (distanceToBottom > 0)
                 {
-                    targetY = playerPosition.position.y + distanceToBottom;
+                    targetY = player.GetComponent<Transform>().position.y + distanceToBottom;
                 }
                 else if (distanceToTop > 0)
                 {
-                    targetY = playerPosition.position.y - distanceToTop;
+                    targetY = player.GetComponent<Transform>().position.y - distanceToTop;
                 }
                 else
                 {
-                    targetY = playerPosition.position.y;//+camHeight/2//target.position.y //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
+                    targetY = player.GetComponent<Transform>().position.y;//+camHeight/2//target.position.y //con esto, el personaje se podra desmarcar del centro de la pantalla? Esto sirve para que la camara nunca supere levelMax y levlMin
                 }
 
                 y = Mathf.SmoothDamp(transform.position.y, targetY, ref smoothDampVelocity.y, smoothDampTime);
@@ -155,6 +156,13 @@ public class CameraBehaviour : MonoBehaviour {
     public void SetFollowTarget(bool param)
     {
         followTarget = param;
+    }
+
+    public void SetTarget(GameObject param)
+    {
+        followTarget = false;
+        player = param;
+        SetPosition(param.GetComponent<Transform>().position);
     }
 
     public void SetPosition(Vector2 param)

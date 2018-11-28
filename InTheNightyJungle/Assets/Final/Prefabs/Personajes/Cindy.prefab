@@ -1433,6 +1433,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initialMaxSpeed: 30
   initialJumpTakeOffSpeed: 9
+  cindy: 1
   Descansando: 0
   knockbackSpeed: 40
   bodyParts:
@@ -1662,7 +1663,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec94ba24b58017847ae10acfc347992f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_JumpForce: 700
+  m_JumpForce: 14.7
   m_CrouchSpeed: 0.36
   m_MovementSmoothing: 0.05
   m_AirControl: 1
@@ -1672,6 +1673,8 @@ MonoBehaviour:
   m_GroundCheck: {fileID: 4055604659116654}
   m_CeilingCheck: {fileID: 4199828536278994}
   m_CrouchDisableCollider: {fileID: 0}
+  fallMultiplier: 2
+  lowJumpMultiplier: 4
   OnLandEvent:
     m_PersistentCalls:
       m_Calls: []

@@ -19,6 +19,11 @@ public class CharacterController2D : MonoBehaviour
 	private bool m_FacingRight = true;  // For determining which way the player is currently facing.
 	private Vector3 m_Velocity = Vector3.zero;
 
+	public float fallMultiplier = 2.5f;
+	public float lowJumpMultiplier = 2f;
+
+	private bool jump;
+
 	[Header("Events")]
 	[Space]
 
@@ -39,6 +44,8 @@ public class CharacterController2D : MonoBehaviour
 
 		if (OnCrouchEvent == null)
 			OnCrouchEvent = new BoolEvent();
+
+		jump = false;
 	}
 
 	private void FixedUpdate()
@@ -58,6 +65,15 @@ public class CharacterController2D : MonoBehaviour
 					OnLandEvent.Invoke();
 			}
 		}
+
+		if(m_Rigidbody2D.velocity.y < 0)
+		{
+			m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+		}
+		else if(m_Rigidbody2D.velocity.y > 0 && !Input.GetButton("Jump"))
+		{
+			m_Rigidbody2D.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
+		}
 	}
 
 	public void SetJumpForce(float param)
@@ -72,6 +88,7 @@ public class CharacterController2D : MonoBehaviour
 
 	public void Move(float move, bool crouch, bool jump)
 	{
+		this.jump = jump;
 		// If crouching, check to see if the character can stand up
 		if (!crouch)
 		{
@@ -137,7 +154,7 @@ public class CharacterController2D : MonoBehaviour
 		{
 			// Add a vertical force to the player.
 			m_Grounded = false;
-			m_Rigidbody2D.AddForce(new Vector2(0f, m_JumpForce));
+			m_Rigidbody2D.velocity = new Vector2(m_Rigidbody2D.velocity.x, m_JumpForce);
 		}
 	}
 
