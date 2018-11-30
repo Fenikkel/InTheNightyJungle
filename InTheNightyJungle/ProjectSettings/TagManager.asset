@@ -13,6 +13,12 @@ TagManager:
   - Boundary
   - Platform
   - music
+  - onlyTrigger
+  - vehicle
+  - gun
+  - ghost
+  - 2ddl
+  - deadTrigger
   layers:
   - Default
   - TransparentFX
@@ -82,4 +88,7 @@ TagManager:
     locked: 0
   - name: Geiseres
     uniqueID: 1854718275
+    locked: 0
+  - name: Iluminacion
+    uniqueID: 97024075
     locked: 0

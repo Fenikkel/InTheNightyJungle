@@ -16,7 +16,7 @@ public class LightMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		tf = GetComponent<Transform>();
-		currentAngle = tf.eulerAngles.x;
+		currentAngle = tf.eulerAngles.z;
 		direction = true;
 	}
 	
@@ -40,6 +40,6 @@ public class LightMovement : MonoBehaviour {
 				direction = true;
 			}
 		}
-		tf.eulerAngles = new Vector3(currentAngle, 90, 90);
+		tf.eulerAngles = new Vector3(tf.eulerAngles.x, tf.eulerAngles.y, currentAngle);
 	}
 }
