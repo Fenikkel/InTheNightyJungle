@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NPCBehaviour : MonoBehaviour {
 
@@ -34,6 +35,8 @@ public class NPCBehaviour : MonoBehaviour {
 
 	public ConversationUIController UI;
 
+    private string actual;
+
 	// Use this for initialization
 	void Start () {
 		CreateConversationalTree();
@@ -60,7 +63,12 @@ public class NPCBehaviour : MonoBehaviour {
 	void Update () {
 		if(conversationTime)
 		{
-			if(UI.GetPreparedForNewText())
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                UI.conversationText.text = actual;
+            }
+
+            if (UI.GetPreparedForNewText())
 			{
 				if(Input.GetKeyDown(KeyCode.Z))
 				{
@@ -186,7 +194,9 @@ public class NPCBehaviour : MonoBehaviour {
 
 	private void SpamText()
 	{
-		UI.SpamText(currentNode.GetMessage(), options);
+        actual = currentNode.GetMessage();
+
+        UI.SpamText(currentNode.GetMessage(), options);
 		if(currentNode.GetSomethingToDo() != null && !(currentNode.GetSomethingToDo().StartsWith("_S_") || currentNode.GetSomethingToDo().StartsWith("_N_")))
 			Invoke(currentNode.GetSomethingToDo(), 0);
 

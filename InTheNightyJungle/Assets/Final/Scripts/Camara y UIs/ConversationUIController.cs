@@ -243,7 +243,7 @@ public class ConversationUIController : MonoBehaviour {
 
 	IEnumerator WriteMessage(float timeBetweenLetters, string message, int i, bool options) //Corutina recursiva!!! Qué guay!
 	{
-		if(i < message.Length)
+		if(conversationText.text.Length < message.Length)
 		{
 			yield return new WaitForSeconds(timeBetweenLetters);
 			conversationText.text += message[i];
