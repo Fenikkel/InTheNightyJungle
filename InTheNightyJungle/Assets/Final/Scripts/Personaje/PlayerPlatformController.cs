@@ -428,6 +428,11 @@ public class PlayerPlatformController : MonoBehaviour {
             }
         }
     }
+
+    public void DecreasePatience(float decreaseNumber)
+    {
+        stats.DecreasePaciencia(decreaseNumber);
+    }
     /*
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -626,5 +631,9 @@ public class PlayerPlatformController : MonoBehaviour {
     public void PlayLeaveGlass()
     {
         anim.SetTrigger("leaveGlass");
+    }
+    public void IncreaseFame()
+    {
+        stats.IncreaseFame();
     }
 }

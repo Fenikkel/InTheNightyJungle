@@ -8,11 +8,15 @@ public class PlayerStatsController : MonoBehaviour {
     public Slider changenessBar;
     public Slider pacienciaBar;
     public float changenessIncreaseSpeed;
+    private int fame;
+    public GameObject[] stars;
+    //public Text temporal; //retirar una vez se pongan estrellas a la fama
     
     // Use this for initialization
 	void Start () {
         changenessBar.value = 0;
         pacienciaBar.value = 1;
+        fame = 0;
 	}
 	
 	// Update is called once per frame
@@ -20,6 +24,21 @@ public class PlayerStatsController : MonoBehaviour {
 
         changenessBar.value += (changenessIncreaseSpeed / 100) * Time.deltaTime;
 	}
+    public void IncreaseFame()
+    {
+        fame++;
+        for (int i = 0; i<fame && fame<=stars.Length; i++)
+        {
+            stars[i].SetActive(true);
+            print("Hola");
+        }
+        //Activar tantas estrellas como fama haya
+    }
+    public void DecreaseFame() //no creo que haga falta
+    {
+        fame--;
+        //desActivar tantas estrellas como fama haya
+    }
 
     public void DecreaseChangenessStat(float value)
     {

@@ -19,6 +19,7 @@ public class DrinkingTestManager : MonoBehaviour {
 
     private bool testStarted;
     private int victory;
+    private bool augmentFama;
 
     public int totalNumDrinks;
     private int playerCurrentNumDrinks;
@@ -126,6 +127,23 @@ public class DrinkingTestManager : MonoBehaviour {
         player.SetInputActivated(true);
         camera.SetFollowTarget(true);
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Stats);
+       
+        if (augmentFama)
+        {
+            //player.DecreaseCansancio(0.66f);
+            player.DecreasePatience(0.5f);
+            //print("victoria" + victory);
+            player.IncreaseFame();
+        }
+        else
+        {
+            player.DecreaseCansancio(0.1f);
+            player.DecreasePatience(0.5f);
+            player.IncreaseFame();
+
+            //print("derrota" + victory);
+
+        }
     }
 
     private void FadeOutCrowd(float time)
@@ -346,6 +364,7 @@ public class DrinkingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("victory", false);
         challenger.GetComponent<Animator>().SetBool("defeat", false);
 
+        augmentFama = true;
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 
@@ -375,6 +394,7 @@ public class DrinkingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("defeat", false);
         challenger.GetComponent<Animator>().SetBool("victory", false);
 
+        augmentFama = false;
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 }
