@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1413986771805286}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.01792541, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 0.041753653, y: 0.17903928, z: 1}
   m_Children: []
   m_Father: {fileID: 4921110601257700}
@@ -79,7 +79,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1924310655146618}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.051183816, z: 0}
+  m_LocalPosition: {x: 0, y: -0, z: 0}
   m_LocalScale: {x: 0.041753653, y: 0.17903928, z: 1}
   m_Children: []
   m_Father: {fileID: 4921110601257700}
@@ -92,7 +92,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1270027982674980}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5, y: 7.5, z: 0}
+  m_LocalPosition: {x: 8.5, y: 2.5, z: 0}
   m_LocalScale: {x: 0.5, y: 0.39, z: 1}
   m_Children:
   - {fileID: 4637574221409152}
@@ -139,9 +139,7 @@ MonoBehaviour:
   playerPosition: {fileID: 4383569736739522}
   cameraPosition: {fileID: 4637574221409152}
   nextDoor: {fileID: 0}
-  nextChamber: 0
   doorType: 2
-  GM: {fileID: 0}
 --- !u!212 &212583453382649728
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -174,8 +172,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1642146063
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c32754ac57617a042a9fb7507ef38c57, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
