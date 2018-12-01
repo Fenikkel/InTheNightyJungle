@@ -24,6 +24,11 @@ public class LightController : MonoBehaviour {
 	public float timeBlinking;
 	public float timeUnblinking;
 
+	public bool changeColor;
+	public Color[] colors;
+	public float timeStayingColor;
+	public float timeChangingColor;
+
 	private float currentIntensity;
 	private bool glowingDirection;
 
@@ -36,6 +41,9 @@ public class LightController : MonoBehaviour {
 
 	private float currentBlinkingTime;
 	private bool blinking;
+
+	private bool changingColor;
+	private int currentColor;
 
 	private Transform tf;
 	private Color lightColor;
@@ -51,6 +59,14 @@ public class LightController : MonoBehaviour {
 		currentAngle = tf.eulerAngles.z;
 		currentSize = 1;
 		originalSize = tf.localScale;
+		currentColor = 0;
+		changingColor = true;
+
+		if(changeColor)
+		{
+			GetComponentInChildren<SpriteRenderer>().color = new Color(colors[currentColor].r, colors[currentColor].g, colors[currentColor].b, lightColor.a);
+			StartCoroutine(ChangeColor());
+		}
 	}
 	
 	// Update is called once per frame
@@ -164,5 +180,39 @@ public class LightController : MonoBehaviour {
 			}
 		}
 		mask.enabled = !blinking;
+	}
+
+	private IEnumerator ChangeColor()
+	{
+		if(changingColor)
+		{
+			changingColor = false;
+			StartCoroutine(InterpolateColor());
+		}
+		else
+		{
+			yield return new WaitForSeconds(timeChangingColor + timeStayingColor);
+			changingColor = true;
+		}
+		StartCoroutine(ChangeColor());
+	}
+
+	private IEnumerator InterpolateColor()
+	{
+		float elapsedTime = 0.0f;
+		Color initialColor = lightColor;
+		Color finalColor = (currentColor < colors.Length - 1) ? colors[currentColor + 1] : colors[0];
+		Color c;
+
+		while(elapsedTime < timeChangingColor)
+		{
+			elapsedTime += Time.deltaTime;
+			c = Color.Lerp(initialColor, finalColor, elapsedTime / timeChangingColor);
+			GetComponentInChildren<SpriteRenderer>().color = new Color(c.r, c.g, c.b, lightColor.a);
+			yield return null;
+		}
+		GetComponentInChildren<SpriteRenderer>().color = new Color(finalColor.r, finalColor.g, finalColor.b, lightColor.a);
+		lightColor = GetComponentInChildren<SpriteRenderer>().color;
+		currentColor = (currentColor < colors.Length - 1) ? currentColor + 1 : 0;
 	}
 }

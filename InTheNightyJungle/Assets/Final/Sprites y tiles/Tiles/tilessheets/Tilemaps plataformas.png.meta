@@ -20,6 +20,14 @@ TextureImporter:
     21300030: Tilemaps plataformas_15
     21300032: Tilemaps plataformas_16
     21300034: Tilemaps plataformas_17
+    21300036: Tilemaps plataformas_18
+    21300038: Tilemaps plataformas_20
+    21300040: Tilemaps plataformas_19
+    21300042: Tilemaps plataformas_21
+    21300044: Tilemaps plataformas_22
+    21300046: Tilemaps plataformas_23
+    21300048: Tilemaps plataformas_24
+    21300050: Tilemaps plataformas_25
   externalObjects: {}
   serializedVersion: 6
   mipmaps:
@@ -59,7 +67,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 2
-  spriteExtrude: 1
+  spriteExtrude: 0
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -106,7 +114,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1154
+        y: 4320
         width: 288
         height: 288
       alignment: 0
@@ -116,7 +124,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d9276d51c3fe4b04dadd83a50e86e4aa
+      spriteID: ad7ff16e7ceb30a4db4fd13d7e6e1728
       vertices: []
       indices: 
       edges: []
@@ -125,8 +133,8 @@ TextureImporter:
       name: Tilemaps plataformas_1
       rect:
         serializedVersion: 2
-        x: 288
-        y: 1154
+        x: 296
+        y: 4320
         width: 288
         height: 288
       alignment: 0
@@ -136,7 +144,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 096787b4b0b02c940bc6c94afff0fdcc
+      spriteID: a1b2c4c6b8855ad44833d6873d2097e5
       vertices: []
       indices: 
       edges: []
@@ -145,8 +153,8 @@ TextureImporter:
       name: Tilemaps plataformas_2
       rect:
         serializedVersion: 2
-        x: 576
-        y: 1154
+        x: 592
+        y: 4320
         width: 288
         height: 288
       alignment: 0
@@ -156,7 +164,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 511a1819ebcad7f45bfc8d5f06881650
+      spriteID: 6308f806762a9054196b97360022b68d
       vertices: []
       indices: 
       edges: []
@@ -165,8 +173,8 @@ TextureImporter:
       name: Tilemaps plataformas_3
       rect:
         serializedVersion: 2
-        x: 864
-        y: 1154
+        x: 888
+        y: 4320
         width: 288
         height: 288
       alignment: 0
@@ -176,7 +184,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7b280a2f16f7dd74babcab61696948a3
+      spriteID: 34c406836675fda40aa19994d2221fb5
       vertices: []
       indices: 
       edges: []
@@ -186,7 +194,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 866
+        y: 4024
         width: 288
         height: 288
       alignment: 0
@@ -196,7 +204,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 2d08377020d80bb429311009e0be6386
+      spriteID: e5445a072e990294597e6a3c620d55ad
       vertices: []
       indices: 
       edges: []
@@ -205,8 +213,8 @@ TextureImporter:
       name: Tilemaps plataformas_5
       rect:
         serializedVersion: 2
-        x: 288
-        y: 866
+        x: 296
+        y: 4024
         width: 288
         height: 288
       alignment: 0
@@ -216,7 +224,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c52532f2bb3e44b4ab32566745d6959f
+      spriteID: 47515e5802ef2164688290dafab7c03c
       vertices: []
       indices: 
       edges: []
@@ -225,8 +233,8 @@ TextureImporter:
       name: Tilemaps plataformas_6
       rect:
         serializedVersion: 2
-        x: 576
-        y: 866
+        x: 592
+        y: 4024
         width: 288
         height: 288
       alignment: 0
@@ -236,7 +244,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 06aec8d1daf4b664284d62b88d692164
+      spriteID: cc916ab81471db848a63cd023dc69c4b
       vertices: []
       indices: 
       edges: []
@@ -245,8 +253,8 @@ TextureImporter:
       name: Tilemaps plataformas_7
       rect:
         serializedVersion: 2
-        x: 864
-        y: 866
+        x: 888
+        y: 4024
         width: 288
         height: 288
       alignment: 0
@@ -256,7 +264,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 51fe796913f3749409c6baf5e18d79b4
+      spriteID: 9d24c705e2d56914cb8151a95df99b7e
       vertices: []
       indices: 
       edges: []
@@ -266,7 +274,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 578
+        y: 3728
         width: 288
         height: 288
       alignment: 0
@@ -276,7 +284,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 071edcc14f4cc48418fc041b1dd3aa2a
+      spriteID: 1276e5d3203111c4c93e37451691200c
       vertices: []
       indices: 
       edges: []
@@ -285,8 +293,8 @@ TextureImporter:
       name: Tilemaps plataformas_9
       rect:
         serializedVersion: 2
-        x: 288
-        y: 578
+        x: 296
+        y: 3728
         width: 288
         height: 288
       alignment: 0
@@ -296,7 +304,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1cff84abf93c6c942b885a4f7c2cd31c
+      spriteID: 708a5a0419058954ebb36a7bd4907459
       vertices: []
       indices: 
       edges: []
@@ -305,8 +313,8 @@ TextureImporter:
       name: Tilemaps plataformas_10
       rect:
         serializedVersion: 2
-        x: 576
-        y: 578
+        x: 592
+        y: 3728
         width: 288
         height: 288
       alignment: 0
@@ -316,7 +324,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fefa0ff399385444daa43e0b9d0e5629
+      spriteID: c21bfd864bbccf1428db09c36f95c003
       vertices: []
       indices: 
       edges: []
@@ -325,8 +333,8 @@ TextureImporter:
       name: Tilemaps plataformas_11
       rect:
         serializedVersion: 2
-        x: 864
-        y: 578
+        x: 888
+        y: 3728
         width: 288
         height: 288
       alignment: 0
@@ -336,7 +344,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a0d695748cc15c841accb819aecfa063
+      spriteID: 58fb8d4470bf4134f8491eac26cc0e5c
       vertices: []
       indices: 
       edges: []
@@ -346,7 +354,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 290
+        y: 3432
         width: 288
         height: 288
       alignment: 0
@@ -356,7 +364,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6f51859a6d31f004bacb19631a9e4045
+      spriteID: eff324181ab99a742b00c1bd0d3ce685
       vertices: []
       indices: 
       edges: []
@@ -365,8 +373,8 @@ TextureImporter:
       name: Tilemaps plataformas_13
       rect:
         serializedVersion: 2
-        x: 288
-        y: 290
+        x: 296
+        y: 3432
         width: 288
         height: 288
       alignment: 0
@@ -376,7 +384,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f6cc208e1be4cb4d99670b91fdac167
+      spriteID: c570df88b470b85459625a1e8bbc6285
       vertices: []
       indices: 
       edges: []
@@ -385,8 +393,8 @@ TextureImporter:
       name: Tilemaps plataformas_14
       rect:
         serializedVersion: 2
-        x: 576
-        y: 290
+        x: 592
+        y: 3432
         width: 288
         height: 288
       alignment: 0
@@ -396,7 +404,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8055b9c0f70a3b0468117607d874c7b5
+      spriteID: 393477147fc9c8944bb237a54842fbfe
       vertices: []
       indices: 
       edges: []
@@ -405,8 +413,8 @@ TextureImporter:
       name: Tilemaps plataformas_15
       rect:
         serializedVersion: 2
-        x: 864
-        y: 290
+        x: 888
+        y: 3432
         width: 288
         height: 288
       alignment: 0
@@ -416,7 +424,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 28da67b198560bb4ab82f36124feb0ac
+      spriteID: b9036b05aaaee38479b480142d483ce3
       vertices: []
       indices: 
       edges: []
@@ -426,7 +434,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 2
+        y: 3136
         width: 288
         height: 288
       alignment: 0
@@ -436,27 +444,7 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6608cec11f796bd4b912796cdb1e710e
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tilemaps plataformas_17
-      rect:
-        serializedVersion: 2
-        x: 288
-        y: 2
-        width: 288
-        height: 288
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7db3c2ad5130ce448b26633c197f91d8
+      spriteID: d2edf4f1ae2b45944ac26419888f8f13
       vertices: []
       indices: 
       edges: []
