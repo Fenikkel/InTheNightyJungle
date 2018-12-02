@@ -9,6 +9,7 @@ public class PantallaPausa : MonoBehaviour {
     public static bool GameIsPaused = false;
     public Button botonJugar, botonOpciones, botonSalir, botonInventario, botonAtras;
     public Slider volumen;
+    public Image inventario;
 
     public GeneralUIController UIController;
 
@@ -55,6 +56,15 @@ public class PantallaPausa : MonoBehaviour {
     {
         SceneManager.LoadScene(0);
     }
+    public void Inventario()
+    {
+        botonJugar.gameObject.SetActive(false);
+        botonOpciones.gameObject.SetActive(false);
+        botonSalir.gameObject.SetActive(false);
+        botonInventario.gameObject.SetActive(false);
+        inventario.gameObject.SetActive(true);
+        botonAtras.gameObject.SetActive(true);
+    }
     public void Opciones()
     {
         botonJugar.gameObject.SetActive(false);
@@ -66,12 +76,15 @@ public class PantallaPausa : MonoBehaviour {
     }
     public void Atras()
     {
+        
         botonJugar.gameObject.SetActive(true);
         botonOpciones.gameObject.SetActive(true);
         botonSalir.gameObject.SetActive(true);
         botonInventario.gameObject.SetActive(true);
-        volumen.gameObject.SetActive(false);
         botonAtras.gameObject.SetActive(false);
+        volumen.gameObject.SetActive(false);
+        inventario.gameObject.SetActive(false);
+
     }
 
     public void TurnUpVolume()

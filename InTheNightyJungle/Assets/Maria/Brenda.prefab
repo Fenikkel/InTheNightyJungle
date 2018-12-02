@@ -1292,6 +1292,7 @@ MonoBehaviour:
   breathTime: 0
   breathCooldownTime: 0
   breathEffect: {fileID: 0}
+  breathLight: {fileID: 0}
   initialDashSpeed: 40
   dashTime: 0.1
   dashCooldownTime: 1
@@ -1324,9 +1325,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58c1fa32cc8ce2d4aa55959ad5693653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changenessBar: {fileID: 0}
-  pacienciaBar: {fileID: 0}
-  changenessIncreaseSpeed: 0
+  statsUI: {fileID: 0}
+  bladderTirednessIncreaseSpeed: 0
   stars: []
 --- !u!114 &114454845167047892
 MonoBehaviour:
