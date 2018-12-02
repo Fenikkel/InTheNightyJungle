@@ -52,7 +52,7 @@ public class DrinkingTestGlassBehaviour : MonoBehaviour {
 	public void GlassOverBar()
 	{
 		GetComponent<Transform>().parent = testPlace;
-		GetComponent<Transform>().localPosition = placeOverBar.position;
+		GetComponent<Transform>().localPosition = placeOverBar.localPosition;
 		GetComponent<Transform>().rotation = Quaternion.Euler(Vector2.zero);
 	}
 
