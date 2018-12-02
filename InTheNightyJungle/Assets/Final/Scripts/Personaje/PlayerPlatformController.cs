@@ -48,6 +48,7 @@ public class PlayerPlatformController : MonoBehaviour {
     public float breathTime;
     public float breathCooldownTime;
     public ParticleSystem breathEffect;
+    public GameObject breathLight;
 
     private bool dash;
     private bool dashCooldown;
@@ -221,10 +222,12 @@ public class PlayerPlatformController : MonoBehaviour {
     public void PlayBreath()
     {
         breathEffect.Play();
+        breathLight.SetActive(true);
     }
     public void StopBreath()
     {
         breathEffect.Stop();
+        breathLight.SetActive(false);
     }
 
     public void SetDashActivated(bool param)

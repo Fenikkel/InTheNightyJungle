@@ -18,11 +18,13 @@ public class BailadorBehaviour : EnemyBehaviour {
     private Animator anim;
     private CharacterController2D controller;
 
-    private void Start()
+    private void Awake()
     {
         anim = GetComponent<Animator>();
-        controller = GetComponent<CharacterController2D>();
-
+    }
+    
+    private void Start()
+    {
         distance = Mathf.Abs(GetComponent<Transform>().position.x - target.position.x);
 
         movingTime = distance / maxSpeed;
@@ -30,7 +32,10 @@ public class BailadorBehaviour : EnemyBehaviour {
         GetComponent<Transform>().localScale = new Vector3(initialMoveDirection * GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
 
         whirlpool.Play();
+    }
 
+    private void OnEnable()
+    {
         StartCoroutine(Accelerate());
     }
 
