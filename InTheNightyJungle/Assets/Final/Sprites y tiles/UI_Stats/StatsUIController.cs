@@ -45,7 +45,7 @@ public class StatsUIController : MonoBehaviour {
 
 	public void ChangeValuePatienceBar(float increaseValue) //Método que se debe llamar cuando se debe reducir o aumentar el valor de paciencia. El argumento, de nuevo, significa el aumento o decremento de la paciencia y debe estar entre 0 y 1 en valor absoluto
 	{
-		StartCoroutine(InterpolateBar(patienceStatBar, increaseValue, increaseValue));
+		StartCoroutine(InterpolateBar(patienceStatBar, increaseValue, Mathf.Abs(increaseValue)));
 	}
 
 	private IEnumerator InterpolateBar(Slider bar, float increaseValue, float time) //Cambia el valor de una barra en un tiempo determinado

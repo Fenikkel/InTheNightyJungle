@@ -4,24 +4,29 @@ using UnityEngine;
 
 public class BailadorBehaviour : EnemyBehaviour {
 
-    public Transform accZoneInitialPos;
+    /*public Transform accZoneInitialPos;
     public Transform accZoneFinalPos;
     public Transform spinZoneInitialPos;
-    public Transform spinZoneFinalPos;
+    public Transform spinZoneFinalPos;*/
+
+    public Transform target;
+    private float distance;
 
     public float initialMoveDirection;
     private float moveDirection;
-    private bool spinning;
+    
+    /*private bool spinning;
     private bool accelerating;
 
-    private float move;
+    private float move;*/
     public float maxSpeed;
+    private float movingTime;
     public float stopTime;
 
-    private float accelerationLeft;
+    /*private float accelerationLeft;
     private float accelerationRight;
     private float timeToAccelerateLeft;
-    private float timeToAccelerateRight;
+    private float timeToAccelerateRight;*/
 
     public ParticleSystem whirlpool;
 
@@ -33,70 +38,87 @@ public class BailadorBehaviour : EnemyBehaviour {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController2D>();
 
-        moveDirection = initialMoveDirection;
-        anim.SetBool("accelerating", true);
-        timeToAccelerateLeft = TimeInMRUA(accZoneInitialPos.position, spinZoneInitialPos.position, 0.0f, maxSpeed, out accelerationLeft);
-        timeToAccelerateRight = TimeInMRUA(spinZoneFinalPos.position, accZoneFinalPos.position, 0.0f, maxSpeed, out accelerationRight);
-    }
+        distance = Mathf.Abs(GetComponent<Transform>().position.x - target.position.x);
 
-    private float TimeInMRUA(Vector2 initialPos, Vector2 finalPos, float initialSpeed, float finalSpeed, out float acceleration)
-    {
-        acceleration = (Mathf.Pow(finalSpeed, 2) - Mathf.Pow(initialSpeed, 2)) / (2 * (finalPos.x - initialPos.x)); // a = (v^2 - v0^2)/(2 * (x - x0))
-        return (finalSpeed - initialSpeed) / acceleration;
+        movingTime = distance / maxSpeed;
+
+        moveDirection = initialMoveDirection;
+
+        whirlpool.Play();
+
+        StartCoroutine(Accelerate());
     }
 
     private void Update()
     {
-        if ((move > 0.01f && GetComponent<Transform>().localScale.x < 0) || (move < -0.01f && GetComponent<Transform>().localScale.x > 0))
-        {
-            GetComponent<Transform>().localScale = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
-        }
-
-        move = moveDirection * maxSpeed;
-
-        spinning = !(GetComponent<Transform>().position.x < spinZoneInitialPos.position.x || GetComponent<Transform>().position.x > spinZoneFinalPos.position.x);
-        if(!spinning && !accelerating)
-        {
-            accelerating = true;
-            bool toLeft = GetComponent<Transform>().position.x < spinZoneInitialPos.position.x;
-            if (toLeft) StartCoroutine(Accelerate(timeToAccelerateLeft, -1, 0, true));
-            else StartCoroutine(Accelerate(timeToAccelerateRight, 1, 0, true));
-        }
+        //move = moveDirection * maxSpeed;
     }
-
+    /*
     private void FixedUpdate()
     {
         controller.Move(move * Time.fixedDeltaTime, false, false);
-    }
+    }*/
 
-    IEnumerator Accelerate(float time, float initialValue, float finalValue, bool hasToStop)
+    private IEnumerator Accelerate()
     {
-        anim.SetBool("accelerating", true);
-        whirlpool.Play();
         float elapsedTime = 0.0f;
-        while(elapsedTime < time)
+        
+        Vector2 initialPosition = GetComponent<Transform>().position;
+        //Vector2 interPosition1 = new Vector2(initialPosition.x + moveDirection * distance/5, initialPosition.y);
+        Vector2 finalPosition = target.position;
+        //Vector2 interPosition2 = new Vector2(finalPosition.x - moveDirection * distance/5, finalPosition.y);
+
+        //float thirdTime = movingTime/3;
+
+        /* while(elapsedTime < thirdTime)
         {
             elapsedTime += Time.deltaTime;
-            moveDirection = Mathf.Lerp(initialValue, finalValue, elapsedTime / time);
+            GetComponent<Transform>().position = Vector2.Lerp(initialPosition, interPosition1, elapsedTime / thirdTime);
             yield return null;
         }
-        moveDirection = finalValue;
-        if (hasToStop) StartCoroutine(Stopping(stopTime, -initialValue));
-        if(!hasToStop)
+        GetComponent<Transform>().position = interPosition1;
+
+        while(elapsedTime < 2 * thirdTime && elapsedTime > thirdTime)
         {
-            yield return new WaitForSeconds(0.1f);
-            accelerating = false;
-            spinning = true;
+            elapsedTime += Time.deltaTime;
+            GetComponent<Transform>().position = Vector2.Lerp(interPosition1, interPosition2, elapsedTime / (2 * thirdTime));
+            yield return null;
         }
+        GetComponent<Transform>().position = interPosition2;
+
+        while(elapsedTime < 3 * thirdTime && elapsedTime > 2 * thirdTime)
+        {
+            elapsedTime += Time.deltaTime;
+            GetComponent<Transform>().position = Vector2.Lerp(interPosition1, interPosition2, elapsedTime / (3 * thirdTime));
+            yield return null;
+        }*/
+
+        while(elapsedTime < movingTime)
+        {
+            elapsedTime += Time.deltaTime;
+            GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime / movingTime);
+            yield return null;
+        }
+
+        GetComponent<Transform>().position = finalPosition;
+
+        target.position = initialPosition;
+
+        StartCoroutine(Stopping());
     }
 
-    IEnumerator Stopping(float time, float finalValue)
+    private IEnumerator Stopping()
     {
         anim.SetBool("accelerating", false);
-        whirlpool.Stop();
-        yield return new WaitForSeconds(time / 2);
+        //whirlpool.Stop();
+
+        yield return new WaitForSeconds(stopTime / 2);
+        anim.SetBool("accelerating", true);
+        //whirlpool.Play();
+        moveDirection *= -1;
         GetComponent<Transform>().localScale = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
-        yield return new WaitForSeconds(time/2);
-        StartCoroutine(Accelerate((finalValue == 1) ? timeToAccelerateLeft : timeToAccelerateRight, 0.0f, finalValue, false));
+
+        yield return new WaitForSeconds(stopTime / 2);
+        StartCoroutine(Accelerate());
     }
 }
