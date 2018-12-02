@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+    public GeneralUIController UIController;
     public GameObject blackScreen;
     public GameObject mainCamera;
     private GameObject player;
@@ -18,10 +19,14 @@ public class GameManager : MonoBehaviour {
     
     // Use this for initialization
 	void Start () {
-        blackScreen.GetComponent<Image>().enabled = true;
-        StartCoroutine(FadeOut(1f, false));
 
-        cindyEnabled = true;
+        blackScreen.GetComponent<Image>().enabled = true;
+
+        cindyEnabled = (Random.value > 0.5f) ? true : false;
+
+        UIController.Initialize(cindyEnabled);
+
+        StartCoroutine(FadeOut(1f, false));
 
         EnableCindy(cindyEnabled);
 	}
@@ -42,6 +47,15 @@ public class GameManager : MonoBehaviour {
 
         Cindy.SetActive(param);
         Brenda.SetActive(!param);
+
+        if(param)
+        {
+            UIController.ChangeMode(UILayer.CindyStats);
+        }
+        else
+        {
+            UIController.ChangeMode(UILayer.BrendaStats);
+        }
 
         player = param ? Cindy : Brenda;
         

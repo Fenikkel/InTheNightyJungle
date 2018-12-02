@@ -103,7 +103,7 @@ public class DancingTestManager : MonoBehaviour {
 
         player.SetInputActivated(true);
         camera.SetFollowTarget(true);
-        UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Stats);
+        UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.CindyStats);
     }
 
     private void FadeOutCrowd(float time)
