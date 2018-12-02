@@ -126,7 +126,7 @@ public class DrinkingTestManager : MonoBehaviour {
 
         player.SetInputActivated(true);
         camera.SetFollowTarget(true);
-        UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Stats);
+        UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.BrendaStats);
        
         if (augmentFama)
         {

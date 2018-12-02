@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GeneralUIController : MonoBehaviour {
 
-	public GameObject stats;
+	public GameObject cindyStats;
+	public GameObject brendaStats;
 	public GameObject conversation;
 	public GameObject dancingTest;
 	public GameObject drinkingTest;
@@ -15,7 +16,7 @@ public class GeneralUIController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		ChangeMode(UILayer.Stats);
+
 	}
 	
 	// Update is called once per frame
@@ -23,9 +24,24 @@ public class GeneralUIController : MonoBehaviour {
 		
 	}
 
+	public void Initialize(bool cindy)
+	{
+		if(cindy)
+		{	
+			currentLayer = UILayer.CindyStats;
+			ChangeMode(UILayer.CindyStats);
+		}
+		else
+		{
+			currentLayer = UILayer.BrendaStats;
+			ChangeMode(UILayer.BrendaStats);
+		}
+	}
+
 	public void ChangeMode(UILayer code)
 	{
-		stats.SetActive(code == UILayer.Stats);
+		cindyStats.SetActive(code == UILayer.CindyStats);
+		brendaStats.SetActive(code == UILayer.BrendaStats);
 		conversation.SetActive(code == UILayer.Conversation);
 		dancingTest.SetActive(code == UILayer.DancingTest);
 		drinkingTest.SetActive(code == UILayer.DrinkingTest);
@@ -50,5 +66,5 @@ public class GeneralUIController : MonoBehaviour {
 
 public enum UILayer
 {
-	Stats, Conversation, DancingTest, DrinkingTest, Empty
+	BrendaStats, CindyStats, Conversation, DancingTest, DrinkingTest, Empty
 }

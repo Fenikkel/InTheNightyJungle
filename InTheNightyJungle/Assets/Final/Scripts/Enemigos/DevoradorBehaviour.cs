@@ -93,7 +93,7 @@ public class DevoradorBehaviour : EnemyBehaviour
                 slowDowned = true;
                 player.GetComponent<PlayerPlatformController>().SlowDown(slowDownFactor, 0);
             }
-            player.GetComponent<PlayerStatsController>().DecreasePaciencia(damage * Time.deltaTime);
+            player.GetComponent<PlayerStatsController>().ChangePatience(damage * Time.deltaTime);
         }
     }
 }

@@ -48,6 +48,7 @@ public class PlayerPlatformController : MonoBehaviour {
     public float breathTime;
     public float breathCooldownTime;
     public ParticleSystem breathEffect;
+    public GameObject breathLight;
 
     private bool dash;
     private bool dashCooldown;
@@ -221,10 +222,12 @@ public class PlayerPlatformController : MonoBehaviour {
     public void PlayBreath()
     {
         breathEffect.Play();
+        breathLight.SetActive(true);
     }
     public void StopBreath()
     {
         breathEffect.Stop();
+        breathLight.SetActive(false);
     }
 
     public void SetDashActivated(bool param)
@@ -235,7 +238,7 @@ public class PlayerPlatformController : MonoBehaviour {
     public void StartProgressBar()
     {
         Descansando = true;
-        StartCoroutine("ProgressPaciencia");
+        StartCoroutine(ProgressPaciencia());
     }
 
     public void EndProgressBar()
@@ -246,17 +249,10 @@ public class PlayerPlatformController : MonoBehaviour {
 
     IEnumerator ProgressPaciencia()
     {
-        float pacienciaActual = stats.pacienciaBar.value;
-        float increment = 0.01f;
-        //Meter aqui codigo de guardar partida
-        while (pacienciaActual < stats.pacienciaBar.maxValue)
-        {
-            pacienciaActual += increment;
-            stats.pacienciaBar.value = pacienciaActual;
-            yield return null;
-        }
+        stats.ChangePatience(1);
+        yield return new WaitForSeconds(1);
+
         Descansando = false;
-        stats.pacienciaBar.value = stats.pacienciaBar.maxValue;
         anim.SetBool("Sitting", false);
         anim.SetBool("WakeUp", true);
     }
@@ -370,7 +366,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public void DecreaseCansancio(float value)
     {
-        stats.DecreaseChangenessStat(value);
+        stats.DecreaseBladderTiredness(value);
     }
 
     private void DetectingMotionPlatform()
@@ -419,7 +415,7 @@ public class PlayerPlatformController : MonoBehaviour {
                 }
 
                 EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
-                stats.DecreasePaciencia(enemy.GetDamage() / 100);
+                stats.ChangePatience(- enemy.GetDamage() / 100);
                 enemy.CollideWithPlayer();
 
                 inputActivated = false;
@@ -431,7 +427,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public void DecreasePatience(float decreaseNumber)
     {
-        stats.DecreasePaciencia(decreaseNumber);
+        stats.ChangePatience(-decreaseNumber);
     }
     /*
     private void OnCollisionEnter2D(Collision2D collision)
