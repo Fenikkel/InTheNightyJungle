@@ -56,6 +56,10 @@ public class GameManager : MonoBehaviour {
             yield return null;
         }
         blackScreen.GetComponent<Image>().color = finalColor;
+        if (cindyEnabled)
+        {
+            //if()
+        }
         ChangePlayer();
         yield return new WaitForSeconds(0.1f);
         StartCoroutine(FadeOut(0.5f, true));

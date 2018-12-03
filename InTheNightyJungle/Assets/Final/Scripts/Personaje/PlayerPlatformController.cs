@@ -17,6 +17,8 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public bool cindy;
 
+    private Vector3 lastDoorPos;
+
     //Maria
     [HideInInspector]
     public bool Descansando;
@@ -322,6 +324,7 @@ public class PlayerPlatformController : MonoBehaviour {
     {
         Blink(false);
         StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position));
+        lastDoorPos = door.GetPosition();
         //GetComponent<CapsuleCollider2D>().enabled = false;
 
     }

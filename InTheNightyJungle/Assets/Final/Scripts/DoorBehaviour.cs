@@ -13,17 +13,25 @@ public class DoorBehaviour : MonoBehaviour {
     public int doorType; //0 hacia dentro, 1 derecha, 2 hacia fuera, 3 izquierda
 
     private GameManager GM;
+
+    private Vector3 position;
     
     // Use this for initialization
 	void Start ()
     {
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        position = this.transform.position;
 	}
 	
 	// Update is called once per frame
 	void Update () {
         		
 	}
+
+    public Vector3 GetPosition()
+    {
+        return position;
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
