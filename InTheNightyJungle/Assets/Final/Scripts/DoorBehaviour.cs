@@ -6,6 +6,8 @@ public class DoorBehaviour : MonoBehaviour {
 
     public Transform playerPosition;
     public Transform cameraPosition;
+    //public ChamberManager nextChamber; //necesario para activar y desactivar las salas
+    //public ChamberManager actualChamber;
 
     public DoorBehaviour nextDoor;
     public int doorType; //0 hacia dentro, 1 derecha, 2 hacia fuera, 3 izquierda
@@ -27,6 +29,8 @@ public class DoorBehaviour : MonoBehaviour {
     {
         if (collision.tag.Equals("Player"))
         {
+            //actualChamber.DeActiveChamber();
+            //nextChamber.ActiveChamber();
             if (doorType == 0 && Input.GetKeyDown(KeyCode.UpArrow)) //Si la puerta es hacia dentro, el jugador debe pulsar la flecha hacia arriba para pasar
                 GM.ChangingChamber(this);
             else if(doorType == 2 && Input.GetKeyDown(KeyCode.DownArrow)) //Si la puerta es hacia fuera, el jugador debe pulsar la flecha hacia abajo para pasar

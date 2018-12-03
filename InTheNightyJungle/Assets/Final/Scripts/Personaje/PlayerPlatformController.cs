@@ -321,8 +321,9 @@ public class PlayerPlatformController : MonoBehaviour {
     public void MoveToLeftRightChamber(DoorBehaviour door)
     {
         Blink(false);
-        GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position));
+        //GetComponent<CapsuleCollider2D>().enabled = false;
+
     }
 
     IEnumerator InterpolatePositionChangingChamber(float time, Vector2 finalPosition)

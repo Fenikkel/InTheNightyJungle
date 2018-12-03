@@ -1547,8 +1547,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c51624f313dae41b0b3145a5c76118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  initialGravityModifier: 1
   damage: 25
   initialPosition: {fileID: 0}
   finalPosition: {fileID: 0}

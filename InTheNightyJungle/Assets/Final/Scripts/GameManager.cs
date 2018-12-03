@@ -118,6 +118,8 @@ public class GameManager : MonoBehaviour {
         {
             player.GetComponent<PlayerPlatformController>().SetInputActivated(true);
             mainCamera.GetComponent<CameraBehaviour>().SetFollowTarget(true);
+            //player.GetComponent<CapsuleCollider2D>().gameObject.SetActive(true);
+
         }
     }
 
@@ -126,6 +128,7 @@ public class GameManager : MonoBehaviour {
         if(player.GetComponent<PlayerPlatformController>().GetInputActivated())
         {
             player.GetComponent<PlayerPlatformController>().SetInputActivated(false);
+            //player.GetComponent<CapsuleCollider2D>().gameObject.SetActive(false);
             mainCamera.GetComponent<CameraBehaviour>().SetFollowTarget(false);
             //.GetComponent<CameraBehaviour>().SetBoundaries(door.nextChamber);
             if (door.doorType % 2 == 0) //Es front door o back door

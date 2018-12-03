@@ -3206,13 +3206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2ab0762af2a74428c3dcd24a392fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  initialGravityModifier: 1
   damage: 25
-  accZoneInitialPos: {fileID: 4927033393571270}
-  accZoneFinalPos: {fileID: 4026886050031208}
-  spinZoneInitialPos: {fileID: 4806702531815820}
-  spinZoneFinalPos: {fileID: 4470746961547040}
+  target: {fileID: 0}
   initialMoveDirection: 1
   maxSpeed: 10
   stopTime: 0.5
@@ -3578,8 +3573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c51624f313dae41b0b3145a5c76118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minGroundNormalY: 0.65
-  initialGravityModifier: 1
   damage: 25
   initialPosition: {fileID: 4418853701022522}
   finalPosition: {fileID: 4386983022794854}
