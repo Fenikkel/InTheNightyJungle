@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class ObtainingMoney : MonoBehaviour {
 
-    public float moneyValue;
+    public int moneyValue;
+    private bool aux;
 
 	// Use this for initialization
 	void Start () {
-		
+        aux = false;
 	}
 	
 	// Update is called once per frame
@@ -20,7 +21,11 @@ public class ObtainingMoney : MonoBehaviour {
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            collision.GetComponent<PlayerPlatformController>().DecreaseCansancio(moneyValue);
+            if(!aux)
+            {
+                collision.GetComponent<PlayerStatsController>().ChangeMoney(moneyValue);
+                aux = true;
+            }
             gameObject.SetActive(false);
         }
     }

@@ -10,6 +10,7 @@ public class PlayerStatsController : MonoBehaviour {
     private float bladderTiredness;
     private float patience;
     private int fame;
+    private int money;
 
     public float bladderTirednessIncreaseSpeed;
 
@@ -55,6 +56,13 @@ public class PlayerStatsController : MonoBehaviour {
         patience = ((patience + value) > 1) ? 1 : ((patience + value) < 0) ? 0 : patience + value;
         statsUI.ChangeValuePatienceBar(value);
         return patience != 0;
+    }
+
+    public void ChangeMoney(int value)
+    {
+        money += value;
+        print(money);
+        statsUI.ChangeMoney(value);
     }
 
     public float GetBladderTiredness()

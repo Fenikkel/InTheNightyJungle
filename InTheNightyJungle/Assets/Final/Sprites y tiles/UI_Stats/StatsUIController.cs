@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +31,7 @@ public class StatsUIController : MonoBehaviour {
 		shine.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 		shineOriginalSize = shine.GetComponent<RectTransform>().sizeDelta;
 
-		moneyText.text = "";
+		moneyText.text = "0";
 	}
 	
 	// Update is called once per frame
@@ -104,6 +105,24 @@ public class StatsUIController : MonoBehaviour {
 	private void HideStar(int i)
 	{
 		stars[i].sprite = emptyStar;
+	}
+
+	public void ChangeMoney(int increaseValue)
+	{
+		int moneyAux = Convert.ToInt32(moneyText.text);
+		StartCoroutine(ChangeMoneyText(moneyAux, increaseValue, 0.05f));
+	}
+
+	private IEnumerator ChangeMoneyText(int initialMoney, int increaseValue, float time)
+	{
+		int finalMoney = initialMoney + increaseValue;
+		while((increaseValue > 0 && initialMoney < finalMoney) || (increaseValue < 0 && initialMoney > finalMoney))
+		{
+			yield return new WaitForSeconds(time);
+			initialMoney = (increaseValue > 0) ? initialMoney + 1 : initialMoney - 1;
+			moneyText.text = initialMoney.ToString();
+		}
+		moneyText.text = finalMoney.ToString();
 	}
 }
 
