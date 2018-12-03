@@ -16,9 +16,12 @@ public class GameManager : MonoBehaviour {
     public GameObject Cindy;
 
     private bool cindyEnabled;
+    private bool canChangePlayer;
     
     // Use this for initialization
 	void Start () {
+
+        canChangePlayer = true;
 
         blackScreen.GetComponent<Image>().enabled = true;
 
@@ -28,40 +31,49 @@ public class GameManager : MonoBehaviour {
 
         StartCoroutine(FadeOut(1f, false));
 
-        EnableCindy(cindyEnabled);
+        ChangePlayer();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
         if(Input.GetKeyDown(KeyCode.I))
         {
-            EnableCindy(!cindyEnabled);
+            ChangePlayer();
         }
 	}
 
-    public void EnableCindy(bool param)
+    public void ChangePlayer()
     {
-        CindyLevels.SetActive(param);
-        BrendaLevels.SetActive(!param);
-
-        Cindy.SetActive(param);
-        Brenda.SetActive(!param);
-
-        if(param)
+        if(canChangePlayer)
         {
-            UIController.ChangeMode(UILayer.CindyStats);
-        }
-        else
-        {
-            UIController.ChangeMode(UILayer.BrendaStats);
-        }
+            cindyEnabled = !cindyEnabled;
 
-        player = param ? Cindy : Brenda;
-        
-        mainCamera.GetComponent<CameraBehaviour>().SetTarget(player);
+            CindyLevels.SetActive(cindyEnabled);
+            BrendaLevels.SetActive(!cindyEnabled);
 
-        cindyEnabled = param;
+            Cindy.SetActive(cindyEnabled);
+            Brenda.SetActive(!cindyEnabled);
+
+            if(cindyEnabled)
+            {
+                UIController.ChangeMode(UILayer.CindyStats);
+            }
+            else
+            {
+                UIController.ChangeMode(UILayer.BrendaStats);
+            }
+
+            player = cindyEnabled ? Cindy : Brenda;
+            //player.GetComponent<PlayerPlatformController>().RestartPlayer();
+            
+            mainCamera.GetComponent<CameraBehaviour>().SetTarget(player);
+        }
+    }
+
+    public void PlayerDone()
+    {
+        ChangePlayer();
+        canChangePlayer = false;
     }
 
     IEnumerator FadeIn(float time, bool transition, DoorBehaviour door)

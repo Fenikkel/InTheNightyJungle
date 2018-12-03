@@ -251,6 +251,7 @@ public class ConversationUIController : MonoBehaviour {
 		}
 		else
 		{
+			conversationText.text = message;
 			if(options) //Si al terminar de escribir, options está en true, lanzará el cuadro de opciones
 			{
 				ShowOptionsBox();

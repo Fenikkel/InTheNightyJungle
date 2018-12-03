@@ -110,6 +110,10 @@ public class NPCBehaviour : MonoBehaviour {
 						UI.FinishedConversation();
 						nextThingToDo.GetComponent<DrinkingTestManager>().StartTest(player, camera);
 						break;
+					case "_endLevel":
+						UI.FinishedConversation();
+						nextThingToDo.GetComponent<GameManager>().PlayerDone();
+						break;
 					case "_cancel":
 						CancelConversation();
 						break;
@@ -206,6 +210,16 @@ public class NPCBehaviour : MonoBehaviour {
 			{
 				case "hasTicket":
 					NextNode(currentNode.GetChildNode2());
+					break;
+				case "checkFame":
+					if (player.GetComponent<PlayerStatsController>().GetFame() == 3)
+					{
+						NextNode(currentNode.GetChildNode1());
+					}
+					else
+					{
+						NextNode(currentNode.GetChildNode2());
+					}
 					break;
 			}
 		}
