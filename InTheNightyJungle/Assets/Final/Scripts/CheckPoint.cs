@@ -11,18 +11,48 @@ public class CheckPoint : MonoBehaviour {
     public SpriteRenderer Zkey;
     public float distanceOverHead;
 
+    private PlayerPlatformController player;
+
+    public Transform playerPosition;
+    public Transform cameraPosition;
+    public float cameraSize;
+
+    private bool framedCheckPoint;
+    private bool aux;
+
     private void Start()
     {
-        playerAnimator = PlayerPlatformController.Instance.GetComponent<Animator>();
+        RestartCheckpoint();
+    }
+
+    public void RestartCheckpoint()
+    {
+        framedCheckPoint = false;
+        aux = false;
+    }
+
+    private void Update()
+    {
+        if(framedCheckPoint)
+        {
+            if(!aux)
+            {
+                player.GetComponent<Animator>().SetBool("Sitting", true);
+                aux = true;
+            }
+            if(player.GetInputActivated())
+            {
+                UnframeCheckPoint(0.8f);
+            }
+        }
     }
 
     private void OnTriggerStay2D()
     {
-        if (insideCheckPoint && Input.GetKeyDown(KeyCode.Z) && !PlayerPlatformController.Instance.Descansando)
+        if (insideCheckPoint && Input.GetKeyDown(KeyCode.Z) && !player.Descansando)
         {
-            PlayerPlatformController.Instance.SetInputActivated(false);
-            playerAnimator.SetBool("Sitting", true);
             StartCoroutine(DisappearZKey(0.5f));
+            StartCoroutine(FrameCheckPoint(0.8f));
         }
     }
 
@@ -30,10 +60,11 @@ public class CheckPoint : MonoBehaviour {
     {
         if(collision.tag == "Player")
         {
-            PlayerPlatformController.Instance.SetDashActivated(false);
+            player = collision.GetComponent<PlayerPlatformController>();
+            player.SetDashActivated(false);
+            player.SetBreathActivated(false);
             if (!shownZkey)
                 StartCoroutine(AppearZKey(0.5f));
-
 
             insideCheckPoint = true;
         }
@@ -43,6 +74,11 @@ public class CheckPoint : MonoBehaviour {
     {
         if (collision.tag == "Player")
         {
+            player.SetDashActivated(true);
+            player.SetBreathActivated(true);
+			if(shownZkey)
+				StartCoroutine(DisappearZKey(0.5f));
+
             insideCheckPoint = false;
         }
     }
@@ -90,5 +126,33 @@ public class CheckPoint : MonoBehaviour {
         Zkey.GetComponent<Transform>().position = finalPosition;
         Zkey.color = finalColor;
     }
+
+    private IEnumerator FrameCheckPoint(float time)
+	{
+		GetComponent<PolygonCollider2D>().enabled = false;
+        
+        player.SetInputActivated(false);
+		player.SetDashActivated(true);
+        player.SetBreathActivated(true);
+		Camera.main.GetComponent<CameraBehaviour>().SetFollowTarget(false);
+
+		StartCoroutine(player.MoveTo(playerPosition.position, true, time));
+		StartCoroutine(Camera.main.GetComponent<CameraBehaviour>().MoveSizeTo(cameraPosition.position, cameraSize, time));
+
+		yield return new WaitForSeconds(time);
+
+		framedCheckPoint = true;
+	}
+
+    private void UnframeCheckPoint(float time)
+	{
+		StartCoroutine(Camera.main.GetComponent<CameraBehaviour>().MoveSizeTo(Camera.main.GetComponent<CameraBehaviour>().GetComponent<Transform>().position, Camera.main.GetComponent<CameraBehaviour>().GetInitialSize(), time));
+		player.SetInputActivated(true);
+		Camera.main.GetComponent<CameraBehaviour>().SetFollowTarget(true);
+
+        RestartCheckpoint();
+
+		GetComponent<PolygonCollider2D>().enabled = true;
+	}
 
 }

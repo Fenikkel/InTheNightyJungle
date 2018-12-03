@@ -262,6 +262,7 @@ public class NPCBehaviour : MonoBehaviour {
 		{
 			player = collision.GetComponent<PlayerPlatformController>();
 			player.SetDashActivated(false);
+			player.SetBreathActivated(false);
 			if(!shownZkey)
 				StartCoroutine(AppearZKey(0.5f));
 		}
@@ -272,7 +273,7 @@ public class NPCBehaviour : MonoBehaviour {
 		if(shownZkey && collision.gameObject.tag.Equals("Player") && Input.GetKeyDown(KeyCode.Z) && player.GetGrounded())
 		{
 			StartCoroutine(DisappearZKey(0.5f));
-			StartCoroutine(FrameConversation( 0.8f));
+			StartCoroutine(FrameConversation(0.8f));
 		}
 	}
 
@@ -281,6 +282,7 @@ public class NPCBehaviour : MonoBehaviour {
 		if(collision.gameObject.tag.Equals("Player"))
 		{
 			player.SetDashActivated(true);
+			player.SetBreathActivated(true);
 			if(shownZkey)
 				StartCoroutine(DisappearZKey(0.5f));
 		}
@@ -290,6 +292,7 @@ public class NPCBehaviour : MonoBehaviour {
 	{
 		player.SetInputActivated(false);
 		player.SetDashActivated(true);
+		player.SetBreathActivated(true);
 		camera.SetFollowTarget(false);
 
 		StartCoroutine(player.MoveTo(conversationPlayerPosition.position, hasToFlip, time));

@@ -36,10 +36,10 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.I))
+        /*if(Input.GetKeyDown(KeyCode.I))
         {
             ChangePlayer();
-        }
+        }*/
 	}
 
     public void ChangePlayer()
@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour {
             }
 
             player = cindyEnabled ? Cindy : Brenda;
-            //player.GetComponent<PlayerPlatformController>().RestartPlayer();
+            player.GetComponent<PlayerPlatformController>().RestartPlayer();
+            StartCoroutine(player.GetComponent<PlayerPlatformController>().InvulnerableInTime(1.0f));
             
             mainCamera.GetComponent<CameraBehaviour>().SetTarget(player);
         }

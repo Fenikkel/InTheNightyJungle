@@ -6,6 +6,7 @@ using Anima2D;
 public class PlayerPlatformController : MonoBehaviour {
 
     public static PlayerPlatformController Instance;
+    public GameManager GM;
 
     public float initialMaxSpeed = 60;
     public float initialJumpTakeOffSpeed = 7;
@@ -20,6 +21,7 @@ public class PlayerPlatformController : MonoBehaviour {
     //Maria
     [HideInInspector]
     public bool Descansando;
+    private Transform lastCheckPoint;
 
     private bool inputActivated;
     
@@ -78,20 +80,24 @@ public class PlayerPlatformController : MonoBehaviour {
 
     private void initialization()
     {
+        RestartPlayer();
+
+        ContactFilterInitialization();
+    }
+
+    public void RestartPlayer()
+    {
         inputActivated = true;
-        invulnerabity = false;
-        blink = false;
+        Invulnerable(false);
+        Blink(true);
         dash = false;
+        breath = false;
         dashCooldown = false;
         breathCooldown = false;
-
 
         maxSpeed = initialMaxSpeed;
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
         dashSpeed = initialDashSpeed;
-
-        ContactFilterInitialization();
-
     }
 
     private void ContactFilterInitialization()
@@ -107,6 +113,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     private void Update()
     {
+        if(!dash) move = 0;
 
         if (inputActivated)
         {            
@@ -119,6 +126,11 @@ public class PlayerPlatformController : MonoBehaviour {
             else if (!cindy && controller.GetGrounded() && Input.GetKeyDown(KeyCode.Z) && !breathCooldown)
             {
                 Breath();
+            }
+
+            if(Input.GetKeyDown(KeyCode.I))
+            {
+                StartCoroutine(ChangePlayer());
             }
 
             anim.SetBool("movement", move != lastMove || move != 0);
@@ -234,6 +246,12 @@ public class PlayerPlatformController : MonoBehaviour {
     {
         dashCooldown = !param;
     }
+
+    public void SetBreathActivated(bool param)
+    {
+        breathCooldown = !param;
+    }
+
     //Maria
     public void StartProgressBar()
     {
@@ -255,6 +273,11 @@ public class PlayerPlatformController : MonoBehaviour {
         Descansando = false;
         anim.SetBool("Sitting", false);
         anim.SetBool("WakeUp", true);
+    }
+
+    public void SetCheckPoint(Transform param)
+    {
+        lastCheckPoint = param;
     }
 
     IEnumerator WhileDashActivated(float time)
@@ -485,6 +508,23 @@ public class PlayerPlatformController : MonoBehaviour {
             gameObject.layer = LayerMask.NameToLayer("Player");
             //contactFilter.SetLayerMask(Physics2D.GetLayerCollisionMask(gameObject.layer) | (1 << LayerMask.NameToLayer("Enemy")));
         }
+    }
+
+    public IEnumerator InvulnerableInTime(float time)
+    {
+        Invulnerable(true);
+        yield return new WaitForSeconds(time);
+        Invulnerable(false);
+    }
+
+    IEnumerator ChangePlayer()
+    {
+        inputActivated = false;
+        while(!controller.GetGrounded())
+        {
+            yield return null;
+        }
+        GM.ChangePlayer();
     }
 
     IEnumerator ReduceKnockback(float time)
