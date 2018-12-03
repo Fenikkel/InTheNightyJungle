@@ -58,7 +58,17 @@ public class GameManager : MonoBehaviour {
         blackScreen.GetComponent<Image>().color = finalColor;
         if (cindyEnabled)
         {
-            //if()
+            if (Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() != Vector3.zero)
+            {
+                Cindy.transform.position = Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() + new Vector3(0.01f, 0.01f, 0.01f);
+            }
+        }
+        else
+        {
+            if (Brenda.GetComponent<PlayerPlatformController>().GetLastDoor() != Vector3.zero)
+            {
+                Brenda.transform.position = Brenda.GetComponent<PlayerPlatformController>().GetLastDoor() + new Vector3(0.01f, 0.01f, 0.01f);
+            }
         }
         ChangePlayer();
         yield return new WaitForSeconds(0.1f);

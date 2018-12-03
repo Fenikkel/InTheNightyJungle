@@ -17,7 +17,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public bool cindy;
 
-    private Vector3 lastDoorPos;
+    private Vector3 lastDoorPos=Vector3.zero;
 
     //Maria
     [HideInInspector]
@@ -635,5 +635,9 @@ public class PlayerPlatformController : MonoBehaviour {
     public void IncreaseFame()
     {
         stats.IncreaseFame();
+    }
+    public Vector3 GetLastDoor()
+    {
+        return lastDoorPos;
     }
 }
