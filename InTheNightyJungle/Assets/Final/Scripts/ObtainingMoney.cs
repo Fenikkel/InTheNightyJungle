@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ObtainingMoney : MonoBehaviour {
 
     public float moneyValue;
+    bool catched; //false
 
 	// Use this for initialization
 	void Start () {
@@ -19,8 +20,9 @@ public class ObtainingMoney : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag.Equals("Player"))
+        if (collision.gameObject.tag.Equals("Player") && !catched)
         {
+            catched = true; //Para que no se pongan dos veces en el inventario
             collision.GetComponent<PlayerPlatformController>().DecreaseCansancio(moneyValue);
             GameObject g = new GameObject();
             g.AddComponent<Image>();
