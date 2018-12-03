@@ -8,7 +8,7 @@ public class DrinkingTestManager : MonoBehaviour {
     public DrinkingChallengerBehaviour challenger;
     private PlayerPlatformController player;
     public BarmanBehaviour barman;
-    private CameraBehaviour camera;
+    private CameraBehaviour cameraObject;
 
     public Transform insidePlayerPosition;
     public Transform insideCameraPosition;
@@ -57,7 +57,7 @@ public class DrinkingTestManager : MonoBehaviour {
     public void StartTest(PlayerPlatformController param0, CameraBehaviour param1)
     {
         player = param0;
-        camera = param1;
+        cameraObject = param1;
 
         RestartTest();
 
@@ -94,13 +94,13 @@ public class DrinkingTestManager : MonoBehaviour {
 
     private IEnumerator Introduction(float time1, float time2, float time3, float time4)
     {
-        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, camera.GetSize(), time1));
+        StartCoroutine(cameraObject.MoveSizeTo(insideCameraPosition.position, cameraObject.GetSize(), time1));
         yield return new WaitForSeconds(time1);
 
         StartCoroutine(player.MoveTo(insidePlayerPosition.position, false, time2));
         yield return new WaitForSeconds(time2);
 
-        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
+        StartCoroutine(cameraObject.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
         FadeOutCrowd(time3);
         yield return new WaitForSeconds(time3);
 
@@ -114,18 +114,18 @@ public class DrinkingTestManager : MonoBehaviour {
 
     private IEnumerator Ending(float time1, float time2, float time3)
     {
-        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, camera.GetInitialSize(), time1));
+        StartCoroutine(cameraObject.MoveSizeTo(insideCameraPosition.position, cameraObject.GetInitialSize(), time1));
         FadeInCrowd(time1);
         yield return new WaitForSeconds(time1);
 
         StartCoroutine(player.MoveTo(outsidePlayerPosition.position, true, time2));
         yield return new WaitForSeconds(time2);
 
-        StartCoroutine(camera.MoveSizeTo(outsideCameraPosition.position, camera.GetSize(), time3));
+        StartCoroutine(cameraObject.MoveSizeTo(outsideCameraPosition.position, cameraObject.GetSize(), time3));
         yield return new WaitForSeconds(time3);
 
         player.SetInputActivated(true);
-        camera.SetFollowTarget(true);
+        cameraObject.SetFollowTarget(true);
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.BrendaStats);
        
         if (augmentFama)

@@ -8,7 +8,7 @@ public class DancingTestManager : MonoBehaviour {
     public DancingTestUIController UI;
     public DancingChallengerBehaviour challenger;
     private PlayerPlatformController player;
-    private CameraBehaviour camera;
+    private CameraBehaviour cameraObject;
 
     public Transform insidePlayerPosition;
     public Transform insideCameraPosition;
@@ -27,6 +27,8 @@ public class DancingTestManager : MonoBehaviour {
 
     private int remainingMistakes;
     private int victory;
+    private bool augmentFama;
+
 
     public KeyCode[] possibleKeys;
     
@@ -52,7 +54,7 @@ public class DancingTestManager : MonoBehaviour {
     public void StartTest(PlayerPlatformController param0, CameraBehaviour param1)
     {
         player = param0;
-        camera = param1;
+        cameraObject = param1;
 
         RestartTest();
 
@@ -76,13 +78,13 @@ public class DancingTestManager : MonoBehaviour {
 
     private IEnumerator Introduction(float time1, float time2, float time3, float time4)
     {
-        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, camera.GetSize(), time1));
+        StartCoroutine(cameraObject.MoveSizeTo(insideCameraPosition.position, cameraObject.GetSize(), time1));
         yield return new WaitForSeconds(time1);
 
         StartCoroutine(player.MoveTo(insidePlayerPosition.position, false, time2));
         yield return new WaitForSeconds(time2);
 
-        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
+        StartCoroutine(cameraObject.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
         FadeOutCrowd(time3);
         yield return new WaitForSeconds(time3);
 
@@ -97,19 +99,33 @@ public class DancingTestManager : MonoBehaviour {
 
     private IEnumerator Ending(float time1, float time2, float time3)
     {
-        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, camera.GetInitialSize(), time1));
+        StartCoroutine(cameraObject.MoveSizeTo(insideCameraPosition.position, cameraObject.GetInitialSize(), time1));
         FadeInCrowd(time1);
         yield return new WaitForSeconds(time2);
 
         StartCoroutine(player.MoveTo(outsidePlayerPosition.position, true, time2));
         yield return new WaitForSeconds(time2);
 
-        StartCoroutine(camera.MoveSizeTo(outsideCameraPosition.position, camera.GetSize(), time3));
+        StartCoroutine(cameraObject.MoveSizeTo(outsideCameraPosition.position, cameraObject.GetSize(), time3));
         yield return new WaitForSeconds(time3);
 
         player.SetInputActivated(true);
-        camera.SetFollowTarget(true);
+        cameraObject.SetFollowTarget(true);
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.CindyStats);
+
+        if (augmentFama)
+        {
+            //player.DecreaseCansancio(0.66f);
+            player.DecreasePatience(0.5f);
+            player.IncreaseFame();
+        }
+        else
+        {
+            player.DecreaseCansancio(0.1f);
+            player.DecreasePatience(0.5f);
+            player.IncreaseFame(); //solo para pruebas
+
+        }
     }
 
     private void FadeOutCrowd(float time)
@@ -437,7 +453,7 @@ public class DancingTestManager : MonoBehaviour {
     {        
         testStarted = false;
 
-        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, cameraSize, 1.0f));
+        StartCoroutine(cameraObject.MoveSizeTo(insideCameraPosition.position, cameraSize, 1.0f));
         yield return new WaitForSeconds(1.0f);
 
         StartCoroutine(UI.ShowFinalText(time1));
@@ -459,6 +475,7 @@ public class DancingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("victory", false);
         challenger.GetComponent<Animator>().SetBool("defeat", false);
 
+        augmentFama = true;
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 
@@ -466,7 +483,7 @@ public class DancingTestManager : MonoBehaviour {
     {
         testStarted = false;
 
-        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, cameraSize, 1.0f));
+        StartCoroutine(cameraObject.MoveSizeTo(insideCameraPosition.position, cameraSize, 1.0f));
         yield return new WaitForSeconds(1.0f);
 
         StartCoroutine(UI.ShowFinalText(time1));
@@ -488,6 +505,7 @@ public class DancingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("defeat", false);
         challenger.GetComponent<Animator>().SetBool("victory", false);
 
+        augmentFama = false;
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 
@@ -497,7 +515,7 @@ public class DancingTestManager : MonoBehaviour {
         float finalSize = cameraOverSideSize;
         Vector3 finalPosition = (playerTurn) ? insideCameraPlayerSidePosition.position : insideCameraChallengerSidePosition.position;
 
-        StartCoroutine(camera.MoveSizeTo(finalPosition, finalSize, time));
+        StartCoroutine(cameraObject.MoveSizeTo(finalPosition, finalSize, time));
 
         yield return new WaitForSeconds(time);
 
