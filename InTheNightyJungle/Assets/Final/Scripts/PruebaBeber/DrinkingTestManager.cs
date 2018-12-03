@@ -131,14 +131,14 @@ public class DrinkingTestManager : MonoBehaviour {
         if (augmentFama)
         {
             //player.DecreaseCansancio(0.66f);
-            player.DecreasePatience(0.5f);
+            player.ChangePatience(0.5f);
             //print("victoria" + victory);
             player.IncreaseFame();
         }
         else
         {
             player.DecreaseCansancio(0.1f);
-            player.DecreasePatience(0.5f);
+            player.ChangePatience(0.5f);
             player.IncreaseFame();
 
             //print("derrota" + victory);

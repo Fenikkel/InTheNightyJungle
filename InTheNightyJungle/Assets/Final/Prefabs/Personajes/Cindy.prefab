@@ -1436,6 +1436,7 @@ MonoBehaviour:
   initialJumpTakeOffSpeed: 9
   cindy: 1
   Descansando: 0
+  initialCheckPoint: {fileID: 0}
   knockbackSpeed: 40
   bodyParts:
   - {fileID: 137224675320034978}

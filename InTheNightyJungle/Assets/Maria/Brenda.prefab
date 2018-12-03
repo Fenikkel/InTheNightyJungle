@@ -1282,6 +1282,7 @@ MonoBehaviour:
   initialJumpTakeOffSpeed: 12
   cindy: 0
   Descansando: 0
+  initialCheckPoint: {fileID: 0}
   knockbackSpeed: 2
   bodyParts:
   - {fileID: 137703796689250562}

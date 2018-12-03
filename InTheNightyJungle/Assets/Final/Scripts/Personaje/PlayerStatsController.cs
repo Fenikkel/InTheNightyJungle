@@ -52,7 +52,7 @@ public class PlayerStatsController : MonoBehaviour {
     public bool ChangePatience(float value)
     {
         //StartCoroutine(ChangeBarValue(pacienciaBar.value - value, pacienciaBar, 0.5f));
-        patience = ((patience + value) > 1) ? 1 : ((patience + value) < 0) ? 0 : value;
+        patience = ((patience + value) > 1) ? 1 : ((patience + value) < 0) ? 0 : patience + value;
         statsUI.ChangeValuePatienceBar(value);
         return patience != 0;
     }

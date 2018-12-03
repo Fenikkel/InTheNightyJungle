@@ -21,6 +21,7 @@ public class PlayerPlatformController : MonoBehaviour {
     //Maria
     [HideInInspector]
     public bool Descansando;
+    public Transform initialCheckPoint;
     private Transform lastCheckPoint;
 
     private bool inputActivated;
@@ -74,6 +75,8 @@ public class PlayerPlatformController : MonoBehaviour {
         controller = GetComponent<CharacterController2D>();
 
         sortingLayer = bodyParts[0].GetComponent<SpriteMeshInstance>().sortingLayerName;
+
+        lastCheckPoint = initialCheckPoint;
 
         initialization();
     }
@@ -443,7 +446,7 @@ public class PlayerPlatformController : MonoBehaviour {
                 }
 
                 EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
-                bool param = DecreasePatience(enemy.GetDamage() / 100);
+                bool param = ChangePatience(-enemy.GetDamage() / 100);
                 enemy.CollideWithPlayer();
 
                 inputActivated = false;
@@ -453,9 +456,9 @@ public class PlayerPlatformController : MonoBehaviour {
         }
     }
 
-    public bool DecreasePatience(float decreaseNumber)
+    public bool ChangePatience(float increaseValue)
     {
-        bool aux = stats.ChangePatience(-decreaseNumber); 
+        bool aux = stats.ChangePatience(increaseValue); 
         if(!aux)
             Death();
         return aux;
@@ -502,7 +505,7 @@ public class PlayerPlatformController : MonoBehaviour {
         StartCoroutine(InvulnerabilityTime(2f, 0.1f));
     }
 
-    private void Invulnerable(bool param)
+    public void Invulnerable(bool param)
     {
         if(param)
         {
@@ -688,6 +691,6 @@ public class PlayerPlatformController : MonoBehaviour {
 
     private void EndDeath()
     {
-
+        StartCoroutine(GM.DeathTransition(1f));
     }
 }

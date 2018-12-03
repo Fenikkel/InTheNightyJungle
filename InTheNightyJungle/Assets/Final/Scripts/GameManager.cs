@@ -155,8 +155,11 @@ public class GameManager : MonoBehaviour {
             yield return null;
         }
         blackScreen.GetComponent<Image>().color = finalColor;
+        player.GetComponent<Animator>().SetTrigger("EndDeath");
         player.GetComponent<Animator>().ResetTrigger("Death");
         player.GetComponent<PlayerPlatformController>().SetPosition(player.GetComponent<PlayerPlatformController>().GetCheckPoint().position);
+        player.GetComponent<PlayerPlatformController>().ChangePatience(1);
+        player.GetComponent<PlayerPlatformController>().Invulnerable(false);
         yield return new WaitForSeconds(0.1f);
 
         initialColor = finalColor;
