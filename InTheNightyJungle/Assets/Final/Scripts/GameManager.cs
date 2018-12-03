@@ -38,9 +38,28 @@ public class GameManager : MonoBehaviour {
 	void Update () {
         if(Input.GetKeyDown(KeyCode.I))
         {
-            ChangePlayer();
+            StartCoroutine(Transition());
         }
 	}
+
+    IEnumerator Transition()
+    {
+        Color c = blackScreen.GetComponent<Image>().color;
+        Color initialColor = c;
+        Color finalColor = new Color(0, 0, 0, 1);
+        float elapsedTime = 0.0f;
+        while (elapsedTime < 0.5f)
+        {
+            elapsedTime += Time.deltaTime;
+            c = Color.Lerp(initialColor, finalColor, elapsedTime / 0.5f);
+            blackScreen.GetComponent<Image>().color = c;
+            yield return null;
+        }
+        blackScreen.GetComponent<Image>().color = finalColor;
+        ChangePlayer();
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(FadeOut(0.5f, true));
+    }
 
     public void ChangePlayer()
     {
