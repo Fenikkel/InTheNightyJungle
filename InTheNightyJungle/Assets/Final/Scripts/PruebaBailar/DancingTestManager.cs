@@ -12,14 +12,18 @@ public class DancingTestManager : MonoBehaviour {
 
     public Transform insidePlayerPosition;
     public Transform insideCameraPosition;
+    public Transform insideCameraPlayerSidePosition;
+    public Transform insideCameraChallengerSidePosition;
     public Transform outsidePlayerPosition;
     public Transform outsideCameraPosition;
     public float cameraSize;
+    public float cameraOverSideSize;
     public LittleSilhouettoOfAMan[] foregroundSilhouettes;
 
     private bool testStarted;
     private bool turnActivated;
     private bool playerTurn;
+    private bool changingTurn;
 
     private int remainingMistakes;
     private int victory;
@@ -59,6 +63,7 @@ public class DancingTestManager : MonoBehaviour {
     {
         turnActivated = false;
         playerTurn = false;
+        changingTurn = false;
 
         remainingMistakes = 3;
         victory = -1;
@@ -87,6 +92,7 @@ public class DancingTestManager : MonoBehaviour {
         yield return new WaitForSeconds(time4);
         
         testStarted = true;
+        StartCoroutine(BeginTurn(1.0f));
     }
 
     private IEnumerator Ending(float time1, float time2, float time3)
@@ -126,7 +132,7 @@ public class DancingTestManager : MonoBehaviour {
     {
         if(testStarted)
         {
-            if(!turnActivated) //No se está ejecutando nada dentro de la prueba
+            if(!turnActivated && !changingTurn) //No se está ejecutando nada dentro de la prueba
             {
                 if(victory == -1)
                 {                    
@@ -140,15 +146,7 @@ public class DancingTestManager : MonoBehaviour {
                                 if(Input.GetKeyDown(possibleKeys[i]))
                                 {
                                     turnActivated = true; //Sea cual sea la tecla dentro de la posibles, si se ha pulsado, no se podrá hacer nada hasta que termine la acción que desencadena
-                                    bool right = TryKey(possibleKeys[i]); //Le pasamos la que se está pulsando a un método que nos comprobará si es correcta en función de cuál toca pulsar ahora
-                                    if(right)
-                                    {
-                                        StartCoroutine(AppearPlayerCorrectKey(visualKeys[i], 0.75f));
-                                    }
-                                    else
-                                    {
-                                        StartCoroutine(AppearPlayerIncorrectKey(visualKeys[i], 0.75f));
-                                    }
+                                    StartCoroutine(TryKey(possibleKeys[i], i)); //Le pasamos la que se está pulsando a un método que nos comprobará si es correcta en función de cuál toca pulsar ahora
                                 }
                             }
                         }
@@ -167,12 +165,16 @@ public class DancingTestManager : MonoBehaviour {
             }
             else
             {
-                if(playerTurn) { //Lo único que para el turno desde el jugador es la propia animación de personaje, por lo que cabe comprobar cuando el personaje vuelve al idle
-                    UpdateTimer();
-                    turnActivated = !player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("preIdle");
+                if(!changingTurn)
+                {
+                    if(playerTurn) { //Lo único que para el turno desde el jugador es la propia animación de personaje, por lo que cabe comprobar cuando el personaje vuelve al idle
+                        UpdateTimer();
+                        turnActivated = !player.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("preIdle");
+                    }
+                    else 
+                        turnActivated = !challenger.HasFinished();
                 }
-                else 
-                    turnActivated = !challenger.HasFinished();
+                
             }
         }
     }  
@@ -190,7 +192,7 @@ public class DancingTestManager : MonoBehaviour {
         }
     }
 
-    private bool TryKey(KeyCode key)
+    private IEnumerator TryKey(KeyCode key, int i)
     {        
         bool result = true; //Del case que salga, comprobará si no coincide la tecla que se pulsar en ese momento con la versión codificada con la tecla realmente pulsada, poniendo el valor de result a false en caso de ser verdadera la condición
         
@@ -221,13 +223,14 @@ public class DancingTestManager : MonoBehaviour {
                 if(!blocks[currentBlock][currentKey].Equals('4')) result = false; 
                 break;
         }
+        
+        //Tanto si se acierta como si no, el personaje del jugador deberá realizar la animación correspondiente a la tecla pulsada
+        player.DancingMovement(key);
 
-        if(!result) //Si se ha fallado, se debe indicar que el turno pasa al oponente y no se debe aumentar el currentKey
+        if(result)
         {
-            WrongKey();
-        }
-        else //Si se ha acertado, se aumenta el valor del currentKey
-        {
+            StartCoroutine(AppearPlayerCorrectKey(visualKeys[i], 0.75f));
+            yield return new WaitForSeconds(0.75f);
             currentKey++;
             if(currentKey == blocks[currentBlock].Length) //Se comprueba que no se haya llegado al final del bloque
             {
@@ -246,14 +249,16 @@ public class DancingTestManager : MonoBehaviour {
                     
                     remainingTime = initialTime;
                     UI.SetCurrentTime(remainingTime);
+                    StartCoroutine(BeginTurn(1.0f));
                 }
             }
         }
-        //Tanto si se acierta como si no, el personaje del jugador deberá realizar la animación correspondiente a la tecla pulsada
-
-        player.DancingMovement(key);
-
-        return result;
+        else
+        {
+            StartCoroutine(AppearPlayerIncorrectKey(visualKeys[i], 0.75f));
+            yield return new WaitForSeconds(0.75f);
+            WrongKey();
+        }
     }
 
     private void WrongKey()
@@ -270,6 +275,7 @@ public class DancingTestManager : MonoBehaviour {
         {
             remainingTime = initialTime;
             UI.SetCurrentTime(remainingTime);
+            StartCoroutine(BeginTurn(1.0f));
         }
     }
 
@@ -319,6 +325,7 @@ public class DancingTestManager : MonoBehaviour {
             turnActivated = false;
             playerTurn = true;
             currentKey = 0;
+            StartCoroutine(BeginTurn(1.0f));
         }
     }
 
@@ -427,8 +434,11 @@ public class DancingTestManager : MonoBehaviour {
     }
 
     private IEnumerator Victory(float time1, float time2)
-    {
+    {        
         testStarted = false;
+
+        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, cameraSize, 1.0f));
+        yield return new WaitForSeconds(1.0f);
 
         StartCoroutine(UI.ShowFinalText(time1));
         yield return new WaitForSeconds(time1);
@@ -456,6 +466,9 @@ public class DancingTestManager : MonoBehaviour {
     {
         testStarted = false;
 
+        StartCoroutine(camera.MoveSizeTo(insideCameraPosition.position, cameraSize, 1.0f));
+        yield return new WaitForSeconds(1.0f);
+
         StartCoroutine(UI.ShowFinalText(time1));
         yield return new WaitForSeconds(time1);
 
@@ -476,5 +489,18 @@ public class DancingTestManager : MonoBehaviour {
         challenger.GetComponent<Animator>().SetBool("victory", false);
 
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
+    }
+
+    private IEnumerator BeginTurn(float time)
+    {        
+        changingTurn = true;
+        float finalSize = cameraOverSideSize;
+        Vector3 finalPosition = (playerTurn) ? insideCameraPlayerSidePosition.position : insideCameraChallengerSidePosition.position;
+
+        StartCoroutine(camera.MoveSizeTo(finalPosition, finalSize, time));
+
+        yield return new WaitForSeconds(time);
+
+        changingTurn = false;
     }
 }

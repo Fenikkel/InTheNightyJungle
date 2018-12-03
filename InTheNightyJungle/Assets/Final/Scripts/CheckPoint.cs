@@ -16,7 +16,7 @@ public class CheckPoint : MonoBehaviour {
         playerAnimator = PlayerPlatformController.Instance.GetComponent<Animator>();
     }
 
-    private void Update()
+    private void OnTriggerStay2D()
     {
         if (insideCheckPoint && Input.GetKeyDown(KeyCode.Z) && !PlayerPlatformController.Instance.Descansando)
         {
