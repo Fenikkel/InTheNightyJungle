@@ -275,6 +275,11 @@ public class PlayerPlatformController : MonoBehaviour {
         anim.SetBool("WakeUp", true);
     }
 
+    public Transform GetCheckPoint()
+    {
+        return lastCheckPoint;
+    }
+
     public void SetCheckPoint(Transform param)
     {
         lastCheckPoint = param;
@@ -389,7 +394,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public void DecreaseCansancio(float value)
     {
-        stats.DecreaseBladderTiredness(value);
+        stats.DecreaseBladderTiredness(-value);
     }
 
     private void DetectingMotionPlatform()
@@ -438,19 +443,22 @@ public class PlayerPlatformController : MonoBehaviour {
                 }
 
                 EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
-                stats.ChangePatience(- enemy.GetDamage() / 100);
+                bool param = DecreasePatience(enemy.GetDamage() / 100);
                 enemy.CollideWithPlayer();
 
                 inputActivated = false;
                 Invulnerable(true);
-                KnockBack(normals);
+                if(param) KnockBack(normals);
             }
         }
     }
 
-    public void DecreasePatience(float decreaseNumber)
+    public bool DecreasePatience(float decreaseNumber)
     {
-        stats.ChangePatience(-decreaseNumber);
+        bool aux = stats.ChangePatience(-decreaseNumber); 
+        if(!aux)
+            Death();
+        return aux;
     }
     /*
     private void OnCollisionEnter2D(Collision2D collision)
@@ -671,5 +679,15 @@ public class PlayerPlatformController : MonoBehaviour {
     public void IncreaseFame()
     {
         stats.IncreaseFame();
+    }
+
+    private void Death()
+    {
+        anim.SetTrigger("Death");
+    }
+
+    private void EndDeath()
+    {
+
     }
 }

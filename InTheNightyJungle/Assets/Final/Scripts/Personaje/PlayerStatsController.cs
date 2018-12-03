@@ -49,11 +49,12 @@ public class PlayerStatsController : MonoBehaviour {
         //StartCoroutine(ChangeBarValue(changenessBar.value - value, changenessBar, 0.5f));
     }
 
-    public void ChangePatience(float value)
+    public bool ChangePatience(float value)
     {
         //StartCoroutine(ChangeBarValue(pacienciaBar.value - value, pacienciaBar, 0.5f));
-        patience = (patience + value > 1) ? 1 : (patience + value < 0) ? 0 : value;
+        patience = ((patience + value) > 1) ? 1 : ((patience + value) < 0) ? 0 : value;
         statsUI.ChangeValuePatienceBar(value);
+        return patience != 0;
     }
 
     public float GetBladderTiredness()

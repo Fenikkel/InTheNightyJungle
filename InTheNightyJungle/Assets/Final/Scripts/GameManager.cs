@@ -140,4 +140,36 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+
+    public IEnumerator DeathTransition(float time)
+    {
+        Color c = blackScreen.GetComponent<Image>().color;
+        Color initialColor = c;
+        Color finalColor = new Color(0, 0, 0, 1);
+        float elapsedTime = 0.0f;
+        while(elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            c = Color.Lerp(initialColor, finalColor, elapsedTime/time);
+            blackScreen.GetComponent<Image>().color = c;
+            yield return null;
+        }
+        blackScreen.GetComponent<Image>().color = finalColor;
+        player.GetComponent<Animator>().ResetTrigger("Death");
+        player.GetComponent<PlayerPlatformController>().SetPosition(player.GetComponent<PlayerPlatformController>().GetCheckPoint().position);
+        yield return new WaitForSeconds(0.1f);
+
+        initialColor = finalColor;
+        finalColor = new Color(0,0,0,0);
+        elapsedTime = 0.0f;
+        while(elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            c = Color.Lerp(initialColor, finalColor, elapsedTime/time);
+            blackScreen.GetComponent<Image>().color = c;
+            yield return null;
+        }
+        blackScreen.GetComponent<Image>().color = finalColor;
+        player.GetComponent<PlayerPlatformController>().SetInputActivated(true);
+    }
 }

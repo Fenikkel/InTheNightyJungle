@@ -51,6 +51,7 @@ public class CheckPoint : MonoBehaviour {
     {
         if (insideCheckPoint && Input.GetKeyDown(KeyCode.Z) && !player.Descansando)
         {
+            player.SetCheckPoint(playerPosition);
             StartCoroutine(DisappearZKey(0.5f));
             StartCoroutine(FrameCheckPoint(0.8f));
         }
