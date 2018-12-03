@@ -44,6 +44,7 @@ public class CheckPoint : MonoBehaviour {
         if (collision.tag == "Player")
         {
             insideCheckPoint = false;
+            StartCoroutine(DisappearZKey(0.5f));
         }
     }
 

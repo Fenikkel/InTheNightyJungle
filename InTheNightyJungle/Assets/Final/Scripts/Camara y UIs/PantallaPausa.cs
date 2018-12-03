@@ -7,15 +7,24 @@ using UnityEngine.SceneManagement;
 public class PantallaPausa : MonoBehaviour {
 
     public static bool GameIsPaused = false;
+    //Cosas creadas por mi: Maria.
+    public static PantallaPausa Instance;
     public Button botonJugar, botonOpciones, botonSalir, botonInventario, botonAtras;
     public Slider volumen;
     public Image inventario;
+    //Cosas creadas por mi: Maria.
+    public GameObject ContenidoInventario;
 
     public GeneralUIController UIController;
 
     private float currentVolume;
 
     private AudioSource music;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObtainingMoney : MonoBehaviour {
 
@@ -21,7 +22,11 @@ public class ObtainingMoney : MonoBehaviour {
         if (collision.gameObject.tag.Equals("Player"))
         {
             collision.GetComponent<PlayerPlatformController>().DecreaseCansancio(moneyValue);
-            gameObject.SetActive(false);
+            GameObject g = new GameObject();
+            g.AddComponent<Image>();
+            g.GetComponent<Image>().sprite = GetComponent<SpriteRenderer>().sprite;
+            g.transform.parent = PantallaPausa.Instance.ContenidoInventario.transform;
+            Destroy(gameObject);
         }
     }
 }
