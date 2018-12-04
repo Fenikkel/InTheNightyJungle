@@ -10,7 +10,7 @@ public class Coins : MonoBehaviour {
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-           
+            soundsmanager.PlaySound("Coin");
             Destroy(gameObject);
             Score.scorevalue += coinvalue;
         }
