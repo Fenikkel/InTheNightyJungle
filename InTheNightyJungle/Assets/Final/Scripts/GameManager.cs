@@ -40,6 +40,44 @@ public class GameManager : MonoBehaviour {
         }*/
 	}
 
+    public void BeginChangePlayer()
+    {
+        StartCoroutine(Transition());
+    }
+    
+    IEnumerator Transition()
+    {
+        Color c = blackScreen.GetComponent<Image>().color;
+        Color initialColor = c;
+        Color finalColor = new Color(0, 0, 0, 1);
+        float elapsedTime = 0.0f;
+        while (elapsedTime < 0.5f)
+        {
+            elapsedTime += Time.deltaTime;
+            c = Color.Lerp(initialColor, finalColor, elapsedTime / 0.5f);
+            blackScreen.GetComponent<Image>().color = c;
+            yield return null;
+        }
+        blackScreen.GetComponent<Image>().color = finalColor;
+        if (cindyEnabled)
+        {
+            if (Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() != Vector3.zero)
+            {
+                Cindy.transform.position = Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() + new Vector3(0.01f, 0.01f, 0.01f);
+            }
+        }
+        else
+        {
+            if (Brenda.GetComponent<PlayerPlatformController>().GetLastDoor() != Vector3.zero)
+            {
+                Brenda.transform.position = Brenda.GetComponent<PlayerPlatformController>().GetLastDoor() + new Vector3(0.01f, 0.01f, 0.01f);
+            }
+        }
+        ChangePlayer();
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(FadeOut(0.5f, true));
+    }
+    
     public void ChangePlayer()
     {
         if(canChangePlayer)
@@ -64,7 +102,7 @@ public class GameManager : MonoBehaviour {
 
     public void PlayerDone()
     {
-        ChangePlayer();
+        BeginChangePlayer();
         canChangePlayer = false;
     }
 

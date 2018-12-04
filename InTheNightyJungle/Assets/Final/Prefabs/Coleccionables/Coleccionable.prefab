@@ -36,8 +36,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4813980696655036}
   - component: {fileID: 212568775496475222}
-  - component: {fileID: 114447422135972498}
   - component: {fileID: 58792743664468870}
+  - component: {fileID: 114761837435395196}
   m_Layer: 8
   m_Name: Coleccionable
   m_TagString: Untagged
@@ -118,7 +118,7 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 17.550001
---- !u!114 &114447422135972498
+--- !u!114 &114761837435395196
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,10 +126,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1276863728452130}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3cce559557234e47a6fe128f2781fb4, type: 3}
+  m_Script: {fileID: 11500000, guid: c87deb583a310fe4aaff5280b191c949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyValue: 0
+  collectibleInInventory: {fileID: 0}
 --- !u!114 &114846764496916648
 MonoBehaviour:
   m_ObjectHideFlags: 1

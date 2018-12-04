@@ -35,4 +35,9 @@ public class DoorBehaviour : MonoBehaviour {
                 GM.ChangingChamber(this);
         }
     }
+
+    public Vector3 GetPosition()
+    {
+        return playerPosition.position;
+    }
 }
