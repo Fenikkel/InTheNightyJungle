@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 61692973388117152}
   m_Layer: 11
   m_Name: Billete10
-  m_TagString: Untagged
+  m_TagString: Coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coin: 10
+  coinAmount: 0
 --- !u!212 &212294275421050518
 SpriteRenderer:
   m_ObjectHideFlags: 1
