@@ -27,8 +27,6 @@ public class GameManager : MonoBehaviour {
 
         cindyEnabled = (Random.value > 0.5f) ? true : false;
 
-        UIController.Initialize(cindyEnabled);
-
         StartCoroutine(FadeOut(1f, false));
 
         ChangePlayer();
@@ -54,14 +52,7 @@ public class GameManager : MonoBehaviour {
             Cindy.SetActive(cindyEnabled);
             Brenda.SetActive(!cindyEnabled);
 
-            if(cindyEnabled)
-            {
-                UIController.ChangeMode(UILayer.CindyStats);
-            }
-            else
-            {
-                UIController.ChangeMode(UILayer.BrendaStats);
-            }
+            UIController.Initialize(cindyEnabled);
 
             player = cindyEnabled ? Cindy : Brenda;
             player.GetComponent<PlayerPlatformController>().RestartPlayer();

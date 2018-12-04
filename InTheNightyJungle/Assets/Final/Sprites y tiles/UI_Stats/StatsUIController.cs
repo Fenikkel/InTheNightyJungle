@@ -22,6 +22,7 @@ public class StatsUIController : MonoBehaviour {
 	void Start () {
 		bladderTirednessStatBar.value = 0;
 		patienceStatBar.value = 1;
+		moneyText.text = "0";
 
 		for(int i = 0; i < stars.Length; i++)
 		{
@@ -30,8 +31,6 @@ public class StatsUIController : MonoBehaviour {
 		numStars = 0;
 		shine.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
 		shineOriginalSize = shine.GetComponent<RectTransform>().sizeDelta;
-
-		moneyText.text = "0";
 	}
 	
 	// Update is called once per frame

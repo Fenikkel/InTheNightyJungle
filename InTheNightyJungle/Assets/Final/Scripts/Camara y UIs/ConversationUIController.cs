@@ -197,6 +197,8 @@ public class ConversationUIController : MonoBehaviour {
 
 		conversationBox.GetComponent<RectTransform>().anchoredPosition = closedConversationBoxPosition;
 		conversationBox.GetComponent<RectTransform>().sizeDelta = closedConversationBoxSize;
+
+		UIController.BackToStats();
 	}
 
 	IEnumerator OpenOptionsBox(float time) //Para abrir el cuadro de opciones
@@ -222,6 +224,8 @@ public class ConversationUIController : MonoBehaviour {
 	IEnumerator CloseOptionsBox(float time) //Para cerrar el cuadro de opciones
 	{
 		optionsBoxReady = false;
+
+		optionSelected = -1; //Se reinicializa la optionSelected
 		
 		float elapsedTime = 0.0f;
 		Vector2 initialPosition = optionsBox.GetComponent<RectTransform>().anchoredPosition;
@@ -237,8 +241,6 @@ public class ConversationUIController : MonoBehaviour {
 
 		optionsBox.GetComponent<RectTransform>().anchoredPosition = closedOptionsBoxPosition;
 		optionsBox.GetComponent<RectTransform>().sizeDelta = closedOptionsBoxSize;
-
-		optionSelected = -1; //Se reinicializa la optionSelected
 	}
 
 	IEnumerator WriteMessage(float timeBetweenLetters, string message, int i, bool options) //Corutina recursiva!!! Qué guay!

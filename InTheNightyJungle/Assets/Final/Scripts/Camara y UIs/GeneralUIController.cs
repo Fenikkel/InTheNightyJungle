@@ -12,6 +12,8 @@ public class GeneralUIController : MonoBehaviour {
 	public GameObject blackScreen;
 	public GameObject pauseMenu;
 
+	private bool playingWithCindy;
+
 	private UILayer currentLayer;
 
 	// Use this for initialization
@@ -26,6 +28,7 @@ public class GeneralUIController : MonoBehaviour {
 
 	public void Initialize(bool cindy)
 	{
+		playingWithCindy = cindy;
 		if(cindy)
 		{	
 			currentLayer = UILayer.CindyStats;
@@ -61,6 +64,12 @@ public class GeneralUIController : MonoBehaviour {
 		pauseMenu.SetActive(false);
 		blackScreen.SetActive(true);
 		ChangeMode(currentLayer);
+	}
+
+	public void BackToStats()
+	{
+		if(playingWithCindy) ChangeMode(UILayer.CindyStats);
+		else ChangeMode(UILayer.BrendaStats);
 	}
 }
 

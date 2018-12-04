@@ -22,6 +22,9 @@ public class PlayerStatsController : MonoBehaviour {
         patience = 1;
         bladderTiredness = 0;
         fame = 0;
+        money = 0;
+
+        ChangeMoney(50);
 	}
 	
 	// Update is called once per frame
@@ -61,7 +64,6 @@ public class PlayerStatsController : MonoBehaviour {
     public void ChangeMoney(int value)
     {
         money += value;
-        print(money);
         statsUI.ChangeMoney(value);
     }
 

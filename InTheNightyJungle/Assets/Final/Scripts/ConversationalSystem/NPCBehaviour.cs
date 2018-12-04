@@ -76,30 +76,33 @@ public class NPCBehaviour : MonoBehaviour {
 			{
 				if(Input.GetKeyDown(KeyCode.Z))
 				{
-					SpamText();
+					stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
+					if(!stopConversation) SpamText();
 				}
 			}
 
 			if(options)
 			{
+				//print(UI.GetOptionSelected() + " " + currentNode.GetMessage());
 				if(UI.GetOptionSelected() != -1)
 				{
 					if(UI.GetOptionSelected() == 0) {
 
 						if(currentNode.GetSomethingToDo() != null && currentNode.GetSomethingToDo().StartsWith("_S_"))
-							Invoke(currentNode.GetSomethingToDo().Substring(3), 0);
+							StartCoroutine(currentNode.GetSomethingToDo().Substring(3));
 
 						NextNode(currentNode.GetChildNode1());
 					}
 					else {
 
 						if(currentNode.GetSomethingToDo() != null && currentNode.GetSomethingToDo().StartsWith("_N_"))
-							Invoke(currentNode.GetSomethingToDo().Substring(3), 0);
+							StartCoroutine(currentNode.GetSomethingToDo().Substring(3));
 							
 						NextNode(currentNode.GetChildNode2());
 					}
 					UI.UnshowOptionsBox();
-					SpamText();
+					stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
+					if(!stopConversation) SpamText();
 				}
 			}
 
@@ -120,7 +123,7 @@ public class NPCBehaviour : MonoBehaviour {
 						nextThingToDo.GetComponent<GameManager>().PlayerDone();
 						break;
 					case "_cancel":
-						CancelConversation();
+						StartCoroutine(CancelConversation());
 						break;
 				}
 				conversationTime = false;
@@ -203,24 +206,25 @@ public class NPCBehaviour : MonoBehaviour {
 
 	private void SpamText()
 	{
-        actual = currentNode.GetMessage();
+		actual = currentNode.GetMessage();
+
 		string variableToLocate = "";
 		string finalMessage = "";
 		bool readingVariable = false;
+	
 		for(int i = 0; i < actual.Length; i++)
 		{
-			if(actual[i] == '{')
-			{
-				readingVariable = true;
-			}
-			else if(actual[i] == '}')
+			if(actual[i] == '}')
 			{
 				finalMessage += Format(variableToLocate);
 				variableToLocate = "";
 				readingVariable = false;
 			}
-
-			if(readingVariable)
+			else if(actual[i] == '{')
+			{
+				readingVariable = true;
+			}
+			else if(readingVariable)
 			{
 				variableToLocate += actual[i];
 			}
@@ -229,10 +233,12 @@ public class NPCBehaviour : MonoBehaviour {
 				finalMessage += actual[i];
 			}
 		}
+	    currentNode.SetMessage(finalMessage);
+		actual = finalMessage;
 
         UI.SpamText(currentNode.GetMessage(), options);
 		if(currentNode.GetSomethingToDo() != null && !(currentNode.GetSomethingToDo().StartsWith("_S_") || currentNode.GetSomethingToDo().StartsWith("_N_")))
-			Invoke(currentNode.GetSomethingToDo(), 0);
+			StartCoroutine(currentNode.GetSomethingToDo());
 
 		if(currentNode.GetExtraCondition() != null)
 		{
@@ -283,8 +289,7 @@ public class NPCBehaviour : MonoBehaviour {
 	private void NextNode(ConversationalNode next)
 	{
 		currentNode = next;
-		options = currentNode.GetChildNode2() != null && currentNode.GetExtraCondition() == null;
-		stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
+		options = currentNode.GetChildNode2() != null && currentNode.GetExtraCondition() == null && currentNode.GetMessage() != null && !currentNode.GetMessage().StartsWith("_");
 	}
 
 	private void PurchaseTicket()
@@ -292,15 +297,16 @@ public class NPCBehaviour : MonoBehaviour {
 		//Aquí haríamos la disminución de money correspondiente y tal
 		if(player.GetComponent<PlayerStatsController>().GetMoney() >= moneyRequired)
 		{
-			player.GetComponent<PlayerStatsController>().ChangeMoney(-moneyRequired);
 			purchasedTicket = true;
+			player.GetComponent<PlayerStatsController>().ChangeMoney(-moneyRequired);
 		}
 	}
 
-	private void CancelConversation()
+	private IEnumerator CancelConversation()
 	{
 		UI.FinishedConversation();
 		StartCoroutine(camera.MoveSizeTo(camera.GetComponent<Transform>().position, camera.GetInitialSize(), 0.5f));
+		yield return new WaitForSeconds(0.5f);
 		player.SetInputActivated(true);
 		camera.SetFollowTarget(true);
 

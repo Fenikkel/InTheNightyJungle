@@ -60,6 +60,11 @@ public class ConversationalNode {
 		return somethingToDo;
 	}
 
+	public void SetMessage(string param)
+	{
+		message = param;
+	}
+
 	public void SetChildNode1(ConversationalNode param1)
 	{
 		childNode1 = param1;
