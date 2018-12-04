@@ -6,6 +6,7 @@ public class DrinkingTestManager : MonoBehaviour {
 
 	public DrinkingTestUIController UI;
     public DrinkingChallengerBehaviour challenger;
+    public StatsUIController playerUI;
     private PlayerPlatformController player;
     public BarmanBehaviour barman;
     private CameraBehaviour cameraObject;
@@ -130,19 +131,14 @@ public class DrinkingTestManager : MonoBehaviour {
        
         if (augmentFama)
         {
-            //player.DecreaseCansancio(0.66f);
-            player.DecreasePatience(0.5f);
-            //print("victoria" + victory);
-            player.IncreaseFame();
+            player.DecreaseCansancio(0.25f);
+            player.DecreasePatience(0.1f);
+            playerUI.OneMoreStar();
         }
         else
         {
-            player.DecreaseCansancio(0.1f);
-            player.DecreasePatience(0.5f);
-            player.IncreaseFame();
-
-            //print("derrota" + victory);
-
+            player.DecreaseCansancio(0.25f);
+            player.DecreasePatience(0.2f);
         }
     }
 

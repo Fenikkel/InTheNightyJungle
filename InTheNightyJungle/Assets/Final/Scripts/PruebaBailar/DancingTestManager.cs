@@ -7,6 +7,7 @@ public class DancingTestManager : MonoBehaviour {
 
     public DancingTestUIController UI;
     public DancingChallengerBehaviour challenger;
+    public StatsUIController playerUI;
     private PlayerPlatformController player;
     private CameraBehaviour cameraObject;
 
@@ -115,15 +116,18 @@ public class DancingTestManager : MonoBehaviour {
 
         if (augmentFama)
         {
-            //player.DecreaseCansancio(0.66f);
-            player.DecreasePatience(0.5f);
-            player.IncreaseFame();
+            player.DecreaseCansancio(0.25f);
+            player.DecreasePatience(0.1f);
+            playerUI.OneMoreStar();
+            //player.IncreaseFame();
         }
         else
         {
-            player.DecreaseCansancio(0.1f);
-            player.DecreasePatience(0.5f);
-            player.IncreaseFame(); //solo para pruebas
+            player.DecreaseCansancio(0.25f);
+            player.DecreasePatience(0.2f);
+            //playerUI.OneMoreStar();
+
+            //player.IncreaseFame(); //solo para pruebas
 
         }
     }
