@@ -138,7 +138,6 @@ public class DancingTestUIController : MonoBehaviour {
         numTotalBlocks = param0;
         numCompletedBlocks = 0;
         UpdateCompletedBlocksText();
-        print("hola");
         timeBarValue = 1;
         timeBar.fillAmount = 1;
       
