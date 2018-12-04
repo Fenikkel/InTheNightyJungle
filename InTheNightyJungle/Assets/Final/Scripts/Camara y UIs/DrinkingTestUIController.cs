@@ -123,6 +123,7 @@ public class DrinkingTestUIController : MonoBehaviour {
 	{
 		UIController.ChangeMode(UILayer.DrinkingTest);
 		leftNumDrinks = rightNumDrinks = 0;
+		leftNumDrinksText.text = rightNumDrinksText.text = "0";
 		leftDrinkingBar.fillAmount = rightDrinkingBar.fillAmount = 0.0f;
 
 		for(int i = 0; i < introductionTexts.Length; i++)

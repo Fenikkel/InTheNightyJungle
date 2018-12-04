@@ -40,6 +40,8 @@ public class NPCBehaviour : MonoBehaviour {
 	public int moneyRequired;
 	private bool purchasedTicket;
 
+	private bool interactable;
+
 	// Use this for initialization
 	void Start () {
 		CreateConversationalTree();
@@ -51,6 +53,7 @@ public class NPCBehaviour : MonoBehaviour {
 		options = false;
 		stopConversation = false;
 		purchasedTicket = false;
+		interactable = true;
 	}
 
 	private void RestartConversation()
@@ -61,6 +64,8 @@ public class NPCBehaviour : MonoBehaviour {
 		conversationTime = false;
 		options = false;
 		stopConversation = false;
+
+		GetComponent<PolygonCollider2D>().enabled = true;
 	}
 	
 	// Update is called once per frame
@@ -112,14 +117,18 @@ public class NPCBehaviour : MonoBehaviour {
 				{
 					case "_dance":
 						UI.FinishedConversation();
+						RestartConversation();
 						nextThingToDo.GetComponent<DancingTestManager>().StartTest(player, camera);
 						break;
 					case "_drink":
 						UI.FinishedConversation();
+						RestartConversation();
 						nextThingToDo.GetComponent<DrinkingTestManager>().StartTest(player, camera);
 						break;
 					case "_endLevel":
 						UI.FinishedConversation();
+						RestartConversation();
+						StartCoroutine(camera.MoveSizeTo(camera.GetComponent<Transform>().position, camera.GetInitialSize(), 0.5f));
 						nextThingToDo.GetComponent<GameManager>().PlayerDone();
 						break;
 					case "_cancel":
@@ -198,7 +207,6 @@ public class NPCBehaviour : MonoBehaviour {
 	public void StartConversation()
 	{
 		conversationTime = true;
-		GetComponent<PolygonCollider2D>().enabled = false;
 
 		UI.InitializeConversationBox();
 		SpamText();
@@ -311,26 +319,28 @@ public class NPCBehaviour : MonoBehaviour {
 		camera.SetFollowTarget(true);
 
 		RestartConversation();
-
-		GetComponent<PolygonCollider2D>().enabled = true;
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		if(collision.gameObject.tag.Equals("Player"))
+		if(collision.gameObject.tag.Equals("Player")) 
 		{
 			player = collision.GetComponent<PlayerPlatformController>();
-			player.SetDashActivated(false);
-			player.SetBreathActivated(false);
-			if(!shownZkey)
-				StartCoroutine(AppearZKey(0.5f));
+			if(interactable  && player.GetInputActivated())
+			{
+				player.SetDashActivated(false);
+				player.SetBreathActivated(false);
+				if(!shownZkey)
+					StartCoroutine(AppearZKey(0.5f));
+			}
 		}
 	}
 
 	private void OnTriggerStay2D(Collider2D collision)
 	{
-		if(shownZkey && collision.gameObject.tag.Equals("Player") && Input.GetKeyDown(KeyCode.Z) && player.GetGrounded())
+		if(interactable && player.GetInputActivated() && shownZkey && collision.gameObject.tag.Equals("Player") && Input.GetKeyDown(KeyCode.Z) && player.GetGrounded())
 		{
+			GetComponent<PolygonCollider2D>().enabled = false;
 			StartCoroutine(DisappearZKey(0.5f));
 			StartCoroutine(FrameConversation(0.8f));
 		}
@@ -338,7 +348,7 @@ public class NPCBehaviour : MonoBehaviour {
 
 	private void OnTriggerExit2D(Collider2D collision)
 	{
-		if(collision.gameObject.tag.Equals("Player"))
+		if(interactable && collision.gameObject.tag.Equals("Player") && player.GetInputActivated())
 		{
 			player.SetDashActivated(true);
 			player.SetBreathActivated(true);
@@ -347,12 +357,17 @@ public class NPCBehaviour : MonoBehaviour {
 		}
 	}
 
+	public void SetInteractable(bool param)
+	{
+		interactable = param;
+	}
+
 	private IEnumerator FrameConversation(float time)
 	{
 		player.SetInputActivated(false);
 		player.SetDashActivated(true);
 		player.SetBreathActivated(true);
-		camera.SetFollowTarget(false);
+		camera.SetFollowTarget(false);		
 
 		StartCoroutine(player.MoveTo(conversationPlayerPosition.position, hasToFlip, time));
 		StartCoroutine(camera.MoveSizeTo(conversationCameraPosition.position, conversationCameraSize, time));

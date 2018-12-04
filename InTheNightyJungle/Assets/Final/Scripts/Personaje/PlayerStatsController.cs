@@ -24,7 +24,7 @@ public class PlayerStatsController : MonoBehaviour {
         fame = 0;
         money = 0;
 
-        ChangeMoney(50);
+        fame = 3;
 	}
 	
 	// Update is called once per frame

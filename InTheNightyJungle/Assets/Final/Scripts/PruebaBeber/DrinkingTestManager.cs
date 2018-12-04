@@ -369,6 +369,7 @@ public class DrinkingTestManager : MonoBehaviour {
         challenger.GetComponent<Animator>().SetBool("defeat", false);
 
         augmentFama = true;
+        GetComponentInChildren<NPCBehaviour>().SetInteractable(false);
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 

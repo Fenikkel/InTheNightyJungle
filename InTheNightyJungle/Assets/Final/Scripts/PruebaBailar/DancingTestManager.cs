@@ -459,6 +459,7 @@ public class DancingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("victory", false);
         challenger.GetComponent<Animator>().SetBool("defeat", false);
 
+        GetComponentInChildren<NPCBehaviour>().SetInteractable(false);
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 
