@@ -116,6 +116,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
             if(cindy && Input.GetKeyDown(KeyCode.Z) && !dashCooldown)
             {
+                soundsmanager.PlaySound("Esquivar");
                 Dash();
             }
             else if (!cindy && controller.GetGrounded() && Input.GetKeyDown(KeyCode.Z) && !breathCooldown)

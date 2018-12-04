@@ -9,6 +9,7 @@ public class soundsmanager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         alientoSound = Resources.Load<AudioClip>("Aliento");
+        esquivarSound = Resources.Load<AudioClip>("Esquivar");
 
         audioSrc = GetComponent<AudioSource>();
 
@@ -26,6 +27,9 @@ public class soundsmanager : MonoBehaviour {
         switch (clip){
         case "Aliento":
                 audioSrc.PlayOneShot(alientoSound);
+                break;
+        case "Esquivar":
+                audioSrc.PlayOneShot(esquivarSound);
                 break;
         }
     }
