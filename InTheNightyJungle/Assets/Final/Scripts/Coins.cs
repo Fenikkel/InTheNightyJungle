@@ -4,13 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Coins : MonoBehaviour {
+    public int coinvalue;
 
      void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag.Equals("Player"))
         {
-            Score.scorevalue += 1;
+           
             Destroy(gameObject);
+            Score.scorevalue += coinvalue;
         }
     }
 

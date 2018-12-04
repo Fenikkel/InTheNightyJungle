@@ -165,7 +165,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211026267715658}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3cce559557234e47a6fe128f2781fb4, type: 3}
   m_Name: 
@@ -182,8 +182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 118db4190c4573147bf62dec38f2ec31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coin: 10
-  coinAmount: 0
+  coinvalue: 10
 --- !u!212 &212294275421050518
 SpriteRenderer:
   m_ObjectHideFlags: 1
