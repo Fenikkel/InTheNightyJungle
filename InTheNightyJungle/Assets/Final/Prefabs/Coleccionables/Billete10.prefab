@@ -54,6 +54,7 @@ GameObject:
   - component: {fileID: 4349224349968380}
   - component: {fileID: 212964536875836090}
   - component: {fileID: 114531865354941410}
+  - component: {fileID: 114683330217074690}
   - component: {fileID: 61692973388117152}
   m_Layer: 11
   m_Name: Billete10
@@ -164,12 +165,24 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1211026267715658}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3cce559557234e47a6fe128f2781fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moneyValue: 10
+--- !u!114 &114683330217074690
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1211026267715658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118db4190c4573147bf62dec38f2ec31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: 10
 --- !u!212 &212294275421050518
 SpriteRenderer:
   m_ObjectHideFlags: 1

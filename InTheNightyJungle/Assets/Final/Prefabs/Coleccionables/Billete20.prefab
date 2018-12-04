@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4880840803007482}
   - component: {fileID: 212909097339271038}
   - component: {fileID: 114347919019237576}
+  - component: {fileID: 114411809812127286}
   - component: {fileID: 61599352121135794}
   m_Layer: 11
   m_Name: Billete20
@@ -134,7 +135,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1226088819927436}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f3cce559557234e47a6fe128f2781fb4, type: 3}
   m_Name: 
@@ -170,6 +171,18 @@ MonoBehaviour:
   colors: []
   timeStayingColor: 0
   timeChangingColor: 0
+--- !u!114 &114411809812127286
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1226088819927436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 118db4190c4573147bf62dec38f2ec31, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coin: 20
 --- !u!212 &212277228463900420
 SpriteRenderer:
   m_ObjectHideFlags: 1
