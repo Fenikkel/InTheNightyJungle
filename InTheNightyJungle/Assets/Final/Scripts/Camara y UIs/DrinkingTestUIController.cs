@@ -156,6 +156,14 @@ public class DrinkingTestUIController : MonoBehaviour {
 		}
 	}
 
+	public float GetDrinkingValue(bool leftSide)
+	{
+		if(leftSide)
+			return leftDrinkingBar.fillAmount;
+		else
+			return rightDrinkingBar.fillAmount;
+	}
+
 	public void IncreaseNumDrinks(bool leftSide)
 	{
 		if(leftSide)

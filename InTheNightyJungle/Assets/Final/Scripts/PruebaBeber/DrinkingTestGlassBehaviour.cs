@@ -10,7 +10,7 @@ public class DrinkingTestGlassBehaviour : MonoBehaviour {
 	private Transform testPlace;
 	private Transform placeOverBar;
 
-	public SpriteRenderer[] sprites;
+	public Sprite[] sprites;
 	private int currentSprite;
 
 	// Use this for initialization
@@ -21,7 +21,7 @@ public class DrinkingTestGlassBehaviour : MonoBehaviour {
 	public void Restart()
 	{
 		currentSprite = 0;
-		//GetComponent<SpriteRenderer>().sprite = sprites[currentSprite].sprite;
+		GetComponent<SpriteRenderer>().sprite = sprites[currentSprite];
 	}
 	
 	// Update is called once per frame
@@ -61,8 +61,11 @@ public class DrinkingTestGlassBehaviour : MonoBehaviour {
 		GetComponent<SpriteRenderer>().sortingLayerName = sortingLayer;
 	}
 
-	public void NextSprite()
+	public void NextSprite(float value)
 	{
-		GetComponent<SpriteRenderer>().sprite = sprites[++currentSprite].sprite;
+		if(value > (currentSprite + 1) / ((float)sprites.Length))
+		{
+			GetComponent<SpriteRenderer>().sprite = sprites[++currentSprite];
+		}
 	}
 }

@@ -179,6 +179,8 @@ public class DrinkingTestManager : MonoBehaviour {
                         }
                         else
                         {
+                            if(playerSide) leftSideGlass.NextSprite(UI.GetDrinkingValue(playerSide));
+                            else rightSideGlass.NextSprite(UI.GetDrinkingValue(playerSide));
                             if(UI.IncreaseDrinkingBar(playerSide))
                             {
                                 playerCurrentNumDrinks++;
@@ -257,6 +259,8 @@ public class DrinkingTestManager : MonoBehaviour {
 
                 if(challengerDrinking)
                 {
+                    if(!playerSide) leftSideGlass.NextSprite(UI.GetDrinkingValue(!playerSide));
+                    else rightSideGlass.NextSprite(UI.GetDrinkingValue(!playerSide));
                     challenger.PlayDrinking(true);
                     elapsedTimeWithoutIncreasing += Time.deltaTime;
                     if(elapsedTimeWithoutIncreasing >= challengerTimeToIncreaseDrink)
