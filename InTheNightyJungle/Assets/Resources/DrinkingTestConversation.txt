@@ -11,7 +11,7 @@ Para participar necesitas un ticket.
 hasTicket
 -
 #2
-4
+7
 5
 ¿Quieres comprar uno?
 -
@@ -38,5 +38,17 @@ _cancel
 -
 -
 _drink
+-
+-
+#7
+4
+8
+Serán {moneyRequired} euros.
+checkMoney
+-
+#8
+5
+-
+No tienes suficiente dinero para comprar el ticket.
 -
 -

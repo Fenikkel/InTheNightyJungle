@@ -37,6 +37,9 @@ public class NPCBehaviour : MonoBehaviour {
 
     private string actual;
 
+	public int moneyRequired;
+	private bool purchasedTicket;
+
 	// Use this for initialization
 	void Start () {
 		CreateConversationalTree();
@@ -47,6 +50,7 @@ public class NPCBehaviour : MonoBehaviour {
 		conversationTime = false;
 		options = false;
 		stopConversation = false;
+		purchasedTicket = false;
 	}
 
 	private void RestartConversation()
@@ -95,6 +99,7 @@ public class NPCBehaviour : MonoBehaviour {
 						NextNode(currentNode.GetChildNode2());
 					}
 					UI.UnshowOptionsBox();
+					SpamText();
 				}
 			}
 
@@ -199,6 +204,31 @@ public class NPCBehaviour : MonoBehaviour {
 	private void SpamText()
 	{
         actual = currentNode.GetMessage();
+		string variableToLocate = "";
+		string finalMessage = "";
+		bool readingVariable = false;
+		for(int i = 0; i < actual.Length; i++)
+		{
+			if(actual[i] == '{')
+			{
+				readingVariable = true;
+			}
+			else if(actual[i] == '}')
+			{
+				finalMessage += Format(variableToLocate);
+				variableToLocate = "";
+				readingVariable = false;
+			}
+
+			if(readingVariable)
+			{
+				variableToLocate += actual[i];
+			}
+			else
+			{
+				finalMessage += actual[i];
+			}
+		}
 
         UI.SpamText(currentNode.GetMessage(), options);
 		if(currentNode.GetSomethingToDo() != null && !(currentNode.GetSomethingToDo().StartsWith("_S_") || currentNode.GetSomethingToDo().StartsWith("_N_")))
@@ -209,7 +239,14 @@ public class NPCBehaviour : MonoBehaviour {
 			switch(currentNode.GetExtraCondition())
 			{
 				case "hasTicket":
-					NextNode(currentNode.GetChildNode2());
+					if(purchasedTicket)
+					{
+						NextNode(currentNode.GetChildNode2());
+					}
+					else
+					{
+						NextNode(currentNode.GetChildNode1());
+					}
 					break;
 				case "checkFame":
 					if (player.GetComponent<PlayerStatsController>().GetFame() == 3)
@@ -221,6 +258,17 @@ public class NPCBehaviour : MonoBehaviour {
 						NextNode(currentNode.GetChildNode2());
 					}
 					break;
+				case "checkMoney":
+					if(purchasedTicket)
+					{
+						NextNode(currentNode.GetChildNode1());
+					}
+					else
+					{
+						NextNode(currentNode.GetChildNode2());
+					}
+					break;
+
 			}
 		}
 		else
@@ -236,12 +284,17 @@ public class NPCBehaviour : MonoBehaviour {
 	{
 		currentNode = next;
 		options = currentNode.GetChildNode2() != null && currentNode.GetExtraCondition() == null;
-		stopConversation = currentNode.GetMessage().StartsWith("_");
+		stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
 	}
 
 	private void PurchaseTicket()
 	{
 		//Aquí haríamos la disminución de money correspondiente y tal
+		if(player.GetComponent<PlayerStatsController>().GetMoney() >= moneyRequired)
+		{
+			player.GetComponent<PlayerStatsController>().ChangeMoney(-moneyRequired);
+			purchasedTicket = true;
+		}
 	}
 
 	private void CancelConversation()
@@ -345,5 +398,17 @@ public class NPCBehaviour : MonoBehaviour {
 		}
 		Zkey.GetComponent<Transform>().position = finalPosition;
 		Zkey.color = finalColor;
+	}
+
+	//Este método es lo más contra mis principios que he hecho en mi vida :(
+	private string Format(string variableToLocate)
+	{
+		switch(variableToLocate)
+		{
+			case "moneyRequired":
+				return moneyRequired.ToString();
+			default:
+				return "";
+		}
 	}
 }

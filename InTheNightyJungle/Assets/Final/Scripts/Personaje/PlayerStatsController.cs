@@ -79,4 +79,9 @@ public class PlayerStatsController : MonoBehaviour {
     {
         return fame;
     }
+
+    public int GetMoney()
+    {
+        return money;
+    }
 }
