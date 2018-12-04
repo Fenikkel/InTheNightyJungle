@@ -11,5 +11,6 @@ public class ParticleCollisionScript : MonoBehaviour {
         //no hace falta comprobar el tag porque ya esta configurado en el particle system para que solo colisione con los layers que le he dicho
         other.gameObject.SetActive(false);
         //activar animacion muerte y desactivar su box colider o lo que sea
+        other.GetComponent<EnemyBehaviour>().Death();
     }
 }
