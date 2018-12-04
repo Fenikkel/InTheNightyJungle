@@ -51,22 +51,26 @@ public class PantallaPausa : MonoBehaviour {
 	}
     public void Resume()
     {
+        soundsmanager.PlaySound("Seleccionar");
         UIController.ResumeGame();
         Time.timeScale = 1f;
         GameIsPaused = false;
     }
     public void Pause()
     {
+        soundsmanager.PlaySound("Seleccionar");
         UIController.PauseGame();
         Time.timeScale = 0f;
         GameIsPaused = true;
     }
     public void LoadMenu()
     {
+        soundsmanager.PlaySound("Seleccionar");
         SceneManager.LoadScene(0);
     }
     public void Inventario()
     {
+        soundsmanager.PlaySound("Seleccionar");
         botonJugar.gameObject.SetActive(false);
         botonOpciones.gameObject.SetActive(false);
         botonSalir.gameObject.SetActive(false);
@@ -76,6 +80,7 @@ public class PantallaPausa : MonoBehaviour {
     }
     public void Opciones()
     {
+        soundsmanager.PlaySound("Seleccionar");
         botonJugar.gameObject.SetActive(false);
         botonOpciones.gameObject.SetActive(false);
         botonSalir.gameObject.SetActive(false);
@@ -85,7 +90,7 @@ public class PantallaPausa : MonoBehaviour {
     }
     public void Atras()
     {
-        
+        soundsmanager.PlaySound("Seleccionar");
         botonJugar.gameObject.SetActive(true);
         botonOpciones.gameObject.SetActive(true);
         botonSalir.gameObject.SetActive(true);

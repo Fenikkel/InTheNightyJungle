@@ -42,6 +42,7 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     public void EmpezarJuego()
     {
+        soundsmanager.PlaySound("Seleccionar");
         empezar = true;
         StartCoroutine(ChangeScene());
         
@@ -49,6 +50,7 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     void Opciones()
     {
+        soundsmanager.PlaySound("Seleccionar");
         botonJugar.gameObject.SetActive(false);
         botonOpciones.gameObject.SetActive(false);
         botonSalir.gameObject.SetActive(false);
@@ -58,11 +60,13 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     void Salir()
     {
+        soundsmanager.PlaySound("Seleccionar");
         Application.Quit();
     }
 
     void Atras()
     {
+        soundsmanager.PlaySound("Seleccionar");
         botonJugar.gameObject.SetActive(true);
         botonOpciones.gameObject.SetActive(true);
         botonSalir.gameObject.SetActive(true);
