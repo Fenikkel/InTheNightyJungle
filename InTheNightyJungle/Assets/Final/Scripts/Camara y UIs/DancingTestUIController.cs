@@ -140,9 +140,10 @@ public class DancingTestUIController : MonoBehaviour {
         UpdateCompletedBlocksText();
         print("hola");
         timeBarValue = 1;
-        timeBar.fillAmount = timeBarValue;
+        timeBar.fillAmount = 1;
       
         totalTime = param1;
+        currentTime = totalTime;
         timeText.text = totalTime.ToString();
 
         for(int i = 0; i < introductionTexts.Length; i++)
