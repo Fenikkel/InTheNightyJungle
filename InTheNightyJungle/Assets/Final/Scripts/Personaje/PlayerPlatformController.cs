@@ -423,6 +423,7 @@ public class PlayerPlatformController : MonoBehaviour {
                 EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
                 stats.ChangePatience(- enemy.GetDamage() / 100);
                 enemy.CollideWithPlayer();
+                soundsmanager.PlaySound("Daño");
 
                 inputActivated = false;
                 Invulnerable(true);

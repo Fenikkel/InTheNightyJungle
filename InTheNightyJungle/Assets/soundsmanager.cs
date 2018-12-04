@@ -10,6 +10,9 @@ public class soundsmanager : MonoBehaviour {
 	void Start () {
         alientoSound = Resources.Load<AudioClip>("Aliento");
         esquivarSound = Resources.Load<AudioClip>("Esquivar");
+        coinSound = Resources.Load<AudioClip>("Coin");
+        dañoSound = Resources.Load<AudioClip>("Daño");
+        seleccionarSound = Resources.Load<AudioClip>("Seleccionar");
 
         audioSrc = GetComponent<AudioSource>();
 
@@ -30,6 +33,15 @@ public class soundsmanager : MonoBehaviour {
                 break;
         case "Esquivar":
                 audioSrc.PlayOneShot(esquivarSound);
+                break;
+        case "Coin":
+                audioSrc.PlayOneShot(coinSound);
+                break;
+        case "Daño":
+                audioSrc.PlayOneShot(dañoSound);
+                break;
+        case "Seleccionar":
+                audioSrc.PlayOneShot(seleccionarSound);
                 break;
         }
     }
