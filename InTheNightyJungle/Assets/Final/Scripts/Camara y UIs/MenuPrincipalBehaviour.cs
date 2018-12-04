@@ -16,16 +16,22 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
     private float initialAlpha;
     private bool empezar = false;
     private float tiempo;
+
+    void Awake()
+    {
+        music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
+        volumen.value = music.volume;
+    }
+
 	// Use this for initialization
-	void Start () {
+	void Start () {/*
         botonJugar.onClick.AddListener(EmpezarJuego);
         botonOpciones.onClick.AddListener(Opciones);
         botonSalir.onClick.AddListener(Salir);
-        botonMenu.onClick.AddListener(Atras);
+        botonMenu.onClick.AddListener(Atras);*/
+        empezar = false;
+        tiempo = 0;
         initialAlpha = this.GetComponent<CanvasGroup>().alpha;
-        
-        music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
-        music.volume = volumen.value;
 	}
 	
 	// Update is called once per frame
@@ -47,7 +53,7 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         
     }
 
-    void Opciones()
+    public void Opciones()
     {
         botonJugar.gameObject.SetActive(false);
         botonOpciones.gameObject.SetActive(false);
@@ -56,12 +62,12 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         volumen.gameObject.SetActive(true);
     }
 
-    void Salir()
+    public void Salir()
     {
         Application.Quit();
     }
 
-    void Atras()
+    public void Atras()
     {
         botonJugar.gameObject.SetActive(true);
         botonOpciones.gameObject.SetActive(true);
