@@ -20,6 +20,8 @@ public class PantallaPausa : MonoBehaviour {
 
     private AudioSource music;
 
+    public GameObject ContenidoInventario;
+
     void Awake()
     {
         Instance = this;
