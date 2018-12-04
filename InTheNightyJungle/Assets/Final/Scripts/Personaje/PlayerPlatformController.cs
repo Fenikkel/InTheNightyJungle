@@ -225,6 +225,7 @@ public class PlayerPlatformController : MonoBehaviour {
     {
         breathEffect.Play();
         breathLight.SetActive(true);
+        soundsmanager.PlaySound("Aliento");
     }
     public void StopBreath()
     {
