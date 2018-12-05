@@ -45,6 +45,9 @@ public class CameraBehaviour : MonoBehaviour {
     {
         followTarget = true;
 
+        boundDistanceMaxY = GetComponent<Camera>().orthographicSize * 0.9f;
+        boundDistanceMaxX = GetComponent<Camera>().orthographicSize * GetComponent<Camera>().aspect * 0.9f;
+
         /*camHeight = Camera.main.orthographicSize * 2;
         camWidth = camHeight * Camera.main.aspect;
 
@@ -174,20 +177,14 @@ public class CameraBehaviour : MonoBehaviour {
     public void MoveToLeftRightChamber(DoorBehaviour door)
     {
         Vector3 finalPosition = new Vector3(door.nextDoor.cameraPosition.position.x, GetComponent<Transform>().position.y, GetComponent<Transform>().position.z);
-        StartCoroutine(InterpolatePositionChangingChamber(0.5f, finalPosition));
+        StartCoroutine(InterpolatePositionChangingChamber(finalPosition, door.nextDoor.chamber.GetCameraSize(), 0.5f));
     }
 
-    IEnumerator InterpolatePositionChangingChamber(float time, Vector3 finalPosition)
+    private IEnumerator InterpolatePositionChangingChamber(Vector3 finalPosition, float finalSize, float time)
     {
-        float elapsedTime = 0.0f;
-        Vector3 initialPosition = GetComponent<Transform>().position;
-        while (elapsedTime < time)
-        {
-            elapsedTime += Time.deltaTime;
-            GetComponent<Transform>().position = Vector3.Lerp(initialPosition, finalPosition, elapsedTime/time);
-            yield return null;
-        }
-        GetComponent<Transform>().position = finalPosition;
+        StartCoroutine(MoveSizeTo(finalPosition, finalSize, time));
+        yield return new WaitForSeconds(time);
+
         RestartCamera();
         SetFollowTarget(true);
     }

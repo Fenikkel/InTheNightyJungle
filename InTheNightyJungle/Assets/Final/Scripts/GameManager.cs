@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour {
 
         UIController.Initialize(cindyEnabled);
 
-        StartCoroutine(FadeOut(1f, false));
+        StartCoroutine(FadeOut(1f, false, null));
 
         ChangePlayer();
 	}
@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour {
         }
         ChangePlayer();
         yield return new WaitForSeconds(0.1f);
-        StartCoroutine(FadeOut(0.5f, true));
+        StartCoroutine(FadeOut(0.5f, true, null));
     }
 
     public void ChangePlayer()
@@ -127,13 +127,14 @@ public class GameManager : MonoBehaviour {
         {
             player.GetComponent<PlayerPlatformController>().SetPosition(door.nextDoor.playerPosition.position);
             mainCamera.GetComponent<CameraBehaviour>().SetPosition(door.nextDoor.cameraPosition.position);
+            if(door != null) door.nextDoor.chamber.SetCameraSize();
             yield return new WaitForSeconds(0.1f);
-            StartCoroutine(FadeOut(time, transition));
+            StartCoroutine(FadeOut(time, transition, door));
         }
 
     }
 
-    IEnumerator FadeOut(float time, bool transition)
+    IEnumerator FadeOut(float time, bool transition, DoorBehaviour door)
     {
         Color c = blackScreen.GetComponent<Image>().color;
         Color initialColor = c;
@@ -151,8 +152,7 @@ public class GameManager : MonoBehaviour {
         {
             player.GetComponent<PlayerPlatformController>().SetInputActivated(true);
             mainCamera.GetComponent<CameraBehaviour>().SetFollowTarget(true);
-            //player.GetComponent<CapsuleCollider2D>().gameObject.SetActive(true);
-
+            if(door != null) door.TurnOnTurnOff();
         }
     }
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class ChamberManager : MonoBehaviour {
 
     public int cameraSize;
-    public GameObject desactivados;
+    public GameObject[] thingsToDeactivate;
     public bool initialChamber;
 	// Use this for initialization
 	void Start () {
@@ -13,34 +13,62 @@ public class ChamberManager : MonoBehaviour {
         //transform.GetChild(0); //ponemos un game object a la estacia que sera los que se desactivan
         if (initialChamber)
         {
-            desactivados.SetActive(true);
+            ActiveChamber();
         }else
         {
-            desactivados.SetActive(false);
+            DeActiveChamber();
         }
     }
 	
 	// Update is called once per frame
 	void Update () {
-        /*if (activados)
-        {
-            desactivados.SetActive(activados);
-            SetCameraSize(cameraSize);
-        }*/
+
     }
+
     public void ActiveChamber(){
-        desactivados.SetActive(true);
-        SetCameraSize(cameraSize);
+        ActivateDeactivateThings(true);
     }
      
     public void DeActiveChamber()
     {
-        desactivados.SetActive(false);
+        ActivateDeactivateThings(false);
 
     }
-    private void SetCameraSize(int size){
-        print("CameraModificada");
-        switch(size){
+
+    public void ActivateDeactivateThings(bool param)
+    {
+        for(int i = 0; i < thingsToDeactivate.Length; i++)
+        {
+            thingsToDeactivate[i].SetActive(param);
+        }
+    }
+
+    public float GetCameraSize()
+    {
+        switch(cameraSize){
+            
+            case 1:
+                return 3.21849f;
+                break;
+
+            case 2:
+                return 4f;
+                break;
+
+
+            case 3:
+                return 5f;
+                break;
+
+            default:
+                return 0f;
+                break;
+        }
+    }
+
+    public void SetCameraSize(){
+        //print("CameraModificada");
+        switch(cameraSize){
             
             case 1:
 

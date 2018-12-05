@@ -325,13 +325,13 @@ public class PlayerPlatformController : MonoBehaviour {
     public void MoveToLeftRightChamber(DoorBehaviour door)
     {
         Blink(false);
-        StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position));
+        StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position, door));
         lastDoorPos = door.GetPosition();
         //GetComponent<CapsuleCollider2D>().enabled = false;
 
     }
 
-    IEnumerator InterpolatePositionChangingChamber(float time, Vector2 finalPosition)
+    IEnumerator InterpolatePositionChangingChamber(float time, Vector2 finalPosition, DoorBehaviour door)
     {
         float elapsedTime = 0.0f;
         Vector2 initialPosition = GetComponent<Transform>().position;
@@ -345,6 +345,8 @@ public class PlayerPlatformController : MonoBehaviour {
         Blink(true);
         GetComponent<CapsuleCollider2D>().enabled = true;
         SetInputActivated(true);
+
+        door.TurnOnTurnOff();
     }
 
     public IEnumerator MoveTo(Vector2 finalPosition, bool hasToFlip, float time)
