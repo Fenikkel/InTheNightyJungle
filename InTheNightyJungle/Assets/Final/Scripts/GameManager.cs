@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour {
     public GameObject Brenda;
     public GameObject Cindy;
 
+    private int aux;
+
     private bool cindyEnabled;
     private bool canChangePlayer;
     
@@ -28,6 +30,8 @@ public class GameManager : MonoBehaviour {
         cindyEnabled = (Random.value > 0.5f) ? true : false;
 
         StartCoroutine(FadeOut(1f, false));
+
+        aux = 0;
 
         ChangePlayer();
 	}
@@ -108,6 +112,8 @@ public class GameManager : MonoBehaviour {
     {
         BeginChangePlayer();
         canChangePlayer = false;
+        aux++;
+        if(aux == 2) Application.Quit();
     }
 
     IEnumerator FadeIn(float time, bool transition, DoorBehaviour door)

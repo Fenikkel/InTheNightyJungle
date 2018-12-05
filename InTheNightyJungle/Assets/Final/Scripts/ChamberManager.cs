@@ -90,6 +90,7 @@ public class ChamberManager : MonoBehaviour {
 
                 break;
         }
+        Camera.main.GetComponent<CameraBehaviour>().RestartCamera();
 
     }
 }
