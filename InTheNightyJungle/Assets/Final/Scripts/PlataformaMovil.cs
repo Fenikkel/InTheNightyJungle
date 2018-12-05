@@ -13,7 +13,6 @@ public class PlataformaMovil : MotionPlatform {
 	void Start () {
 		if(target != null)
         {
-            target.parent = null;
             start = transform.position;
             end = target.position;
         }
