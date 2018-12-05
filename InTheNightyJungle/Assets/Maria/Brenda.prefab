@@ -1281,6 +1281,7 @@ MonoBehaviour:
   initialMaxSpeed: 7
   initialJumpTakeOffSpeed: 12
   cindy: 0
+  initialChamber: {fileID: 0}
   Descansando: 0
   initialCheckPoint: {fileID: 0}
   knockbackSpeed: 2

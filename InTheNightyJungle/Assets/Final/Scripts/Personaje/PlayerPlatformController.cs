@@ -18,13 +18,15 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public bool cindy;
 
-    private Vector3 lastDoorPos=Vector3.zero;
+    private DoorBehaviour lastDoor;
+    private ChamberManager currentChamber;
+    public ChamberManager initialChamber;
 
     //Maria
     [HideInInspector]
     public bool Descansando;
-    public Transform initialCheckPoint;
-    private Transform lastCheckPoint;
+    public CheckPoint initialCheckPoint;
+    private CheckPoint lastCheckPoint;
 
     private bool inputActivated;
     
@@ -79,6 +81,7 @@ public class PlayerPlatformController : MonoBehaviour {
         sortingLayer = bodyParts[0].GetComponent<SpriteMeshInstance>().sortingLayerName;
 
         lastCheckPoint = initialCheckPoint;
+        currentChamber = initialChamber;
 
         initialization();
     }
@@ -283,12 +286,12 @@ public class PlayerPlatformController : MonoBehaviour {
         anim.SetBool("WakeUp", true);
     }
 
-    public Transform GetCheckPoint()
+    public CheckPoint GetCheckPoint()
     {
         return lastCheckPoint;
     }
 
-    public void SetCheckPoint(Transform param)
+    public void SetCheckPoint(CheckPoint param)
     {
         lastCheckPoint = param;
     }
@@ -373,7 +376,7 @@ public class PlayerPlatformController : MonoBehaviour {
         Blink(false);
         //GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position, door));
-        lastDoorPos = door.nextDoor.GetPosition();
+        lastDoor = door.nextDoor;
     }
 
     IEnumerator InterpolatePositionChangingChamber(float time, Vector2 finalPosition, DoorBehaviour door)
@@ -390,7 +393,8 @@ public class PlayerPlatformController : MonoBehaviour {
         Blink(true);
         GetComponent<CapsuleCollider2D>().enabled = true;
         SetInputActivated(true);
-
+        
+        SetCurrentChamber(door.nextDoor.chamber);
         door.TurnOnTurnOff();
     }
 
@@ -715,8 +719,23 @@ public class PlayerPlatformController : MonoBehaviour {
         StartCoroutine(GM.DeathTransition(1f));
     }
 
-    public Vector3 GetLastDoor()
+    public DoorBehaviour GetLastDoor()
     {
-        return lastDoorPos;
+        return lastDoor;
+    }
+
+    public void SetLastDoor(DoorBehaviour param)
+    {
+        lastDoor = param;
+    }
+
+    public ChamberManager GetCurrentChamber()
+    {
+        return currentChamber;
+    }
+
+    public void SetCurrentChamber(ChamberManager param)
+    {
+        currentChamber = param;
     }
 }

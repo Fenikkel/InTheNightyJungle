@@ -39,12 +39,11 @@ public class CameraBehaviour : MonoBehaviour {
         followTarget = false;
 
         RestartCamera();
+        SetFollowTarget(true);
     }
 
     public void RestartCamera()
     {
-        followTarget = true;
-
         boundDistanceMaxY = GetComponent<Camera>().orthographicSize * 0.9f;
         boundDistanceMaxX = GetComponent<Camera>().orthographicSize * GetComponent<Camera>().aspect * 0.9f;
 
@@ -172,6 +171,7 @@ public class CameraBehaviour : MonoBehaviour {
     {
         GetComponent<Transform>().position = new Vector3 (param.x, param.y, GetComponent<Transform>().position.z);
         RestartCamera();
+        SetFollowTarget(true);
     }
 
     public void MoveToLeftRightChamber(DoorBehaviour door)
@@ -204,6 +204,8 @@ public class CameraBehaviour : MonoBehaviour {
         }
         GetComponent<Transform>().position = finalPosition;
         GetComponent<Camera>().orthographicSize = finalSize;
+
+        RestartCamera();
     }
 
 }

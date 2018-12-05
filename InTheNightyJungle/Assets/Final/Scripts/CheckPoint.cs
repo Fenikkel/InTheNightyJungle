@@ -20,8 +20,11 @@ public class CheckPoint : MonoBehaviour {
     private bool framedCheckPoint;
     private bool aux;
 
+    private ChamberManager chamber;
+
     private void Start()
     {
+        chamber = GetComponentInParent<ChamberManager>();
         RestartCheckpoint();
     }
 
@@ -51,7 +54,7 @@ public class CheckPoint : MonoBehaviour {
     {
         if (insideCheckPoint && Input.GetKeyDown(KeyCode.Z) && !player.Descansando)
         {
-            player.SetCheckPoint(playerPosition);
+            player.SetCheckPoint(this);
             StartCoroutine(DisappearZKey(0.5f));
             StartCoroutine(FrameCheckPoint(0.8f));
         }
@@ -155,5 +158,15 @@ public class CheckPoint : MonoBehaviour {
 
 		GetComponent<PolygonCollider2D>().enabled = true;
 	}
+
+    public ChamberManager GetChamber()
+    {
+        return chamber;
+    }
+
+    public Transform GetPlayerPosition()
+    {
+        return playerPosition;
+    }
 
 }

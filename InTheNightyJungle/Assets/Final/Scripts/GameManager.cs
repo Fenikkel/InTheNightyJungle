@@ -59,19 +59,23 @@ public class GameManager : MonoBehaviour {
             yield return null;
         }
         blackScreen.GetComponent<Image>().color = finalColor;
-        if (cindyEnabled)
+        if (!cindyEnabled)
         {
-            if (Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() != Vector3.zero)
+            if (Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() != null)
             {
-                Cindy.transform.position = Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() + new Vector3(0.01f, 0.01f, 0.01f);
+                Cindy.transform.position = Cindy.GetComponent<PlayerPlatformController>().GetLastDoor().GetPosition() + new Vector3(0.01f, 0.01f, 0.01f);
+                Cindy.GetComponent<PlayerPlatformController>().SetCurrentChamber(Cindy.GetComponent<PlayerPlatformController>().GetLastDoor().chamber);
             }
+            Cindy.GetComponent<PlayerPlatformController>().GetCurrentChamber().SetCameraSize();
         }
         else
         {
-            if (Brenda.GetComponent<PlayerPlatformController>().GetLastDoor() != Vector3.zero)
+            if (Brenda.GetComponent<PlayerPlatformController>().GetLastDoor() != null)
             {
-                Brenda.transform.position = Brenda.GetComponent<PlayerPlatformController>().GetLastDoor() + new Vector3(0.01f, 0.01f, 0.01f);
+                Brenda.transform.position = Brenda.GetComponent<PlayerPlatformController>().GetLastDoor().GetPosition() + new Vector3(0.01f, 0.01f, 0.01f);
+                Brenda.GetComponent<PlayerPlatformController>().SetCurrentChamber(Brenda.GetComponent<PlayerPlatformController>().GetLastDoor().chamber);
             }
+            Brenda.GetComponent<PlayerPlatformController>().GetCurrentChamber().SetCameraSize();
         }
         ChangePlayer();
         yield return new WaitForSeconds(0.1f);
@@ -184,6 +188,7 @@ public class GameManager : MonoBehaviour {
             if (door.doorType % 2 == 0) //Es front door o back door
             {
                 StartCoroutine(FadeIn(0.5f, true, door));
+                player.GetComponent<PlayerPlatformController>().SetLastDoor(door.nextDoor);
             }
             else
             {
@@ -209,7 +214,11 @@ public class GameManager : MonoBehaviour {
         blackScreen.GetComponent<Image>().color = finalColor;
         player.GetComponent<Animator>().SetTrigger("EndDeath");
         player.GetComponent<Animator>().ResetTrigger("Death");
-        player.GetComponent<PlayerPlatformController>().SetPosition(player.GetComponent<PlayerPlatformController>().GetCheckPoint().position);
+        player.GetComponent<PlayerPlatformController>().SetPosition(player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetPlayerPosition().position);
+        player.GetComponent<PlayerPlatformController>().GetCurrentChamber().DeActiveChamber();
+        player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetChamber().ActiveChamber();
+        player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetChamber().SetCameraSize();
+        player.GetComponent<PlayerPlatformController>().SetCurrentChamber(player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetChamber());
         player.GetComponent<PlayerPlatformController>().ChangePatience(1);
         player.GetComponent<PlayerPlatformController>().Invulnerable(false);
         yield return new WaitForSeconds(0.1f);
