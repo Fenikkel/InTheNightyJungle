@@ -1891,6 +1891,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c51624f313dae41b0b3145a5c76118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  death: 0
   damage: 25
   initialPosition: {fileID: 4157508049836398}
   finalPosition: {fileID: 4129818914785846}

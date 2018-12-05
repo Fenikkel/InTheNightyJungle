@@ -3206,6 +3206,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f2ab0762af2a74428c3dcd24a392fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  death: 0
   damage: 25
   target: {fileID: 0}
   initialMoveDirection: 1
@@ -3573,6 +3575,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5c51624f313dae41b0b3145a5c76118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  death: 0
   damage: 25
   initialPosition: {fileID: 4418853701022522}
   finalPosition: {fileID: 4386983022794854}
@@ -3700,6 +3704,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 4509768047710836}
   cameraPosition: {fileID: 4267843516278358}
+  chamber: {fileID: 0}
   nextDoor: {fileID: 0}
   doorType: 1
 --- !u!114 &114716095032777782
