@@ -302,11 +302,18 @@ public class PlayerPlatformController : MonoBehaviour {
 
         dashEffect.Stop();
 
-        StartCoroutine(WhileDashCooldownActivated(dashCooldownTime));
+        if(GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.05f))
+        {
+            StartCoroutine(WhileDashCooldownActivated(dashCooldownTime));
 
-        yield return new WaitForSeconds(10 * time);
+            yield return new WaitForSeconds(10 * time);
 
-        Invulnerable(false);
+            Invulnerable(false);
+        }
+        else
+        {
+            StartCoroutine(ChangePlayer());
+        }
     }
 
     IEnumerator WhileBreathActivated(float time)
@@ -317,11 +324,18 @@ public class PlayerPlatformController : MonoBehaviour {
         //inputActivated = true;
         //gravityModifier = initialGravityModifier;
 
-        Invulnerable(false);//Una vez terminada la animación ya puede ser golpeada
+        if(GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.05f))
+        {
+            Invulnerable(false);
+            
+            StartCoroutine(WhileBreathCooldownActivated(breathCooldownTime));
 
-        StartCoroutine(WhileBreathCooldownActivated(breathCooldownTime));
-
-        yield return new WaitForSeconds(10 * time);
+            yield return new WaitForSeconds(10 * time);
+        }
+        else
+        {
+            StartCoroutine(ChangePlayer());
+        }
 
     }
 
@@ -398,11 +412,6 @@ public class PlayerPlatformController : MonoBehaviour {
         anim.SetBool("movement", false);
         vectorAux = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
         if(GetComponent<Transform>().localScale.x > 0 && hasToFlip || GetComponent<Transform>().localScale.x < 0 && !hasToFlip) GetComponent<Transform>().localScale = vectorAux;
-    }
-
-    public void DecreaseCansancio(float value)
-    {
-        stats.DecreaseBladderTiredness(-value);
     }
 
     private void DetectingMotionPlatform()
@@ -533,14 +542,15 @@ public class PlayerPlatformController : MonoBehaviour {
         Invulnerable(false);
     }
 
-    IEnumerator ChangePlayer()
+    public IEnumerator ChangePlayer()
     {
         inputActivated = false;
         while(!controller.GetGrounded())
         {
             yield return null;
         }
-        GM.ChangePlayer();
+        GetComponent<PlayerStatsController>().ChangeBladderTiredness(-1);
+        GM.BeginChangePlayer();
     }
 
     IEnumerator ReduceKnockback(float time)
@@ -689,7 +699,7 @@ public class PlayerPlatformController : MonoBehaviour {
         stats.IncreaseFame();
     }
 
-    private void Death()
+    public void Death()
     {
         anim.SetTrigger("Death");
     }

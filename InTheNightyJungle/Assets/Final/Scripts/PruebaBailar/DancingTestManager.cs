@@ -27,6 +27,7 @@ public class DancingTestManager : MonoBehaviour {
 
     private int remainingMistakes;
     private int victory;
+    private bool win;
 
     public KeyCode[] possibleKeys;
     
@@ -67,6 +68,7 @@ public class DancingTestManager : MonoBehaviour {
 
         remainingMistakes = 3;
         victory = -1;
+        win = false;
 
         currentBlock = 0;
         currentKey = 0;
@@ -110,6 +112,26 @@ public class DancingTestManager : MonoBehaviour {
         player.SetInputActivated(true);
         camera.SetFollowTarget(true);
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.CindyStats);
+
+        if (win)
+        {
+            if(!player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f))
+                StartCoroutine(player.ChangePlayer());
+            player.GetComponent<PlayerStatsController>().IncreaseFame();
+        }
+        else
+        {
+            if(!player.GetComponent<PlayerStatsController>().ChangePatience(-0.15f))
+            {
+                player.Death();
+                player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f);
+            }
+            else
+            {
+                if(!player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f))
+                    StartCoroutine(player.ChangePlayer());
+            }
+        }
     }
 
     private void FadeOutCrowd(float time)
@@ -459,6 +481,7 @@ public class DancingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("victory", false);
         challenger.GetComponent<Animator>().SetBool("defeat", false);
 
+        win = true;
         GetComponentInChildren<NPCBehaviour>().SetInteractable(false);
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }

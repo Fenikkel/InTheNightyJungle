@@ -23,24 +23,18 @@ public class PlayerStatsController : MonoBehaviour {
         bladderTiredness = 0;
         fame = 0;
         money = 0;
-
-        fame = 3;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        bladderTiredness += (bladderTirednessIncreaseSpeed / 100) * Time.deltaTime;
+        if(GetComponent<PlayerPlatformController>().GetInputActivated() && !ChangeBladderTiredness((bladderTirednessIncreaseSpeed / 100) * Time.deltaTime))
+            StartCoroutine(GetComponent<PlayerPlatformController>().ChangePlayer());
 	}
     public void IncreaseFame()
     {
         fame++;
-        for (int i = 0; i<fame && fame<=stars.Length; i++)
-        {
-            stars[i].SetActive(true);
-            print("Hola");
-        }
-        //Activar tantas estrellas como fama haya
+        statsUI.OneMoreStar();
     }
     public void DecreaseFame() //no creo que haga falta
     {
@@ -48,9 +42,11 @@ public class PlayerStatsController : MonoBehaviour {
         //desActivar tantas estrellas como fama haya
     }
 
-    public void DecreaseBladderTiredness(float value)
+    public bool ChangeBladderTiredness(float value)
     {
-        //StartCoroutine(ChangeBarValue(changenessBar.value - value, changenessBar, 0.5f));
+        bladderTiredness = ((bladderTiredness + value) > 1) ? 1 : ((bladderTiredness + value) < 0) ? 0 : bladderTiredness + value;
+        statsUI.ChangeValueBladderTirednessBar(value);
+        return bladderTiredness != 1;
     }
 
     public bool ChangePatience(float value)

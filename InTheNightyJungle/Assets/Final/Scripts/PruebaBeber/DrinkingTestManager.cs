@@ -19,7 +19,7 @@ public class DrinkingTestManager : MonoBehaviour {
 
     private bool testStarted;
     private int victory;
-    private bool augmentFama;
+    private bool win;
 
     public int totalNumDrinks;
     private int playerCurrentNumDrinks;
@@ -67,6 +67,7 @@ public class DrinkingTestManager : MonoBehaviour {
     public void RestartTest()
     {
         victory = -1;
+        win = false;
         playerCurrentNumDrinks = challengerCurrentNumDrinks = 0;
 
         playerDrinking = challengerDrinking = false;
@@ -128,21 +129,24 @@ public class DrinkingTestManager : MonoBehaviour {
         camera.SetFollowTarget(true);
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.BrendaStats);
        
-        if (augmentFama)
+        if (win)
         {
-            //player.DecreaseCansancio(0.66f);
-            player.ChangePatience(0.5f);
-            //print("victoria" + victory);
-            player.IncreaseFame();
+            if(!player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f))
+                StartCoroutine(player.ChangePlayer());
+            player.GetComponent<PlayerStatsController>().IncreaseFame();
         }
         else
         {
-            player.DecreaseCansancio(0.1f);
-            player.ChangePatience(0.5f);
-            player.IncreaseFame();
-
-            //print("derrota" + victory);
-
+            if(!player.GetComponent<PlayerStatsController>().ChangePatience(-0.15f))
+            {
+                player.Death();
+                player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f);
+            }
+            else
+            {
+                if(!player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f))
+                    StartCoroutine(player.ChangePlayer());
+            }
         }
     }
 
@@ -368,7 +372,7 @@ public class DrinkingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("victory", false);
         challenger.GetComponent<Animator>().SetBool("defeat", false);
 
-        augmentFama = true;
+        win = true;
         GetComponentInChildren<NPCBehaviour>().SetInteractable(false);
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
@@ -399,7 +403,6 @@ public class DrinkingTestManager : MonoBehaviour {
         player.GetComponent<Animator>().SetBool("defeat", false);
         challenger.GetComponent<Animator>().SetBool("victory", false);
 
-        augmentFama = false;
         StartCoroutine(Ending(0.5f, 0.5f, 0.5f));
     }
 }
