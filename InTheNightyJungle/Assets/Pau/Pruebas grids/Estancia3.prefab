@@ -3700,6 +3700,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 4509768047710836}
   cameraPosition: {fileID: 4267843516278358}
+  chamber: {fileID: 0}
   nextDoor: {fileID: 0}
   doorType: 1
 --- !u!114 &114716095032777782

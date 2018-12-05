@@ -124,10 +124,33 @@ public class GameManager : MonoBehaviour {
         {
             player.GetComponent<PlayerPlatformController>().SetPosition(door.nextDoor.playerPosition.position);
             mainCamera.GetComponent<CameraBehaviour>().SetPosition(door.nextDoor.cameraPosition.position);
+            if(door != null) door.nextDoor.chamber.SetCameraSize();
             yield return new WaitForSeconds(0.1f);
-            StartCoroutine(FadeOut(time, transition));
+            StartCoroutine(FadeOut(time, transition, door));
         }
 
+    }
+
+    IEnumerator FadeOut(float time, bool transition, DoorBehaviour door)
+    {
+        Color c = blackScreen.GetComponent<Image>().color;
+        Color initialColor = c;
+        Color finalColor = new Color(0, 0, 0, 0);
+        float elapsedTime = 0.0f;
+        while (elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            c = Color.Lerp(initialColor, finalColor, elapsedTime/time);
+            blackScreen.GetComponent<Image>().color = c;
+            yield return null;
+        }
+        blackScreen.GetComponent<Image>().color = finalColor;
+        if(transition)
+        {
+            player.GetComponent<PlayerPlatformController>().SetInputActivated(true);
+            mainCamera.GetComponent<CameraBehaviour>().SetFollowTarget(true);
+            if(door != null) door.TurnOnTurnOff();
+        }
     }
 
     IEnumerator FadeOut(float time, bool transition)

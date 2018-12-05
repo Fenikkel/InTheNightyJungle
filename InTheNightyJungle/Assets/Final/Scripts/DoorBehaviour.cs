@@ -6,6 +6,7 @@ public class DoorBehaviour : MonoBehaviour {
 
     public Transform playerPosition;
     public Transform cameraPosition;
+    public ChamberManager chamber;
 
     public DoorBehaviour nextDoor;
     public int doorType; //0 hacia dentro, 1 derecha, 2 hacia fuera, 3 izquierda
@@ -16,12 +17,19 @@ public class DoorBehaviour : MonoBehaviour {
 	void Start ()
     {
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        chamber = GetComponentInParent<ChamberManager>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
         		
 	}
+
+    public void TurnOnTurnOff()
+    {
+        chamber.DeActiveChamber();
+        nextDoor.chamber.ActiveChamber();
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
