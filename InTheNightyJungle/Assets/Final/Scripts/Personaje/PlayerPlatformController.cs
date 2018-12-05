@@ -99,6 +99,9 @@ public class PlayerPlatformController : MonoBehaviour {
         breath = false;
         dashCooldown = false;
         breathCooldown = false;
+        if(!cindy) breathLight.SetActive(false);
+
+        anim.Play("idle");
 
         maxSpeed = initialMaxSpeed;
         jumpTakeOffSpeed = initialJumpTakeOffSpeed;
@@ -370,7 +373,7 @@ public class PlayerPlatformController : MonoBehaviour {
         Blink(false);
         //GetComponent<CapsuleCollider2D>().enabled = false;
         StartCoroutine(InterpolatePositionChangingChamber(0.5f, door.nextDoor.playerPosition.position, door));
-        lastDoorPos = door.GetPosition();
+        lastDoorPos = door.nextDoor.GetPosition();
     }
 
     IEnumerator InterpolatePositionChangingChamber(float time, Vector2 finalPosition, DoorBehaviour door)
@@ -549,6 +552,9 @@ public class PlayerPlatformController : MonoBehaviour {
         {
             yield return null;
         }
+        RestartPlayer();
+        anim.SetTrigger("ChangePlayer");
+        yield return new WaitForSeconds(1.0f);
         GetComponent<PlayerStatsController>().ChangeBladderTiredness(-1);
         GM.BeginChangePlayer();
     }
