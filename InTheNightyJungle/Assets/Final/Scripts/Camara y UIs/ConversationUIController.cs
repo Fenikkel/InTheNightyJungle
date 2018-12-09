@@ -81,7 +81,7 @@ public class ConversationUIController : MonoBehaviour {
 				pointingArrowPos = pointingArrowPos == 0 ? 1 : 0;
 				pointingArrow.GetComponent<RectTransform>().anchoredPosition = arrowPositions[pointingArrowPos].GetComponent<RectTransform>().anchoredPosition;
 			}
-			if(Input.GetKeyDown(KeyCode.Z))
+			if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space))
 			{
 				optionSelected = pointingArrowPos;
 			}
