@@ -49,20 +49,16 @@ public class ChamberManager : MonoBehaviour {
             
             case 1:
                 return 3.21849f;
-                break;
 
             case 2:
                 return 4f;
-                break;
 
 
             case 3:
                 return 5f;
-                break;
 
             default:
                 return 0f;
-                break;
         }
     }
 

@@ -10,7 +10,7 @@ public class PantallaPausa : MonoBehaviour {
 
     public static PantallaPausa Instance;
 
-    public Button botonJugar, botonOpciones, botonSalir, botonInventario, botonAtras;
+    public Button botonJugar, botonOpciones, botonSalir, botonInventario, botonAtras, modifyBrightnessButton;
     public Slider volumen;
     public Image inventario;
 
@@ -22,6 +22,8 @@ public class PantallaPausa : MonoBehaviour {
 
     public GameObject ContenidoInventario;
 
+    public GameObject modifyBrightnessScreen;
+
     void Awake()
     {
         Instance = this;
@@ -29,8 +31,7 @@ public class PantallaPausa : MonoBehaviour {
 
     void Start()
     {
-        volumen.gameObject.SetActive(false);
-        botonAtras.gameObject.SetActive(false);
+        Atras();
 
         music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
         if(music) volumen.value = music.volume;
@@ -75,6 +76,7 @@ public class PantallaPausa : MonoBehaviour {
         botonInventario.gameObject.SetActive(false);
         inventario.gameObject.SetActive(true);
         botonAtras.gameObject.SetActive(true);
+        modifyBrightnessButton.gameObject.SetActive(false);
     }
     public void Opciones()
     {
@@ -84,6 +86,7 @@ public class PantallaPausa : MonoBehaviour {
         botonInventario.gameObject.SetActive(false);
         volumen.gameObject.SetActive(true);
         botonAtras.gameObject.SetActive(true);
+        modifyBrightnessButton.gameObject.SetActive(true);
     }
     public void Atras()
     {
@@ -95,7 +98,13 @@ public class PantallaPausa : MonoBehaviour {
         botonAtras.gameObject.SetActive(false);
         volumen.gameObject.SetActive(false);
         inventario.gameObject.SetActive(false);
+        modifyBrightnessButton.gameObject.SetActive(false);
 
+    }
+
+    public void ModifyBrightness()
+    {
+        modifyBrightnessScreen.SetActive(true);
     }
 
     public void TurnUpVolume()

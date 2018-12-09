@@ -428,7 +428,6 @@ public class PlayerPlatformController : MonoBehaviour {
         
         if(count > 0)
         {
-            bool existsOne = false;
             int j = -1;
             for(int i = 0; i < count; i++)
             {
@@ -517,7 +516,6 @@ public class PlayerPlatformController : MonoBehaviour {
             yDirection += normal.y;
         }
         knockbackDirection = new Vector2(xDirection / contactNormals.Count, yDirection / contactNormals.Count).normalized;
-        print(knockbackDirection);
 
         if (Mathf.Sign(xDirection) == Mathf.Sign(GetComponent<Transform>().localScale.x)) anim.SetTrigger("knockbackTrasero");
         else anim.SetTrigger("knockbackFrontal");

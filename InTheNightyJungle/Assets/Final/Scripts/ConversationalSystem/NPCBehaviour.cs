@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class NPCBehaviour : MonoBehaviour {
 
 	private PlayerPlatformController player;
-	private CameraBehaviour camera;
+	private CameraBehaviour mainCamera;
 
 	public Transform conversationPlayerPosition;
 	public Transform conversationCameraPosition;
@@ -46,7 +46,7 @@ public class NPCBehaviour : MonoBehaviour {
 	void Start () {
 		CreateConversationalTree();
 
-		camera = Camera.main.GetComponent<CameraBehaviour>();
+		mainCamera = Camera.main.GetComponent<CameraBehaviour>();
 
 		framedConversation = false;
 		conversationTime = false;
@@ -72,14 +72,14 @@ public class NPCBehaviour : MonoBehaviour {
 	void Update () {
 		if(conversationTime)
 		{
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space))
             {
                 UI.conversationText.text = actual;
             }
 
             if (UI.GetPreparedForNewText())
 			{
-				if(Input.GetKeyDown(KeyCode.Z))
+				if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space))
 				{
 					stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
 					if(!stopConversation) SpamText();
@@ -118,17 +118,17 @@ public class NPCBehaviour : MonoBehaviour {
 					case "_dance":
 						UI.FinishedConversation();
 						RestartConversation();
-						nextThingToDo.GetComponent<DancingTestManager>().StartTest(player, camera);
+						nextThingToDo.GetComponent<DancingTestManager>().StartTest(player, mainCamera); 
 						break;
 					case "_drink":
 						UI.FinishedConversation();
 						RestartConversation();
-						nextThingToDo.GetComponent<DrinkingTestManager>().StartTest(player, camera);
+						nextThingToDo.GetComponent<DrinkingTestManager>().StartTest(player, mainCamera); 
 						break;
 					case "_endLevel":
 						UI.FinishedConversation();
 						RestartConversation();
-						StartCoroutine(camera.MoveSizeTo(camera.GetComponent<Transform>().position, camera.GetInitialSize(), 0.5f));
+						StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, mainCamera.GetInitialSize(), 0.5f));
 						nextThingToDo.GetComponent<GameManager>().PlayerDone();
 						break;
 					case "_cancel":
@@ -313,10 +313,10 @@ public class NPCBehaviour : MonoBehaviour {
 	private IEnumerator CancelConversation()
 	{
 		UI.FinishedConversation();
-		StartCoroutine(camera.MoveSizeTo(camera.GetComponent<Transform>().position, camera.GetInitialSize(), 0.5f));
+		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, mainCamera.GetInitialSize(), 0.5f));
 		yield return new WaitForSeconds(0.5f);
 		player.SetInputActivated(true);
-		camera.SetFollowTarget(true);
+		mainCamera.SetFollowTarget(true);
 
 		RestartConversation();
 	}
@@ -367,10 +367,10 @@ public class NPCBehaviour : MonoBehaviour {
 		player.SetInputActivated(false);
 		player.SetDashActivated(true);
 		player.SetBreathActivated(true);
-		camera.SetFollowTarget(false);		
+		mainCamera.SetFollowTarget(false);		
 
 		StartCoroutine(player.MoveTo(conversationPlayerPosition.position, hasToFlip, time));
-		StartCoroutine(camera.MoveSizeTo(conversationCameraPosition.position, conversationCameraSize, time));
+		StartCoroutine(mainCamera.MoveSizeTo(conversationCameraPosition.position, conversationCameraSize, time));
 
 		yield return new WaitForSeconds(time);
 
