@@ -84,14 +84,6 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     public void TurnUpVolume()
     {
-        if(currentVolume > volumen.value)
-        {
-            volumen.value = currentVolume;
-        }
-        else
-        {
-            currentVolume = volumen.value;
-            music.volume = currentVolume;
-        }
+        music.volume = volumen.value;
     }
 }

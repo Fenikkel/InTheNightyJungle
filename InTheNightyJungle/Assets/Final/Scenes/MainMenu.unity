@@ -5813,7 +5813,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f6cd97065cada4faa8c3b5e142dc23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changingTime: 0.7
 --- !u!1 &997680283
 GameObject:
   m_ObjectHideFlags: 0
@@ -5831,7 +5830,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &997680284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6183,8 +6182,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0db322754805c042a5ac2504ba1881f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollSpeed: 0.25
-  savedOffset: {x: 0, y: 0}
 --- !u!1 &1449808394
 GameObject:
   m_ObjectHideFlags: 0
@@ -6238,7 +6235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1477110714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6669,7 +6666,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99f6cd97065cada4faa8c3b5e142dc23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  changingTime: 0.7
 --- !u!114 &2103327680
 MonoBehaviour:
   m_ObjectHideFlags: 0

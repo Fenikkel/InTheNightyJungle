@@ -109,14 +109,6 @@ public class PantallaPausa : MonoBehaviour {
 
     public void TurnUpVolume()
     {
-        if(currentVolume > volumen.value)
-        {
-            volumen.value = currentVolume;
-        }
-        else
-        {
-            currentVolume = volumen.value;
-            if(music) music.volume = currentVolume;
-        }
+        music.volume = volumen.value;
     }
 }
