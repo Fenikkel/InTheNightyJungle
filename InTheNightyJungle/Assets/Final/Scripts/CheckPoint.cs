@@ -62,7 +62,7 @@ public class CheckPoint : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if(collision.tag == "Player" && collision.GetComponent<PlayerPlatformController>().GetInputActivated())
         {
             player = collision.GetComponent<PlayerPlatformController>();
             player.SetDashActivated(false);

@@ -27,14 +27,36 @@ public class GameManager : MonoBehaviour {
 
         blackScreen.GetComponent<Image>().enabled = true;
 
-        cindyEnabled = (Random.value > 0.5f) ? true : false;
+        StartCoroutine(StartInitialCutscene(2f));
+	}
 
-        StartCoroutine(FadeOut(1f, false));
+    private IEnumerator StartInitialCutscene(float time)
+    {
+        
+        CindyLevels.SetActive(true);
+        BrendaLevels.SetActive(true);
+
+        Cindy.SetActive(true);
+        Brenda.SetActive(true);
+
+        Cindy.GetComponent<PlayerPlatformController>().SetInputActivated(false);
+        Brenda.GetComponent<PlayerPlatformController>().SetInputActivated(false);
+
+        mainCamera.GetComponent<CameraBehaviour>().SetTarget(Cindy);
+        
+        StartCoroutine(FadeOut(time, false));
+        yield return new WaitForSeconds(time);
+        GetComponent<InitialCutscene>().BeginCutscene(Cindy, Brenda, blackScreen, mainCamera.GetComponent<CameraBehaviour>());
+    }
+
+    public void StartGame()
+    {
+        cindyEnabled = (Random.value > 0.5f) ? true : false;
 
         aux = 0;
 
         ChangePlayer();
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {

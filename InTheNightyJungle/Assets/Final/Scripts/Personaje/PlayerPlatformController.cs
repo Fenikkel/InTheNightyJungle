@@ -739,4 +739,9 @@ public class PlayerPlatformController : MonoBehaviour {
     {
         currentChamber = param;
     }
+
+    public void StopPhoneRinging()
+    {
+        GM.GetComponent<InitialCutscene>().StopPhoneRinging();
+    }
 }

@@ -28,10 +28,13 @@ public class PlayerStatsController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        ChangeBladderTiredness((bladderTirednessIncreaseSpeed / 100) * Time.deltaTime);
-        if(GetComponent<PlayerPlatformController>().GetInputActivated() && !CheckBladderTiredness())
+        if(GetComponent<PlayerPlatformController>().GetInputActivated())
         {
-            StartCoroutine(GetComponent<PlayerPlatformController>().ChangePlayer());
+            ChangeBladderTiredness((bladderTirednessIncreaseSpeed / 100) * Time.deltaTime);
+            if(!CheckBladderTiredness())
+            {
+                StartCoroutine(GetComponent<PlayerPlatformController>().ChangePlayer());
+            }
         }
 	}
     public void IncreaseFame()
