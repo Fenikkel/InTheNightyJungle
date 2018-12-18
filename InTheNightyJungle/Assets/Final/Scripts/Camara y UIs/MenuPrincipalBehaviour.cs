@@ -6,8 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class MenuPrincipalBehaviour : MonoBehaviour {
 
-    public Button botonJugar, botonOpciones, botonSalir, botonMenu;
+    public Button botonJugar, botonOpciones, botonSalir, botonMenu, ajustarBrillo;
     public Slider volumen;
+    public GameObject pantallaBrillo;
 
     private float currentVolume;
 
@@ -60,6 +61,7 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonSalir.gameObject.SetActive(false);
         botonMenu.gameObject.SetActive(true);
         volumen.gameObject.SetActive(true);
+        ajustarBrillo.gameObject.SetActive(true);
     }
 
     public void Salir()
@@ -74,6 +76,12 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonSalir.gameObject.SetActive(true);
         botonMenu.gameObject.SetActive(false);
         volumen.gameObject.SetActive(false);
+        ajustarBrillo.gameObject.SetActive(false);
+    }
+
+    public void AjustarBrillo()
+    {
+        pantallaBrillo.gameObject.SetActive(true);
     }
 
     IEnumerator ChangeScene()
@@ -84,14 +92,6 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     public void TurnUpVolume()
     {
-        if(currentVolume > volumen.value)
-        {
-            volumen.value = currentVolume;
-        }
-        else
-        {
-            currentVolume = volumen.value;
-            music.volume = currentVolume;
-        }
+        music.volume = volumen.value;
     }
 }
