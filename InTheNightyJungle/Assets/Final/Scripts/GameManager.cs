@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour {
 
         aux = 0;
 
-        ChangePlayer();
+        BeginChangePlayer();
     }
 	
 	// Update is called once per frame
