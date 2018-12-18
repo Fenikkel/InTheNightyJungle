@@ -18,6 +18,8 @@ public class DancingTestManager : MonoBehaviour {
     public Transform outsideCameraPosition;
     public float cameraSize;
     public float cameraOverSideSize;
+    public bool playerAtTheRightSide;
+
     public LittleSilhouettoOfAMan[] foregroundSilhouettes;
 
     private bool testStarted;
@@ -81,7 +83,7 @@ public class DancingTestManager : MonoBehaviour {
         StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, mainCamera.GetSize(), time1));
         yield return new WaitForSeconds(time1);
 
-        StartCoroutine(player.MoveTo(insidePlayerPosition.position, false, time2));
+        StartCoroutine(player.MoveTo(insidePlayerPosition.position, playerAtTheRightSide, time2));
         yield return new WaitForSeconds(time2);
 
         StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
@@ -115,7 +117,8 @@ public class DancingTestManager : MonoBehaviour {
 
         if (win)
         {
-            if(!player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f))
+            player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f);
+            if(!player.GetComponent<PlayerStatsController>().CheckBladderTiredness())
                 StartCoroutine(player.ChangePlayer());
             player.GetComponent<PlayerStatsController>().IncreaseFame();
         }
@@ -128,7 +131,8 @@ public class DancingTestManager : MonoBehaviour {
             }
             else
             {
-                if(!player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f))
+                player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f);
+                if(!player.GetComponent<PlayerStatsController>().CheckBladderTiredness())
                     StartCoroutine(player.ChangePlayer());
             }
         }

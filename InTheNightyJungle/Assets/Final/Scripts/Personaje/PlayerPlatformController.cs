@@ -308,7 +308,8 @@ public class PlayerPlatformController : MonoBehaviour {
 
         dashEffect.Stop();
 
-        if(GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.05f))
+        GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.05f);
+        if(GetComponent<PlayerStatsController>().CheckBladderTiredness())
         {
             StartCoroutine(WhileDashCooldownActivated(dashCooldownTime));
 
@@ -330,7 +331,8 @@ public class PlayerPlatformController : MonoBehaviour {
         //inputActivated = true;
         //gravityModifier = initialGravityModifier;
 
-        if(GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.05f))
+        GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.05f);
+        if(GetComponent<PlayerStatsController>().CheckBladderTiredness())
         {
             Invulnerable(false);
             
@@ -554,10 +556,11 @@ public class PlayerPlatformController : MonoBehaviour {
         {
             yield return null;
         }
-        RestartPlayer();
+        
+        GetComponent<PlayerStatsController>().ChangeBladderTiredness(-1);
+
         anim.SetTrigger("ChangePlayer");
         yield return new WaitForSeconds(1.0f);
-        GetComponent<PlayerStatsController>().ChangeBladderTiredness(-1);
         GM.BeginChangePlayer();
     }
 

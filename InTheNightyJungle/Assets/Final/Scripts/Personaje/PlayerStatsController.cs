@@ -28,8 +28,11 @@ public class PlayerStatsController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(GetComponent<PlayerPlatformController>().GetInputActivated() && !ChangeBladderTiredness((bladderTirednessIncreaseSpeed / 100) * Time.deltaTime))
+        ChangeBladderTiredness((bladderTirednessIncreaseSpeed / 100) * Time.deltaTime);
+        if(GetComponent<PlayerPlatformController>().GetInputActivated() && !CheckBladderTiredness())
+        {
             StartCoroutine(GetComponent<PlayerPlatformController>().ChangePlayer());
+        }
 	}
     public void IncreaseFame()
     {
@@ -42,11 +45,20 @@ public class PlayerStatsController : MonoBehaviour {
         //desActivar tantas estrellas como fama haya
     }
 
-    public bool ChangeBladderTiredness(float value)
+    public void ChangeBladderTiredness(float value)
     {
-        bladderTiredness = ((bladderTiredness + value) > 1) ? 1 : ((bladderTiredness + value) < 0) ? 0 : bladderTiredness + value;
         statsUI.ChangeValueBladderTirednessBar(value);
-        return bladderTiredness != 1;
+    }
+
+    public bool CheckBladderTiredness()
+    {
+        bladderTiredness = statsUI.bladderTirednessStatBar.value;
+        if(bladderTiredness == 1)
+        {
+            bladderTiredness = 0;
+            return false;
+        }
+        return true;
     }
 
     public bool ChangePatience(float value)

@@ -15,6 +15,8 @@ public class DrinkingTestManager : MonoBehaviour {
     public Transform outsidePlayerPosition;
     public Transform outsideCameraPosition;
     public float cameraSize;
+    public bool playerAtTheRightSide;
+    
     public DrinkingShadow[] foregroundSilhouettes;
 
     private bool testStarted;
@@ -98,7 +100,7 @@ public class DrinkingTestManager : MonoBehaviour {
         StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, mainCamera.GetSize(), time1));
         yield return new WaitForSeconds(time1);
 
-        StartCoroutine(player.MoveTo(insidePlayerPosition.position, false, time2));
+        StartCoroutine(player.MoveTo(insidePlayerPosition.position, playerAtTheRightSide, time2));
         yield return new WaitForSeconds(time2);
 
         StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
@@ -119,7 +121,7 @@ public class DrinkingTestManager : MonoBehaviour {
         FadeInCrowd(time1);
         yield return new WaitForSeconds(time1);
 
-        StartCoroutine(player.MoveTo(outsidePlayerPosition.position, true, time2));
+        StartCoroutine(player.MoveTo(outsidePlayerPosition.position, !playerAtTheRightSide, time2));
         yield return new WaitForSeconds(time2);
 
         StartCoroutine(mainCamera.MoveSizeTo(outsideCameraPosition.position, mainCamera.GetSize(), time3));
@@ -131,7 +133,8 @@ public class DrinkingTestManager : MonoBehaviour {
        
         if (win)
         {
-            if(!player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f))
+            player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f);
+            if(!player.GetComponent<PlayerStatsController>().CheckBladderTiredness())
                 StartCoroutine(player.ChangePlayer());
             player.GetComponent<PlayerStatsController>().IncreaseFame();
         }
@@ -144,7 +147,8 @@ public class DrinkingTestManager : MonoBehaviour {
             }
             else
             {
-                if(!player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f))
+                player.GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.15f);
+                if(!player.GetComponent<PlayerStatsController>().CheckBladderTiredness())
                     StartCoroutine(player.ChangePlayer());
             }
         }
