@@ -28,6 +28,7 @@ public class InitialCutscene : MonoBehaviour {
 	private bool stopConversation;
 	private bool transitionDone;
 	private string transitionToDo;
+	private bool duringTransition;
 
 	public ConversationUIController UI;
 
@@ -38,6 +39,7 @@ public class InitialCutscene : MonoBehaviour {
 		CreateConversationalTree();
 		RestartConversation();
 		transitionDone = true;
+		duringTransition = false;
 	}
 	
 	// Update is called once per frame
@@ -48,12 +50,12 @@ public class InitialCutscene : MonoBehaviour {
             {
                 UI.conversationText.text = actual;
             }
-
-            if (UI.GetPreparedForNewText())
+			
+			if (UI.GetPreparedForNewText())
 			{
 				if(Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space))
 				{
-					if(!transitionDone && transitionToDo != null)
+					if(!duringTransition && !transitionDone && transitionToDo != null)
 					{
 						switch(transitionToDo)
 						{
@@ -65,7 +67,6 @@ public class InitialCutscene : MonoBehaviour {
 								break;
 							case "normalTransitionToBrenda":
 								StartCoroutine(NormalTransition(true));
-								print("hola");
 								break;
 							case "normalTransitionToCindy":
 								StartCoroutine(NormalTransition(false));
@@ -74,20 +75,22 @@ public class InitialCutscene : MonoBehaviour {
 					}
 					else
 					{
-						if(transitionToDo == null)
+						if(transitionToDo == null && transitionDone)
 						{
 							stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
 							if(!stopConversation) SpamText();
 						}
 					}
 				}
+
+				if(transitionDone)
+				{
+					stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
+					if(!stopConversation) SpamText();
+				}
 			}
 
-			if(transitionDone && transitionToDo != null)
-			{
-				stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
-				if(!stopConversation) SpamText();
-			}
+			
 
 			if(options)
 			{
@@ -168,6 +171,8 @@ public class InitialCutscene : MonoBehaviour {
 
 	private IEnumerator BuildingTransition(bool toBrenda)
 	{		
+		duringTransition = true;
+
 		Vector3 firstPosition;
 		Vector3 secondPosition = new Vector3(CentralPositionInBuilding.position.x, CentralPositionInBuilding.position.y, mainCamera.GetComponent<Transform>().position.z);
 		Vector3 thirdPosition;
@@ -202,13 +207,16 @@ public class InitialCutscene : MonoBehaviour {
 		
 		StartCoroutine(FadeOut(1f));
 		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, 2f, 1f));
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(1.5f);
 
 		transitionDone = true;
+		duringTransition = false;
 	}
 
 	private IEnumerator NormalTransition(bool toBrenda)
 	{
+		duringTransition = true;
+
 		Vector3 finalPosition;
 
 		if(toBrenda)
@@ -228,9 +236,10 @@ public class InitialCutscene : MonoBehaviour {
 
 		StartCoroutine(FadeOut(1f));
 		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, 2f, 1f));
-		yield return new WaitForSeconds(1f);
+		yield return new WaitForSeconds(1.5f);
 
 		transitionDone = true;
+		duringTransition = false;
 	}
 
 	public void PlayPhoneRinging()
