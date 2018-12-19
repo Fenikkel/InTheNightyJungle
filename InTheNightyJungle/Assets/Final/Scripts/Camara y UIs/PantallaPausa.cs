@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class PantallaPausa : MonoBehaviour {
-
+    
     public static bool GameIsPaused = false;
 
     public static PantallaPausa Instance;

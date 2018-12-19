@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour {
 
     public GeneralUIController UIController;
+    public PantallaPausa UIPause;
     public GameObject blackScreen;
     public GameObject mainCamera;
     private GameObject player;
@@ -23,6 +24,7 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
 	void Start () {
 
+        UIPause.enabled = false;
         canChangePlayer = true;
 
         blackScreen.GetComponent<Image>().enabled = true;
@@ -51,6 +53,7 @@ public class GameManager : MonoBehaviour {
 
     public void StartGame()
     {
+        UIPause.enabled = true;
         cindyEnabled = (Random.value > 0.5f) ? true : false;
 
         aux = 0;

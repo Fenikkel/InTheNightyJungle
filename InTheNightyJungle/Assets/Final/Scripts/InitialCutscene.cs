@@ -8,6 +8,8 @@ public class InitialCutscene : MonoBehaviour {
 
 	private GameObject Cindy;
 	private GameObject Brenda;
+	public SpriteRenderer CindyMobile;
+	public SpriteRenderer BrendaMobile;
     private GameObject blackScreen;
 	private CameraBehaviour mainCamera;
 
@@ -147,6 +149,8 @@ public class InitialCutscene : MonoBehaviour {
 		GetComponent<GameManager>().StartGame();
 		Cindy.GetComponent<Animator>().Play("idle");
 		Brenda.GetComponent<Animator>().Play("idle");
+		CindyMobile.enabled = false;
+		BrendaMobile.enabled = false;
 	}
 
 	private IEnumerator Cutscene()
@@ -162,6 +166,7 @@ public class InitialCutscene : MonoBehaviour {
 
 		Cindy.GetComponent<Animator>().Play("answeringPhone");
 		Brenda.GetComponent<Animator>().Play("talkingPhone");
+		BrendaMobile.enabled = true;
 		yield return new WaitForSeconds(1.5f);
 
 		StartConversation();
@@ -197,7 +202,7 @@ public class InitialCutscene : MonoBehaviour {
 
 		StartCoroutine(FadeOut(1f));
 		StartCoroutine(mainCamera.MoveSizeTo(secondPosition, 25f, 1f));
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1f);
 
 		StartCoroutine(mainCamera.MoveSizeTo(thirdPosition, 10f, 1f));
 		StartCoroutine(FadeIn(1f));
