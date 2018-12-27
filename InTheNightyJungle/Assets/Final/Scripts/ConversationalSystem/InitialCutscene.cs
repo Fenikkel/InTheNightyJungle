@@ -213,7 +213,7 @@ public class InitialCutscene : MonoBehaviour {
 		
 		StartCoroutine(FadeOut(1f));
 		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, 2f, 1f));
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1.2f);
 
 		transitionDone = true;
 		duringTransition = false;
@@ -243,7 +243,7 @@ public class InitialCutscene : MonoBehaviour {
 
 		StartCoroutine(FadeOut(1f));
 		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, 2f, 1f));
-		yield return new WaitForSeconds(1.5f);
+		yield return new WaitForSeconds(1.2f);
 
 		transitionDone = true;
 		duringTransition = false;

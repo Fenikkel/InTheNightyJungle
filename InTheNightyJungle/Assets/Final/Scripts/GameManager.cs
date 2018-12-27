@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
     public GameObject Brenda;
     public GameObject Cindy;
 
+    public bool initialCutscene;
+
     private int aux;
 
     private bool cindyEnabled;
@@ -29,7 +31,8 @@ public class GameManager : MonoBehaviour {
 
         blackScreen.GetComponent<Image>().enabled = true;
 
-        StartCoroutine(StartInitialCutscene(2f));
+        if(initialCutscene) StartCoroutine(StartInitialCutscene(2f));
+        else StartGame();
 	}
 
     private IEnumerator StartInitialCutscene(float time)
@@ -56,9 +59,14 @@ public class GameManager : MonoBehaviour {
         UIPause.enabled = true;
         cindyEnabled = (Random.value > 0.5f) ? true : false;
 
+        Cindy.SetActive(cindyEnabled);
+        Brenda.SetActive(!cindyEnabled);
+
         aux = 0;
 
-        BeginChangePlayer();
+        ChangePlayer();
+
+        StartCoroutine(FadeOut(0.5f, true));
     }
 	
 	// Update is called once per frame
