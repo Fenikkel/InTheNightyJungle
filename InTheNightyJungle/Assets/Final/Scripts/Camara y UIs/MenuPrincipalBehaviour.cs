@@ -14,10 +14,6 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     private AudioSource music;
 
-    private float initialAlpha;
-    private bool empezar = false;
-    private float tiempo;
-
     void Awake()
     {
         music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
@@ -25,32 +21,18 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {/*
-        botonJugar.onClick.AddListener(EmpezarJuego);
-        botonOpciones.onClick.AddListener(Opciones);
-        botonSalir.onClick.AddListener(Salir);
-        botonMenu.onClick.AddListener(Atras);*/
-        empezar = false;
-        tiempo = 0;
-        initialAlpha = this.GetComponent<CanvasGroup>().alpha;
+	void Start () {
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (empezar == true)
-        {
-            tiempo += Time.deltaTime;
 
-            float t = tiempo / 1.5f;
-
-            this.GetComponent<CanvasGroup>().alpha=Mathf.Lerp(initialAlpha, 0.0f, t);
-        }
 	}
 
     public void EmpezarJuego()
     {
-        empezar = true;
-        StartCoroutine(ChangeScene());
+        StartCoroutine(ChangeScene(1.5f));
         
     }
 
@@ -84,10 +66,28 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         pantallaBrillo.gameObject.SetActive(true);
     }
 
-    IEnumerator ChangeScene()
+    IEnumerator ChangeScene(float time)
     {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(1);//Aqui cambiara a la escena principal tras hacer el FadeOut
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+        asyncLoad.allowSceneActivation = false;
+
+        float initialAlpha = this.GetComponent<CanvasGroup>().alpha;
+        float finalAlpha = 0f;
+        float elapsedTime = 0;
+
+        while (!asyncLoad.isDone)
+        {
+            if(elapsedTime < time)
+            {
+                elapsedTime += Time.deltaTime;
+                this.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(initialAlpha, finalAlpha, elapsedTime / time);
+            }
+            else 
+            {
+                asyncLoad.allowSceneActivation = true;
+            }
+            yield return null;
+        }
     }
 
     public void TurnUpVolume()

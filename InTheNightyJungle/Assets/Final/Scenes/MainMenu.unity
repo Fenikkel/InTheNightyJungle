@@ -752,7 +752,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11, y: -148.91}
+  m_AnchoredPosition: {x: -10.999989, y: -148.91}
   m_SizeDelta: {x: 335.2, y: 62.9}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &521085485 stripped
@@ -1029,6 +1029,11 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 716001400}
   m_CullTransparentMesh: 0
+--- !u!1 &718040100 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1356005304664540, guid: 68a5c37f4ac09db48bf744e72d2d14d3,
+    type: 2}
+  m_PrefabInternal: {fileID: 1878192664}
 --- !u!1 &785628453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1633,9 +1638,9 @@ MonoBehaviour:
   botonOpciones: {fileID: 648780002}
   botonSalir: {fileID: 260089948}
   botonMenu: {fileID: 477414955}
-  ajustarBrillo: {fileID: 0}
+  ajustarBrillo: {fileID: 477414955}
   volumen: {fileID: 785628455}
-  pantallaBrillo: {fileID: 0}
+  pantallaBrillo: {fileID: 718040100}
 --- !u!225 &1477110719
 CanvasGroup:
   m_ObjectHideFlags: 0
