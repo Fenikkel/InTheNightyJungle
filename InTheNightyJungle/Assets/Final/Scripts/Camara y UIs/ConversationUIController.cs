@@ -106,6 +106,11 @@ public class ConversationUIController : MonoBehaviour {
 		}*/
 	}
 
+	public bool GetConversationBoxOpenned()
+	{
+		return conversationBoxOpenned;
+	}
+
 	public bool GetPreparedForNewText() //Este método es el que debe llamar (de manera continua) el ConversationalBehaviour para saber si puede escribir el siguiente mensaje o no (considerar también en ese script el input del jugador para saber qué quiere pasar el mensaje)
 	{
 		return preparedForNewText;
@@ -134,7 +139,7 @@ public class ConversationUIController : MonoBehaviour {
 
 	public void FinishedConversation() //Debe ser llamado desde el ConversationalBehaviour cuando se termina la conversación
 	{
-		StartCoroutine(CloseConversationBox(0.2f));
+		StartCoroutine(CloseConversationBox(0.2f, true));
 	}
 
 	private void ShowOptionsBox() //Abre el cuadro de opciones
@@ -158,7 +163,7 @@ public class ConversationUIController : MonoBehaviour {
 		}
 	}
 
-	IEnumerator OpenConversationBox(float time, string firstMessage, bool options) //Abre el cuadro de texto con una interpolación de posición y tamaño
+	public IEnumerator OpenConversationBox(float time, string firstMessage, bool options) //Abre el cuadro de texto con una interpolación de posición y tamaño
 	{
 		float elapsedTime = 0.0f;
 		Vector2 initialPosition = conversationBox.GetComponent<RectTransform>().anchoredPosition;
@@ -179,7 +184,7 @@ public class ConversationUIController : MonoBehaviour {
 		SpamText(firstMessage, options); //Llama a SpamText con ese primer mensaje después de haber abierto el cuadro de texto
 	}
 
-	IEnumerator CloseConversationBox(float time) //Más de lo mismo pero para cerrar el cuadro de texto
+	public IEnumerator CloseConversationBox(float time, bool finishedConversation) //Más de lo mismo pero para cerrar el cuadro de texto
 	{
 		conversationText.text = "";
 
@@ -198,7 +203,9 @@ public class ConversationUIController : MonoBehaviour {
 		conversationBox.GetComponent<RectTransform>().anchoredPosition = closedConversationBoxPosition;
 		conversationBox.GetComponent<RectTransform>().sizeDelta = closedConversationBoxSize;
 
-		UIController.BackToStats();
+		conversationBoxOpenned = false;
+
+		if(finishedConversation) UIController.BackToStats();
 	}
 
 	IEnumerator OpenOptionsBox(float time) //Para abrir el cuadro de opciones

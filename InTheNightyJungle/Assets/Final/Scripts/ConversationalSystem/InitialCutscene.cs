@@ -48,7 +48,7 @@ public class InitialCutscene : MonoBehaviour {
 	void Update () {
 		if(conversationTime)
 		{
-            if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space))
+            if ((Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Space)) && UI.GetConversationBoxOpenned())
             {
                 UI.conversationText.text = actual;
             }
@@ -84,8 +84,8 @@ public class InitialCutscene : MonoBehaviour {
 						}
 					}
 				}
-
-				if(transitionDone)
+				
+				if(transitionToDo != null && transitionDone)
 				{
 					stopConversation = currentNode.GetMessage() != null && currentNode.GetMessage().StartsWith("_");
 					if(!stopConversation) SpamText();
@@ -196,6 +196,7 @@ public class InitialCutscene : MonoBehaviour {
 		}
 		StartCoroutine(FadeIn(1f));
 		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, 10f, 1f));
+		StartCoroutine(UI.CloseConversationBox(0.2f, false));
 		yield return new WaitForSeconds(1f);
 
 		mainCamera.GetComponent<Transform>().position = firstPosition;
@@ -235,6 +236,7 @@ public class InitialCutscene : MonoBehaviour {
 
 		StartCoroutine(FadeIn(1f));
 		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, 10f, 1f));
+		StartCoroutine(UI.CloseConversationBox(0.2f, false));
 		yield return new WaitForSeconds(1f);
 
 		mainCamera.GetComponent<Transform>().position = finalPosition;
