@@ -5,8 +5,6 @@ using Anima2D;
 
 public class DevoradorBehaviour : EnemyBehaviour
 {
-
-    public SpriteMeshInstance[] bodyParts;
     public float appearingTime;
     public float slowDownFactor;
 
@@ -36,46 +34,8 @@ public class DevoradorBehaviour : EnemyBehaviour
         }
         if (!inside && appeared)
         {
-            StartCoroutine(FadeOut(appearingTime));
+            StartCoroutine(FadeOut(appearingTime, false));
         }
-    }
-
-    IEnumerator FadeOut(float time)
-    {
-        float elapsedTime = 0.0f;
-        while (elapsedTime < time)
-        {
-            elapsedTime += Time.deltaTime;
-            foreach (SpriteMeshInstance part in bodyParts)
-            {
-                part.color = Color.Lerp(new Color(1.0f, 1.0f, 1.0f, 1.0f), new Color(1.0f, 1.0f, 1.0f, 0.0f), elapsedTime / time);
-            }
-            yield return null;
-        }
-        foreach (SpriteMeshInstance part in bodyParts)
-        {
-            part.color = new Color(1.0f, 1.0f, 1.0f, 0.0f);
-        }
-        appeared = false;
-    }
-
-    IEnumerator FadeIn(float time)
-    {
-        float elapsedTime = 0.0f;
-        while (elapsedTime < time)
-        {
-            elapsedTime += Time.deltaTime;
-            foreach (SpriteMeshInstance part in bodyParts)
-            {
-                part.color = Color.Lerp(new Color(1.0f, 1.0f, 1.0f, 0.0f), new Color(1.0f, 1.0f, 1.0f, 1.0f), elapsedTime / time);
-            }
-            yield return null;
-        }
-        foreach (SpriteMeshInstance part in bodyParts)
-        {
-            part.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
-        }
-        appeared = true;
     }
 
     public void SetInside(bool param)

@@ -15,8 +15,9 @@ public class BailadorBehaviour : EnemyBehaviour {
 
     public ParticleSystem whirlpool;
 
-    private Animator anim;
     private CharacterController2D controller;
+
+    private Coroutine coroutine;
 
     private void Awake()
     {
@@ -36,12 +37,15 @@ public class BailadorBehaviour : EnemyBehaviour {
 
     private void OnEnable()
     {
-        StartCoroutine(Accelerate());
+        coroutine = StartCoroutine(Accelerate());
     }
 
     private void Update()
     {
-        
+        if(death)
+        {
+            StopCoroutine(coroutine);
+        }
     }
 
     private IEnumerator Accelerate()
@@ -62,7 +66,7 @@ public class BailadorBehaviour : EnemyBehaviour {
 
         target.position = initialPosition;
 
-        StartCoroutine(Stopping());
+        coroutine = StartCoroutine(Stopping());
     }
 
     private IEnumerator Stopping()
@@ -74,6 +78,6 @@ public class BailadorBehaviour : EnemyBehaviour {
         GetComponent<Transform>().localScale = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
 
         yield return new WaitForSeconds(stopTime / 2);
-        StartCoroutine(Accelerate());
+        coroutine = StartCoroutine(Accelerate());
     }
 }

@@ -684,7 +684,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970041915404732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.45, y: -0.7, z: 7.35}
+  m_LocalPosition: {x: 4.45, y: -0.33, z: 7.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4818368138894878}
@@ -710,7 +710,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1107811777266150}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.05, y: -0.7, z: 7.35}
+  m_LocalPosition: {x: -2.05, y: -0.33, z: 7.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4818368138894878}
@@ -1020,7 +1020,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1800965438289360}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.05, y: -2.3, z: -7.35}
+  m_LocalPosition: {x: -17.45, y: 3.33, z: -7.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4771872882623802}
@@ -1892,10 +1892,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
+  bodyParts:
+  - {fileID: 114894711532192862}
+  - {fileID: 114512155102196208}
+  - {fileID: 114181954045443408}
+  - {fileID: 114931565726313320}
+  - {fileID: 114702980776375862}
+  - {fileID: 114052553720572590}
   initialPosition: {fileID: 4157508049836398}
   finalPosition: {fileID: 4129818914785846}
   maxSpeed: 45
-  radius: 1.43
+  radius: 2.79
 --- !u!137 &137061764760699540
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
