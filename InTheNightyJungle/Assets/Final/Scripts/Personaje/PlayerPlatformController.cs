@@ -519,8 +519,10 @@ public class PlayerPlatformController : MonoBehaviour {
                 i++;
             }
 
+            bool param = ChangePatience(-other.GetComponent<Transform>().parent.GetComponent<GeiserBehaviour>().GetDamage() / 100);
+
             Invulnerable(true);
-            KnockBack(contactNormals);
+            if(param) KnockBack(contactNormals);
         }
     }
 
