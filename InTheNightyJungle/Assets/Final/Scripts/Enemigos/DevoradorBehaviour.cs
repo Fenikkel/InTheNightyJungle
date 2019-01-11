@@ -9,14 +9,12 @@ public class DevoradorBehaviour : EnemyBehaviour
     public float slowDownFactor;
 
     private bool inside;
-    private bool appeared;
     private bool slowDowned;
 
     private void Start()
     {
         DisappearBodyParts();
         inside = false;
-        appeared = false;
         slowDowned = false;
     }
 
@@ -41,19 +39,32 @@ public class DevoradorBehaviour : EnemyBehaviour
     public void SetInside(bool param)
     {
         inside = param;
-        if (!inside) slowDowned = false;
+        if (!inside) 
+        {
+            slowDowned = false;
+            anim.SetBool("whisper", false);
+        }
     }
 
     public void Whispering(GameObject player)
     {
-        if(inside && appeared)
+        if(inside)
         {
-            if (!slowDowned)
+            anim.SetBool("whisper", true);
+            if(GetComponent<Transform>().localScale.x > 0 && player.GetComponent<Transform>().position.x < GetComponent<Transform>().position.x) 
+                GetComponent<Transform>().localScale = new Vector3(-Mathf.Abs(GetComponent<Transform>().localScale.x), GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
+            else if(GetComponent<Transform>().localScale.x < 0 && player.GetComponent<Transform>().position.x > GetComponent<Transform>().position.x)
+                GetComponent<Transform>().localScale = new Vector3(Mathf.Abs(GetComponent<Transform>().localScale.x), GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
+
+            if(appeared)
             {
-                slowDowned = true;
-                player.GetComponent<PlayerPlatformController>().SlowDown(slowDownFactor, 0);
+                if (!slowDowned)
+                {
+                    slowDowned = true;
+                    player.GetComponent<PlayerPlatformController>().SlowDown(slowDownFactor, 0);
+                }
+                player.GetComponent<PlayerStatsController>().ChangePatience(-damage * Time.deltaTime);
             }
-            player.GetComponent<PlayerStatsController>().ChangePatience(damage * Time.deltaTime);
         }
     }
 }

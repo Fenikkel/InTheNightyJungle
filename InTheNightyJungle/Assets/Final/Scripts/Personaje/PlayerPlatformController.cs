@@ -9,9 +9,8 @@ public class PlayerPlatformController : MonoBehaviour {
     public GameManager GM;
 
     public float initialMaxSpeed = 60;
-    public float initialJumpTakeOffSpeed = 7;
+    public float initialJumpForce;
     private float maxSpeed;
-    private float jumpTakeOffSpeed;
 
     private float move;
     private bool jump;
@@ -34,6 +33,7 @@ public class PlayerPlatformController : MonoBehaviour {
     protected Rigidbody2D rb2d;
 
     private bool invulnerabity;
+    private Coroutine invulnerableCoroutine;
     private bool knockback;
     private Vector2 knockbackDirection;
     public float knockbackSpeed = 2;
@@ -107,7 +107,7 @@ public class PlayerPlatformController : MonoBehaviour {
         anim.Play("idle");
 
         maxSpeed = initialMaxSpeed;
-        jumpTakeOffSpeed = initialJumpTakeOffSpeed;
+        GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce);
         dashSpeed = initialDashSpeed;
     }
 
@@ -141,7 +141,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
             if(Input.GetKeyDown(KeyCode.I))
             {
-                StartCoroutine(ChangePlayer());
+                //StartCoroutine(ChangePlayer());
             }
 
             anim.SetBool("movement", move != lastMove || move != 0);
@@ -221,7 +221,8 @@ public class PlayerPlatformController : MonoBehaviour {
 
         dashEffect.Play(); //Emisión de partículas
 
-        Invulnerable(true); //No le tienen que hacer daño y debe poder traspasar los enemigos
+        if(invulnerableCoroutine != null) StopCoroutine(invulnerableCoroutine);
+        invulnerableCoroutine = StartCoroutine(InvulnerabilityTime(dashTime + dashCooldownTime, 0.1f));
 
         StartCoroutine(WhileDashActivated(dashTime)); //Iniciar la duración del dash
     }
@@ -237,7 +238,8 @@ public class PlayerPlatformController : MonoBehaviour {
         //rb2d.velocity = Vector2.zero; //Quitar la velocidad residual del Rigidbody en el momento del dash
         anim.Play("fireBrenda"); //Hace la animacion, que esta ya se ocupa de activar el sistema de particulas
 
-        Invulnerable(true); //No le tienen que hacer daño y debe poder traspasar los enemigos
+        if(invulnerableCoroutine != null) StopCoroutine(invulnerableCoroutine);
+        invulnerableCoroutine = StartCoroutine(InvulnerabilityTime(breathTime + breathCooldownTime/4, 0.1f));
 
         StartCoroutine(WhileBreathActivated(breathTime)); //Iniciar la duración del dash
     }
@@ -314,8 +316,6 @@ public class PlayerPlatformController : MonoBehaviour {
             StartCoroutine(WhileDashCooldownActivated(dashCooldownTime));
 
             yield return new WaitForSeconds(10 * time);
-
-            Invulnerable(false);
         }
         else
         {
@@ -333,9 +333,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
         GetComponent<PlayerStatsController>().ChangeBladderTiredness(0.05f);
         if(GetComponent<PlayerStatsController>().CheckBladderTiredness())
-        {
-            Invulnerable(false);
-            
+        {            
             StartCoroutine(WhileBreathCooldownActivated(breathCooldownTime));
 
             yield return new WaitForSeconds(10 * time);
@@ -505,6 +503,27 @@ public class PlayerPlatformController : MonoBehaviour {
         OnCollisionEnter2D(collision);
     }*/
 
+    private void OnParticleCollision(GameObject other)
+    {
+        if(other.tag.Equals("Puke"))
+        {
+            List<ParticleCollisionEvent> collisionEvents = new List<ParticleCollisionEvent>();
+            int numCollisionEvents = ParticlePhysicsExtensions.GetCollisionEvents(other.GetComponent<ParticleSystem>(), gameObject, collisionEvents);
+
+            int i = 0;
+            List<Vector2> contactNormals = new List<Vector2>();
+
+            while (i < numCollisionEvents)
+            {
+                contactNormals.Add(new Vector2(- Mathf.Sign(collisionEvents[i].normal.x) * 1, 1));
+                i++;
+            }
+
+            Invulnerable(true);
+            KnockBack(contactNormals);
+        }
+    }
+
     private void KnockBack(List<Vector2> contactNormals)
     {
         knockback = true;
@@ -523,7 +542,8 @@ public class PlayerPlatformController : MonoBehaviour {
         else anim.SetTrigger("knockbackFrontal");
 
         StartCoroutine(ReduceKnockback(0.5f));
-        StartCoroutine(InvulnerabilityTime(2f, 0.1f));
+        if(invulnerableCoroutine != null) StopCoroutine(invulnerableCoroutine);
+        invulnerableCoroutine = StartCoroutine(InvulnerabilityTime(2f, 0.1f));
     }
 
     public void Invulnerable(bool param)
@@ -542,11 +562,41 @@ public class PlayerPlatformController : MonoBehaviour {
         }
     }
 
+    IEnumerator InvulnerabilityTime(float time, float blinkTime)
+    {
+        float elapsedBlinkTime = 0.0f;
+        float elapsedTotalTime = 0.0f;
+        Invulnerable(true);
+        
+        while (elapsedTotalTime < time)
+        {
+            elapsedTotalTime += Time.deltaTime;
+            elapsedBlinkTime += Time.deltaTime;
+            if (elapsedBlinkTime >= blinkTime)
+            {
+                if(!knockback) Blink(blink);
+                elapsedBlinkTime = 0.0f;
+            }
+            yield return null;
+        }
+        if(blink) Blink(blink);
+        Invulnerable(false);
+    }
+
     public IEnumerator InvulnerableInTime(float time)
     {
         Invulnerable(true);
         yield return new WaitForSeconds(time);
         Invulnerable(false);
+    }
+
+    private void Blink(bool param)
+    {
+        for (int i = 0; i < bodyParts.Length; i++)
+        {
+            bodyParts[i].enabled = param;
+        }
+        blink = !param;
     }
 
     public IEnumerator ChangePlayer()
@@ -580,41 +630,12 @@ public class PlayerPlatformController : MonoBehaviour {
         inputActivated = true;
     }
 
-    IEnumerator InvulnerabilityTime(float time, float blinkTime)
-    {
-        float elapsedBlinkTime = 0.0f;
-        float elapsedTotalTime = 0.0f;
-        
-        while (elapsedTotalTime < time)
-        {
-            elapsedTotalTime += Time.deltaTime;
-            elapsedBlinkTime += Time.deltaTime;
-            if (elapsedBlinkTime >= blinkTime)
-            {
-                if(!knockback) Blink(blink);
-                elapsedBlinkTime = 0.0f;
-            }
-            yield return null;
-        }
-        if(blink) Blink(blink);
-        Invulnerable(false);
-    }
-
-    private void Blink(bool param)
-    {
-        for (int i = 0; i < bodyParts.Length; i++)
-        {
-            bodyParts[i].enabled = param;
-        }
-        blink = !param;
-    }
-
     public void SlowDown(float slowDownFactor, float time)
     {
         if (time == 0)
         {
             maxSpeed *= slowDownFactor;
-            jumpTakeOffSpeed *= slowDownFactor; //Esta operación reduce la fuerza inicial de salto, de manera que es imposible saltar hasta una plataforma estando sobre el efecto del Devorador o habiendo sido afectado por un hielo. Cabe considerar, si a nivel de diseño, supone mucho inconveniente para el jugador o no, sobretodo en el caso de Cindy
+            GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce * slowDownFactor * 5);
         }
         else
         {
@@ -625,13 +646,13 @@ public class PlayerPlatformController : MonoBehaviour {
     public void SpeedToOriginal()
     {
         maxSpeed = initialMaxSpeed;
-        jumpTakeOffSpeed = initialJumpTakeOffSpeed;
+        GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce);
     }
 
     IEnumerator SlowDownForTime(float slowDownFactor, float time)
     {
         maxSpeed *= slowDownFactor;
-        jumpTakeOffSpeed *= slowDownFactor;
+        GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce * slowDownFactor * 5);
         yield return new WaitForSeconds(time);
         SpeedToOriginal();
     }
@@ -717,7 +738,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     private void EndDeath()
     {
-        StartCoroutine(GM.DeathTransition(1f));
+        //StartCoroutine(GM.DeathTransition(1f));
     }
 
     public DoorBehaviour GetLastDoor()
