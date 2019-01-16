@@ -1411,7 +1411,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GM: {fileID: 0}
   initialMaxSpeed: 30
-  initialJumpTakeOffSpeed: 9
+  initialJumpForce: 0
   cindy: 0
   initialChamber: {fileID: 0}
   Descansando: 0
