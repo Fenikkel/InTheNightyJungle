@@ -4,13 +4,27 @@ using UnityEngine;
 
 public class ChamberManager : MonoBehaviour {
 
-    public int cameraSize;
+    public int chamberSizeType;
+    private float cameraSize;
     public GameObject[] thingsToDeactivate;
     public bool initialChamber;
+
 	// Use this for initialization
-	void Start () {
-        //activados = false;
-        //transform.GetChild(0); //ponemos un game object a la estacia que sera los que se desactivan
+	void Awake()
+    {
+        switch(chamberSizeType)
+        {
+            case 1: cameraSize = CameraSizes.smallChamberSize;
+                    break;
+            case 2: cameraSize = CameraSizes.mediumChamberSize;
+                    break;
+            case 3: cameraSize = CameraSizes.bigChamberSize;
+                    break;
+        } 
+    }
+    
+    void Start () {
+
         if (initialChamber)
         {
             ActiveChamber();
@@ -45,48 +59,6 @@ public class ChamberManager : MonoBehaviour {
 
     public float GetCameraSize()
     {
-        switch(cameraSize){
-            
-            case 1:
-                return 3.21849f;
-
-            case 2:
-                return 4f;
-
-
-            case 3:
-                return 5f;
-
-            default:
-                return 0f;
-        }
-    }
-
-    public void SetCameraSize(){
-        //print("CameraModificada");
-        switch(cameraSize){
-            
-            case 1:
-
-                Camera.main.orthographicSize = 3.21849f;
-
-                break;
-
-            case 2:
-                Camera.main.orthographicSize = 4f;
-
-                break;
-
-
-            case 3:
-                Camera.main.orthographicSize = 5f;
-                break;
-
-            default:
-
-                break;
-        }
-        Camera.main.GetComponent<CameraBehaviour>().RestartCamera();
-
+        return cameraSize;   
     }
 }

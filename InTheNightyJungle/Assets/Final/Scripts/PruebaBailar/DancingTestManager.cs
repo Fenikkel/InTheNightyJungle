@@ -10,14 +10,14 @@ public class DancingTestManager : MonoBehaviour {
     private PlayerPlatformController player;
     private CameraBehaviour mainCamera;
 
+    public ChamberManager chamberLocation;
+
     public Transform insidePlayerPosition;
     public Transform insideCameraPosition;
     public Transform insideCameraPlayerSidePosition;
     public Transform insideCameraChallengerSidePosition;
     public Transform outsidePlayerPosition;
     public Transform outsideCameraPosition;
-    public float cameraSize;
-    public float cameraOverSideSize;
     public bool playerAtTheRightSide;
 
     public LittleSilhouettoOfAMan[] foregroundSilhouettes;
@@ -86,7 +86,7 @@ public class DancingTestManager : MonoBehaviour {
         StartCoroutine(player.MoveTo(insidePlayerPosition.position, playerAtTheRightSide, time2));
         yield return new WaitForSeconds(time2);
 
-        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
+        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, CameraSizes.dancingTestSize, time3));
         FadeOutCrowd(time3);
         yield return new WaitForSeconds(time3);
 
@@ -101,7 +101,7 @@ public class DancingTestManager : MonoBehaviour {
 
     private IEnumerator Ending(float time1, float time2, float time3)
     {
-        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, mainCamera.GetInitialSize(), time1));
+        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, chamberLocation.GetCameraSize(), time1));
         FadeInCrowd(time1);
         yield return new WaitForSeconds(time2);
 
@@ -463,7 +463,7 @@ public class DancingTestManager : MonoBehaviour {
     {        
         testStarted = false;
 
-        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, cameraSize, 1.0f));
+        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, CameraSizes.dancingTestSize, 1.0f));
         yield return new WaitForSeconds(1.0f);
 
         StartCoroutine(UI.ShowFinalText(time1));
@@ -494,7 +494,7 @@ public class DancingTestManager : MonoBehaviour {
     {
         testStarted = false;
 
-        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, cameraSize, 1.0f));
+        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, CameraSizes.dancingTestSize, 1.0f));
         yield return new WaitForSeconds(1.0f);
 
         StartCoroutine(UI.ShowFinalText(time1));
@@ -522,7 +522,7 @@ public class DancingTestManager : MonoBehaviour {
     private IEnumerator BeginTurn(float time)
     {        
         changingTurn = true;
-        float finalSize = cameraOverSideSize;
+        float finalSize = CameraSizes.dancingTestZoomSize;
         Vector3 finalPosition = (playerTurn) ? insideCameraPlayerSidePosition.position : insideCameraChallengerSidePosition.position;
 
         StartCoroutine(mainCamera.MoveSizeTo(finalPosition, finalSize, time));

@@ -141,7 +141,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
             if(Input.GetKeyDown(KeyCode.I))
             {
-                //StartCoroutine(ChangePlayer());
+                StartCoroutine(ChangePlayer());
             }
 
             anim.SetBool("movement", move != lastMove || move != 0);

@@ -15,16 +15,15 @@ public class CheckPoint : MonoBehaviour {
 
     public Transform playerPosition;
     public Transform cameraPosition;
-    public float cameraSize;
 
     private bool framedCheckPoint;
     private bool aux;
 
-    private ChamberManager chamber;
+    private ChamberManager chamberLocation;
 
     private void Start()
     {
-        chamber = GetComponentInParent<ChamberManager>();
+        chamberLocation = GetComponentInParent<ChamberManager>();
         RestartCheckpoint();
     }
 
@@ -141,7 +140,7 @@ public class CheckPoint : MonoBehaviour {
 		Camera.main.GetComponent<CameraBehaviour>().SetFollowTarget(false);
 
 		StartCoroutine(player.MoveTo(playerPosition.position, true, time));
-		StartCoroutine(Camera.main.GetComponent<CameraBehaviour>().MoveSizeTo(cameraPosition.position, cameraSize, time));
+		StartCoroutine(Camera.main.GetComponent<CameraBehaviour>().MoveSizeTo(cameraPosition.position, CameraSizes.checkpointSize, time));
 
 		yield return new WaitForSeconds(time);
 
@@ -150,7 +149,7 @@ public class CheckPoint : MonoBehaviour {
 
     private void UnframeCheckPoint(float time)
 	{
-		StartCoroutine(Camera.main.GetComponent<CameraBehaviour>().MoveSizeTo(Camera.main.GetComponent<CameraBehaviour>().GetComponent<Transform>().position, Camera.main.GetComponent<CameraBehaviour>().GetInitialSize(), time));
+		StartCoroutine(Camera.main.GetComponent<CameraBehaviour>().MoveSizeTo(Camera.main.GetComponent<CameraBehaviour>().GetComponent<Transform>().position, chamberLocation.GetCameraSize(), time));
 		player.SetInputActivated(true);
 		Camera.main.GetComponent<CameraBehaviour>().SetFollowTarget(true);
 
@@ -161,7 +160,7 @@ public class CheckPoint : MonoBehaviour {
 
     public ChamberManager GetChamber()
     {
-        return chamber;
+        return chamberLocation;
     }
 
     public Transform GetPlayerPosition()

@@ -9,9 +9,10 @@ public class NPCBehaviour : MonoBehaviour {
 	private PlayerPlatformController player;
 	private CameraBehaviour mainCamera;
 
+	private ChamberManager chamberLocation;
+
 	public Transform conversationPlayerPosition;
 	public Transform conversationCameraPosition;
-	public float conversationCameraSize;
 	public bool hasToFlip;
 
 	public TextAsset conversationalTreeText;
@@ -47,6 +48,7 @@ public class NPCBehaviour : MonoBehaviour {
 		CreateConversationalTree();
 
 		mainCamera = Camera.main.GetComponent<CameraBehaviour>();
+		chamberLocation = GetComponentInParent<ChamberManager>();
 
 		framedConversation = false;
 		conversationTime = false;
@@ -128,7 +130,7 @@ public class NPCBehaviour : MonoBehaviour {
 					case "_endLevel":
 						UI.FinishedConversation();
 						RestartConversation();
-						StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, mainCamera.GetInitialSize(), 0.5f));
+						StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, chamberLocation.GetCameraSize(), 0.5f));
 						nextThingToDo.GetComponent<GameManager>().PlayerDone();
 						break;
 					case "_cancel":
@@ -313,7 +315,7 @@ public class NPCBehaviour : MonoBehaviour {
 	private IEnumerator CancelConversation()
 	{
 		UI.FinishedConversation();
-		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, mainCamera.GetInitialSize(), 0.5f));
+		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, chamberLocation.GetCameraSize(), 0.5f));
 		yield return new WaitForSeconds(0.5f);
 		player.SetInputActivated(true);
 		mainCamera.SetFollowTarget(true);
@@ -370,7 +372,7 @@ public class NPCBehaviour : MonoBehaviour {
 		mainCamera.SetFollowTarget(false);		
 
 		StartCoroutine(player.MoveTo(conversationPlayerPosition.position, hasToFlip, time));
-		StartCoroutine(mainCamera.MoveSizeTo(conversationCameraPosition.position, conversationCameraSize, time));
+		StartCoroutine(mainCamera.MoveSizeTo(conversationCameraPosition.position, CameraSizes.conversationSize, time));
 
 		yield return new WaitForSeconds(time);
 

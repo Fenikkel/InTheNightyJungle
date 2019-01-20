@@ -10,11 +10,12 @@ public class DrinkingTestManager : MonoBehaviour {
     public BarmanBehaviour barman;
     private CameraBehaviour mainCamera;
 
+    public ChamberManager chamberLocation;
+
     public Transform insidePlayerPosition;
     public Transform insideCameraPosition;
     public Transform outsidePlayerPosition;
     public Transform outsideCameraPosition;
-    public float cameraSize;
     public bool playerAtTheRightSide;
     
     public DrinkingShadow[] foregroundSilhouettes;
@@ -103,7 +104,7 @@ public class DrinkingTestManager : MonoBehaviour {
         StartCoroutine(player.MoveTo(insidePlayerPosition.position, playerAtTheRightSide, time2));
         yield return new WaitForSeconds(time2);
 
-        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
+        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, CameraSizes.drinkingTestSize, time3));
         FadeOutCrowd(time3);
         yield return new WaitForSeconds(time3);
 
@@ -117,7 +118,7 @@ public class DrinkingTestManager : MonoBehaviour {
 
     private IEnumerator Ending(float time1, float time2, float time3)
     {
-        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, mainCamera.GetInitialSize(), time1));
+        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, chamberLocation.GetCameraSize(), time1));
         FadeInCrowd(time1);
         yield return new WaitForSeconds(time1);
 

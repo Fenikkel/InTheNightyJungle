@@ -100,10 +100,10 @@ public class GameManager : MonoBehaviour {
         {
             if (Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() != null)
             {
-                Cindy.transform.position = Cindy.GetComponent<PlayerPlatformController>().GetLastDoor().GetPosition() + new Vector3(0.01f, 0.01f, 0.01f);
+                Cindy.transform.position = Cindy.GetComponent<PlayerPlatformController>().GetLastDoor().GetPosition() + new Vector3(0.01f, 0.01f, 0.01f);        
                 Cindy.GetComponent<PlayerPlatformController>().SetCurrentChamber(Cindy.GetComponent<PlayerPlatformController>().GetLastDoor().chamber);
             }
-            Cindy.GetComponent<PlayerPlatformController>().GetCurrentChamber().SetCameraSize();
+            mainCamera.GetComponent<CameraBehaviour>().SetSize(Cindy.GetComponent<PlayerPlatformController>().GetCurrentChamber().GetCameraSize());
         }
         else
         {
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour {
                 Brenda.transform.position = Brenda.GetComponent<PlayerPlatformController>().GetLastDoor().GetPosition() + new Vector3(0.01f, 0.01f, 0.01f);
                 Brenda.GetComponent<PlayerPlatformController>().SetCurrentChamber(Brenda.GetComponent<PlayerPlatformController>().GetLastDoor().chamber);
             }
-            Brenda.GetComponent<PlayerPlatformController>().GetCurrentChamber().SetCameraSize();
+            mainCamera.GetComponent<CameraBehaviour>().SetSize(Brenda.GetComponent<PlayerPlatformController>().GetCurrentChamber().GetCameraSize());
         }
         ChangePlayer();
         yield return new WaitForSeconds(0.1f);
@@ -165,9 +165,12 @@ public class GameManager : MonoBehaviour {
         blackScreen.GetComponent<Image>().color = finalColor;
         if(transition)
         {
-            player.GetComponent<PlayerPlatformController>().SetPosition(door.nextDoor.playerPosition.position);
-            mainCamera.GetComponent<CameraBehaviour>().SetPosition(door.nextDoor.cameraPosition.position);
-            if(door != null) door.nextDoor.chamber.SetCameraSize();
+            if(door != null)
+            {
+                player.GetComponent<PlayerPlatformController>().SetPosition(door.nextDoor.playerPosition.position);
+                mainCamera.GetComponent<CameraBehaviour>().SetPosition(door.nextDoor.cameraPosition.position);
+                mainCamera.GetComponent<CameraBehaviour>().SetSize(door.nextDoor.chamber.GetCameraSize());
+            } 
             yield return new WaitForSeconds(0.1f);
             StartCoroutine(FadeOut(time, transition, door));
         }
@@ -256,7 +259,7 @@ public class GameManager : MonoBehaviour {
         player.GetComponent<PlayerPlatformController>().SetPosition(player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetPlayerPosition().position);
         player.GetComponent<PlayerPlatformController>().GetCurrentChamber().DeActiveChamber();
         player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetChamber().ActiveChamber();
-        player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetChamber().SetCameraSize();
+        mainCamera.GetComponent<CameraBehaviour>().SetSize(player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetChamber().GetCameraSize());
         player.GetComponent<PlayerPlatformController>().SetCurrentChamber(player.GetComponent<PlayerPlatformController>().GetCheckPoint().GetChamber());
         player.GetComponent<PlayerPlatformController>().ChangePatience(1);
         player.GetComponent<PlayerPlatformController>().Invulnerable(false);

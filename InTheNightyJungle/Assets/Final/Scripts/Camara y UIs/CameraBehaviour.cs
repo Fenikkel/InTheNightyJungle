@@ -155,6 +155,12 @@ public class CameraBehaviour : MonoBehaviour {
         return Camera.main.orthographicSize;
     }
 
+    public void SetSize(float size)
+    {
+        Camera.main.orthographicSize = size;
+        RestartCamera();
+    }
+
     public void SetFollowTarget(bool param)
     {
         followTarget = param;
@@ -208,4 +214,15 @@ public class CameraBehaviour : MonoBehaviour {
         RestartCamera();
     }
 
+}
+
+public static class CameraSizes {
+    public const float conversationSize    = 2.624054f;
+    public const float drinkingTestSize    = 1.3f;
+    public const float dancingTestSize     = 1.3f;
+    public const float dancingTestZoomSize = 1.0f;
+    public const float checkpointSize      = 2f;
+    public const float smallChamberSize    = 3.21849f;
+    public const float mediumChamberSize   = 4f;
+    public const float bigChamberSize      = 5f;
 }

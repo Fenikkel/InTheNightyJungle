@@ -81,7 +81,7 @@ public class BezierCurve : MonoBehaviour
 			Vector3 newPos = DeCasteljausAlgorithm(t);
 			movingObject.position = newPos;
 
-			print("hola");
+			//print("hola");
 
 			currentLoop++;
 
@@ -96,7 +96,7 @@ public class BezierCurve : MonoBehaviour
 			Vector3 newPos = DeCasteljausAlgorithm(t);
 			movingObject.position = newPos;
 
-			print("adios");
+			//print("adios");
 
 			currentLoop--;
 			
