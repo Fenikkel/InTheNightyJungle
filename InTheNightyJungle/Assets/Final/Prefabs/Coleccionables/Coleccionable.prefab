@@ -130,6 +130,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collectibleInInventory: {fileID: 0}
+  name: c
+  description: aca
+  collectiblePrefab: {fileID: 1880397703275906, guid: 19afd5e03ca68844a830ac0a2134eecd,
+    type: 2}
 --- !u!114 &114846764496916648
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -289,11 +293,11 @@ SpriteMask:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 913a487fbcd2bad4d831ff624a8f7095, type: 3}
   m_MaskAlphaCutoff: 0.506
-  m_FrontSortingLayerID: 0
+  m_FrontSortingLayerID: -812412353
   m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
+  m_FrontSortingLayer: 13
   m_BackSortingLayer: 0
   m_FrontSortingOrder: 0
   m_BackSortingOrder: 0
-  m_IsCustomRangeActive: 0
+  m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0

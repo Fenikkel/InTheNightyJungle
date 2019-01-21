@@ -5,6 +5,15 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+    private static GameManager instance;
+
+    public static GameManager Instance{
+        get{
+            if(instance == null) instance = GameObject.FindObjectOfType<GameManager>();
+            return instance;
+        }
+    }
+
     public GeneralUIController UIController;
     public PantallaPausa UIPause;
     public GameObject blackScreen;
@@ -34,6 +43,11 @@ public class GameManager : MonoBehaviour {
         if(initialCutscene) StartCoroutine(StartInitialCutscene(2f));
         else StartGame();
 	}
+
+    public bool IsCindyPlaying()
+    {
+        return cindyEnabled;
+    }
 
     private IEnumerator StartInitialCutscene(float time)
     {

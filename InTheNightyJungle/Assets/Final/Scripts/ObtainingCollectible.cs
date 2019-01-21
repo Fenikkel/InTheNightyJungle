@@ -7,6 +7,9 @@ public class ObtainingCollectible : MonoBehaviour {
 
 	private bool catched; //false
 	public Sprite collectibleInInventory;
+    public string name;
+    public string description;
+    public GameObject collectiblePrefab;
 
 	// Use this for initialization
 	void Start () {
@@ -23,10 +26,14 @@ public class ObtainingCollectible : MonoBehaviour {
         if (collision.gameObject.tag.Equals("Player") && !catched)
         {
             catched = true; //Para que no se pongan dos veces en el inventario
-            GameObject g = new GameObject();
-            g.AddComponent<Image>();
-            g.GetComponent<Image>().sprite = collectibleInInventory;
-            g.transform.SetParent(PantallaPausa.Instance.ContenidoInventario.transform);
+            
+            GameObject collectibleObject = Instantiate(collectiblePrefab);
+            collectibleObject.GetComponent<CollectibleInfo>().InitializeInfo(collectibleInInventory, name, description);
+
+            if(GameManager.Instance.IsCindyPlaying())
+                collectibleObject.transform.SetParent(PantallaPausa.Instance.ContenidoInventarioCindy.transform);
+            else
+                collectibleObject.transform.SetParent(PantallaPausa.Instance.ContenidoInventarioBrenda.transform);
             Destroy(gameObject);
         }
     }

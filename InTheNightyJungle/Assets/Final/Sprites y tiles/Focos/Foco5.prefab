@@ -97,6 +97,10 @@ MonoBehaviour:
   blink: 0
   timeBlinking: 0
   timeUnblinking: 0
+  changeColor: 0
+  colors: []
+  timeStayingColor: 0
+  timeChangingColor: 0
 --- !u!212 &212127955351207722
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -180,11 +184,11 @@ SpriteMask:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a1714ca9768fcfa4fbb98a00055e1343, type: 3}
   m_MaskAlphaCutoff: 0.483
-  m_FrontSortingLayerID: 0
+  m_FrontSortingLayerID: -812412353
   m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
+  m_FrontSortingLayer: 13
   m_BackSortingLayer: 0
   m_FrontSortingOrder: 0
   m_BackSortingOrder: 0
-  m_IsCustomRangeActive: 0
+  m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0

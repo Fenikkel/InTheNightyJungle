@@ -12,11 +12,12 @@ public class PantallaPausa : MonoBehaviour {
 
     public Button botonJugar, botonOpciones, botonSalir, botonInventario, botonAtras, modifyBrightnessButton;
     public Slider volumen;
-    public Image inventario;
+    public Image inventarioCindy, inventarioBrenda;
 
     public GeneralUIController UIController;
 
-    public GameObject ContenidoInventario;
+    public GameObject ContenidoInventarioCindy;
+    public GameObject ContenidoInventarioBrenda;
 
     public GameObject modifyBrightnessScreen;
 
@@ -69,7 +70,8 @@ public class PantallaPausa : MonoBehaviour {
         botonOpciones.gameObject.SetActive(false);
         botonSalir.gameObject.SetActive(false);
         botonInventario.gameObject.SetActive(false);
-        inventario.gameObject.SetActive(true);
+        inventarioCindy.gameObject.SetActive(GameManager.Instance.IsCindyPlaying());
+        inventarioBrenda.gameObject.SetActive(!GameManager.Instance.IsCindyPlaying());
         botonAtras.gameObject.SetActive(true);
         modifyBrightnessButton.gameObject.SetActive(false);
     }
@@ -92,7 +94,8 @@ public class PantallaPausa : MonoBehaviour {
         botonInventario.gameObject.SetActive(true);
         botonAtras.gameObject.SetActive(false);
         volumen.gameObject.SetActive(false);
-        inventario.gameObject.SetActive(false);
+        inventarioCindy.gameObject.SetActive(false);
+        inventarioBrenda.gameObject.SetActive(false);
         modifyBrightnessButton.gameObject.SetActive(false);
         
         SettingsManager.Instance.Save("volume", AudioManager.Instance.GetComponent<AudioSource>().volume.ToString());
