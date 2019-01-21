@@ -4,21 +4,31 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
+	private static AudioManager instance;
+
+	public static AudioManager Instance
+	{
+		get {
+			if(instance == null) instance = GameObject.FindObjectOfType<AudioManager>();
+			return instance;
+		}
+		
+	}
+
 	// Use this for initialization
 	void Awake()
 	{
-		GameObject[] objs = GameObject.FindGameObjectsWithTag("music");
-
-		if (objs.Length > 1)
-		{
-			Destroy(this.gameObject);
-		}
-
-		DontDestroyOnLoad(this.gameObject);
+		
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void Update () 
+	{
 		
+	}
+
+	private void Start()
+	{
+		GetComponent<AudioSource>().volume = float.Parse(SettingsManager.Instance.Load("volume"));
 	}
 }

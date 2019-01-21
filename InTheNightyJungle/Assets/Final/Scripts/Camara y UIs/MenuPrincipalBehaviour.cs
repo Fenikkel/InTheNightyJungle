@@ -10,19 +10,9 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
     public Slider volumen;
     public GameObject pantallaBrillo;
 
-    private float currentVolume;
-
-    private AudioSource music;
-
-    void Awake()
-    {
-        music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
-        volumen.value = music.volume;
-    }
-
 	// Use this for initialization
 	void Start () {
-
+        volumen.value = AudioManager.Instance.GetComponent<AudioSource>().volume;
 	}
 	
 	// Update is called once per frame
@@ -59,11 +49,13 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonMenu.gameObject.SetActive(false);
         volumen.gameObject.SetActive(false);
         ajustarBrillo.gameObject.SetActive(false);
+
+        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetComponent<AudioSource>().volume.ToString());
     }
 
     public void AjustarBrillo()
     {
-        pantallaBrillo.gameObject.SetActive(true);
+        pantallaBrillo.SetActive(true);
     }
 
     IEnumerator ChangeScene(float time)
@@ -92,6 +84,6 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     public void TurnUpVolume()
     {
-        music.volume = volumen.value;
+        AudioManager.Instance.GetComponent<AudioSource>().volume = volumen.value;
     }
 }

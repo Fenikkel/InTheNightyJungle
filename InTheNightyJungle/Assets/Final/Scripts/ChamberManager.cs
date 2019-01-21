@@ -12,7 +12,6 @@ public class ChamberManager : MonoBehaviour {
 	// Use this for initialization
 	void Awake()
     {
-        print(gameObject.name);
         switch(chamberSizeType)
         {
             case 1: cameraSize = CameraSizes.smallChamberSize;

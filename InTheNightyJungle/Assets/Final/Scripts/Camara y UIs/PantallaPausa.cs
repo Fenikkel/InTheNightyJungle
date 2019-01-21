@@ -16,10 +16,6 @@ public class PantallaPausa : MonoBehaviour {
 
     public GeneralUIController UIController;
 
-    private float currentVolume;
-
-    private AudioSource music;
-
     public GameObject ContenidoInventario;
 
     public GameObject modifyBrightnessScreen;
@@ -31,10 +27,9 @@ public class PantallaPausa : MonoBehaviour {
 
     void Start()
     {
-        Atras();
+        volumen.value = AudioManager.Instance.GetComponent<AudioSource>().volume;
 
-        music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
-        if(music) volumen.value = music.volume;
+        Atras();
     }
 
     // Update is called once per frame
@@ -99,7 +94,8 @@ public class PantallaPausa : MonoBehaviour {
         volumen.gameObject.SetActive(false);
         inventario.gameObject.SetActive(false);
         modifyBrightnessButton.gameObject.SetActive(false);
-
+        
+        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetComponent<AudioSource>().volume.ToString());
     }
 
     public void ModifyBrightness()
@@ -109,6 +105,6 @@ public class PantallaPausa : MonoBehaviour {
 
     public void TurnUpVolume()
     {
-        music.volume = volumen.value;
+        AudioManager.Instance.GetComponent<AudioSource>().volume = volumen.value;
     }
 }
