@@ -106,15 +106,15 @@ public class StatsUIController : MonoBehaviour {
 		stars[i].sprite = emptyStar;
 	}
 
-	public void ChangeMoney(int increaseValue)
+	public void ChangeMoney(int finalMoney)
 	{
 		int moneyAux = Convert.ToInt32(moneyText.text);
-		StartCoroutine(ChangeMoneyText(moneyAux, increaseValue, 0.05f));
+		StartCoroutine(ChangeMoneyText(moneyAux, finalMoney, 0.05f));
 	}
 
-	private IEnumerator ChangeMoneyText(int initialMoney, int increaseValue, float time)
+	private IEnumerator ChangeMoneyText(int initialMoney, int finalMoney, float time)
 	{
-		int finalMoney = initialMoney + increaseValue;
+		int increaseValue = finalMoney - initialMoney;
 		while((increaseValue > 0 && initialMoney < finalMoney) || (increaseValue < 0 && initialMoney > finalMoney))
 		{
 			yield return new WaitForSeconds(time);

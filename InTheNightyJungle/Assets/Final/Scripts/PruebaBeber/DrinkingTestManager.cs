@@ -18,7 +18,7 @@ public class DrinkingTestManager : MonoBehaviour {
     public Transform outsideCameraPosition;
     public bool playerAtTheRightSide;
     
-    private DrinkingShadow[] foregroundSilhouettes;
+    public DrinkingShadow[] foregroundSilhouettes;
 
     private bool testStarted;
     private int victory;

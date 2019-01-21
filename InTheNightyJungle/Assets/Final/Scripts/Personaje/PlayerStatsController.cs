@@ -75,7 +75,7 @@ public class PlayerStatsController : MonoBehaviour {
     public void ChangeMoney(int value)
     {
         money += value;
-        statsUI.ChangeMoney(value);
+        statsUI.ChangeMoney(money);
     }
 
     public float GetBladderTiredness()
