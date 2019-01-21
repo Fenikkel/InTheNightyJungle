@@ -18,7 +18,7 @@ public class DrinkingTestManager : MonoBehaviour {
     public Transform outsideCameraPosition;
     public bool playerAtTheRightSide;
     
-    public DrinkingShadow[] foregroundSilhouettes;
+    private DrinkingShadow[] foregroundSilhouettes;
 
     private bool testStarted;
     private int victory;
@@ -55,6 +55,7 @@ public class DrinkingTestManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		testStarted = false;
+		chamberLocation = GetComponentInParent<ChamberManager>();
 	}
 
     public void StartTest(PlayerPlatformController param0, CameraBehaviour param1)

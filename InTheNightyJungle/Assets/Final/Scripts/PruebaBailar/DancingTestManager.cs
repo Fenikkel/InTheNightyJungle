@@ -10,7 +10,7 @@ public class DancingTestManager : MonoBehaviour {
     private PlayerPlatformController player;
     private CameraBehaviour mainCamera;
 
-    public ChamberManager chamberLocation;
+    private ChamberManager chamberLocation;
 
     public Transform insidePlayerPosition;
     public Transform insideCameraPosition;
@@ -50,6 +50,7 @@ public class DancingTestManager : MonoBehaviour {
     private void Start()
     {
         testStarted = false;
+		chamberLocation = GetComponentInParent<ChamberManager>();
     }
 
     public void StartTest(PlayerPlatformController param0, CameraBehaviour param1)

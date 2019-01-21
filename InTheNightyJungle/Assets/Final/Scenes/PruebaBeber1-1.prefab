@@ -12712,7 +12712,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   conversationPlayerPosition: {fileID: 4636240557614582}
   conversationCameraPosition: {fileID: 4403531055658874}
-  conversationCameraSize: 2.624054
   hasToFlip: 0
   conversationalTreeText: {fileID: 4900000, guid: da346cb4de74fb3488e2f1210bddbb5b,
     type: 3}
@@ -13501,11 +13500,11 @@ MonoBehaviour:
   UI: {fileID: 0}
   challenger: {fileID: 114729174513296372}
   barman: {fileID: 114540930002013032}
+  chamberLocation: {fileID: 0}
   insidePlayerPosition: {fileID: 4800626354240822}
   insideCameraPosition: {fileID: 4603853991934296}
   outsidePlayerPosition: {fileID: 4644953353349522}
   outsideCameraPosition: {fileID: 4017895603006944}
-  cameraSize: 1.3
   playerAtTheRightSide: 0
   foregroundSilhouettes:
   - {fileID: 114828414391435862}

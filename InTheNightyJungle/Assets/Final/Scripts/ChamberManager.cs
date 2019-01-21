@@ -28,7 +28,8 @@ public class ChamberManager : MonoBehaviour {
         if (initialChamber)
         {
             ActiveChamber();
-        }else
+        }
+        else
         {
             DeActiveChamber();
         }
