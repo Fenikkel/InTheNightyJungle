@@ -30,10 +30,10 @@ public class ObtainingCollectible : MonoBehaviour {
             GameObject collectibleObject = Instantiate(collectiblePrefab);
             collectibleObject.GetComponent<CollectibleInfo>().InitializeInfo(collectibleInInventory, name, description);
 
-            if(GameManager.Instance.IsCindyPlaying())
-                collectibleObject.transform.SetParent(PantallaPausa.Instance.ContenidoInventarioCindy.transform);
-            else
-                collectibleObject.transform.SetParent(PantallaPausa.Instance.ContenidoInventarioBrenda.transform);
+            bool aux = GameManager.Instance.IsCindyPlaying();
+
+            collectibleObject.transform.SetParent(GeneralUIController.Instance.GetComponent<InventoryUI>().GetInventoryContent(aux).transform);
+            GeneralUIController.Instance.GetComponent<InventoryUI>().AddItem(collectibleObject.GetComponent<CollectibleInfo>(), aux);
 
             collectibleObject.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
             Destroy(gameObject);

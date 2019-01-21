@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class GeneralUIController : MonoBehaviour {
 
+	private static GeneralUIController instance;
+	public static GeneralUIController Instance
+	{
+		get
+		{
+			if(instance == null) instance = GameObject.FindObjectOfType<GeneralUIController>();
+			return instance;
+		}
+	}
+
 	public GameObject cindyStats;
 	public GameObject brendaStats;
 	public GameObject conversation;

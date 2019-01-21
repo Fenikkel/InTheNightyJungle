@@ -54,7 +54,8 @@ public class ChamberManager : MonoBehaviour {
     {
         for(int i = 0; i < thingsToDeactivate.Length; i++)
         {
-            thingsToDeactivate[i].SetActive(param);
+            if(thingsToDeactivate[i] != null)
+                thingsToDeactivate[i].SetActive(param);
         }
     }
 

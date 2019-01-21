@@ -8,6 +8,7 @@ public class CollectibleInfo : MonoBehaviour {
 	private Sprite spriteInInventory;
 	private string name;
 	private string description;
+	private int itemID;
 
 	// Use this for initialization
 	void Start () {
@@ -27,6 +28,11 @@ public class CollectibleInfo : MonoBehaviour {
 		description = param2;
 	}
 
+	public Sprite GetSpriteInInventory()
+	{
+		return spriteInInventory;
+	}
+
 	public string GetName()
 	{
 		return name;
@@ -35,5 +41,15 @@ public class CollectibleInfo : MonoBehaviour {
 	public string GetDescription()
 	{
 		return description;
+	}
+
+	public int GetItemID()
+	{
+		return itemID;
+	}
+
+	public void SetItemID(int param)
+	{
+		itemID = param;
 	}
 }

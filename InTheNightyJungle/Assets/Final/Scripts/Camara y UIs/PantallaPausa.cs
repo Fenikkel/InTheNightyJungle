@@ -8,8 +8,6 @@ public class PantallaPausa : MonoBehaviour {
     
     public static bool GameIsPaused = false;
 
-    public static PantallaPausa Instance;
-
     public Button botonJugar, botonOpciones, botonSalir, botonInventario, botonAtras, modifyBrightnessButton;
     public Slider volumen;
     public Image inventarioCindy, inventarioBrenda;
@@ -23,7 +21,7 @@ public class PantallaPausa : MonoBehaviour {
 
     void Awake()
     {
-        Instance = this;
+
     }
 
     void Start()
@@ -70,10 +68,10 @@ public class PantallaPausa : MonoBehaviour {
         botonOpciones.gameObject.SetActive(false);
         botonSalir.gameObject.SetActive(false);
         botonInventario.gameObject.SetActive(false);
-        inventarioCindy.gameObject.SetActive(GameManager.Instance.IsCindyPlaying());
-        inventarioBrenda.gameObject.SetActive(!GameManager.Instance.IsCindyPlaying());
         botonAtras.gameObject.SetActive(true);
         modifyBrightnessButton.gameObject.SetActive(false);
+
+        GeneralUIController.Instance.GetComponent<InventoryUI>().ShowInventory(GameManager.Instance.IsCindyPlaying());
     }
     public void Opciones()
     {
@@ -97,6 +95,8 @@ public class PantallaPausa : MonoBehaviour {
         inventarioCindy.gameObject.SetActive(false);
         inventarioBrenda.gameObject.SetActive(false);
         modifyBrightnessButton.gameObject.SetActive(false);
+
+        GeneralUIController.Instance.GetComponent<InventoryUI>().UnshowInventory();
         
         SettingsManager.Instance.Save("volume", AudioManager.Instance.GetComponent<AudioSource>().volume.ToString());
     }
