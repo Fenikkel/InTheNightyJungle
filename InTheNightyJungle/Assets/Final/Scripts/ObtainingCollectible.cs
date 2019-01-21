@@ -34,6 +34,8 @@ public class ObtainingCollectible : MonoBehaviour {
                 collectibleObject.transform.SetParent(PantallaPausa.Instance.ContenidoInventarioCindy.transform);
             else
                 collectibleObject.transform.SetParent(PantallaPausa.Instance.ContenidoInventarioBrenda.transform);
+
+            collectibleObject.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
             Destroy(gameObject);
         }
     }
