@@ -36,6 +36,8 @@ public class InitialCutscene : MonoBehaviour {
 
     private string actual;
 
+	public AudioClip phoneRinging;
+
 	// Use this for initialization
 	void Start () {
 		CreateConversationalTree();
@@ -251,12 +253,12 @@ public class InitialCutscene : MonoBehaviour {
 
 	public void PlayPhoneRinging()
 	{
-		GetComponent<AudioSource>().Play();
+		AudioManager.Instance.PlaySoundEffect(phoneRinging, true);
 	}
 
 	public void StopPhoneRinging()
 	{
-		GetComponent<AudioSource>().Stop();
+		AudioManager.Instance.StopSoundEffect(phoneRinging);
 	}
 
 	IEnumerator FadeOut(float time)

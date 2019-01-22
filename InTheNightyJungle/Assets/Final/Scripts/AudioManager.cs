@@ -100,4 +100,17 @@ public class AudioManager : MonoBehaviour {
 	{
 		return AudioListener.volume;
 	}
+
+	public void PlaySoundEffect(AudioClip AC, bool loop)
+	{
+		soundEffects.clip = AC;
+		soundEffects.loop = loop;
+		soundEffects.Play();
+	}
+
+	public void StopSoundEffect(AudioClip AC)
+	{
+		if(soundEffects.clip.Equals(AC))
+			soundEffects.Stop();
+	}
 }

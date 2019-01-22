@@ -47,6 +47,14 @@ public class DancingTestManager : MonoBehaviour {
     public ParticleSystem[] playerCelebration;
     public ParticleSystem[] challengerCelebration;
 
+    public AudioClip victorySound;
+    public AudioClip defeatSound;
+    public AudioClip correctKeySound;
+    public AudioClip incorrectKeySound;
+    public AudioClip proposedKeySound;
+
+    public AudioClip dancingBackgroundMusic;
+
     private void Start()
     {
         testStarted = false;
