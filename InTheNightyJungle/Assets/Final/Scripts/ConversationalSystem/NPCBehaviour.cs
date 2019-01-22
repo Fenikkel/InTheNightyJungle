@@ -118,17 +118,17 @@ public class NPCBehaviour : MonoBehaviour {
 				switch(currentNode.GetMessage())
 				{
 					case "_dance":
-						UI.FinishedConversation();
+						UI.FinishedConversation(false);
 						RestartConversation();
 						nextThingToDo.GetComponent<DancingTestManager>().StartTest(player, mainCamera); 
 						break;
 					case "_drink":
-						UI.FinishedConversation();
+						UI.FinishedConversation(false);
 						RestartConversation();
 						nextThingToDo.GetComponent<DrinkingTestManager>().StartTest(player, mainCamera); 
 						break;
 					case "_endLevel":
-						UI.FinishedConversation();
+						UI.FinishedConversation(false);
 						RestartConversation();
 						StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, chamberLocation.GetCameraSize(), 0.5f));
 						nextThingToDo.GetComponent<GameManager>().PlayerDone();
@@ -314,7 +314,7 @@ public class NPCBehaviour : MonoBehaviour {
 
 	private IEnumerator CancelConversation()
 	{
-		UI.FinishedConversation();
+		UI.FinishedConversation(true);
 		StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, chamberLocation.GetCameraSize(), 0.5f));
 		yield return new WaitForSeconds(0.5f);
 		player.SetInputActivated(true);

@@ -77,10 +77,11 @@ public class GameManager : MonoBehaviour {
         Brenda.SetActive(!cindyEnabled);
 
         aux = 0;
+        AudioManager.Instance.TurnOnBackgroundMusic(cindyEnabled);
 
-        ChangePlayer();
+        BeginChangePlayer();
 
-        StartCoroutine(FadeOut(0.5f, true));
+        //StartCoroutine(FadeOut(0.5f, true));
     }
 	
 	// Update is called once per frame
@@ -98,6 +99,7 @@ public class GameManager : MonoBehaviour {
     
     IEnumerator Transition()
     {
+        AudioManager.Instance.ChangeBackgroundMusic(1.0f);
         Color c = blackScreen.GetComponent<Image>().color;
         Color initialColor = c;
         Color finalColor = new Color(0, 0, 0, 1);
@@ -128,9 +130,9 @@ public class GameManager : MonoBehaviour {
             }
             mainCamera.GetComponent<CameraBehaviour>().SetSize(Brenda.GetComponent<PlayerPlatformController>().GetCurrentChamber().GetCameraSize());
         }
-        ChangePlayer();
         yield return new WaitForSeconds(0.1f);
-        StartCoroutine(FadeOut(0.5f, true));
+        ChangePlayer();
+        StartCoroutine(FadeOut(0.5f, false));
     }
     
     public void ChangePlayer()

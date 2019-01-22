@@ -26,7 +26,7 @@ public class PantallaPausa : MonoBehaviour {
 
     void Start()
     {
-        volumen.value = AudioManager.Instance.GetComponent<AudioSource>().volume;
+        volumen.value = AudioManager.Instance.GetVolume();
 
         Atras();
     }
@@ -98,7 +98,7 @@ public class PantallaPausa : MonoBehaviour {
 
         GeneralUIController.Instance.GetComponent<InventoryUI>().UnshowInventory();
         
-        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetComponent<AudioSource>().volume.ToString());
+        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetVolume().ToString());
     }
 
     public void ModifyBrightness()
@@ -108,6 +108,6 @@ public class PantallaPausa : MonoBehaviour {
 
     public void TurnUpVolume()
     {
-        AudioManager.Instance.GetComponent<AudioSource>().volume = volumen.value;
+        AudioManager.Instance.ChangeGeneralVolume(volumen.value);
     }
 }

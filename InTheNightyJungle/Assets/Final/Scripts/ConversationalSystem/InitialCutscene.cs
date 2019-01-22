@@ -124,7 +124,7 @@ public class InitialCutscene : MonoBehaviour {
 				switch(currentNode.GetMessage())
 				{
 					case "_finished":
-						UI.FinishedConversation();
+						UI.FinishedConversation(false);
 						RestartConversation();
 						FinishedCutscene();
 						break;

@@ -137,9 +137,9 @@ public class ConversationUIController : MonoBehaviour {
 		StartCoroutine(OpenConversationBox(0.2f, firstMessage, options));
 	}
 
-	public void FinishedConversation() //Debe ser llamado desde el ConversationalBehaviour cuando se termina la conversación
+	public void FinishedConversation(bool param) //Debe ser llamado desde el ConversationalBehaviour cuando se termina la conversación
 	{
-		StartCoroutine(CloseConversationBox(0.2f, true));
+		StartCoroutine(CloseConversationBox(0.2f, param));
 	}
 
 	private void ShowOptionsBox() //Abre el cuadro de opciones
