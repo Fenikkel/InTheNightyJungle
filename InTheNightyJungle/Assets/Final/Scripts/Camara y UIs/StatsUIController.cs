@@ -18,6 +18,11 @@ public class StatsUIController : MonoBehaviour {
 	private int numStars; //Número actual de estrellas
 	private Vector2 shineOriginalSize;
 
+	[SerializeField]
+	private AudioSource moneySoundSource;
+	[SerializeField]
+	private AudioClip[] moneySounds;
+
 	// Use this for initialization
 	void Start () {
 		bladderTirednessStatBar.value = 0;
@@ -120,8 +125,18 @@ public class StatsUIController : MonoBehaviour {
 			yield return new WaitForSeconds(time);
 			initialMoney = (increaseValue > 0) ? initialMoney + 1 : initialMoney - 1;
 			moneyText.text = initialMoney.ToString();
+
+			PlayMoneySound();
 		}
 		moneyText.text = finalMoney.ToString();
+	}
+
+	private void PlayMoneySound()
+	{
+		int aux = UnityEngine.Random.Range(0, moneySounds.Length);
+		moneySoundSource.clip = moneySounds[aux];
+		moneySoundSource.Play();
+		print("print");
 	}
 }
 

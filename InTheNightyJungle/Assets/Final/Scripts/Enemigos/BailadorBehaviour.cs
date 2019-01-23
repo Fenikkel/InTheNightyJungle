@@ -83,4 +83,9 @@ public class BailadorBehaviour : EnemyBehaviour {
         yield return new WaitForSeconds(stopTime / 2);
         coroutine = StartCoroutine(Accelerate());
     }
+
+    public override void CollideWithPlayer()
+    {
+        hitSound.Play();
+    }
 }

@@ -69,9 +69,15 @@ public class PlayerPlatformController : MonoBehaviour {
     public Transform rightHandBone;
     private string sortingLayer;
 
-    public AudioSource jumpSound;
-    public AudioSource breathSound;
-    public AudioSource dashSound;
+    [SerializeField]
+    private AudioSource jumpSound;
+    [SerializeField]
+    private AudioSource breathSound;
+    [SerializeField]
+    private AudioSource dashSound;
+
+    [SerializeField]
+    private AudioSource pukeHitSound;
 
     private void Awake()
     {
@@ -527,6 +533,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
             bool param = ChangePatience(-other.GetComponent<Transform>().parent.GetComponent<GeiserBehaviour>().GetDamage() / 100);
 
+            pukeHitSound.Play();
             Invulnerable(true);
             if(param) KnockBack(contactNormals);
         }
@@ -772,5 +779,10 @@ public class PlayerPlatformController : MonoBehaviour {
     public void StopPhoneRinging()
     {
         GM.GetComponent<InitialCutscene>().StopPhoneRinging();
+    }
+
+    public AudioSource GetJumpSound()
+    {
+        return jumpSound;
     }
 }

@@ -70,6 +70,8 @@ public class BalbucienteBehaviour : EnemyBehaviour {
     {
         colliding = true;
         StartCoroutine(SportshipStop(0.5f));
+
+        hitSound.Play();
     }
 
     IEnumerator SportshipStop(float time)

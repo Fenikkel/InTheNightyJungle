@@ -83,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1276863728452130}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.5, y: -22, z: 0}
+  m_LocalPosition: {x: -9, y: -37, z: 0}
   m_LocalScale: {x: 0.02, y: 0.02, z: 0.074}
   m_Children:
   - {fileID: 4122007156111280}
@@ -129,11 +129,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c87deb583a310fe4aaff5280b191c949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectibleInInventory: {fileID: 0}
+  collectibleInInventory: {fileID: 21300000, guid: d98e4d6c501714749a08a61642686e8f,
+    type: 3}
   name: c
   description: aca
   collectiblePrefab: {fileID: 1880397703275906, guid: 19afd5e03ca68844a830ac0a2134eecd,
     type: 2}
+  collectibleSound: {fileID: 0}
 --- !u!114 &114846764496916648
 MonoBehaviour:
   m_ObjectHideFlags: 1

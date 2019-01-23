@@ -232,6 +232,7 @@ MonoBehaviour:
   chamber: {fileID: 0}
   nextDoor: {fileID: 0}
   doorType: 2
+  doorSound: {fileID: 82879011792435608, guid: 06ac63c69cf6a1e428803215e140566b, type: 2}
 --- !u!212 &212351589170501264
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -11,6 +11,9 @@ public class ObtainingCollectible : MonoBehaviour {
     public string description;
     public GameObject collectiblePrefab;
 
+    [SerializeField]
+    private AudioSource collectibleSound;
+
 	// Use this for initialization
 	void Start () {
 		catched = false;
@@ -25,6 +28,8 @@ public class ObtainingCollectible : MonoBehaviour {
     {
         if (collision.gameObject.tag.Equals("Player") && !catched)
         {
+            collectibleSound.Play();
+
             catched = true; //Para que no se pongan dos veces en el inventario
             
             GameObject collectibleObject = Instantiate(collectiblePrefab);

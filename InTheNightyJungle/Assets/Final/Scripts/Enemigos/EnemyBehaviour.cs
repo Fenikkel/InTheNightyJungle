@@ -13,6 +13,9 @@ public class EnemyBehaviour : MonoBehaviour
     protected Animator anim;
     protected CapsuleCollider2D collider;
 
+    [SerializeField]
+    protected AudioSource hitSound;
+
     void Awake()
     {
         anim = GetComponent<Animator>();

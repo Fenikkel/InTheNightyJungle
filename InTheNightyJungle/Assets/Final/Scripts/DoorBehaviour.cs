@@ -12,6 +12,9 @@ public class DoorBehaviour : MonoBehaviour {
     public int doorType; //0 hacia dentro, 1 derecha, 2 hacia fuera, 3 izquierda
 
     private GameManager GM;
+
+    [SerializeField]
+    private AudioSource doorSound;
     
     // Use this for initialization
 	void Start ()
@@ -31,16 +34,31 @@ public class DoorBehaviour : MonoBehaviour {
         nextDoor.chamber.ActiveChamber();
     }
 
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag.Equals("Player"))
+        {
+            if(doorType%2 == 1) { 
+                doorSound.Play();
+            }
+        }
+    }
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.tag.Equals("Player"))
         {
-            if (doorType == 0 && Input.GetKeyDown(KeyCode.UpArrow)) //Si la puerta es hacia dentro, el jugador debe pulsar la flecha hacia arriba para pasar
+            if (doorType == 0 && Input.GetKeyDown(KeyCode.UpArrow)) { //Si la puerta es hacia dentro, el jugador debe pulsar la flecha hacia arriba para pasar
+                doorSound.Play();
                 GM.ChangingChamber(this);
-            else if(doorType == 2 && Input.GetKeyDown(KeyCode.DownArrow)) //Si la puerta es hacia fuera, el jugador debe pulsar la flecha hacia abajo para pasar
+            }
+            else if(doorType == 2 && Input.GetKeyDown(KeyCode.DownArrow)) { //Si la puerta es hacia fuera, el jugador debe pulsar la flecha hacia abajo para pasar
+                doorSound.Play();
                 GM.ChangingChamber(this);
-            else if(doorType%2 == 1)//En cualquier otro caso, pasará sin necesidad de pulsar ningún botón
+            }
+            else if(doorType%2 == 1) { //En cualquier otro caso, pasará sin necesidad de pulsar ningún botón
                 GM.ChangingChamber(this);
+            }
         }
     }
 

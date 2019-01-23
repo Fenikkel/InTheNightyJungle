@@ -11,6 +11,9 @@ public class DevoradorBehaviour : EnemyBehaviour
     private bool inside;
     private bool slowDowned;
 
+    [SerializeField]
+    private AudioSource whisperSound;
+
     private void Start()
     {
         DisappearBodyParts();
@@ -43,6 +46,7 @@ public class DevoradorBehaviour : EnemyBehaviour
         {
             slowDowned = false;
             anim.SetBool("whisper", false);
+            whisperSound.Stop();
         }
     }
 
@@ -64,6 +68,8 @@ public class DevoradorBehaviour : EnemyBehaviour
                     player.GetComponent<PlayerPlatformController>().SlowDown(slowDownFactor, 0);
                 }
                 player.GetComponent<PlayerStatsController>().ChangePatience(-damage * Time.deltaTime);
+
+                whisperSound.Play();
             }
         }
     }
