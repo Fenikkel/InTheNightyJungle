@@ -15,6 +15,9 @@ public class ModifyBrightness : MonoBehaviour {
 
 	private float brightnessValue;
 
+	[SerializeField]
+    private AudioSource clickSound;
+
 	// Use this for initialization
 	void Start () {
 		brightnessValue = float.Parse(SettingsManager.Instance.Load("brightness"));
@@ -45,7 +48,8 @@ public class ModifyBrightness : MonoBehaviour {
 	public void GetBackToOptions()
 	{
 		SettingsManager.Instance.Save("brightness", brightnessValue.ToString());
-		print(brightnessValue);
 		modifyBrightnessScreen.SetActive(false);
+
+		clickSound.Play();
 	}
 }

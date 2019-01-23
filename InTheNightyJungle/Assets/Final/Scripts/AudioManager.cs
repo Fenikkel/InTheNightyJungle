@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour {
 
+	[SerializeField]
+	private float maxVolume;
+
+	[SerializeField]
+	public AudioClip menuMusic;
+	[SerializeField]
+	public AudioClip[] CindyMusics;
+	[SerializeField]
+	public AudioClip[] BrendaMusics;
+	[SerializeField]
+	public AudioClip TestMusic;
+
 	private static AudioManager instance;
 
 	public static AudioManager Instance
@@ -17,7 +29,6 @@ public class AudioManager : MonoBehaviour {
 
 	public AudioSource backgroundMusicCindy;
 	public AudioSource backgroundMusicBrenda;
-	public AudioSource soundEffects;
 
 	private bool CindyMusicPlaying;
 
@@ -36,9 +47,9 @@ public class AudioManager : MonoBehaviour {
 	private void Start()
 	{
 		ChangeGeneralVolume(float.Parse(SettingsManager.Instance.Load("volume")));
-		backgroundMusicCindy.volume = 1.0f;
+		backgroundMusicCindy.volume = maxVolume;
 
-		backgroundMusicCindy.clip = Resources.Load("TecnoMusic") as AudioClip;
+		backgroundMusicCindy.clip = menuMusic;
 		backgroundMusicCindy.Play();
 	}
 
@@ -48,7 +59,7 @@ public class AudioManager : MonoBehaviour {
 
 		backgroundMusicCindy.volume = 0.0f;
 		backgroundMusicBrenda.volume = 0.0f;
-		backgroundMusicCindy.clip = Resources.Load("ReggeatonMusic") as AudioClip;
+		backgroundMusicCindy.clip = CindyMusics[0];
 		backgroundMusicCindy.Play();
 		backgroundMusicBrenda.Play();
 
@@ -67,12 +78,12 @@ public class AudioManager : MonoBehaviour {
 		if(CindyMusicPlaying)
 		{
 			StartCoroutine(ChangeVolume(backgroundMusicCindy, 0.0f, time));
-			StartCoroutine(ChangeVolume(backgroundMusicBrenda, 1.0f, time));
+			StartCoroutine(ChangeVolume(backgroundMusicBrenda, maxVolume, time));
 			CindyMusicPlaying = false;
 		}
 		else
 		{
-			StartCoroutine(ChangeVolume(backgroundMusicCindy, 1.0f, time));
+			StartCoroutine(ChangeVolume(backgroundMusicCindy, maxVolume, time));
 			StartCoroutine(ChangeVolume(backgroundMusicBrenda, 0.0f, time));
 			CindyMusicPlaying = true;
 		}
@@ -99,18 +110,5 @@ public class AudioManager : MonoBehaviour {
 	public float GetVolume()
 	{
 		return AudioListener.volume;
-	}
-
-	public void PlaySoundEffect(AudioClip AC, bool loop)
-	{
-		soundEffects.clip = AC;
-		soundEffects.loop = loop;
-		soundEffects.Play();
-	}
-
-	public void StopSoundEffect(AudioClip AC)
-	{
-		if(soundEffects.clip.Equals(AC))
-			soundEffects.Stop();
 	}
 }

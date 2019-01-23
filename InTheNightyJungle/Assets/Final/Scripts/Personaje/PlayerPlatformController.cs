@@ -69,6 +69,10 @@ public class PlayerPlatformController : MonoBehaviour {
     public Transform rightHandBone;
     private string sortingLayer;
 
+    public AudioSource jumpSound;
+    public AudioSource breathSound;
+    public AudioSource dashSound;
+
     private void Awake()
     {
         Instance = this;
@@ -220,6 +224,7 @@ public class PlayerPlatformController : MonoBehaviour {
         move = Mathf.Sign(GetComponent<Transform>().localScale.x) * dashSpeed;
 
         dashEffect.Play(); //Emisión de partículas
+        dashSound.Play();
 
         if(invulnerableCoroutine != null) StopCoroutine(invulnerableCoroutine);
         invulnerableCoroutine = StartCoroutine(InvulnerabilityTime(dashTime + dashCooldownTime, 0.1f));
@@ -246,6 +251,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     public void PlayBreath()
     {
+        breathSound.Play();
         breathEffect.Play();
         breathLight.SetActive(true);
     }

@@ -36,7 +36,7 @@ public class InitialCutscene : MonoBehaviour {
 
     private string actual;
 
-	public AudioClip phoneRinging;
+	public AudioSource phoneSound;
 
 	// Use this for initialization
 	void Start () {
@@ -253,12 +253,12 @@ public class InitialCutscene : MonoBehaviour {
 
 	public void PlayPhoneRinging()
 	{
-		AudioManager.Instance.PlaySoundEffect(phoneRinging, true);
+		phoneSound.Play();
 	}
 
 	public void StopPhoneRinging()
 	{
-		AudioManager.Instance.StopSoundEffect(phoneRinging);
+		phoneSound.Stop();
 	}
 
 	IEnumerator FadeOut(float time)

@@ -10,6 +10,9 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
     public Slider volumen;
     public GameObject pantallaBrillo;
 
+    [SerializeField]
+    private AudioSource clickSound;
+
 	// Use this for initialization
 	void Start () {
         volumen.value = AudioManager.Instance.GetComponent<AudioSource>().volume;
@@ -23,7 +26,7 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
     public void EmpezarJuego()
     {
         StartCoroutine(ChangeScene(1.5f));
-        
+        clickSound.Play();
     }
 
     public void Opciones()
@@ -34,10 +37,14 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonMenu.gameObject.SetActive(true);
         volumen.gameObject.SetActive(true);
         ajustarBrillo.gameObject.SetActive(true);
+
+        clickSound.Play();
     }
 
     public void Salir()
     {
+        clickSound.Play();
+
         Application.Quit();
     }
 
@@ -51,11 +58,15 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         ajustarBrillo.gameObject.SetActive(false);
 
         SettingsManager.Instance.Save("volume", AudioManager.Instance.GetComponent<AudioSource>().volume.ToString());
+
+        clickSound.Play();
     }
 
     public void AjustarBrillo()
     {
         pantallaBrillo.SetActive(true);
+        
+        clickSound.Play();
     }
 
     IEnumerator ChangeScene(float time)

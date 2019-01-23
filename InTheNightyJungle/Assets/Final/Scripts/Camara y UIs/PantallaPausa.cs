@@ -19,6 +19,9 @@ public class PantallaPausa : MonoBehaviour {
 
     public GameObject modifyBrightnessScreen;
 
+    [SerializeField]
+    private AudioSource clickSound;
+
     void Awake()
     {
 
@@ -28,7 +31,7 @@ public class PantallaPausa : MonoBehaviour {
     {
         volumen.value = AudioManager.Instance.GetVolume();
 
-        Atras();
+        InitialScreen();
     }
 
     // Update is called once per frame
@@ -45,20 +48,43 @@ public class PantallaPausa : MonoBehaviour {
         }
 		
 	}
+
+    private void InitialScreen()
+    {
+        botonJugar.gameObject.SetActive(true);
+        botonOpciones.gameObject.SetActive(true);
+        botonSalir.gameObject.SetActive(true);
+        botonInventario.gameObject.SetActive(true);
+        botonAtras.gameObject.SetActive(false);
+        volumen.gameObject.SetActive(false);
+        inventarioCindy.gameObject.SetActive(false);
+        inventarioBrenda.gameObject.SetActive(false);
+        modifyBrightnessButton.gameObject.SetActive(false);
+
+        GeneralUIController.Instance.GetComponent<InventoryUI>().UnshowInventory();
+    }
+
     public void Resume()
     {
         UIController.ResumeGame();
         Time.timeScale = 1f;
         GameIsPaused = false;
+        InitialScreen();
+
+        clickSound.Play();
     }
     public void Pause()
     {
         UIController.PauseGame();
         Time.timeScale = 0f;
         GameIsPaused = true;
+
+        //clickSound.Play();
     }
     public void LoadMenu()
     {
+        clickSound.Play();
+
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
@@ -71,6 +97,8 @@ public class PantallaPausa : MonoBehaviour {
         botonAtras.gameObject.SetActive(true);
         modifyBrightnessButton.gameObject.SetActive(false);
 
+        clickSound.Play();
+
         GeneralUIController.Instance.GetComponent<InventoryUI>().ShowInventory(GameManager.Instance.IsCindyPlaying());
     }
     public void Opciones()
@@ -82,28 +110,23 @@ public class PantallaPausa : MonoBehaviour {
         volumen.gameObject.SetActive(true);
         botonAtras.gameObject.SetActive(true);
         modifyBrightnessButton.gameObject.SetActive(true);
+
+        clickSound.Play();
     }
     public void Atras()
     {
-        
-        botonJugar.gameObject.SetActive(true);
-        botonOpciones.gameObject.SetActive(true);
-        botonSalir.gameObject.SetActive(true);
-        botonInventario.gameObject.SetActive(true);
-        botonAtras.gameObject.SetActive(false);
-        volumen.gameObject.SetActive(false);
-        inventarioCindy.gameObject.SetActive(false);
-        inventarioBrenda.gameObject.SetActive(false);
-        modifyBrightnessButton.gameObject.SetActive(false);
-
-        GeneralUIController.Instance.GetComponent<InventoryUI>().UnshowInventory();
+        InitialScreen();
         
         SettingsManager.Instance.Save("volume", AudioManager.Instance.GetVolume().ToString());
+
+        clickSound.Play();
     }
 
     public void ModifyBrightness()
     {
         modifyBrightnessScreen.SetActive(true);
+
+        clickSound.Play();
     }
 
     public void TurnUpVolume()
