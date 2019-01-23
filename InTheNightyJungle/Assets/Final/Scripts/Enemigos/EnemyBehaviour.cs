@@ -16,6 +16,11 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField]
     protected AudioSource hitSound;
 
+    [SerializeField]
+    protected AudioSource deathSoundSource;
+    [SerializeField]
+    protected AudioClip[] deathSounds;
+
     void Awake()
     {
         anim = GetComponent<Animator>();
@@ -36,6 +41,7 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if(!death)
         {
+            PlayDeathSound();
             gameObject.layer = LayerMask.NameToLayer("UntargetedPlayer");
             death = true;
             if(normalDirection == Mathf.Sign(GetComponent<Transform>().localScale.x))
@@ -43,6 +49,13 @@ public class EnemyBehaviour : MonoBehaviour
             else 
                 anim.SetTrigger("BackDeath");
         }
+    }
+
+    private void PlayDeathSound()
+    {
+        int aux = Random.Range(0, deathSounds.Length);
+        deathSoundSource.clip = deathSounds[aux];
+        deathSoundSource.Play();
     }
 
     public void DisappearInDeath()

@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public GeneralUIController UIController;
-    public PantallaPausa UIPause;
+    public PauseMenu UIPause;
     public GameObject blackScreen;
     public GameObject mainCamera;
     private GameObject player;

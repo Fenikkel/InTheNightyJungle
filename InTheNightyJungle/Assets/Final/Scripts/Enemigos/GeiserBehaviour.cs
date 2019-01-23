@@ -15,6 +15,9 @@ public class GeiserBehaviour : EnemyBehaviour {
 
 	public ParticleSystem puke;
 
+	[SerializeField]
+	private AudioSource vomitSound;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -62,6 +65,7 @@ public class GeiserBehaviour : EnemyBehaviour {
 	public void StartPuke()
 	{
 		puke.Play();
+		vomitSound.Play();
 		StartCoroutine(GrowWall());
 	}
 

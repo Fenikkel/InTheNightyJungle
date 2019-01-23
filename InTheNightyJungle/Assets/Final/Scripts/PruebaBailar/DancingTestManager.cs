@@ -47,13 +47,16 @@ public class DancingTestManager : MonoBehaviour {
     public ParticleSystem[] playerCelebration;
     public ParticleSystem[] challengerCelebration;
 
-    public AudioClip victorySound;
-    public AudioClip defeatSound;
-    public AudioClip correctKeySound;
-    public AudioClip incorrectKeySound;
-    public AudioClip proposedKeySound;
+    //public AudioClip dancingBackgroundMusic;
 
-    public AudioClip dancingBackgroundMusic;
+    [SerializeField]
+	private AudioSource victorySound;
+	[SerializeField]
+	private AudioSource defeatSound;
+	[SerializeField]
+	private AudioSource correctKeySound;
+    [SerializeField]
+    private AudioSource incorrectKeySound;
 
     private void Start()
     {
@@ -264,6 +267,7 @@ public class DancingTestManager : MonoBehaviour {
 
         if(result)
         {
+            correctKeySound.Play();
             StartCoroutine(AppearPlayerCorrectKey(visualKeys[i], 0.75f));
             yield return new WaitForSeconds(0.75f);
             currentKey++;
@@ -290,6 +294,7 @@ public class DancingTestManager : MonoBehaviour {
         }
         else
         {
+            incorrectKeySound.Play();
             StartCoroutine(AppearPlayerIncorrectKey(visualKeys[i], 0.75f));
             yield return new WaitForSeconds(0.75f);
             WrongKey();
@@ -478,6 +483,7 @@ public class DancingTestManager : MonoBehaviour {
         StartCoroutine(UI.ShowFinalText(time1));
         yield return new WaitForSeconds(time1);
 
+        victorySound.Play();
         RestartTest();
 
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Empty);
@@ -509,6 +515,7 @@ public class DancingTestManager : MonoBehaviour {
         StartCoroutine(UI.ShowFinalText(time1));
         yield return new WaitForSeconds(time1);
 
+        defeatSound.Play();
         RestartTest();
         
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Empty);

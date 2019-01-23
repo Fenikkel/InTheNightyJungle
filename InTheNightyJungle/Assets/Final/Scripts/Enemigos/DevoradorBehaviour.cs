@@ -66,10 +66,9 @@ public class DevoradorBehaviour : EnemyBehaviour
                 {
                     slowDowned = true;
                     player.GetComponent<PlayerPlatformController>().SlowDown(slowDownFactor, 0);
+                    whisperSound.Play();
                 }
                 player.GetComponent<PlayerStatsController>().ChangePatience(-damage * Time.deltaTime);
-
-                whisperSound.Play();
             }
         }
     }

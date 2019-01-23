@@ -52,6 +52,13 @@ public class DrinkingTestManager : MonoBehaviour {
     public ParticleSystem[] playerCelebration;
     public ParticleSystem[] challengerCelebration;
 
+	[SerializeField]
+	private AudioSource victorySound;
+	[SerializeField]
+	private AudioSource defeatSound;
+	[SerializeField]
+	private AudioSource completedDrinkSound;
+
 	// Use this for initialization
 	void Start () {
 		testStarted = false;
@@ -193,6 +200,7 @@ public class DrinkingTestManager : MonoBehaviour {
                             else rightSideGlass.NextSprite(UI.GetDrinkingValue(playerSide));
                             if(UI.IncreaseDrinkingBar(playerSide))
                             {
+                                completedDrinkSound.Play();
                                 playerCurrentNumDrinks++;
                                 playerDrinking = false;
                                 player.PlayDrinking(false);
@@ -362,6 +370,7 @@ public class DrinkingTestManager : MonoBehaviour {
         StartCoroutine(UI.ShowFinalText(time1));
         yield return new WaitForSeconds(time1);
 
+        victorySound.Play();
         RestartTest();
 
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Empty);
@@ -393,6 +402,7 @@ public class DrinkingTestManager : MonoBehaviour {
         StartCoroutine(UI.ShowFinalText(time1));
         yield return new WaitForSeconds(time1);
 
+        defeatSound.Play();
         RestartTest();
         
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Empty);
