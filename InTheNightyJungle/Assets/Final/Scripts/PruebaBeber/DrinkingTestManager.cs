@@ -10,11 +10,12 @@ public class DrinkingTestManager : MonoBehaviour {
     public BarmanBehaviour barman;
     private CameraBehaviour mainCamera;
 
+    public ChamberManager chamberLocation;
+
     public Transform insidePlayerPosition;
     public Transform insideCameraPosition;
     public Transform outsidePlayerPosition;
     public Transform outsideCameraPosition;
-    public float cameraSize;
     public bool playerAtTheRightSide;
     
     public DrinkingShadow[] foregroundSilhouettes;
@@ -51,9 +52,17 @@ public class DrinkingTestManager : MonoBehaviour {
     public ParticleSystem[] playerCelebration;
     public ParticleSystem[] challengerCelebration;
 
+	[SerializeField]
+	private AudioSource victorySound;
+	[SerializeField]
+	private AudioSource defeatSound;
+	[SerializeField]
+	private AudioSource completedDrinkSound;
+
 	// Use this for initialization
 	void Start () {
 		testStarted = false;
+		chamberLocation = GetComponentInParent<ChamberManager>();
 	}
 
     public void StartTest(PlayerPlatformController param0, CameraBehaviour param1)
@@ -103,7 +112,7 @@ public class DrinkingTestManager : MonoBehaviour {
         StartCoroutine(player.MoveTo(insidePlayerPosition.position, playerAtTheRightSide, time2));
         yield return new WaitForSeconds(time2);
 
-        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, cameraSize, time3));
+        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, CameraSizes.drinkingTestSize, time3));
         FadeOutCrowd(time3);
         yield return new WaitForSeconds(time3);
 
@@ -117,7 +126,7 @@ public class DrinkingTestManager : MonoBehaviour {
 
     private IEnumerator Ending(float time1, float time2, float time3)
     {
-        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, mainCamera.GetInitialSize(), time1));
+        StartCoroutine(mainCamera.MoveSizeTo(insideCameraPosition.position, chamberLocation.GetCameraSize(), time1));
         FadeInCrowd(time1);
         yield return new WaitForSeconds(time1);
 
@@ -191,6 +200,7 @@ public class DrinkingTestManager : MonoBehaviour {
                             else rightSideGlass.NextSprite(UI.GetDrinkingValue(playerSide));
                             if(UI.IncreaseDrinkingBar(playerSide))
                             {
+                                completedDrinkSound.Play();
                                 playerCurrentNumDrinks++;
                                 playerDrinking = false;
                                 player.PlayDrinking(false);
@@ -360,6 +370,7 @@ public class DrinkingTestManager : MonoBehaviour {
         StartCoroutine(UI.ShowFinalText(time1));
         yield return new WaitForSeconds(time1);
 
+        victorySound.Play();
         RestartTest();
 
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Empty);
@@ -391,6 +402,7 @@ public class DrinkingTestManager : MonoBehaviour {
         StartCoroutine(UI.ShowFinalText(time1));
         yield return new WaitForSeconds(time1);
 
+        defeatSound.Play();
         RestartTest();
         
         UI.GetComponent<GeneralUIController>().ChangeMode(UILayer.Empty);

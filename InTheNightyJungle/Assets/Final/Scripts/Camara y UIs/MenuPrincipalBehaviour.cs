@@ -10,48 +10,23 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
     public Slider volumen;
     public GameObject pantallaBrillo;
 
-    private float currentVolume;
-
-    private AudioSource music;
-
-    private float initialAlpha;
-    private bool empezar = false;
-    private float tiempo;
-
-    void Awake()
-    {
-        music = GameObject.FindWithTag("music").GetComponent<AudioSource>();
-        volumen.value = music.volume;
-    }
+    [SerializeField]
+    private AudioSource clickSound;
 
 	// Use this for initialization
-	void Start () {/*
-        botonJugar.onClick.AddListener(EmpezarJuego);
-        botonOpciones.onClick.AddListener(Opciones);
-        botonSalir.onClick.AddListener(Salir);
-        botonMenu.onClick.AddListener(Atras);*/
-        empezar = false;
-        tiempo = 0;
-        initialAlpha = this.GetComponent<CanvasGroup>().alpha;
+	void Start () {
+        volumen.value = AudioManager.Instance.GetComponent<AudioSource>().volume;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if (empezar == true)
-        {
-            tiempo += Time.deltaTime;
 
-            float t = tiempo / 1.5f;
-
-            this.GetComponent<CanvasGroup>().alpha=Mathf.Lerp(initialAlpha, 0.0f, t);
-        }
 	}
 
     public void EmpezarJuego()
     {
-        empezar = true;
-        StartCoroutine(ChangeScene());
-        
+        StartCoroutine(ChangeScene(1.5f));
+        clickSound.Play();
     }
 
     public void Opciones()
@@ -62,10 +37,14 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonMenu.gameObject.SetActive(true);
         volumen.gameObject.SetActive(true);
         ajustarBrillo.gameObject.SetActive(true);
+
+        clickSound.Play();
     }
 
     public void Salir()
     {
+        clickSound.Play();
+
         Application.Quit();
     }
 
@@ -77,21 +56,45 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonMenu.gameObject.SetActive(false);
         volumen.gameObject.SetActive(false);
         ajustarBrillo.gameObject.SetActive(false);
+
+        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetComponent<AudioSource>().volume.ToString());
+
+        clickSound.Play();
     }
 
     public void AjustarBrillo()
     {
-        pantallaBrillo.gameObject.SetActive(true);
+        pantallaBrillo.SetActive(true);
+        
+        clickSound.Play();
     }
 
-    IEnumerator ChangeScene()
+    IEnumerator ChangeScene(float time)
     {
-        yield return new WaitForSeconds(2);
-        SceneManager.LoadScene(1);//Aqui cambiara a la escena principal tras hacer el FadeOut
+        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(1);
+        asyncLoad.allowSceneActivation = false;
+
+        float initialAlpha = this.GetComponent<CanvasGroup>().alpha;
+        float finalAlpha = 0f;
+        float elapsedTime = 0;
+
+        while (!asyncLoad.isDone)
+        {
+            if(elapsedTime < time)
+            {
+                elapsedTime += Time.deltaTime;
+                this.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(initialAlpha, finalAlpha, elapsedTime / time);
+            }
+            else 
+            {
+                asyncLoad.allowSceneActivation = true;
+            }
+            yield return null;
+        }
     }
 
     public void TurnUpVolume()
     {
-        music.volume = volumen.value;
+        AudioManager.Instance.GetComponent<AudioSource>().volume = volumen.value;
     }
 }

@@ -3207,7 +3207,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
-  target: {fileID: 0}
+  bodyParts: []
+  target1: {fileID: 0}
+  target2: {fileID: 0}
   initialMoveDirection: 1
   maxSpeed: 10
   stopTime: 0.5
@@ -3574,6 +3576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
+  bodyParts: []
   initialPosition: {fileID: 4418853701022522}
   finalPosition: {fileID: 4386983022794854}
   maxSpeed: 9

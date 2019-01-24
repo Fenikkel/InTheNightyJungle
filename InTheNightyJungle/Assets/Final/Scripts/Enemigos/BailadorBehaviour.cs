@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class BailadorBehaviour : EnemyBehaviour {
 
-    public Transform target;
+    public Transform target1;
+    public Transform target2;
+    private bool beginning;
     private float distance;
 
     public float initialMoveDirection;
@@ -15,8 +17,9 @@ public class BailadorBehaviour : EnemyBehaviour {
 
     public ParticleSystem whirlpool;
 
-    private Animator anim;
     private CharacterController2D controller;
+
+    private Coroutine coroutine;
 
     private void Awake()
     {
@@ -25,23 +28,28 @@ public class BailadorBehaviour : EnemyBehaviour {
     
     private void Start()
     {
-        distance = Mathf.Abs(GetComponent<Transform>().position.x - target.position.x);
+        distance = Mathf.Abs(target1.position.x - target2.position.x);
 
         movingTime = distance / maxSpeed;
-
-        GetComponent<Transform>().localScale = new Vector3(initialMoveDirection * GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
-
-        whirlpool.Play();
     }
 
     private void OnEnable()
     {
-        StartCoroutine(Accelerate());
+        GetComponent<Transform>().position = new Vector2(target1.position.x, GetComponent<Transform>().position.y);
+        beginning = true;
+        GetComponent<Transform>().localScale = new Vector3(initialMoveDirection * Mathf.Abs(GetComponent<Transform>().localScale.x), GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
+
+        coroutine = StartCoroutine(Accelerate());
+        anim.SetBool("accelerating", true);
+        whirlpool.Play();
     }
 
     private void Update()
     {
-        
+        if(death)
+        {
+            StopCoroutine(coroutine);
+        }
     }
 
     private IEnumerator Accelerate()
@@ -49,7 +57,7 @@ public class BailadorBehaviour : EnemyBehaviour {
         float elapsedTime = 0.0f;
         
         Vector2 initialPosition = GetComponent<Transform>().position;
-        Vector2 finalPosition = target.position;
+        Vector2 finalPosition = (beginning) ? target2.position : target1.position;
 
         while(elapsedTime < movingTime)
         {
@@ -59,10 +67,9 @@ public class BailadorBehaviour : EnemyBehaviour {
         }
 
         GetComponent<Transform>().position = finalPosition;
+        beginning = !beginning;
 
-        target.position = initialPosition;
-
-        StartCoroutine(Stopping());
+        coroutine = StartCoroutine(Stopping());
     }
 
     private IEnumerator Stopping()
@@ -74,6 +81,11 @@ public class BailadorBehaviour : EnemyBehaviour {
         GetComponent<Transform>().localScale = new Vector3(-GetComponent<Transform>().localScale.x, GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
 
         yield return new WaitForSeconds(stopTime / 2);
-        StartCoroutine(Accelerate());
+        coroutine = StartCoroutine(Accelerate());
+    }
+
+    public override void CollideWithPlayer()
+    {
+        hitSound.Play();
     }
 }

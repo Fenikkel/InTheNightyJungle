@@ -67,10 +67,9 @@ public class CameraBehaviour : MonoBehaviour {
 
     void Update () {
 
-        CheckingBoundaries();
-
         if (followTarget && player) //if target has been instanciated
         {
+            CheckingBoundaries();
             if (distanceToLeft > 0 && distanceToRight > 0) //Considerar hacer zoom (disminuir el size de la camara) en caso de que se produzca este caso
             {
                 targetX = ((player.GetComponent<Transform>().position.x + distanceToLeft) + (player.GetComponent<Transform>().position.x - distanceToRight))/2;
@@ -155,6 +154,12 @@ public class CameraBehaviour : MonoBehaviour {
         return Camera.main.orthographicSize;
     }
 
+    public void SetSize(float size)
+    {
+        Camera.main.orthographicSize = size;
+        RestartCamera();
+    }
+
     public void SetFollowTarget(bool param)
     {
         followTarget = param;
@@ -208,4 +213,15 @@ public class CameraBehaviour : MonoBehaviour {
         RestartCamera();
     }
 
+}
+
+public static class CameraSizes {
+    public const float conversationSize    = 2.624054f;
+    public const float drinkingTestSize    = 1.5f;
+    public const float dancingTestSize     = 1.5f;
+    public const float dancingTestZoomSize = 1.3f;
+    public const float checkpointSize      = 2f;
+    public const float smallChamberSize    = 3.21849f;
+    public const float mediumChamberSize   = 4f;
+    public const float bigChamberSize      = 5f;
 }

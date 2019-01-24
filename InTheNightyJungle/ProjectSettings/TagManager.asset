@@ -13,12 +13,8 @@ TagManager:
   - Boundary
   - Platform
   - music
-  - onlyTrigger
-  - vehicle
-  - gun
-  - ghost
-  - 2ddl
-  - deadTrigger
+  - Puke
+  - EnemyCore
   layers:
   - Default
   - TransparentFX
@@ -71,14 +67,14 @@ TagManager:
   - name: MediumSilhouettos
     uniqueID: 2392072561
     locked: 0
-  - name: CollectiblesMoney
-    uniqueID: 1366466459
-    locked: 0
   - name: Enemies
     uniqueID: 4245414181
     locked: 0
   - name: Player
     uniqueID: 3796148191
+    locked: 0
+  - name: CollectiblesMoney
+    uniqueID: 1366466459
     locked: 0
   - name: FrontSilhouettos
     uniqueID: 544083249

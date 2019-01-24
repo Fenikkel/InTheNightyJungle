@@ -1548,6 +1548,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 25
+  bodyParts: []
   initialPosition: {fileID: 0}
   finalPosition: {fileID: 0}
   maxSpeed: 9

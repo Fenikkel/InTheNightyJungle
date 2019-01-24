@@ -18,6 +18,11 @@ public class StatsUIController : MonoBehaviour {
 	private int numStars; //Número actual de estrellas
 	private Vector2 shineOriginalSize;
 
+	[SerializeField]
+	private AudioSource moneySoundSource;
+	[SerializeField]
+	private AudioClip[] moneySounds;
+
 	// Use this for initialization
 	void Start () {
 		bladderTirednessStatBar.value = 0;
@@ -106,22 +111,32 @@ public class StatsUIController : MonoBehaviour {
 		stars[i].sprite = emptyStar;
 	}
 
-	public void ChangeMoney(int increaseValue)
+	public void ChangeMoney(int finalMoney)
 	{
 		int moneyAux = Convert.ToInt32(moneyText.text);
-		StartCoroutine(ChangeMoneyText(moneyAux, increaseValue, 0.05f));
+		StartCoroutine(ChangeMoneyText(moneyAux, finalMoney, 0.05f));
 	}
 
-	private IEnumerator ChangeMoneyText(int initialMoney, int increaseValue, float time)
+	private IEnumerator ChangeMoneyText(int initialMoney, int finalMoney, float time)
 	{
-		int finalMoney = initialMoney + increaseValue;
+		int increaseValue = finalMoney - initialMoney;
 		while((increaseValue > 0 && initialMoney < finalMoney) || (increaseValue < 0 && initialMoney > finalMoney))
 		{
 			yield return new WaitForSeconds(time);
 			initialMoney = (increaseValue > 0) ? initialMoney + 1 : initialMoney - 1;
 			moneyText.text = initialMoney.ToString();
+
+			PlayMoneySound();
 		}
 		moneyText.text = finalMoney.ToString();
+	}
+
+	private void PlayMoneySound()
+	{
+		int aux = UnityEngine.Random.Range(0, moneySounds.Length);
+		moneySoundSource.clip = moneySounds[aux];
+		moneySoundSource.Play();
+		print("print");
 	}
 }
 

@@ -13,12 +13,20 @@ public class ModifyBrightness : MonoBehaviour {
 	public int minValue;
 	public int maxValue;
 
+	private float brightnessValue;
+
+	[SerializeField]
+    private AudioSource clickSound;
+
 	// Use this for initialization
 	void Start () {
-		brightnessBar.value = (255 * overIcons.color.a - minValue)/(maxValue - minValue);
+		brightnessValue = float.Parse(SettingsManager.Instance.Load("brightness"));
+
+		overIcons.color = new Color(overIcons.color.r, overIcons.color.g, overIcons.color.b, brightnessValue);
+		brightnessBar.value = (255 * brightnessValue - minValue)/(maxValue - minValue);
 		for(int i = 0; i < shadowSprites.Length; i++)
 		{
-			shadowSprites[i].color = new Color(shadowSprites[i].color.r, shadowSprites[i].color.g, shadowSprites[i].color.b, overIcons.color.a);
+			shadowSprites[i].color = new Color(shadowSprites[i].color.r, shadowSprites[i].color.g, shadowSprites[i].color.b, brightnessValue);
 		}
 	}
 	
@@ -29,16 +37,19 @@ public class ModifyBrightness : MonoBehaviour {
 
 	public void ChangeBrightnessValue()
 	{
-		float finalValue = (minValue + (maxValue - minValue) * brightnessBar.value)/255;
-		overIcons.color = new Color(overIcons.color.r, overIcons.color.g, overIcons.color.b, finalValue);
+		brightnessValue = (minValue + (maxValue - minValue) * brightnessBar.value)/255;
+		overIcons.color = new Color(overIcons.color.r, overIcons.color.g, overIcons.color.b, brightnessValue);
 		for(int i = 0; i < shadowSprites.Length; i++)
 		{
-			shadowSprites[i].color = new Color(shadowSprites[i].color.r, shadowSprites[i].color.g, shadowSprites[i].color.b, finalValue);
+			shadowSprites[i].color = new Color(shadowSprites[i].color.r, shadowSprites[i].color.g, shadowSprites[i].color.b, brightnessValue);
 		}
 	}
 
 	public void GetBackToOptions()
 	{
+		SettingsManager.Instance.Save("brightness", brightnessValue.ToString());
 		modifyBrightnessScreen.SetActive(false);
+
+		clickSound.Play();
 	}
 }

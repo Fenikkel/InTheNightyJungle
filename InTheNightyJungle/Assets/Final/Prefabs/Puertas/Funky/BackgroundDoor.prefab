@@ -202,6 +202,7 @@ MonoBehaviour:
   chamber: {fileID: 0}
   nextDoor: {fileID: 0}
   doorType: 0
+  doorSound: {fileID: 82879011792435608, guid: 06ac63c69cf6a1e428803215e140566b, type: 2}
 --- !u!114 &114182481798119672
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -361,11 +362,11 @@ SpriteMask:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 62862827bc23ff3459885614af6be3b0, type: 3}
   m_MaskAlphaCutoff: 0.483
-  m_FrontSortingLayerID: 0
+  m_FrontSortingLayerID: -812412353
   m_BackSortingLayerID: 0
-  m_FrontSortingLayer: 0
+  m_FrontSortingLayer: 13
   m_BackSortingLayer: 0
   m_FrontSortingOrder: 0
   m_BackSortingOrder: 0
-  m_IsCustomRangeActive: 0
+  m_IsCustomRangeActive: 1
   m_SpriteSortPoint: 0
