@@ -976,11 +976,15 @@ MonoBehaviour:
   - {fileID: 114767101772325984}
   - {fileID: 114608507239539610}
   - {fileID: 114687699179002048}
+  hitSound: {fileID: 0}
+  deathSoundSource: {fileID: 0}
+  deathSounds: []
   throwingTime: 1
   noThrowingTime: 1
   pukeWallGrowingTime: 1
   pukeWall: {fileID: 4724972153132130}
   puke: {fileID: 198135743431311014}
+  vomitSound: {fileID: 0}
 --- !u!114 &114361753522975686
 MonoBehaviour:
   m_ObjectHideFlags: 1

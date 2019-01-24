@@ -1485,6 +1485,10 @@ MonoBehaviour:
   dashCooldownTime: 1
   dashEffect: {fileID: 198875103896656286}
   rightHandBone: {fileID: 4000466999991616}
+  jumpSound: {fileID: 0}
+  breathSound: {fileID: 0}
+  dashSound: {fileID: 0}
+  pukeHitSound: {fileID: 0}
 --- !u!114 &114666391934839638
 MonoBehaviour:
   m_ObjectHideFlags: 1

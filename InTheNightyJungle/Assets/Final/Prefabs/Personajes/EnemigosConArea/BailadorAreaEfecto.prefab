@@ -1373,6 +1373,9 @@ MonoBehaviour:
   - {fileID: 114669178745158418}
   - {fileID: 114064286152040594}
   - {fileID: 114036817745447698}
+  hitSound: {fileID: 0}
+  deathSoundSource: {fileID: 0}
+  deathSounds: []
   target1: {fileID: 4863660095655464}
   target2: {fileID: 4373238972814058}
   initialMoveDirection: 1

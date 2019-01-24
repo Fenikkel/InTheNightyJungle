@@ -13525,6 +13525,9 @@ MonoBehaviour:
   - {fileID: 198689204393837646}
   challengerCelebration:
   - {fileID: 198995100550294322}
+  victorySound: {fileID: 0}
+  defeatSound: {fileID: 0}
+  completedDrinkSound: {fileID: 0}
 --- !u!114 &114592355635985862
 MonoBehaviour:
   m_ObjectHideFlags: 1

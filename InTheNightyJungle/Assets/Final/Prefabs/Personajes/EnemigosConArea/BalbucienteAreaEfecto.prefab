@@ -1899,6 +1899,9 @@ MonoBehaviour:
   - {fileID: 114931565726313320}
   - {fileID: 114702980776375862}
   - {fileID: 114052553720572590}
+  hitSound: {fileID: 0}
+  deathSoundSource: {fileID: 0}
+  deathSounds: []
   initialPosition: {fileID: 4157508049836398}
   finalPosition: {fileID: 4129818914785846}
   maxSpeed: 45
