@@ -94,4 +94,10 @@ public class GeiserBehaviour : EnemyBehaviour {
 	{
 		pukeWall.localScale = new Vector3(1,0,1);
 	}
+
+	public override IEnumerator Steal(Transform rightHand)
+	{
+		yield return null;
+		//Aquí no tiene que ir nada porque no se le puede robar a un géiser
+	}
 }

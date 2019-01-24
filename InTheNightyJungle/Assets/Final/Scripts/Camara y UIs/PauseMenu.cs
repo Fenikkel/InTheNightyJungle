@@ -104,7 +104,7 @@ public class PauseMenu : MonoBehaviour {
     //Inicializadores
     private void InitializeVolume()
     {
-        volume.value = AudioManager.Instance.GetVolume();
+        //volume.value = AudioManager.Instance.GetVolume();
     }
 
     private void InitializeBrightnessScreen()
