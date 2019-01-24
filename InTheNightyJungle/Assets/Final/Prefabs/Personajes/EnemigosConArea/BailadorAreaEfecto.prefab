@@ -1374,8 +1374,14 @@ MonoBehaviour:
   - {fileID: 114064286152040594}
   - {fileID: 114036817745447698}
   hitSound: {fileID: 0}
+  enemyCore: {fileID: 0}
   deathSoundSource: {fileID: 0}
   deathSounds: []
+  moneyInPocket: {fileID: 0}
+  collectibleInPocket: {fileID: 0}
+  collectibleInInventory: {fileID: 0}
+  collectibleName: 
+  collectibleDescription: 
   target1: {fileID: 4863660095655464}
   target2: {fileID: 4373238972814058}
   initialMoveDirection: 1
@@ -1795,7 +1801,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -498819105
-  m_SortingLayer: 8
+  m_SortingLayer: 7
   m_SortingOrder: 2
   serializedVersion: 2
   m_Quality: 0
@@ -1844,7 +1850,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -498819105
-  m_SortingLayer: 8
+  m_SortingLayer: 7
   m_SortingOrder: 1
   serializedVersion: 2
   m_Quality: 0
@@ -1893,7 +1899,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -498819105
-  m_SortingLayer: 8
+  m_SortingLayer: 7
   m_SortingOrder: -44
   serializedVersion: 2
   m_Quality: 0
@@ -1943,7 +1949,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -498819105
-  m_SortingLayer: 8
+  m_SortingLayer: 7
   m_SortingOrder: 3
   serializedVersion: 2
   m_Quality: 0
@@ -1991,7 +1997,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -498819105
-  m_SortingLayer: 8
+  m_SortingLayer: 7
   m_SortingOrder: 0
   serializedVersion: 2
   m_Quality: 0
@@ -2040,7 +2046,7 @@ SkinnedMeshRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -498819105
-  m_SortingLayer: 8
+  m_SortingLayer: 7
   m_SortingOrder: 9
   serializedVersion: 2
   m_Quality: 0

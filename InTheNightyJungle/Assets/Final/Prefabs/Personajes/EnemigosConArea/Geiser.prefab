@@ -977,8 +977,14 @@ MonoBehaviour:
   - {fileID: 114608507239539610}
   - {fileID: 114687699179002048}
   hitSound: {fileID: 0}
+  enemyCore: {fileID: 0}
   deathSoundSource: {fileID: 0}
   deathSounds: []
+  moneyInPocket: {fileID: 0}
+  collectibleInPocket: {fileID: 0}
+  collectibleInInventory: {fileID: 0}
+  collectibleName: 
+  collectibleDescription: 
   throwingTime: 1
   noThrowingTime: 1
   pukeWallGrowingTime: 1
