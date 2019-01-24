@@ -3208,6 +3208,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   bodyParts: []
+  hitSound: {fileID: 0}
+  enemyCore: {fileID: 0}
+  deathSoundSource: {fileID: 0}
+  deathSounds: []
+  moneyInPocket: {fileID: 0}
+  collectibleInPocket: {fileID: 0}
+  collectibleInInventory: {fileID: 0}
+  collectibleName: 
+  collectibleDescription: 
   target1: {fileID: 0}
   target2: {fileID: 0}
   initialMoveDirection: 1
@@ -3577,6 +3586,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   bodyParts: []
+  hitSound: {fileID: 0}
+  enemyCore: {fileID: 0}
+  deathSoundSource: {fileID: 0}
+  deathSounds: []
+  moneyInPocket: {fileID: 0}
+  collectibleInPocket: {fileID: 0}
+  collectibleInInventory: {fileID: 0}
+  collectibleName: 
+  collectibleDescription: 
   initialPosition: {fileID: 4418853701022522}
   finalPosition: {fileID: 4386983022794854}
   maxSpeed: 9
@@ -3706,6 +3724,7 @@ MonoBehaviour:
   chamber: {fileID: 0}
   nextDoor: {fileID: 0}
   doorType: 1
+  doorSound: {fileID: 0}
 --- !u!114 &114716095032777782
 MonoBehaviour:
   m_ObjectHideFlags: 1

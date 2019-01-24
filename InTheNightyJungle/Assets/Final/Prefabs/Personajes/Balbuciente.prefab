@@ -1549,6 +1549,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 25
   bodyParts: []
+  hitSound: {fileID: 0}
+  enemyCore: {fileID: 0}
+  deathSoundSource: {fileID: 0}
+  deathSounds: []
+  moneyInPocket: {fileID: 0}
+  collectibleInPocket: {fileID: 0}
+  collectibleInInventory: {fileID: 0}
+  collectibleName: 
+  collectibleDescription: 
   initialPosition: {fileID: 0}
   finalPosition: {fileID: 0}
   maxSpeed: 9

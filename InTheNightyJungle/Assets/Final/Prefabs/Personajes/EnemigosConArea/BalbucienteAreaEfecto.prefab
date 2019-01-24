@@ -1892,24 +1892,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  bodyParts:
-  - {fileID: 114894711532192862}
-  - {fileID: 114512155102196208}
-  - {fileID: 114181954045443408}
-  - {fileID: 114931565726313320}
-  - {fileID: 114702980776375862}
-  - {fileID: 114052553720572590}
+  bodyParts: []
   hitSound: {fileID: 0}
-  enemyCore: {fileID: 4887929571348454}
+  enemyCore: {fileID: 0}
   deathSoundSource: {fileID: 0}
-  deathSounds:
-  - {fileID: 8300000, guid: 1358b3e3299750a4d9f7350182d4c303, type: 3}
-  - {fileID: 8300000, guid: e3640cf1f7b920e44bd08c96cd01046d, type: 3}
-  - {fileID: 8300000, guid: 2bf42da71fa58cb4b8c0c4994549d05c, type: 3}
-  - {fileID: 8300000, guid: af3e27749777d694aa25919896ba45c7, type: 3}
-  - {fileID: 8300000, guid: 15c989861c2ab534bbdbb1232cc2056d, type: 3}
-  moneyInPocket: {fileID: 1276863728452130, guid: 516f20862a5f25043a3b97875c1260f2,
-    type: 2}
+  deathSounds: []
+  moneyInPocket: {fileID: 0}
   collectibleInPocket: {fileID: 0}
   collectibleInInventory: {fileID: 0}
   collectibleName: 

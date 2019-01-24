@@ -1366,13 +1366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 5
-  bodyParts:
-  - {fileID: 114344831700495252}
-  - {fileID: 114255175051059604}
-  - {fileID: 114144101792376842}
-  - {fileID: 114669178745158418}
-  - {fileID: 114064286152040594}
-  - {fileID: 114036817745447698}
+  bodyParts: []
   hitSound: {fileID: 0}
   enemyCore: {fileID: 0}
   deathSoundSource: {fileID: 0}
@@ -1382,8 +1376,8 @@ MonoBehaviour:
   collectibleInInventory: {fileID: 0}
   collectibleName: 
   collectibleDescription: 
-  target1: {fileID: 4863660095655464}
-  target2: {fileID: 4373238972814058}
+  target1: {fileID: 0}
+  target2: {fileID: 0}
   initialMoveDirection: 1
   maxSpeed: 10
   stopTime: 0.5
