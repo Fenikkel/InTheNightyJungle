@@ -20573,7 +20573,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UI: {fileID: 0}
   challenger: {fileID: 114812177983040274}
-  chamberLocation: {fileID: 0}
   insidePlayerPosition: {fileID: 4215890107446088}
   insideCameraPosition: {fileID: 4965214089838284}
   insideCameraPlayerSidePosition: {fileID: 0}
@@ -20612,6 +20611,10 @@ MonoBehaviour:
   - {fileID: 198441145609977008}
   challengerCelebration:
   - {fileID: 198828412036395816}
+  victorySound: {fileID: 0}
+  defeatSound: {fileID: 0}
+  correctKeySound: {fileID: 0}
+  incorrectKeySound: {fileID: 0}
 --- !u!114 &114300421309637266
 MonoBehaviour:
   m_ObjectHideFlags: 1
