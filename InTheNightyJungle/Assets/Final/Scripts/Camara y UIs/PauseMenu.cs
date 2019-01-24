@@ -9,7 +9,7 @@ public class PauseMenu : MonoBehaviour {
     public static bool GameIsPaused = false;
 
     [SerializeField]
-    private GameObject initialScreen, optionsScreen, brightnessScreen, inventoryScreen;
+    private GameObject initialScreen, optionsScreen, brightnessScreen, inventoryScreen, inputScreen;
     
     [SerializeField]
     private Slider volume, brightnessBar;
@@ -36,6 +36,17 @@ public class PauseMenu : MonoBehaviour {
 	private bool cindyInventoryOpenned;
 
     [SerializeField]
+    private GameObject inputImage, inputName, inputDescription;
+
+    private string[] inputInfo;
+    [SerializeField]
+    private Sprite[] inputSprites;
+    private int currentInput;
+
+    [SerializeField]
+    private TextAsset inputInfoText;
+
+    [SerializeField]
     private AudioSource clickSound;
 
     void Awake()
@@ -49,6 +60,7 @@ public class PauseMenu : MonoBehaviour {
         InitializeVolume();
         InitializeBrightnessScreen();
         UnshowItem();
+        InitializeInputInfo();
 
         ChangeScreen(0);
     }
@@ -74,12 +86,18 @@ public class PauseMenu : MonoBehaviour {
         optionsScreen.SetActive(param == 1);
         brightnessScreen.SetActive(param == 2);
         inventoryScreen.SetActive(param == 3);
+        inputScreen.SetActive(param == 4);
 
         if(param == 3)
         {
             cindyInventoryOpenned = GameManager.Instance.IsCindyPlaying();
             inventoryCindy.SetActive(cindyInventoryOpenned);
             inventoryBrenda.SetActive(!cindyInventoryOpenned);
+        }
+
+        if(param == 4)
+        {
+            ChangeInput();
         }
     }
 
@@ -99,6 +117,12 @@ public class PauseMenu : MonoBehaviour {
 		{
 			shadowSprites[i].color = new Color(shadowSprites[i].color.r, shadowSprites[i].color.g, shadowSprites[i].color.b, brightnessValue);
 		}
+    }
+
+    private void InitializeInputInfo()
+    {
+        inputInfo = new string[inputSprites.Length*2];
+        inputInfo = inputInfoText.text.Split("\n"[0]);
     }
 
     //Métodos de listeners
@@ -142,6 +166,12 @@ public class PauseMenu : MonoBehaviour {
 
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+    }
+
+    public void Inputs()
+    {
+        clickSound.Play();
+        ChangeScreen(4);
     }
 
     //Listeners del menú de opciones
@@ -234,5 +264,42 @@ public class PauseMenu : MonoBehaviour {
 		}
 		item.GetComponent<Button>().onClick.AddListener(delegate { ShowItem(item.GetItemID()); } );	
 	}
+
+    //Listeners del menú de controles
+
+    public void BackFromInputs()
+    {
+        ChangeScreen(0);
+        currentInput = 0;
+
+        clickSound.Play();
+    }
+
+    private void ChangeInput()
+    {
+        inputImage.GetComponent<Image>().sprite = inputSprites[currentInput];
+        inputName.GetComponent<Text>().text = inputInfo[currentInput * 2];
+        inputDescription.GetComponent<Text>().text = inputInfo[currentInput * 2 + 1];
+    }
+
+    public void LeftArrow()
+    {
+        currentInput--;
+        if(currentInput < 0)
+        {
+            currentInput = inputSprites.Length - 1;
+        }
+        ChangeInput();
+    }
+
+    public void RightArrow()
+    {
+        currentInput++;
+        if(currentInput == inputSprites.Length)
+        {
+            currentInput = 0;
+        }
+        ChangeInput();
+    }
 
 }
