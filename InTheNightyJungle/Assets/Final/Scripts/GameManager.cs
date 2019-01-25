@@ -20,8 +20,23 @@ public class GameManager : MonoBehaviour {
     public GameObject mainCamera;
     private GameObject player;
 
-    public GameObject BrendaLevels;
-    public GameObject CindyLevels;
+    [SerializeField]
+    private GameObject BrendaLevelsContainer;
+    [SerializeField]
+    private GameObject CindyLevelsContainer;
+    [SerializeField]
+    private GameObject[] BrendaLevels;
+    [SerializeField]
+    private GameObject[] CindyLevels;
+    [SerializeField]
+    private GameObject[] BrendaFirstChambers;
+    [SerializeField]
+    private GameObject[] CindyFirstChambers;
+    [SerializeField]
+    private GameObject[] BrendaFirstCheckpoints;
+    [SerializeField]
+    private GameObject[] CindyFirstCheckpoints;
+
     public GameObject Brenda;
     public GameObject Cindy;
 
@@ -31,6 +46,14 @@ public class GameManager : MonoBehaviour {
 
     private bool cindyEnabled;
     private bool canChangePlayer;
+
+    [SerializeField]
+    private Transform[] CindyPlayerCameraBeginningLevelPositions;
+    [SerializeField]
+    private Transform[] BrendaPlayerCameraBeginningLevelPositions;
+
+    private int CindyCurrentLevel;
+    private int BrendaCurrentLevel;
     
     // Use this for initialization
 	void Start () {
@@ -38,7 +61,16 @@ public class GameManager : MonoBehaviour {
         UIPause.enabled = false;
         canChangePlayer = true;
 
+        CindyCurrentLevel = 0;
+        BrendaCurrentLevel = 0;
+
         blackScreen.GetComponent<Image>().enabled = true;
+
+        ActiveLevel(true, CindyCurrentLevel);
+        ActiveLevel(false, BrendaCurrentLevel);
+
+        InitializeCharacterInLevel(true);
+        InitializeCharacterInLevel(false);
 
         if(initialCutscene) StartCoroutine(StartInitialCutscene(2f));
         else StartGame();
@@ -52,8 +84,8 @@ public class GameManager : MonoBehaviour {
     private IEnumerator StartInitialCutscene(float time)
     {
         
-        CindyLevels.SetActive(true);
-        BrendaLevels.SetActive(true);
+        CindyLevelsContainer.SetActive(true);
+        BrendaLevelsContainer.SetActive(true);
 
         Cindy.SetActive(true);
         Brenda.SetActive(true);
@@ -100,18 +132,9 @@ public class GameManager : MonoBehaviour {
     IEnumerator Transition()
     {
         AudioManager.Instance.ChangeBackgroundMusic(1.0f);
-        Color c = blackScreen.GetComponent<Image>().color;
-        Color initialColor = c;
-        Color finalColor = new Color(0, 0, 0, 1);
-        float elapsedTime = 0.0f;
-        while (elapsedTime < 0.5f)
-        {
-            elapsedTime += Time.deltaTime;
-            c = Color.Lerp(initialColor, finalColor, elapsedTime / 0.5f);
-            blackScreen.GetComponent<Image>().color = c;
-            yield return null;
-        }
-        blackScreen.GetComponent<Image>().color = finalColor;
+
+        StartCoroutine(FadeIn(0.5f, false));
+
         if (!cindyEnabled)
         {
             if (Cindy.GetComponent<PlayerPlatformController>().GetLastDoor() != null)
@@ -130,7 +153,9 @@ public class GameManager : MonoBehaviour {
             }
             mainCamera.GetComponent<CameraBehaviour>().SetSize(Brenda.GetComponent<PlayerPlatformController>().GetCurrentChamber().GetCameraSize());
         }
+
         yield return new WaitForSeconds(0.1f);
+
         ChangePlayer();
         StartCoroutine(FadeOut(0.5f, false));
     }
@@ -141,8 +166,8 @@ public class GameManager : MonoBehaviour {
         {
             cindyEnabled = !cindyEnabled;
 
-            CindyLevels.SetActive(cindyEnabled);
-            BrendaLevels.SetActive(!cindyEnabled);
+            CindyLevelsContainer.SetActive(cindyEnabled);
+            BrendaLevelsContainer.SetActive(!cindyEnabled);
 
             Cindy.SetActive(cindyEnabled);
             Brenda.SetActive(!cindyEnabled);
@@ -154,6 +179,98 @@ public class GameManager : MonoBehaviour {
             StartCoroutine(player.GetComponent<PlayerPlatformController>().InvulnerableInTime(1.0f));
             
             mainCamera.GetComponent<CameraBehaviour>().SetTarget(player);
+        }
+    }
+
+    private void ActiveLevel(bool cindy, int level)
+    {
+        if(cindy)
+        {
+            CindyLevelsContainer.SetActive(true);
+            CindyLevels[level].SetActive(true);
+            CindyLevelsContainer.SetActive(cindyEnabled);
+        }
+        else
+        {
+            //print("hola");
+            BrendaLevelsContainer.SetActive(true);
+            BrendaLevels[level].SetActive(true);
+            BrendaLevelsContainer.SetActive(!cindyEnabled);
+        }
+    }
+
+    private void DeactiveLevel(bool cindy, int level)
+    {
+        if(cindy)
+        {
+            CindyLevelsContainer.SetActive(true);
+            CindyLevels[level].SetActive(false);
+            CindyLevelsContainer.SetActive(cindyEnabled);
+        }
+        else
+        {
+            BrendaLevelsContainer.SetActive(true);
+            BrendaLevels[level].SetActive(false);
+            BrendaLevelsContainer.SetActive(!cindyEnabled);
+        }
+    }
+
+    public void NextLevel()
+    {
+        StartCoroutine(FadeIn(0.5f, false));
+
+        print("hola");
+
+        if(cindyEnabled)
+        {
+            ActiveLevel(cindyEnabled, CindyCurrentLevel + 1);
+
+            CindyCurrentLevel++;
+ 
+            InitializeCharacterInLevel(cindyEnabled);
+
+            DeactiveLevel(cindyEnabled, CindyCurrentLevel - 1);
+        }
+        else
+        {
+            ActiveLevel(cindyEnabled, BrendaCurrentLevel + 1);
+
+            BrendaCurrentLevel++;
+ 
+            InitializeCharacterInLevel(cindyEnabled);
+
+            DeactiveLevel(cindyEnabled, BrendaCurrentLevel - 1);
+        }
+
+
+        StartCoroutine(FadeOut(0.5f, false));
+    }
+
+    private void InitializeCharacterInLevel(bool cindy)
+    {
+        if(cindy)
+        {
+            Cindy.GetComponent<Transform>().position = CindyPlayerCameraBeginningLevelPositions[CindyCurrentLevel * 2].position;
+            mainCamera.GetComponent<Transform>().position = CindyPlayerCameraBeginningLevelPositions[CindyCurrentLevel * 2 + 1].position;
+
+            Cindy.GetComponent<PlayerPlatformController>().SetCurrentChamber(CindyFirstChambers[CindyCurrentLevel].GetComponent<ChamberManager>());
+            mainCamera.GetComponent<CameraBehaviour>().SetSize(Cindy.GetComponent<PlayerPlatformController>().GetCurrentChamber().GetCameraSize());
+            
+            Cindy.GetComponent<PlayerPlatformController>().SetCheckPoint(CindyFirstCheckpoints[CindyCurrentLevel].GetComponent<CheckPoint>());
+
+            Cindy.GetComponent<PlayerPlatformController>().SetLastDoor(null);
+        }
+        else
+        {
+            Brenda.GetComponent<Transform>().position = BrendaPlayerCameraBeginningLevelPositions[BrendaCurrentLevel * 2].position;
+            mainCamera.GetComponent<Transform>().position = BrendaPlayerCameraBeginningLevelPositions[BrendaCurrentLevel * 2 + 1].position;
+
+            Brenda.GetComponent<PlayerPlatformController>().SetCurrentChamber(BrendaFirstChambers[BrendaCurrentLevel].GetComponent<ChamberManager>());
+            mainCamera.GetComponent<CameraBehaviour>().SetSize(Brenda.GetComponent<PlayerPlatformController>().GetCurrentChamber().GetCameraSize());
+            
+            Brenda.GetComponent<PlayerPlatformController>().SetCheckPoint(BrendaFirstCheckpoints[BrendaCurrentLevel].GetComponent<CheckPoint>());
+
+            Brenda.GetComponent<PlayerPlatformController>().SetLastDoor(null);
         }
     }
 
@@ -213,6 +330,28 @@ public class GameManager : MonoBehaviour {
             mainCamera.GetComponent<CameraBehaviour>().SetFollowTarget(true);
             if(door != null) door.TurnOnTurnOff();
         }
+    }
+
+    IEnumerator FadeIn(float time, bool transition)
+    {
+        Color c = blackScreen.GetComponent<Image>().color;
+        Color initialColor = c;
+        Color finalColor = new Color(0, 0, 0, 1);
+        float elapsedTime = 0.0f;
+        while (elapsedTime < time)
+        {
+            elapsedTime += Time.deltaTime;
+            c = Color.Lerp(initialColor, finalColor, elapsedTime / time);
+            blackScreen.GetComponent<Image>().color = c;
+            yield return null;
+        }
+        blackScreen.GetComponent<Image>().color = finalColor;
+        if(transition)
+        {
+            yield return new WaitForSeconds(0.1f);
+            StartCoroutine(FadeOut(time, transition));
+        }
+
     }
 
     IEnumerator FadeOut(float time, bool transition)

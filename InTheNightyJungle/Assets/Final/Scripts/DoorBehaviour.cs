@@ -13,6 +13,9 @@ public class DoorBehaviour : MonoBehaviour {
 
     private GameManager GM;
 
+    private bool justOne;
+    private bool enabledDoor;
+
     [SerializeField]
     private AudioSource doorSound;
     
@@ -21,6 +24,9 @@ public class DoorBehaviour : MonoBehaviour {
     {
         GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         chamber = GetComponentInParent<ChamberManager>();
+
+        justOne = false;
+        enabledDoor = doorType != 4;
 	}
 	
 	// Update is called once per frame
@@ -59,11 +65,22 @@ public class DoorBehaviour : MonoBehaviour {
             else if(doorType%2 == 1) { //En cualquier otro caso, pasará sin necesidad de pulsar ningún botón
                 GM.ChangingChamber(this);
             }
+            else if(doorType == 4 && Input.GetKeyDown(KeyCode.UpArrow) && !justOne && enabledDoor)
+            {
+                justOne = true;
+                doorSound.Play();
+                GM.NextLevel();
+            }
         }
     }
 
     public Vector3 GetPosition()
     {
         return playerPosition.position;
+    }
+
+    public void SetEnabledDoor(bool param)
+    {
+        enabledDoor = param;
     }
 }

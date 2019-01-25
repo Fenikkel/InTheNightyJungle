@@ -177,7 +177,6 @@ MonoBehaviour:
   distanceOverHead: 0.2
   playerPosition: {fileID: 4984103351048436}
   cameraPosition: {fileID: 4543720531605568}
-  cameraSize: 2
 --- !u!212 &212568775496475222
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -210,8 +209,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1366466459
-  m_SortingLayer: 6
+  m_SortingLayerID: -542947093
+  m_SortingLayer: 4
   m_SortingOrder: -8
   m_Sprite: {fileID: 21300000, guid: 66a5108a5f0c18f4aa681e3e74dce772, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

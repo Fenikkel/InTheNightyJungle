@@ -131,7 +131,7 @@ public class NPCBehaviour : MonoBehaviour {
 						UI.FinishedConversation(false);
 						RestartConversation();
 						StartCoroutine(mainCamera.MoveSizeTo(mainCamera.GetComponent<Transform>().position, chamberLocation.GetCameraSize(), 0.5f));
-						nextThingToDo.GetComponent<GameManager>().PlayerDone();
+						nextThingToDo.GetComponent<DoorBehaviour>().SetEnabledDoor(true);
 						break;
 					case "_cancel":
 						StartCoroutine(CancelConversation());

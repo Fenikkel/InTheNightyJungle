@@ -230,7 +230,7 @@ public class PlayerPlatformController : MonoBehaviour {
         move = Mathf.Sign(GetComponent<Transform>().localScale.x) * dashSpeed;
 
         dashEffect.Play(); //Emisión de partículas
-        //dashSound.Play();
+        dashSound.Play();
 
         if(invulnerableCoroutine != null) StopCoroutine(invulnerableCoroutine);
         invulnerableCoroutine = StartCoroutine(InvulnerabilityTime(dashTime + dashCooldownTime, 0.1f));
