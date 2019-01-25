@@ -27,8 +27,8 @@ public class DoorBehaviour : MonoBehaviour {
     // Use this for initialization
 	void Start ()
     {
-        //GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
-        //chamber = GetComponentInParent<ChamberManager>();
+        GM = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        chamber = GetComponentInParent<ChamberManager>();
 
         justOne = false;
         enabledDoor = doorType != 4;
