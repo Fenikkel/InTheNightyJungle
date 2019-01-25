@@ -219,8 +219,6 @@ public class GameManager : MonoBehaviour {
     {
         StartCoroutine(FadeIn(0.5f, false));
 
-        print("hola");
-
         if(cindyEnabled)
         {
             ActiveLevel(cindyEnabled, CindyCurrentLevel + 1);
@@ -228,6 +226,8 @@ public class GameManager : MonoBehaviour {
             CindyCurrentLevel++;
  
             InitializeCharacterInLevel(cindyEnabled);
+
+            Cindy.GetComponent<PlayerPlatformController>().FameToZero();
 
             DeactiveLevel(cindyEnabled, CindyCurrentLevel - 1);
         }
@@ -238,6 +238,8 @@ public class GameManager : MonoBehaviour {
             BrendaCurrentLevel++;
  
             InitializeCharacterInLevel(cindyEnabled);
+            
+            Brenda.GetComponent<PlayerPlatformController>().FameToZero();
 
             DeactiveLevel(cindyEnabled, BrendaCurrentLevel - 1);
         }

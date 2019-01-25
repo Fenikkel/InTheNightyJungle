@@ -754,6 +754,14 @@ public class PlayerPlatformController : MonoBehaviour {
         stats.IncreaseFame();
     }
 
+    public void FameToZero()
+    {
+        while(stats.GetFame() != 0)
+        {
+            stats.DecreaseFame();
+        }
+    }
+
     public void Death()
     {
         anim.SetTrigger("Death");

@@ -136,7 +136,6 @@ public class StatsUIController : MonoBehaviour {
 		int aux = UnityEngine.Random.Range(0, moneySounds.Length);
 		moneySoundSource.clip = moneySounds[aux];
 		moneySoundSource.Play();
-		print("print");
 	}
 }
 
