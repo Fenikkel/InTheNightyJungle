@@ -35,7 +35,7 @@ public class BailadorBehaviour : EnemyBehaviour {
 
     private void OnEnable()
     {
-        GetComponent<Transform>().position = new Vector2(target1.position.x, GetComponent<Transform>().position.y);
+        GetComponent<Transform>().localPosition = new Vector2(target1.localPosition.x, GetComponent<Transform>().localPosition.y);
         beginning = true;
         GetComponent<Transform>().localScale = new Vector3(initialMoveDirection * Mathf.Abs(GetComponent<Transform>().localScale.x), GetComponent<Transform>().localScale.y, GetComponent<Transform>().localScale.z);
 
@@ -56,17 +56,17 @@ public class BailadorBehaviour : EnemyBehaviour {
     {
         float elapsedTime = 0.0f;
         
-        Vector2 initialPosition = GetComponent<Transform>().position;
-        Vector2 finalPosition = (beginning) ? target2.position : target1.position;
+        Vector2 initialPosition = GetComponent<Transform>().localPosition;
+        Vector2 finalPosition = (beginning) ? target2.localPosition : target1.localPosition;
 
         while(elapsedTime < movingTime)
         {
             elapsedTime += Time.deltaTime;
-            GetComponent<Transform>().position = Vector2.Lerp(initialPosition, finalPosition, elapsedTime / movingTime);
+            GetComponent<Transform>().localPosition = Vector2.Lerp(initialPosition, finalPosition, elapsedTime / movingTime);
             yield return null;
         }
 
-        GetComponent<Transform>().position = finalPosition;
+        GetComponent<Transform>().localPosition = finalPosition;
         beginning = !beginning;
 
         coroutine = StartCoroutine(Stopping());
