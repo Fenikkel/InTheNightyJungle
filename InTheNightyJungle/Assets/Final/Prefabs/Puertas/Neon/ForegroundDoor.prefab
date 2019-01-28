@@ -224,13 +224,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1425631825805390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d4b8a50062065489456e5cf7f42a61, type: 3}
+  m_Script: {fileID: 11500000, guid: 3abac479ba92d964192a5bfd3007e917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  glowing: 1
-  minIntensity: 0.2
-  maxIntensity: 0.6
-  glowSpeed: 2
+  glowing: 0
+  minIntensity: 0
+  maxIntensity: 0
+  glowSpeed: 0
   rotate: 0
   minAngle: 0
   maxAngle: 0

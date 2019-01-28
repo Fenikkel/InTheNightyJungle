@@ -55,11 +55,11 @@ public class DoorBehaviour : MonoBehaviour {
                 doorSound.Play();
             }
 
-            if (doorType == 0)
+            if ((doorType == 0 || doorType == 4) && enabledDoor)
             {
                 StartCoroutine(AppearUPKey(0.5f));
             }
-            else if (doorType == 2)
+            else if (doorType == 2 && enabledDoor)
             {
                 StartCoroutine(AppearDOWNKey(0.5f));
             }
@@ -92,18 +92,18 @@ public class DoorBehaviour : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (doorType == 0 && shownUPkey)
+        if ((doorType == 0 || doorType == 4) && shownUPkey && enabledDoor)
         {
             StartCoroutine(DisappearUPKey(0.5f));
         }
-        else if(doorType==2 && shownDOWNkey)
+        else if(doorType == 2 && shownDOWNkey && enabledDoor)
         {
             StartCoroutine(DisappearDOWNKey(0.5f));
         }
         
     }
 
-        private IEnumerator AppearUPKey(float time)
+    private IEnumerator AppearUPKey(float time)
     {
         shownUPkey = true;
 
