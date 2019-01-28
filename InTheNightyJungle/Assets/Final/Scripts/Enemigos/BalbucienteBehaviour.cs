@@ -11,7 +11,10 @@ public class BalbucienteBehaviour : EnemyBehaviour {
 
     private float move;
     public float maxSpeed;
-    public float radius;
+
+    private float radius;
+    [SerializeField]
+    private GameObject radiusLimit;
 
     private RaycastHit2D hitLeft;
     private RaycastHit2D hitRight;
@@ -25,14 +28,16 @@ public class BalbucienteBehaviour : EnemyBehaviour {
         anim = GetComponent<Animator>();
         controller = GetComponent<CharacterController2D>();
         colliding = false;
+
+        radius = Mathf.Abs(GetComponent<Transform>().position.x - radiusLimit.GetComponent<Transform>().position.x);
     }
 
     private void Update()
     {
         if(!death)
         {
-            Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(radius, 0, 0));
-            Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(-radius, 0, 0));
+            //Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(radius, 0, 0));
+            //Debug.DrawLine(GetComponent<Transform>().position, GetComponent<Transform>().position + new Vector3(-radius, 0, 0));
             
             move = 0;
             

@@ -3598,7 +3598,7 @@ MonoBehaviour:
   initialPosition: {fileID: 4418853701022522}
   finalPosition: {fileID: 4386983022794854}
   maxSpeed: 9
-  radius: 2.4
+  radiusLimit: {fileID: 0}
 --- !u!114 &114575099192619130
 MonoBehaviour:
   m_ObjectHideFlags: 1

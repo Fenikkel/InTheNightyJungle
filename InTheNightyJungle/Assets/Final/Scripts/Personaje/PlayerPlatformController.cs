@@ -477,9 +477,21 @@ public class PlayerPlatformController : MonoBehaviour {
                     }
                 }
 
-                EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
-                bool param = ChangePatience(-enemy.GetDamage() / 100);
-                enemy.CollideWithPlayer();
+                bool param = true;
+                if(firstEnemy.GetComponent<EnemyBehaviour>() != null)
+                {
+                    EnemyBehaviour enemy = firstEnemy.GetComponent<EnemyBehaviour>();
+                    param = ChangePatience(-enemy.GetDamage() / 100);
+                    enemy.CollideWithPlayer();
+                }
+                else if(firstEnemy.GetComponent<IceBehaviour>() != null)
+                {
+                    IceBehaviour enemy = firstEnemy.GetComponent<IceBehaviour>();
+                    param = ChangePatience(-enemy.GetDamage() / 100);
+                    SlowDown(enemy.GetSlowDownFactor(), enemy.GetSlowDownTime());
+                    enemy.CollideWithPlayer();
+                }
+                
 
                 inputActivated = false;
                 Invulnerable(true);
@@ -674,6 +686,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     IEnumerator SlowDownForTime(float slowDownFactor, float time)
     {
+        print("hola");
         maxSpeed *= slowDownFactor;
         GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce * slowDownFactor * 5);
         yield return new WaitForSeconds(time);

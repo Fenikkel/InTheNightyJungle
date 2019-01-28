@@ -8,7 +8,6 @@ public class GeiserBehaviour : EnemyBehaviour {
 	public float noThrowingTime;
 
 	public float pukeWallGrowingTime;
-	public Transform pukeWall;
 
 	private bool throwing;
 	private float elapsedTime;
@@ -59,40 +58,17 @@ public class GeiserBehaviour : EnemyBehaviour {
 		throwing = true;
 		anim.SetBool("throwing", false);
 		puke.Stop();
-		pukeWall.localScale = new Vector3(1,0,1);
 	}
 
 	public void StartPuke()
 	{
 		puke.Play();
 		vomitSound.Play();
-		StartCoroutine(GrowWall());
 	}
 
 	public void StopPuke()
 	{
 		puke.Stop();
-		UngrowWall();
-	}
-
-	private IEnumerator GrowWall()
-	{
-		float elapsedTime = 0;
-		Vector3 initialScale = new Vector3(1,0,1);
-		Vector3 finalScale = new Vector3(1,1,1);
-
-		while(elapsedTime < pukeWallGrowingTime)
-		{
-			elapsedTime += Time.deltaTime;
-			pukeWall.localScale = Vector3.Lerp(initialScale, finalScale, elapsedTime / pukeWallGrowingTime);
-			yield return null;
-		}
-		pukeWall.localScale = finalScale;
-	}
-
-	private void UngrowWall()
-	{
-		pukeWall.localScale = new Vector3(1,0,1);
 	}
 
 	public override IEnumerator Steal(Transform rightHand)

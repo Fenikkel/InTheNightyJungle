@@ -79,7 +79,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1053238032599850}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71d4b8a50062065489456e5cf7f42a61, type: 3}
+  m_Script: {fileID: 11500000, guid: 3abac479ba92d964192a5bfd3007e917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   glowing: 0
@@ -90,10 +90,10 @@ MonoBehaviour:
   minAngle: 0
   maxAngle: 0
   rotateSpeed: 0
-  scale: 1
-  minSize: 0.95
-  maxSize: 1.05
-  scaleSpeed: 0.1
+  scale: 0
+  minSize: 0
+  maxSize: 0
+  scaleSpeed: 0
   blink: 0
   timeBlinking: 0
   timeUnblinking: 0
