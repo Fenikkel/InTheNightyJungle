@@ -48,12 +48,12 @@ public class ObtainingCollectible : MonoBehaviour {
 
     private void ObtainCollectible()
     {
-        //collectibleSound.Play();
+        collectibleSound.Play();
 
         GameObject collectibleObject = Instantiate(collectiblePrefab);
         collectibleObject.GetComponent<CollectibleInfo>().InitializeInfo(collectibleInInventory, name, description);
 
-        GeneralUIController.Instance.GetComponent<InventoryUI>().AddItem(collectibleObject.GetComponent<CollectibleInfo>(), GameManager.Instance.IsCindyPlaying());
+        GeneralUIController.Instance.GetComponent<PauseMenu>().AddItem(collectibleObject.GetComponent<CollectibleInfo>(), GameManager.Instance.IsCindyPlaying());
 
         collectibleObject.GetComponent<RectTransform>().localScale = new Vector3(1,1,1);
         Destroy(gameObject);

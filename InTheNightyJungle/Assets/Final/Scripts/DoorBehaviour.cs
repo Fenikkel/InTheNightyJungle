@@ -32,8 +32,14 @@ public class DoorBehaviour : MonoBehaviour {
 
         justOne = false;
         enabledDoor = doorType != 4;
-        StartCoroutine(DisappearDOWNKey(0.5f));
-        StartCoroutine(DisappearUPKey(0.5f));
+        if(doorType==0 || doorType == 4)
+        {
+            StartCoroutine(DisappearUPKey(0.5f));
+        }
+        else if(doorType == 2)
+        {
+            StartCoroutine(DisappearDOWNKey(0.5f));
+        }
     }
 	
 	// Update is called once per frame

@@ -46,20 +46,26 @@ public class AudioManager : MonoBehaviour {
 
 	private void Start()
 	{
-		ChangeGeneralVolume(float.Parse(SettingsManager.Instance.Load("volume")));
-		backgroundMusicCindy.volume = maxVolume;
+		//ChangeGeneralVolume(float.Parse(SettingsManager.Instance.Load("volume")));
+	}
 
+	public void InitialCutscene()
+	{
+		backgroundMusicCindy.volume = maxVolume;
 		backgroundMusicCindy.clip = menuMusic;
 		backgroundMusicCindy.Play();
 	}
 
-	public void TurnOnBackgroundMusic(bool cindy)
+	public void TurnOnBackgroundMusic(bool cindy, int initialLevel)
 	{
 		CindyMusicPlaying = cindy;
 
 		backgroundMusicCindy.volume = 0.0f;
 		backgroundMusicBrenda.volume = 0.0f;
-		backgroundMusicCindy.clip = CindyMusics[0];
+
+		backgroundMusicCindy.clip = CindyMusics[initialLevel];
+		backgroundMusicBrenda.clip = BrendaMusics[initialLevel];
+
 		backgroundMusicCindy.Play();
 		backgroundMusicBrenda.Play();
 
@@ -110,5 +116,25 @@ public class AudioManager : MonoBehaviour {
 	public float GetVolume()
 	{
 		return AudioListener.volume;
+	}
+
+	public IEnumerator ChangeMusicToLevelMusic(bool cindy, int level, float time)
+	{
+		if(cindy)
+		{
+			StartCoroutine(ChangeVolume(backgroundMusicCindy, 0.0f, time));
+			yield return new WaitForSeconds(time);
+			backgroundMusicCindy.clip = CindyMusics[level];
+			backgroundMusicCindy.Play();
+			StartCoroutine(ChangeVolume(backgroundMusicCindy, maxVolume, time));
+		}
+		else
+		{
+			StartCoroutine(ChangeVolume(backgroundMusicBrenda, 0.0f, time));
+			yield return new WaitForSeconds(time);
+			backgroundMusicBrenda.clip = BrendaMusics[level];
+			backgroundMusicBrenda.Play();
+			StartCoroutine(ChangeVolume(backgroundMusicBrenda, maxVolume, time));
+		}
 	}
 }

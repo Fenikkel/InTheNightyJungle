@@ -57,10 +57,10 @@ public class PauseMenu : MonoBehaviour {
 
     void Start()
     {
-        InitializeVolume();
-        InitializeBrightnessScreen();
         UnshowItem();
         InitializeInputInfo();
+        InitializeVolume();
+        InitializeBrightnessScreen();
 
         ChangeScreen(0);
     }
@@ -104,7 +104,9 @@ public class PauseMenu : MonoBehaviour {
     //Inicializadores
     private void InitializeVolume()
     {
-        //volume.value = AudioManager.Instance.GetVolume();
+        volume.value = float.Parse(SettingsManager.Instance.Load("volume"));
+
+        AudioManager.Instance.ChangeGeneralVolume(volume.value);
     }
 
     private void InitializeBrightnessScreen()
@@ -117,12 +119,14 @@ public class PauseMenu : MonoBehaviour {
 		{
 			shadowSprites[i].color = new Color(shadowSprites[i].color.r, shadowSprites[i].color.g, shadowSprites[i].color.b, brightnessValue);
 		}
+        
+        GameManager.Instance.ChangeShadows(brightnessValue);
     }
 
     private void InitializeInputInfo()
     {
         inputInfo = new string[inputSprites.Length*2];
-        inputInfo = inputInfoText.text.Split("\n"[0]);
+        inputInfo = inputInfoText.text.Split('\n');
     }
 
     //Métodos de listeners
@@ -141,6 +145,11 @@ public class PauseMenu : MonoBehaviour {
         GeneralUIController.Instance.ResumeGame();
         Time.timeScale = 1f;
         GameIsPaused = false;
+        
+        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetVolume().ToString());
+        
+		SettingsManager.Instance.Save("brightness", brightnessValue.ToString());
+
         ChangeScreen(0);
 
         clickSound.Play();
@@ -162,9 +171,14 @@ public class PauseMenu : MonoBehaviour {
 
     public void LoadMenu() //Se pulsa el botón Salir al menú
     {
+        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetVolume().ToString());
+        
+		SettingsManager.Instance.Save("brightness", brightnessValue.ToString());
+
         clickSound.Play();
 
         Time.timeScale = 1f;
+        GameIsPaused = false;
         SceneManager.LoadScene(0);
     }
 
@@ -179,8 +193,6 @@ public class PauseMenu : MonoBehaviour {
     public void BackFromOptions() //Se pulsa el botón Atrás del menú de opciones, se vuelve al menú inicial
     {
         ChangeScreen(0);
-        
-        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetVolume().ToString());
 
         clickSound.Play();
     }
@@ -207,11 +219,12 @@ public class PauseMenu : MonoBehaviour {
 		{
 			shadowSprites[i].color = new Color(shadowSprites[i].color.r, shadowSprites[i].color.g, shadowSprites[i].color.b, brightnessValue);
 		}
+
+        GameManager.Instance.ChangeShadows(brightnessValue);
 	}
 
     public void BackFromBrightness() //Se pulsa el botón Atrás del menú de ajuste de brillo, se vuelve a las opciones
 	{
-		SettingsManager.Instance.Save("brightness", brightnessValue.ToString());
 		ChangeScreen(1);
 
 		clickSound.Play();
@@ -289,6 +302,8 @@ public class PauseMenu : MonoBehaviour {
         {
             currentInput = inputSprites.Length - 1;
         }
+        
+		clickSound.Play();
         ChangeInput();
     }
 
@@ -299,6 +314,8 @@ public class PauseMenu : MonoBehaviour {
         {
             currentInput = 0;
         }
+        
+		clickSound.Play();
         ChangeInput();
     }
 

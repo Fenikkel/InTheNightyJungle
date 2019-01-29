@@ -16,6 +16,9 @@ public class FrancotiradorBehaviour : EnemyBehaviour {
 	[SerializeField]
 	private Transform rightHandBone;
 
+	[SerializeField]
+	private AudioSource iceSound, throwSound;
+
 	// Use this for initialization
 	void Awake()
 	{
@@ -53,14 +56,20 @@ public class FrancotiradorBehaviour : EnemyBehaviour {
 
 	private void LeaveIce()
 	{
+		throwSound.Play();
 		iceObj.GetComponent<Transform>().SetParent(null);
-		iceObj.GetComponent<IceBehaviour>().Launch(target.GetComponent<Transform>().position, launchSpeed, timeToReachPlayer, damage, slowDownTime, slowDownFactor);
+		iceObj.GetComponent<CircleCollider2D>().enabled = true;
+		if(target != null)
+			iceObj.GetComponent<IceBehaviour>().Launch(target.GetComponent<Transform>().position, launchSpeed, timeToReachPlayer, damage, slowDownTime, slowDownFactor, iceSound);
+		else
+			Destroy(iceObj.gameObject);
 	}
 
 	private void NewIce()
 	{
 		anim.ResetTrigger("ThrowIce");
 		iceObj = Instantiate(icePrefab, rightHandBone);
+		iceObj.GetComponent<CircleCollider2D>().enabled = false;
 	}
 
 	public void SetTarget(GameObject param)

@@ -6,6 +6,9 @@ public class GeiserBehaviour : EnemyBehaviour {
 
 	public float throwingTime;
 	public float noThrowingTime;
+	public float delayTime;
+
+	private bool begin;
 
 	public float pukeWallGrowingTime;
 
@@ -18,8 +21,9 @@ public class GeiserBehaviour : EnemyBehaviour {
 	private AudioSource vomitSound;
 
 	// Use this for initialization
-	void Start () {
-		
+	void Start () 
+	{
+		TestDelay();
 	}
 	
 	// Update is called once per frame
@@ -52,8 +56,24 @@ public class GeiserBehaviour : EnemyBehaviour {
 		}
 	}
 
+	private void TestDelay()
+	{
+		begin = delayTime == 0;
+		if(!begin)
+		{
+			StartCoroutine(Delaying());
+		}
+	}
+
+	private IEnumerator Delaying()
+	{
+		yield return new WaitForSeconds(delayTime);
+		begin = true;
+	}
+
 	void OnEnable()
 	{
+		TestDelay();
 		elapsedTime = 0;
 		throwing = true;
 		anim.SetBool("throwing", false);

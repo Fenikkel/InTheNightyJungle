@@ -48,8 +48,7 @@ public class SettingsManager : MonoBehaviour {
 		if(!PlayerPrefs.HasKey(key))
 		{
 			PlayerPrefs.SetString(key, "0.5");
-			print("hola");
 		}
-			return PlayerPrefs.GetString(key);
+		return PlayerPrefs.GetString(key);
 	}
 }

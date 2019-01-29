@@ -124,7 +124,7 @@ public class PlayerPlatformController : MonoBehaviour {
     private void ContactFilterInitialization()
     {
         enemyContactFilter = new ContactFilter2D();
-        enemyContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PhysicalEnemy"));
+        enemyContactFilter.SetLayerMask(1 << LayerMask.NameToLayer("PhysicalEnemy") | 1 << LayerMask.NameToLayer("IceCollider"));
         enemyContactFilter.useLayerMask = true;
 
         motionPlatformContactFilter = new ContactFilter2D();
@@ -643,10 +643,16 @@ public class PlayerPlatformController : MonoBehaviour {
         }
         
         GetComponent<PlayerStatsController>().ChangeBladderTiredness(-1);
+        Invulnerable(true);
 
         anim.SetTrigger("ChangePlayer");
         yield return new WaitForSeconds(1.0f);
         GM.BeginChangePlayer();
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(InvulnerabilityTime(1.0f, 0.1f));
     }
 
     IEnumerator ReduceKnockback(float time)
@@ -670,7 +676,7 @@ public class PlayerPlatformController : MonoBehaviour {
         if (time == 0)
         {
             maxSpeed *= slowDownFactor;
-            GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce * slowDownFactor * 5);
+            GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce * slowDownFactor * 0.5f / slowDownFactor);
         }
         else
         {
@@ -686,9 +692,8 @@ public class PlayerPlatformController : MonoBehaviour {
 
     IEnumerator SlowDownForTime(float slowDownFactor, float time)
     {
-        print("hola");
         maxSpeed *= slowDownFactor;
-        GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce * slowDownFactor * 5);
+        GetComponent<CharacterController2D>().SetJumpForce(initialJumpForce * slowDownFactor * 0.5f / slowDownFactor);
         yield return new WaitForSeconds(time);
         SpeedToOriginal();
     }
@@ -782,7 +787,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     private void EndDeath()
     {
-        //StartCoroutine(GM.DeathTransition(1f));
+        StartCoroutine(GM.DeathTransition(1f));
     }
 
     public DoorBehaviour GetLastDoor()

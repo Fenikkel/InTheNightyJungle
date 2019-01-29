@@ -13,6 +13,8 @@ public class IceBehaviour : MonoBehaviour {
 
 	private float damage, slowDownTime, slowDownFactor;
 
+	private AudioSource iceSound;
+
 	// Use this for initialization
 	void Start () {
 		launched = false;
@@ -28,7 +30,7 @@ public class IceBehaviour : MonoBehaviour {
 		}
 	}
 
-	public void Launch(Vector3 targetPosition, float launchSpeed, float timeToReachPlayer, float damage, float slowDownTime, float slowDownFactor)
+	public void Launch(Vector3 targetPosition, float launchSpeed, float timeToReachPlayer, float damage, float slowDownTime, float slowDownFactor, AudioSource iceSound)
 	{
 		this.targetPosition = targetPosition;
 		this.launchSpeed = launchSpeed;
@@ -36,6 +38,7 @@ public class IceBehaviour : MonoBehaviour {
 		this.damage = damage;
 		this.slowDownFactor = slowDownFactor;
 		this.slowDownTime = slowDownTime;
+		this.iceSound = iceSound;
 
 		originPosition = GetComponent<Transform>().position;
 
@@ -77,6 +80,7 @@ public class IceBehaviour : MonoBehaviour {
 
 	public void CollideWithPlayer()
 	{
+		iceSound.Play();
 		Destroy(gameObject);
 	}
 

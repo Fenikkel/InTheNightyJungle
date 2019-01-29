@@ -9,7 +9,7 @@ public class ModifyBrightness : MonoBehaviour {
 
 	public Slider brightnessBar;
 	public Image overIcons;
-	public SpriteRenderer[] shadowSprites;
+	public Image[] shadowSprites;
 	public int minValue;
 	public int maxValue;
 

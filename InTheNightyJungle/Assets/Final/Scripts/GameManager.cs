@@ -39,6 +39,9 @@ public class GameManager : MonoBehaviour {
 
     public GameObject Brenda;
     public GameObject Cindy;
+    
+    [SerializeField]
+	private SpriteRenderer[] shadowOverLevels;
 
     public bool initialCutscene;
 
@@ -52,6 +55,8 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private Transform[] BrendaPlayerCameraBeginningLevelPositions;
 
+    public int initialLevel;
+
     private int CindyCurrentLevel;
     private int BrendaCurrentLevel;
     
@@ -63,6 +68,9 @@ public class GameManager : MonoBehaviour {
 
         CindyCurrentLevel = 0;
         BrendaCurrentLevel = 0;
+
+        CindyCurrentLevel= initialLevel;
+        BrendaCurrentLevel = initialLevel;
 
         blackScreen.GetComponent<Image>().enabled = true;
 
@@ -76,6 +84,14 @@ public class GameManager : MonoBehaviour {
         else StartGame();
 	}
 
+    public void ChangeShadows(float brightnessValue)
+    {
+        for(int i = 0; i < shadowOverLevels.Length; i++)
+        {
+			shadowOverLevels[i].color = new Color(shadowOverLevels[i].color.r, shadowOverLevels[i].color.g, shadowOverLevels[i].color.b, brightnessValue);
+        }
+    }
+
     public bool IsCindyPlaying()
     {
         return cindyEnabled;
@@ -83,7 +99,8 @@ public class GameManager : MonoBehaviour {
 
     private IEnumerator StartInitialCutscene(float time)
     {
-        
+        AudioManager.Instance.InitialCutscene();
+
         CindyLevelsContainer.SetActive(true);
         BrendaLevelsContainer.SetActive(true);
 
@@ -102,6 +119,8 @@ public class GameManager : MonoBehaviour {
 
     public void StartGame()
     {
+        ChangeShadows(float.Parse(SettingsManager.Instance.Load("brightness")));
+
         UIPause.enabled = true;
         cindyEnabled = (Random.value > 0.5f) ? true : false;
 
@@ -109,7 +128,7 @@ public class GameManager : MonoBehaviour {
         Brenda.SetActive(!cindyEnabled);
 
         aux = 0;
-        AudioManager.Instance.TurnOnBackgroundMusic(cindyEnabled);
+        AudioManager.Instance.TurnOnBackgroundMusic(cindyEnabled, initialLevel);
 
         BeginChangePlayer();
 
@@ -192,7 +211,6 @@ public class GameManager : MonoBehaviour {
         }
         else
         {
-            //print("hola");
             BrendaLevelsContainer.SetActive(true);
             BrendaLevels[level].SetActive(true);
             BrendaLevelsContainer.SetActive(!cindyEnabled);
@@ -227,6 +245,8 @@ public class GameManager : MonoBehaviour {
  
             InitializeCharacterInLevel(cindyEnabled);
 
+            StartCoroutine(AudioManager.Instance.ChangeMusicToLevelMusic(cindyEnabled, CindyCurrentLevel, 1.0f));
+
             Cindy.GetComponent<PlayerPlatformController>().FameToZero();
 
             DeactiveLevel(cindyEnabled, CindyCurrentLevel - 1);
@@ -238,6 +258,8 @@ public class GameManager : MonoBehaviour {
             BrendaCurrentLevel++;
  
             InitializeCharacterInLevel(cindyEnabled);
+
+            StartCoroutine(AudioManager.Instance.ChangeMusicToLevelMusic(cindyEnabled, BrendaCurrentLevel, 1.0f));
             
             Brenda.GetComponent<PlayerPlatformController>().FameToZero();
 

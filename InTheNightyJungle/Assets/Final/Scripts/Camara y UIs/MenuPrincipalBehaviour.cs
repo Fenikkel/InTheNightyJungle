@@ -15,7 +15,8 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        volumen.value = AudioManager.Instance.GetComponent<AudioSource>().volume;
+        volumen.value = float.Parse(SettingsManager.Instance.Load("volume"));
+        AudioManager.Instance.ChangeGeneralVolume(volumen.value);
 	}
 	
 	// Update is called once per frame
@@ -24,7 +25,9 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 	}
 
     public void EmpezarJuego()
-    {
+    {        
+        SettingsManager.Instance.Save("volume", volumen.value.ToString());
+
         StartCoroutine(ChangeScene(1.5f));
         clickSound.Play();
     }
@@ -56,8 +59,6 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
         botonMenu.gameObject.SetActive(false);
         volumen.gameObject.SetActive(false);
         ajustarBrillo.gameObject.SetActive(false);
-
-        SettingsManager.Instance.Save("volume", AudioManager.Instance.GetComponent<AudioSource>().volume.ToString());
 
         clickSound.Play();
     }
@@ -95,6 +96,6 @@ public class MenuPrincipalBehaviour : MonoBehaviour {
 
     public void TurnUpVolume()
     {
-        AudioManager.Instance.GetComponent<AudioSource>().volume = volumen.value;
+        AudioManager.Instance.ChangeGeneralVolume(volumen.value);
     }
 }
