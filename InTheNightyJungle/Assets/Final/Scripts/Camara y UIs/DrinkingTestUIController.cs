@@ -90,6 +90,7 @@ public class DrinkingTestUIController : MonoBehaviour {
 			}
 			text.GetComponent<RectTransform>().sizeDelta = finalScale;
 			text.color = finalColor;
+            text.GetComponent<RectTransform>().sizeDelta = initialScale;
 		}
 		else
 		{
@@ -101,6 +102,7 @@ public class DrinkingTestUIController : MonoBehaviour {
 				yield return null;
 			}
 			text.GetComponent<RectTransform>().sizeDelta = finalScale;
+            text.GetComponent<RectTransform>().sizeDelta = initialScale;
 		}
 	}
 

@@ -198,6 +198,7 @@ public class CameraBehaviour : MonoBehaviour {
     {
         float elapsedTime = 0.0f;
         Vector3 initialPosition = GetComponent<Transform>().position;
+        finalPosition = new Vector3(finalPosition.x, finalPosition.y, initialPosition.z);
         float initialSize = GetComponent<Camera>().orthographicSize;
 
         while(elapsedTime < time)
