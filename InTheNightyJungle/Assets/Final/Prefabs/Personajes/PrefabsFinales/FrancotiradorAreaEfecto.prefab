@@ -37,6 +37,7 @@ GameObject:
   - component: {fileID: 4164378045753492}
   - component: {fileID: 95936841167346680}
   - component: {fileID: 114249565252060698}
+  - component: {fileID: 70095677204151952}
   m_Layer: 0
   m_Name: FrancotiradorHielo
   m_TagString: Untagged
@@ -565,7 +566,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1928054401100258}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6.24, y: -2.79, z: 0}
+  m_LocalPosition: {x: -128.7565, y: 12.084243, z: 0}
   m_LocalScale: {x: -0.75, y: 0.75, z: 0.75}
   m_Children:
   - {fileID: 4164378045753492}
@@ -1017,6 +1018,21 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.12802073, y: 0.13760287}
   m_EdgeRadius: 0
+--- !u!70 &70095677204151952
+CapsuleCollider2D:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1046095101220170}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.05274455, y: -0.43150458}
+  m_Size: {x: 1.0849407, y: 2.361636}
+  m_Direction: 0
 --- !u!95 &95936841167346680
 Animator:
   serializedVersion: 3
@@ -1104,7 +1120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.2556166
+  m_Length: 0.25561762
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4643813712372284}
   m_AttachedIK: {fileID: 114958167435621968}
@@ -1120,10 +1136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.1789169
+  m_Length: 0.17891309
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4444419345734112}
-  m_AttachedIK: {fileID: 114663199395029414}
+  m_AttachedIK: {fileID: 114211795759077568}
 --- !u!114 &114101326288238904
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1173,7 +1189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.25197875
+  m_Length: 0.25198388
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4409540804232168}
   m_AttachedIK: {fileID: 114663199395029414}
@@ -1254,6 +1270,8 @@ MonoBehaviour:
   slowDownFactor: 0.5
   icePrefab: {fileID: 1507968849357520, guid: dff4bd6c8832c1e43be62be63b92dfd4, type: 2}
   rightHandBone: {fileID: 4670665656800144}
+  iceSound: {fileID: 0}
+  throwSound: {fileID: 0}
 --- !u!114 &114273613864737194
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1266,7 +1284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.23113516
+  m_Length: 0.23113509
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4706439048693198}
   m_AttachedIK: {fileID: 114056985620324846}
@@ -1282,10 +1300,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.19404547
+  m_Length: 0.19404852
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4670665656800144}
-  m_AttachedIK: {fileID: 114944435444960802}
+  m_AttachedIK: {fileID: 114978648889441092}
 --- !u!114 &114379727720074244
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1298,7 +1316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.26427075
+  m_Length: 0.26427397
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4929437559863850}
   m_AttachedIK: {fileID: 114944435444960802}
@@ -1314,7 +1332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.2700024
+  m_Length: 0.27000216
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4985782827380358}
   m_AttachedIK: {fileID: 0}
@@ -1558,7 +1576,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.44166312
+  m_Length: 0.44166276
   m_Child: {fileID: 0}
   m_ChildTransform: {fileID: 4719098678571904}
   m_AttachedIK: {fileID: 0}

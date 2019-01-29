@@ -82,17 +82,74 @@ public class EnemyBehaviour : MonoBehaviour
         }
     }
 
-    public void Death(int normalDirection)
+    public virtual IEnumerator DropItems()
+    {
+        GameObject moneyObj = null;
+        GameObject collectibleObj = null;
+        if(!stolen)
+        {
+            stolen = true;
+            moneyObj = Instantiate(moneyInPocket, enemyCore.position, Quaternion.identity);
+            Vector2 initialScale = Vector2.zero;
+            Vector2 finalScale1 = moneyObj.GetComponent<Transform>().localScale;
+            Vector2 finalScale2 = Vector2.zero;
+            moneyObj.GetComponent<Transform>().localScale = Vector2.zero;
+
+            if(collectibleInPocket != null)
+            {
+                collectibleObj = Instantiate(collectibleInPocket, enemyCore.position, Quaternion.identity);
+                collectibleObj.GetComponent<ObtainingCollectible>().InitializeInfo(collectibleInInventory, collectibleName, collectibleDescription);
+                finalScale2 = collectibleObj.GetComponent<Transform>().localScale;
+                collectibleObj.GetComponent<Transform>().localScale = Vector2.zero;
+            }
+
+            //yield return new WaitForSeconds(0.5f);
+
+            Vector2 originPosition = enemyCore.position;
+            Vector2 targetPosition1 = originPosition + new Vector2(1,0);
+            Vector2 targetPosition2 = originPosition + new Vector2(-1,0);
+
+            float elapsedTime = 0.0f;
+            while(elapsedTime < 1.0f)
+            {
+                elapsedTime += Time.deltaTime;
+                moneyObj.GetComponent<Transform>().position = Parabola(originPosition, targetPosition1, 1.0f, elapsedTime);
+                moneyObj.GetComponent<Transform>().localScale = Vector2.Lerp(initialScale, finalScale1, elapsedTime);
+                if(collectibleInPocket != null)
+                {
+                    collectibleObj.GetComponent<Transform>().position = Parabola(originPosition, targetPosition2, 1.0f, elapsedTime);
+                    collectibleObj.GetComponent<Transform>().localScale = Vector2.Lerp(initialScale, finalScale2, elapsedTime);                    
+                }
+                yield return null;
+            }
+            moneyInPocket = null;
+            collectibleInPocket = null;
+        }
+    }
+
+    private Vector2 Parabola(Vector2 start, Vector2 end, float height, float t)
+    {
+        float f = -4 * height * t * t + 4 * height * t;
+
+        Vector2 mid = Vector2.Lerp(start, end, t);
+
+        return new Vector2(mid.x, f + Mathf.Lerp(start.y, end.y, t));
+    }
+
+    public virtual void Death(int normalDirection)
     {
         if(!death)
         {
-            PlayDeathSound();
+            StartCoroutine(DropItems());
             gameObject.layer = LayerMask.NameToLayer("UntargetedPlayer");
             death = true;
             if(normalDirection == Mathf.Sign(GetComponent<Transform>().localScale.x))
                 anim.SetTrigger("FrontDeath");
             else 
                 anim.SetTrigger("BackDeath");
+
+            
+            PlayDeathSound();
         }
     }
 

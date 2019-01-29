@@ -529,7 +529,7 @@ public class PlayerPlatformController : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        if(collider.gameObject.tag.Equals("EnemyCore"))
+        if(collider.gameObject.tag.Equals("EnemyCore") && dash)
         {
             StartCoroutine(collider.GetComponent<Transform>().parent.GetComponent<EnemyBehaviour>().Steal(rightHandBone));
         }

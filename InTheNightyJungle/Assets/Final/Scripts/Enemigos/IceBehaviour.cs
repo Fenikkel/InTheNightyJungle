@@ -27,6 +27,7 @@ public class IceBehaviour : MonoBehaviour {
 		{
 			ParabollicMovement(elapsedTime);
 			elapsedTime += Time.deltaTime;
+			if(elapsedTime > 10.0f) Destroy(gameObject);
 		}
 	}
 
@@ -69,14 +70,6 @@ public class IceBehaviour : MonoBehaviour {
 
         return new Vector2(mid.x, f + Mathf.Lerp(start.y, end.y, t));
     }
-
-	private void OnCollisionEnter2D(Collision2D collision)
-	{
-		if(collision.gameObject.layer == LayerMask.NameToLayer("CameraBoundaries"))
-		{
-			Destroy(gameObject);
-		}
-	}
 
 	public void CollideWithPlayer()
 	{

@@ -88,4 +88,12 @@ public class BailadorBehaviour : EnemyBehaviour {
     {
         hitSound.Play();
     }
+
+    public override void Death(int normalDirection)
+    {
+        GameObject parent = GetComponent<Transform>().parent.gameObject;
+        GetComponent<Transform>().SetParent(null);
+        Destroy(parent);
+        base.Death(normalDirection);
+    }
 }

@@ -29,13 +29,16 @@ public class DevoradorBehaviour : EnemyBehaviour
 
     private void Update()
     {
-        if(inside && !appeared)
+        if(!death)
         {
-            StartCoroutine(FadeIn(appearingTime));
-        }
-        if (!inside && appeared)
-        {
-            StartCoroutine(FadeOut(appearingTime, false));
+            if(inside && !appeared)
+            {
+                StartCoroutine(FadeIn(appearingTime));
+            }
+            if (!inside && appeared)
+            {
+                StartCoroutine(FadeOut(appearingTime, false));
+            }
         }
     }
 
@@ -71,5 +74,14 @@ public class DevoradorBehaviour : EnemyBehaviour
                 player.GetComponent<PlayerStatsController>().ChangePatience(-damage * Time.deltaTime);
             }
         }
+    }
+
+    public override void Death(int normalDirection)
+    {
+        SetInside(false);
+        GameObject parent = GetComponent<Transform>().parent.gameObject;
+        GetComponent<Transform>().SetParent(null);
+        Destroy(parent);
+        base.Death(normalDirection);
     }
 }

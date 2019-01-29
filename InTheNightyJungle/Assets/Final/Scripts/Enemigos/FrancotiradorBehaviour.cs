@@ -76,4 +76,12 @@ public class FrancotiradorBehaviour : EnemyBehaviour {
 	{
 		target = param;
 	}
+
+	public override void Death(int normalDirection)
+    {
+        GameObject parent = GetComponent<Transform>().parent.gameObject;
+        GetComponent<Transform>().SetParent(null);
+        Destroy(parent);
+        base.Death(normalDirection);
+    }
 }
